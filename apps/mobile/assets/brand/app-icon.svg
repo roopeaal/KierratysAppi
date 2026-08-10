@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <title>KierrätysAppi app icon</title>
+  <rect width="1024" height="1024" fill="#F4F0E6"/>
+  <rect x="232" y="232" width="560" height="560" rx="112" fill="#17231C"/>
+  <path d="M252 344a92 92 0 0 1 92-92h336a92 92 0 0 1 92 92v174L252 592V344Z" fill="#176B4D"/>
+  <path d="M252 592 772 518v162a92 92 0 0 1-92 92H344a92 92 0 0 1-92-92v-88Z" fill="#2457D6"/>
+  <path d="m316 532 392-56 8 58-392 56z" fill="#F4F0E6"/>
+</svg>

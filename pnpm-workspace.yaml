@@ -1,0 +1,11 @@
+packages:
+  - apps/*
+  - packages/*
+  - database
+
+allowBuilds:
+  esbuild: true
+
+onlyBuiltDependencies:
+  - '@biomejs/biome'
+  - esbuild

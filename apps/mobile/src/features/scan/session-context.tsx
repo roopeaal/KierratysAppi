@@ -1,0 +1,118 @@
+import type { ProductLookupResult } from "@kierratysappi/application/lookup-schema";
+import { parseGtin, type Gtin } from "@kierratysappi/domain";
+import * as Haptics from "expo-haptics";
+import {
+  createContext,
+  type PropsWithChildren,
+  useCallback,
+  useContext,
+  useMemo,
+  useReducer,
+  useRef,
+} from "react";
+import { useLanguage } from "@/i18n/language-context";
+import { trackTechnicalEvent } from "@/telemetry/technical-events";
+import { addHistoryEntry, queuePendingLookup } from "@/features/history/storage";
+import { LookupNetworkError, requestProductLookup } from "./api";
+import {
+  isDuplicateScan,
+  type ScanSource,
+  sessionReducer,
+  type SessionState,
+} from "./session-machine";
+
+type LookupAttempt =
+  | { readonly accepted: true }
+  | { readonly accepted: false; readonly reason: "invalid" | "duplicate" | "busy" };
+
+type ScanSessionContextValue = {
+  readonly state: SessionState;
+  readonly lookupBarcode: (raw: string, source: ScanSource) => Promise<LookupAttempt>;
+  readonly reset: () => void;
+};
+
+const ScanSessionContext = createContext<ScanSessionContextValue | undefined>(undefined);
+
+export function ScanSessionProvider({ children }: PropsWithChildren) {
+  const { language } = useLanguage();
+  const [state, dispatch] = useReducer(sessionReducer, { status: "idle" });
+  const busy = useRef(false);
+  const previousScan = useRef<{ gtin: Gtin; at: number } | undefined>(undefined);
+
+  const lookupBarcode = useCallback(
+    async (raw: string, source: ScanSource): Promise<LookupAttempt> => {
+      const parsed = parseGtin(raw);
+      if (!parsed.ok) {
+        dispatch({ type: "invalid", input: raw });
+        void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+        return { accepted: false, reason: "invalid" };
+      }
+      if (busy.current) return { accepted: false, reason: "busy" };
+      const now = Date.now();
+      if (source === "camera" && isDuplicateScan(previousScan.current, parsed.value, now)) {
+        return { accepted: false, reason: "duplicate" };
+      }
+
+      busy.current = true;
+      if (source === "camera") previousScan.current = { gtin: parsed.value, at: now };
+      dispatch({ type: "started", gtin: parsed.value, source });
+      trackTechnicalEvent("scan_decoded", { source });
+      void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+      void (async () => {
+        try {
+          const result = await requestProductLookup(parsed.value, language);
+          dispatch({ type: "completed", gtin: parsed.value, result });
+          trackTechnicalEvent("lookup_completed", {
+            status: result.status,
+            providerId:
+              result.status === "resolved" || result.status === "packaging_missing"
+                ? result.provider.id
+                : "none",
+            cacheHit:
+              result.status === "resolved" || result.status === "packaging_missing"
+                ? result.cache.hit
+                : false,
+          });
+          void saveHistoryResult(parsed.value, result).catch(() => undefined);
+          if (result.status === "resolved") {
+            void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+          }
+        } catch (error) {
+          dispatch({ type: "offline", gtin: parsed.value });
+          if (error instanceof LookupNetworkError) {
+            trackTechnicalEvent("offline_queued", { source });
+            void queuePendingLookup(parsed.value).catch(() => undefined);
+          }
+        } finally {
+          busy.current = false;
+        }
+      })();
+      return { accepted: true };
+    },
+    [language],
+  );
+
+  const reset = useCallback(() => dispatch({ type: "reset" }), []);
+  const value = useMemo(() => ({ state, lookupBarcode, reset }), [state, lookupBarcode, reset]);
+  return <ScanSessionContext.Provider value={value}>{children}</ScanSessionContext.Provider>;
+}
+
+export function useScanSession() {
+  const context = useContext(ScanSessionContext);
+  if (!context) throw new Error("useScanSession must be used within ScanSessionProvider");
+  return context;
+}
+
+async function saveHistoryResult(gtin: Gtin, result: ProductLookupResult) {
+  if (result.status === "provider_unavailable") return;
+  const productName =
+    result.status === "resolved" || result.status === "packaging_missing"
+      ? result.product.name?.value
+      : undefined;
+  await addHistoryEntry({
+    gtin,
+    productName,
+    resultStatus: result.status,
+    scannedAt: new Date().toISOString(),
+  });
+}

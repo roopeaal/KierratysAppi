@@ -1,0 +1,31 @@
+{
+  "name": "@kierratysappi/root",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Source-backed Finnish packaging sorting application",
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@11.16.0",
+  "engines": {
+    "node": ">=24 <27",
+    "pnpm": ">=11 <12"
+  },
+  "scripts": {
+    "build": "pnpm -r --if-present build",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "lint": "biome lint .",
+    "security:audit": "node scripts/audit-policy.mjs",
+    "test": "pnpm -r --if-present test",
+    "test:coverage": "pnpm -r --if-present test:coverage",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "validate": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.7",
+    "@types/node": "24.13.3",
+    "@vitest/coverage-v8": "4.1.10",
+    "tsup": "8.5.1",
+    "typescript": "6.0.3",
+    "vitest": "4.1.10"
+  }
+}
