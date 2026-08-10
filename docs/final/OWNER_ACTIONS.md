@@ -13,3 +13,4 @@ These are the remaining actions Codex cannot safely complete without external au
 9. If photo/OCR proceeds, approve consent/retention/moderation/storage/processor design and physical-device evaluation; do not enable uploads before it.
 10. Create signed-binary Finnish/English store screenshots, complete data-safety/privacy forms from actual behavior, approve staged rollout and support runbook.
 11. Decide whether to purchase/enable GitHub Code Security for the private repository; if approved and enabled, set repository variable `CODEQL_ENABLED=true` to activate the prepared CodeQL job.
+12. Decide whether to upgrade the GitHub plan for private-repository branch protection; if approved, require pull requests and the `CI` and `Security` checks on `main`. Do not make the repository public only to obtain this feature.
