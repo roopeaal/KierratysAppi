@@ -14,7 +14,7 @@ Last updated: 2026-08-10
 - Implemented the pnpm monorepo, strict shared domain schemas, GTIN validation, confidence model, Finnish sorting engine, localization, Open Food Facts v3.6 adapter, GS1-labelled synthetic adapter, resolution/cache service, and Fastify API.
 - Implemented and executed the 26-table PostgreSQL migration with row security and immutable published rule versions.
 - Implemented the Expo SDK 57 mobile vertical slice: contextual camera permission, scanner, duplicate suppression, manual entry, loading/result/error/offline states, manual component confirmation, opt-in local history, local correction drafts, legal placeholders, dark palette, and Finnish/English UI.
-- Added deterministic brand/store assets, EAS profiles, CI, CodeQL, dependency review, Dependabot, secret scanning, and time-bounded dependency-audit policy.
+- Added deterministic brand/store assets, EAS profiles, CI, feature-gated CodeQL, dependency review, Dependabot, secret scanning, and time-bounded dependency-audit policy.
 - Verified a live end-to-end Nutella lookup through the backend/Open Food Facts and inspected rendered screens at 360×640, 390×844, and 412×915 with no browser console errors.
 - Published the coherent product foundation to the private GitHub repository and confirmed `main` as its default branch.
 
@@ -31,3 +31,4 @@ Last updated: 2026-08-10
 
 - Android SDK/ADB, Java, Docker, full Xcode, Expo/EAS credentials, and store signing identities are not available in this environment.
 - Open Food Facts licence/attribution still requires owner/legal review before publication; GS1 and commercial Kierrätys.info use require external written terms/access.
+- GitHub Code Security is not enabled for this private repository. CodeQL remains disabled unless the owner approves any required plan/security entitlement, enables the repository feature, and sets `CODEQL_ENABLED=true`.

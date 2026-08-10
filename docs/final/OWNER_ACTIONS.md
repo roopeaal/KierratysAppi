@@ -12,3 +12,4 @@ These are the remaining actions Codex cannot safely complete without external au
 8. Obtain written GS1 Synkka licence/API terms, permitted fields/territory/caching/redistribution, credentials and cost approval before enabling production GS1.
 9. If photo/OCR proceeds, approve consent/retention/moderation/storage/processor design and physical-device evaluation; do not enable uploads before it.
 10. Create signed-binary Finnish/English store screenshots, complete data-safety/privacy forms from actual behavior, approve staged rollout and support runbook.
+11. Decide whether to purchase/enable GitHub Code Security for the private repository; if approved and enabled, set repository variable `CODEQL_ENABLED=true` to activate the prepared CodeQL job.

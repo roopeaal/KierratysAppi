@@ -12,3 +12,4 @@
 - Native performance budgets and OS large-text/dark/device screenshots are unmeasured.
 - Privacy/terms/store metadata are drafts pending external review.
 - Two Metro `image-size` build-tool DoS advisories have time-limited exceptions because the declared patched release is unavailable.
+- GitHub Code Security is not enabled for the private repository, so the prepared CodeQL job is feature-gated; enabling it may require owner-approved paid plan/security access.
