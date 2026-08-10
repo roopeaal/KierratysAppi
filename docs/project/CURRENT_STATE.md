@@ -16,11 +16,12 @@ Last updated: 2026-08-10
 - Implemented the Expo SDK 57 mobile vertical slice: contextual camera permission, scanner, duplicate suppression, manual entry, loading/result/error/offline states, manual component confirmation, opt-in local history, local correction drafts, legal placeholders, dark palette, and Finnish/English UI.
 - Added deterministic brand/store assets, EAS profiles, CI, CodeQL, dependency review, Dependabot, secret scanning, and time-bounded dependency-audit policy.
 - Verified a live end-to-end Nutella lookup through the backend/Open Food Facts and inspected rendered screens at 360×640, 390×844, and 412×915 with no browser console errors.
+- Published the coherent product foundation to the private GitHub repository and confirmed `main` as its default branch.
 
 ## Locally achievable definition of done
 
 - Complete. The clean validation suite, dependency/security audit, peer-dependency check, Expo compatibility check, Expo Doctor, API production smoke test, and multi-viewport browser QA all pass.
-- The repository is ready for its initial coherent commit and private-remote bootstrap; no deployment, paid build, signed artifact, or public release has been triggered.
+- The initial remote validation exposed one Gitleaks false positive caused by threat-model prose; the wording is corrected without weakening or allowlisting the credential-scanning rule. No deployment, paid build, signed artifact, or public release has been triggered.
 
 ## Not yet verified
 

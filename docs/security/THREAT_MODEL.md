@@ -25,7 +25,7 @@ Last reviewed: 2026-08-10. Scope: mobile barcode flow, public lookup API, extern
 | OCR/prompt injection | Package text instructs AI/system or exfiltrates data | Treat OCR as quoted data, fixed structured schema, no tool/URL execution, provider-neutral server call, output validation, user confirmation | AI eval/red-team set before enablement |
 | Location privacy | Precise location stored/transmitted unnecessarily | Request only on map action, prefer ephemeral device query, coarse option, no analytics/logging, clear permission recovery | Privacy/data-flow audit |
 | Logging/analytics leak | Raw GTIN/history/photo/text/location reaches telemetry | Event allow-list and privacy class; hash/aggregate only where justified; payload tests | Telemetry contract tests |
-| Supply-chain compromise | Malicious dependency/action/build artifact | Lockfile, minimal packages, pinned trusted actions, read-only CI permissions, audit/OSV/CodeQL/secret scan, provenance/SBOM later | CI gates |
+| Supply-chain compromise | Malicious dependency/action/build artifact | Lockfile, minimal packages, reviewed actions, read-only CI permissions, dependency audits, CodeQL, Gitleaks detection, provenance/SBOM later | CI gates |
 | Stale/offline answer | Cached obsolete rule shown as current | Effective dates, cache freshness, visible offline/freshness status, safe stale threshold | Time/offline tests |
 | UGC abuse/copyright | Harassment, personal photos, copyrighted uploads | No public UGC in P0; terms/consent/report/remove/moderation before enablement | Product gate |
 
