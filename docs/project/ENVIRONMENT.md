@@ -16,7 +16,7 @@ Verified: 2026-08-10. Secret presence was checked without intentionally reading 
 | Java/JDK | Missing |
 | Android SDK / ADB | Missing |
 | Docker | Missing |
-| Xcode | Command Line Tools only; full Xcode unavailable |
+| Xcode | Command Line Tools only; full Xcode unavailable. Host is compatible with current Xcode 26.6. |
 | Expo/EAS credentials | No `EXPO_TOKEN` or `EAS_TOKEN` present |
 | OpenAI/Supabase credentials | No corresponding environment token present |
 
@@ -29,7 +29,7 @@ Verified: 2026-08-10. Secret presence was checked without intentionally reading 
 | GitHub operations | Yes | Git, authenticated `gh`, GitHub skill | GitHub App/CLI | High | Private repo write | Use; no publish until coherent validation |
 | Browser/UI testing | Yes | In-app browser/computer-use skills available | Browser automation | High | Local page/app interaction | Use for web surfaces; cannot replace physical camera tests |
 | Android device testing | Yes | None | Android Studio/ADB or physical device | High | Device/camera | External blocker |
-| iOS/TestFlight | Yes | Command Line Tools only | Xcode/EAS/Apple account | High | Signing/account | External blocker |
+| iOS/TestFlight | Yes | Compatible macOS host; Command Line Tools only | Local Xcode 26.6 Personal-Team build first; paid signing/TestFlight later | High | Device/signing/account | Install Xcode for free local validation; retain release/TestFlight as external blocker |
 | Original image generation | Optional | Trusted image-generation skill/tool | OpenAI image generation | High | Prompt/reference images | Use only for justified original release assets |
 | Figma integration | Optional | Not installed | Figma plugin | Medium/high | External design files | Reject for now; no supplied Figma source |
 | Database management | Yes later | No Docker/token | PostgreSQL/Supabase | High | Infrastructure/data | Keep provider-neutral; defer account choice |

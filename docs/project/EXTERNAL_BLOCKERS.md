@@ -5,7 +5,7 @@ These are release blockers or high-risk gates that cannot be completed without e
 | Blocker | Severity | Why external | Owner action |
 | --- | --- | --- | --- |
 | Android signed build/device/Play validation | blocker | No Java runtime, SDK/ADB, device, signing, EAS/Play authority | OA-08 |
-| iOS Xcode-26 archive/device/TestFlight validation | blocker | Only Command Line Tools; no signing, device, EAS/Apple authority | OA-09 |
+| iOS physical development run and Xcode-26 archive/TestFlight validation | blocker | Host is compatible with Xcode 26.6, but only Command Line Tools are installed; physical iPhone details/pairing, signing and release authority remain absent | `docs/final/PHYSICAL_IOS_VALIDATION.md`, OA-09 |
 | Physical barcode/accessibility/performance/battery evidence | blocker/high | Requires installable signed builds and representative devices | OA-08, OA-09 |
 | Production HTTPS API/shared quota/database | blocker | Provider/region/cost/accounts/domain approval absent | OA-01 |
 | PostgreSQL backup/restore/RPO/RTO | high | No managed production database or operations owner | OA-02 |

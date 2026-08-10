@@ -16,3 +16,4 @@
 - Repaired high-risk cache, OFF identity/taxonomy/quota/licensing, API validation/logging/configuration, mobile state/privacy/permission/accessibility, rule-effectivity, database-integrity and CI pinning defects; added regressions.
 - Raised the passing local suite to 133 tests and recorded truthful coverage, bundle, production-smoke, native-prebuild, dependency, GitHub and visual evidence.
 - Replaced the inaccurate 100-test/Doctor-20-of-20/1.7-MiB readiness claims with explicit Expo 19/20, 2.53-MiB web entry and external release blockers plus named owner procedures.
+- Completed the physical-iOS preflight, selected the free local Xcode 26.6/Personal-Team path, verified generated iOS 16.4 permission/privacy/entitlement/assets configuration, corrected the stale UPC-E checklist claim, and created a truthful not-yet-run physical test matrix.

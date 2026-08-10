@@ -2,6 +2,8 @@
 
 Audit date: 2026-08-10
 
+Follow-up physical-iOS preflight: 2026-08-10 at local `d41d248`, two commits ahead of `origin/main`. See `PHYSICAL_IOS_VALIDATION.md`.
+
 Decision: **NO-GO**
 
 Repository: `roopeaal/KierratysAppi`, private `main`
@@ -203,15 +205,15 @@ No locally executable blocker, critical, or high finding identified by this audi
 - Required remediation: build with Android API 36-compatible tooling, inspect the signed merged manifest/SBOM, install on the device matrix, execute the checklist, and validate the AAB in Play Console.
 - Execution boundary: requires toolchain/device/signing/store authority.
 
-### AUD-016 — iOS release has no Xcode 26 archive/install/runtime evidence
+### AUD-016 — iOS release has no Xcode 26.4+ compile/archive/install/runtime evidence
 
 - Severity: **blocker**
 - Status: **open, externally blocked**
-- Evidence: only Command Line Tools are selected; full Xcode/signing/EAS credentials and an archive are absent. Since 2026-04-28 Apple requires Xcode 26+ with the iOS 26 SDK for uploads.
+- Evidence: the Apple M1 host runs macOS 26.5.2 and can run Xcode 26.6, but only Command Line Tools are installed; `xcodebuild` and `devicectl` are unavailable. Expo SDK 57 requires Xcode 26.4+ and iOS 16.4+. A fresh generated project confirms iOS 16.4, the expected bundle ID, localized camera strings, no microphone/location strings, empty entitlements and the privacy manifest, but no binary, pairing or runtime exists. Since 2026-04-28 Apple also requires Xcode 26+ with the iOS 26 SDK for uploads.
 - Affected files/flows: whole iOS app, entitlements, privacy manifest merge, localization, signing, App Store validation.
-- Reproduction: `xcodebuild -version` fails because full Xcode is not selected.
-- Required remediation: archive with supported Xcode/iOS SDK, inspect entitlements/privacy report, install through TestFlight/internal distribution, and run the device matrix.
-- Execution boundary: requires full Xcode, account, signing and devices.
+- Reproduction: `xcode-select -p` returns the Command Line Tools path; `xcodebuild -version` and `xcrun devicectl list devices` fail.
+- Required remediation: first install Xcode 26.6 and execute the local Personal-Team matrix in `PHYSICAL_IOS_VALIDATION.md`; separately archive with supported Xcode/iOS SDK, inspect final entitlements/privacy report, install through TestFlight/internal distribution, and run the release device matrix.
+- Execution boundary: Xcode installation and physical iPhone interaction are manual. Local testing can use a free Personal Team; archive/TestFlight still requires owner-controlled paid membership/signing authority.
 
 ### AUD-017 — Physical barcode reliability is unverified
 
@@ -429,7 +431,8 @@ No locally executable blocker, critical, or high finding identified by this audi
 - Rinki nationwide packaging instructions: <https://rinkiin.fi/lajittelu-kotona/lajitteluohjeet/>
 - Palpa deposit guidance: <https://www.palpa.fi/for-consumers/faq/>
 - GS1 Finland GS1 Data transition/docs: <https://gs1.fi/en/support/gs1-data-implementation> and <https://gs1.fi/en/customersupport/synkka/documentation>
-- Apple upload requirement effective 2026-04-28: <https://developer.apple.com/news/upcoming-requirements/?id=02032026a>
+- Expo SDK 57 and local physical-development requirements: <https://docs.expo.dev/versions/latest/> and <https://docs.expo.dev/develop/development-builds/introduction/>
+- Apple Xcode 26.6 compatibility, Personal-Team limits and upload requirement effective 2026-04-28: <https://developer.apple.com/xcode/system-requirements>, <https://developer.apple.com/help/account/basics/about-your-developer-account> and <https://developer.apple.com/news/upcoming-requirements/?id=02032026a>
 - Google Play target API requirement effective 2026-08-31: <https://support.google.com/googleplay/android-developer/answer/11926878?hl=en-GB_ALL>
 - Apple app privacy and Google Data Safety: <https://developer.apple.com/app-store/app-privacy-details/> and <https://support.google.com/googleplay/android-developer/answer/10787469?hl=en>
 - Google Play preview assets: <https://support.google.com/googleplay/android-developer/answer/9866151?hl=en>

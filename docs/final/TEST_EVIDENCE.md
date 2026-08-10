@@ -2,6 +2,23 @@
 
 Evidence date: 2026-08-10. Host: macOS, local Node 26.4.0 and pnpm 11.16.0; production/CI/EAS Node is pinned to 24.19.0.
 
+## Physical iOS preflight
+
+| Command/evidence | Result |
+| --- | --- |
+| `sw_vers` / host inspection | Apple M1 on macOS 26.5.2 (`25F84`), compatible with current Xcode 26.6 |
+| `xcode-select -p` | `/Library/Developer/CommandLineTools`; full Xcode is not selected or installed |
+| `xcodebuild -version` | Fail as expected: full Xcode absent |
+| `xcrun devicectl list devices` | Unavailable because full Xcode is absent; no device identity inferred |
+| `pnpm --filter @kierratysappi/mobile exec expo config --type public` | Pass: evaluated bundle/version, permission, locale, privacy and plugin configuration |
+| Clean iOS prebuild in ignored `work/` | Pass: native project generated without installing pods |
+| Generated deployment/bundle | iOS 16.4; `fi.roopeaaltonen.kierratysappi`; version `0.1.0`, build `1` |
+| Generated purpose strings | Finnish/English camera-only text; no microphone or location usage string |
+| Generated privacy/entitlements | Empty app entitlements; no tracking/collected types; UserDefaults reason `CA92.1` |
+| Physical install/runtime matrix | **Not run**; see `docs/final/PHYSICAL_IOS_VALIDATION.md` |
+
+Official Expo and Apple requirements were rechecked on 2026-08-10. Expo SDK 57 requires Xcode 26.4+ and iOS 16.4+; Xcode 26.6 supports this host. Apple permits local Personal-Team testing with seven-day provisioning limits. The selected method is a local Xcode build, not Expo Go or EAS.
+
 ## Passing evidence
 
 | Command/evidence | Result |
@@ -65,7 +82,7 @@ Mobile coverage excludes most rendered route/component code; it must not be inte
 | Expo Doctor 1.20.1 | **19/20**; four just-published Expo patches differ | Externally time-gated by minimum release age; release NO-GO |
 | `expo install --check` | **Fail** for the same four patches | Externally time-gated; no exclusion used |
 | Android compile/sign/install | Unavailable: no Java runtime, Android SDK/ADB/EAS credentials | External blocker |
-| iOS archive/sign/install | Unavailable: only Command Line Tools, no full Xcode/signing/EAS credentials | External blocker |
+| iOS compile/sign/install | Unavailable: host is compatible, but only Command Line Tools are installed; no paired iPhone or signing session exists | External/manual blocker; local Personal-Team route selected |
 | Physical barcode/VoiceOver/TalkBack/large text | Not run | External device/build blocker |
 | Production API/database/monitoring | Does not exist | External infrastructure blocker |
 | Backup/restore/load/failover | Not run | External infrastructure blocker |

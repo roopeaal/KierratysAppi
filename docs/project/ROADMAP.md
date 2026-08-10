@@ -37,7 +37,7 @@ Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally bl
 ## Phase 5 — Polish
 
 - [~] Complete dark palette, restrained navigation, haptics, original source assets and multi-viewport web visual QA; optimize or de-scope the web bundle after the distribution decision.
-- [!] Complete native dark/large-text/accessibility/performance evidence on physical devices.
+- [~] Complete native dark/large-text/accessibility/performance evidence on physical iPhone: host/config preflight is recorded, but full Xcode and the device run are pending.
 
 ## Phase 6 — Release engineering
 
@@ -48,4 +48,5 @@ Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally bl
 ## Phase 7 — Release audit
 
 - [x] Run an adversarial 30-lane local production audit and repair every locally executable blocker/high finding discovered.
+- [~] Execute `docs/final/PHYSICAL_IOS_VALIDATION.md`; local Xcode 26.6 was selected as the free first path and all physical rows remain unrun.
 - [!] Close the NO-GO gates in `docs/final/OWNER_ACTIONS.md`: physical accessibility/performance/camera, production backup/restore/monitoring, licence/legal/content, signed binaries and stores.

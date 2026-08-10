@@ -4,7 +4,7 @@ Decision date: 2026-08-10
 
 Decision: **NO-GO for preview, production, TestFlight, Play testing, and public store submission**
 
-The locally testable source tree is valid, but the product is not production-ready. A clean `pnpm validate` passes with 133 tests and both API/web builds. That evidence does not substitute for native binaries, physical camera/accessibility/performance tests, production infrastructure, legal/content/licensing approval, or store validation.
+The locally testable source tree is valid, but the product is not production-ready. A clean `pnpm validate` passes with 133 tests and both API/web builds. Physical-iOS preflight confirms a compatible macOS host and correct generated configuration, but full Xcode is not installed and no app has run on the iPhone. Configuration evidence does not substitute for native binaries, physical camera/accessibility/performance tests, production infrastructure, legal/content/licensing approval, or store validation.
 
 ## Mandatory gate result
 
@@ -14,7 +14,7 @@ The locally testable source tree is valid, but the product is not production-rea
 | Mandatory local tests | Pass | Format, lint, typecheck, 133 tests, API build and 12-route web export pass |
 | Expo compatibility | **Fail** | Doctor 19/20; four just-published patches are held until the supply-chain age window passes |
 | Android release build | **No evidence** | No JDK/SDK/ADB/signing/AAB/device run |
-| iOS release build | **No evidence** | No full Xcode 26/signing/archive/TestFlight/device run |
+| iOS development/release build | **No runtime evidence** | Xcode 26.6 is compatible with the host but absent; generated config passes, while compile/sign/install/archive/TestFlight/device run remain unperformed |
 | Physical barcode test | **No evidence** | Camera flow cannot be accepted from web/manual simulation |
 | Production API/database | **Absent** | Mobile production URL intentionally fails closed; no deployed service or restore drill |
 | Privacy/GDPR/terms | **Unapproved draft** | No controller/legal sign-off or hosted URLs |

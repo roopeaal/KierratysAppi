@@ -13,7 +13,8 @@ Record device, OS, build/version, locale, text scale, tester, date, and evidence
 
 - [ ] Camera permission is requested only after the scan action.
 - [ ] Denial offers settings and manual entry; permanent denial recovers after settings change.
-- [ ] EAN-8, EAN-13, UPC-A, UPC-E and manual GTIN variants decode/validate.
+- [ ] EAN-8, EAN-13, UPC-A and manual GTIN variants decode/validate.
+- [ ] UPC-E and other unsupported barcode formats do not start a lookup or become a guessed GTIN.
 - [ ] Identical rapid callbacks trigger only one lookup.
 - [ ] Invalid checksum never reaches the network.
 - [ ] Loading, resolved, missing packaging, unknown product, ambiguity, provider outage, timeout and offline states are distinguishable.

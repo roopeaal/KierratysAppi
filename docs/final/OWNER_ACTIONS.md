@@ -91,10 +91,12 @@ These are the exact externally controlled actions required to move the NO-GO dec
 
 - Owner: **iOS release engineer**; approver: **Product owner**
 - Procedure:
-  1. Install/select Xcode 26+ and iOS 26 SDK; after Doctor 20/20, archive with owner-controlled credentials.
-  2. Inspect final entitlements, privacy manifest/reasons and localized Info.plist strings; verify no microphone declaration.
-  3. Install on current/small iPhone and supported iPad; run physical barcode, VoiceOver, largest text, reduced motion, dark mode, offline/outage, performance/memory/battery and upgrade checks.
-  4. Upload to TestFlight and retain App Store processing/privacy warnings.
+  1. Install Xcode 26.6 on the compatible macOS 26.5.2 host and allow its iOS platform components to finish.
+  2. For the first physical run, pair the iPhone, enable Developer Mode and use Xcode automatic signing with an owner-controlled Personal Team if no paid membership is available. Run the full matrix in `PHYSICAL_IOS_VALIDATION.md`; seven-day free-provisioning limits apply.
+  3. After Expo Doctor is 20/20, archive with owner-controlled paid-program credentials and the supported iOS SDK.
+  4. Inspect final entitlements, privacy manifest/reasons and localized Info.plist strings; verify no microphone or unused location declaration.
+  5. Install on current/small iPhone and supported iPad; run physical barcode, VoiceOver, largest text, reduced motion, dark mode, offline/outage, performance/memory/battery and upgrade checks.
+  6. Upload to TestFlight and retain App Store processing/privacy warnings.
 - Success evidence: archive/TestFlight build IDs and hashes, inspection output, device matrix and processing report.
 
 ## OA-10 — Store package and submission readiness
