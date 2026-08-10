@@ -70,7 +70,14 @@
 - Decision: accept only `GHSA-w3rx-r6r6-pgpr` and `GHSA-5p2g-fcmc-qvqq` in the build-tool audit while the declared patched `image-size@2.0.3` is unpublished; all other high/critical findings fail.
 - Reason: Metro handles repository-controlled assets, not runtime uploads. A forced unpublished override is impossible; an expiring CI exception preserves visibility and forces re-review.
 
+## D-011 — Typed material-code recognition precedes OCR
+
+- Date: 2026-08-10
+- Status: accepted
+- Decision: parse a conservative Decision 97/129/EC identifier subset locally, require the user to confirm the visible mark, and retain the official scheme plus local-observation provenance. Conflicts, multiple codes, undefined values, and composites that lack a reviewed rule do not receive guessed guidance.
+- Reason: this delivers the deterministic value of label recognition without collecting an image or binding the product to an unapproved OCR/cloud workflow; a material mark also cannot establish shape, deposit, or collection eligibility by itself.
+
 ## Pending decisions
 
-- OCR implementation and whether a cloud AI path is justified.
+- OCR implementation and whether a cloud AI path is justified after the typed-code flow is evaluated.
 - Production hosting/database/telemetry providers after owner cost/privacy-region approval.

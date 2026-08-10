@@ -14,13 +14,15 @@ Last updated: 2026-08-10
 - Implemented the pnpm monorepo, strict shared domain schemas, GTIN validation, confidence model, Finnish sorting engine, localization, Open Food Facts v3.6 adapter, GS1-labelled synthetic adapter, resolution/cache service, and Fastify API.
 - Implemented and executed the 26-table PostgreSQL migration with row security and immutable published rule versions.
 - Implemented the Expo SDK 57 mobile vertical slice: contextual camera permission, scanner, duplicate suppression, manual entry, loading/result/error/offline states, manual component confirmation, opt-in local history, local correction drafts, legal placeholders, dark palette, and Finnish/English UI.
+- Implemented a bounded local parser for EU packaging material identification codes, a Finnish/English confirmation screen, source/version/date provenance, and safe ambiguous/unknown handling without photo capture or upload.
 - Added deterministic brand/store assets, EAS profiles, CI, feature-gated CodeQL, dependency review, Dependabot, secret scanning, and time-bounded dependency-audit policy.
-- Verified a live end-to-end Nutella lookup through the backend/Open Food Facts and inspected rendered screens at 360×640, 390×844, and 412×915 with no browser console errors.
+- Verified a live end-to-end Nutella lookup through the backend/Open Food Facts and inspected rendered screens at 360×640, 390×844, and 412×915 with no browser console errors. The material-code flow was separately exercised at 360×640 and 390×844 for exact, conflicting, unknown, and composite codes with no console warnings/errors.
 - Published the coherent product foundation to the private GitHub repository and confirmed `main` as its default branch.
+- Added 35 focused parser/mobile tests; the complete suite now passes 100 tests across 14 files, and Expo exports 12 static routes including `/material-code`.
 
 ## Locally achievable definition of done
 
-- Complete. The clean validation suite, dependency/security audit, peer-dependency check, Expo compatibility check, Expo Doctor, API production smoke test, and multi-viewport browser QA all pass.
+- Complete for the current local scope. The clean validation suite, dependency/security audit, peer-dependency check, Expo compatibility check, Expo Doctor, API production smoke test, and multi-viewport browser QA pass.
 - The initial remote validation exposed one Gitleaks false positive caused by threat-model prose; the wording is corrected without weakening or allowlisting the credential-scanning rule. No deployment, paid build, signed artifact, or public release has been triggered.
 
 ## Not yet verified
@@ -31,4 +33,5 @@ Last updated: 2026-08-10
 
 - Android SDK/ADB, Java, Docker, full Xcode, Expo/EAS credentials, and store signing identities are not available in this environment.
 - Open Food Facts licence/attribution still requires owner/legal review before publication; GS1 and commercial Kierrätys.info use require external written terms/access.
+- Photo capture, OCR, and any cloud image path remain disabled pending physical-device validation and the documented privacy/product approvals; the typed-code path does not depend on them.
 - GitHub Code Security is not enabled for this private repository. CodeQL remains disabled unless the owner approves any required plan/security entitlement, enables the repository feature, and sets `CODEQL_ENABLED=true`.

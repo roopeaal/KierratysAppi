@@ -30,7 +30,8 @@ Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally bl
 
 ## Phase 4 — Camera intelligence
 
-- [ ] Implement consented recycling-label photo capture and deterministic material-code/OCR parsing.
+- [x] Implement deterministic, local EU packaging material-code parsing with explicit user confirmation and safe unknown/ambiguous states.
+- [!] Implement consented recycling-label photo capture and on-device OCR after device evidence and the privacy/product workflow are approved.
 - [ ] Add a provider-neutral AI boundary only if evaluation shows a justified need.
 
 ## Phase 5 — Polish

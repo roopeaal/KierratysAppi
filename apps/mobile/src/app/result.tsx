@@ -165,14 +165,19 @@ function ProductResult({
             <AppText variant="heading">{t("packagingMissingTitle")}</AppText>
             <AppText>{t("packagingMissingBody")}</AppText>
           </Paper>
-          <Button label={t("manualComponentAction")} onPress={() => router.push("/component")} />
+          <Button label={t("materialCodeAction")} onPress={() => router.push("./material-code")} />
+          <Button
+            label={t("manualComponentAction")}
+            variant="secondary"
+            onPress={() => router.push("/component")}
+          />
           <Button
             label={t("feedbackMissing")}
             variant="secondary"
             onPress={() => router.push("/feedback?category=missing_data")}
           />
           <AppText variant="small" muted style={styles.centerText}>
-            {t("photoConsentNote")}
+            {t("materialCodeLocalNote")}
           </AppText>
         </View>
       ) : (

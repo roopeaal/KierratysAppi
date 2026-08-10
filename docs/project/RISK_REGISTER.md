@@ -8,7 +8,8 @@
 | Device camera behaves differently from simulator | Medium | High | Physical Android/iOS test matrix before release | External evidence required |
 | User photo exposes personal/location data | Medium | High | Contextual consent, metadata stripping, minimization, retention controls | Open |
 | Provider outage/rate limit | High | Medium | Identified client, bounded cache, timeout, offline queue, distinct provider status | Implemented baseline |
-| Malicious image/OCR/provider content | Medium | High | Size/MIME/decode checks, sanitized parsing, no instruction execution | Open |
+| Malicious image/OCR/provider content | Medium | High | Photo/OCR remains disabled; typed codes use a 64-character deterministic allowlist parser; future images require size/MIME/decode checks and no instruction execution | Typed path mitigated; image path open |
+| Material code mistaken for complete sorting evidence | Medium | High | Explicit package confirmation, separate provenance, conservative mappings, existing shape/deposit/hazard questions, composites safe unknown | Mitigated baseline |
 | Sorting guidance creates misleading environmental claim | Medium | High | Factual wording, no impact claims, named source and status | Open |
 | Toolchain incompatibility with installed Node 26 | Medium | Medium | CI and `.nvmrc` pin Node 24 LTS; local Node 26 also validated | Mitigated |
 | Accessibility regression in camera-first flow | Medium | High | Semantic UI, manual-entry parity, viewport QA, physical VoiceOver/TalkBack checklist | Device evidence required |

@@ -5,7 +5,7 @@
 - API cache is per-process memory; production needs a bounded shared/cache/repository policy that preserves ODbL attribution and deletion/staleness decisions.
 - Open Food Facts packaging components are often partial/community data. Confidence is capped; some component names/materials remain unknown.
 - Nationwide Finnish packaging rules do not replace hazardous-product instructions or municipality-specific guidance. No collection-point map is included.
-- Photo/OCR/image upload, metadata stripping, moderation and cloud AI are disabled.
+- Typed EU material codes cover a conservative official subset; code recognition cannot establish packaging shape, deposit status, hazardous residue, emptiness, or local eligibility. Photo/OCR/image upload, metadata stripping, moderation and cloud AI are disabled.
 - Correction reports are local drafts, not submitted; the UI states this. No admin moderation endpoint is exposed without authentication/operations.
 - Local history and drafts rely on AsyncStorage, not encrypted high-security storage; they are minimized and device-only but inherit device/backup behavior.
 - No analytics/crash vendor is active; telemetry is a no-op privacy boundary until approval.

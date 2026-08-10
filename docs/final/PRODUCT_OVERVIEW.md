@@ -11,6 +11,7 @@
 - Distinct loading, resolved, packaging-missing, not-found, provider-unavailable, invalid and offline states.
 - Per-component destination, preparation, explanation, exceptions, source/check date and text confidence.
 - Manual material/shape/deposit confirmation; ambiguous deposit/glass cases stay questions.
+- Local EU packaging material-code entry with explicit package confirmation, official scheme provenance, and no photo/upload requirement.
 - Reviewed offline general packaging guide linked to Rinki.
 - Opt-in, device-only recent history with clear/disable deletion behavior.
 - Device-only correction drafts; no misleading active upload/moderation claim.
@@ -19,7 +20,7 @@
 
 ## Deliberate exclusions
 
-Cloud photo/OCR, general object recognition, maps, accounts/sync, community publication, rewards, manufacturer portal, organization API, GS1 production data, push notifications and production analytics are not activated. Each adds accuracy, consent, contract, moderation or infrastructure obligations that are not yet justified/approved.
+Photo/OCR and cloud image processing, general object recognition, maps, accounts/sync, community publication, rewards, manufacturer portal, organization API, GS1 production data, push notifications and production analytics are not activated. The typed material-code path is deterministic and local. Each excluded capability adds accuracy, consent, contract, moderation or infrastructure obligations that are not yet justified/approved.
 
 ## Success measures
 

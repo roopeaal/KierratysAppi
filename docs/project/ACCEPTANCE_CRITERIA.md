@@ -12,6 +12,14 @@
 8. Finnish and English strings render through localization keys; large text and screen-reader labels remain usable.
 9. Domain, provider-contract, API-integration, and mobile-state tests pass.
 
+## Material-code flow
+
+1. The user enters one bounded visible packaging code; no image is captured or uploaded.
+2. A recognized code shows canonical code, material name, jurisdiction, decision version, source, and checked date before guidance.
+3. Sorting begins only after the user explicitly confirms that the recognized code appears on the package.
+4. Conflicting, multiple, unknown, and undefined codes never produce guessed guidance; composites without a reviewed rule remain safe unknowns.
+5. Recognition provenance and confidence remain distinct from user-confirmed observation and the Finnish sorting-rule provenance.
+
 ## Release evidence
 
 - `pnpm validate` succeeds from a clean install.

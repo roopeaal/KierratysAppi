@@ -11,3 +11,4 @@
 - Added camera/manual/offline/missing/ambiguous/result/history/correction/legal flows and Finnish/English accessible UI.
 - Added reproducible app icon and splash artwork, EAS configuration, CI/security workflows, audit policy, and release/QA documentation.
 - Verified the web export and a live source-backed product resolution across three mobile viewport sizes.
+- Added local EU packaging material-code recognition, explicit package confirmation, scheme provenance, and safe conflict/composite handling; verified the new flow responsively without enabling photo/OCR.

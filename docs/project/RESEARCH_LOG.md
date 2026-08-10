@@ -10,3 +10,4 @@ Record only sources actually opened. Each research document includes access date
 - Recorded current Rinki plastic/carton/glass/metal and Palpa deposit-return findings in `docs/research/FINNISH_SORTING_SOURCES.md`.
 - Recorded GDPR, Finnish data/accessibility law, store privacy declarations, and environmental-claim findings in `docs/research/LEGAL_PRIVACY_AND_STORES.md`.
 - Recorded source-limited competitor/adjacent product comparison and user hypotheses.
+- Recorded the official Decision 97/129/EC packaging-material identifiers, conservative parser scope, and product limitations in `docs/research/MATERIAL_IDENTIFICATION_CODES.md`.
