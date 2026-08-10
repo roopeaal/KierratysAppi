@@ -139,4 +139,13 @@ describe("Finnish sorting engine", () => {
 
     expect(result).toMatchObject({ status: "unknown", reason: "not_packaging" });
   });
+
+  it("never applies a rule before its effective date", () => {
+    const result = sortPackagingComponent({
+      component: component(),
+      context: { ...context, evaluatedAt: "2026-08-09T23:59:59.000Z" },
+    });
+
+    expect(result).toMatchObject({ status: "unknown", reason: "no_effective_rule" });
+  });
 });

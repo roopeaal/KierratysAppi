@@ -38,7 +38,7 @@ function safeUnknown(
 }
 
 export function sortPackagingComponent(input: SortingRequest): SortingResult {
-  const { component } = SortingRequestSchema.parse(input);
+  const { component, context } = SortingRequestSchema.parse(input);
   const packaging = component.packagingStatus;
 
   if (packaging.value === "non_packaging") {
@@ -85,6 +85,9 @@ export function sortPackagingComponent(input: SortingRequest): SortingResult {
   const couldHaveDeposit = shape !== undefined && depositCandidateShapes.has(shape.value);
 
   if (depositStatus?.value === "yes") {
+    if (!isRuleEffective(PALPA_RULE, context.evaluatedAt)) {
+      return noEffectiveRule(component);
+    }
     const confidence = assessObservedFields(
       [packaging, depositStatus],
       ["Destination depends on verified packaging and deposit observations."],
@@ -117,6 +120,9 @@ export function sortPackagingComponent(input: SortingRequest): SortingResult {
   }
 
   if (couldHaveDeposit && (depositStatus === undefined || depositStatus.value === "unknown")) {
+    if (!isRuleEffective(PALPA_RULE, context.evaluatedAt)) {
+      return noEffectiveRule(component);
+    }
     const fields: ObservedField<unknown>[] = [packaging, shape];
     const alternativeMaterialDestination = materialDestination(component.materialFamily?.value);
     if (depositStatus) {
@@ -161,6 +167,10 @@ export function sortPackagingComponent(input: SortingRequest): SortingResult {
   }
 
   if (material.value === "glass" && (!shape || !new Set(["bottle", "jar"]).has(shape.value))) {
+    const glassRule = MATERIAL_RULES.find((rule) => rule.id === "fi.packaging.glass");
+    if (!glassRule || !isRuleEffective(glassRule.reference, context.evaluatedAt)) {
+      return noEffectiveRule(component);
+    }
     return SortingResultSchema.parse({
       status: "ambiguous",
       componentId: component.id,
@@ -170,9 +180,7 @@ export function sortPackagingComponent(input: SortingRequest): SortingResult {
         en: "Is the part a glass bottle or jar? Other glass does not belong in glass-packaging collection.",
       },
       candidateDestinations: ["glass_packaging"],
-      sources: [MATERIAL_RULES.find((rule) => rule.id === "fi.packaging.glass")?.reference].filter(
-        (reference): reference is NonNullable<typeof reference> => reference !== undefined,
-      ),
+      sources: [glassRule.reference],
       confidence: assessObservedFields(
         shape ? [packaging, material, shape] : [packaging, material],
         ["Glass-packaging collection accepts bottles and jars; the shape is not confirmed."],
@@ -197,6 +205,9 @@ export function sortPackagingComponent(input: SortingRequest): SortingResult {
       ["materialFamily"],
     );
   }
+  if (!isRuleEffective(rule.reference, context.evaluatedAt)) {
+    return noEffectiveRule(component);
+  }
 
   const decisiveFields: ObservedField<unknown>[] = [packaging, material];
   if (shape) {
@@ -220,6 +231,28 @@ export function sortPackagingComponent(input: SortingRequest): SortingResult {
       decisiveFields: ["packagingStatus", "materialFamily", ...(shape ? ["shape"] : [])],
     },
   });
+}
+
+function noEffectiveRule(component: PackagingComponentObservation): SortingResult {
+  return safeUnknown(
+    component,
+    "no_effective_rule",
+    {
+      fi: "Tälle päivälle ei ole voimassa olevaa tarkistettua sääntöä. Käytä paikallista jäteopasta.",
+      en: "There is no reviewed rule in effect for this date. Use your local waste guide.",
+    },
+    [],
+  );
+}
+
+function isRuleEffective(
+  reference: { readonly effectiveFrom: string; readonly effectiveTo?: string | undefined },
+  evaluatedAt: string,
+): boolean {
+  const date = evaluatedAt.slice(0, 10);
+  return (
+    reference.effectiveFrom <= date && (!reference.effectiveTo || date <= reference.effectiveTo)
+  );
 }
 
 function materialDestination(material: string | undefined) {

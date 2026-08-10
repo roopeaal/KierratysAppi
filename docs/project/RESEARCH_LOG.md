@@ -11,3 +11,4 @@ Record only sources actually opened. Each research document includes access date
 - Recorded GDPR, Finnish data/accessibility law, store privacy declarations, and environmental-claim findings in `docs/research/LEGAL_PRIVACY_AND_STORES.md`.
 - Recorded source-limited competitor/adjacent product comparison and user hypotheses.
 - Recorded the official Decision 97/129/EC packaging-material identifiers, conservative parser scope, and product limitations in `docs/research/MATERIAL_IDENTIFICATION_CODES.md`.
+- Revalidated time-sensitive OFF API/licensing, GS1 Finland's 2026 GS1 Data transition, Apple Xcode-26/iOS-26 upload requirement, Google Play API-36 deadline, store privacy/data-safety and preview-asset requirements for the adversarial audit; current URLs and consequences are recorded in `docs/final/PRODUCTION_AUDIT.md` and `docs/product/STORE_METADATA.md`.

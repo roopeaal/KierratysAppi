@@ -39,9 +39,11 @@ export function Screen({
   style,
 }: PropsWithChildren<{ readonly scroll?: boolean; readonly style?: StyleProp<ViewStyle> }>) {
   const { palette } = useAppTheme();
+  const { language } = useLanguage();
   const content = <View style={[styles.content, style]}>{children}</View>;
   return (
     <SafeAreaView
+      accessibilityLanguage={language === "fi" ? "fi-FI" : "en"}
       style={[styles.safeArea, { backgroundColor: palette.background }]}
       edges={["top", "bottom"]}
     >

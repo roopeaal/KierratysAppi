@@ -1,13 +1,14 @@
-import {
-  ProductLookupResultSchema,
-  type ProductLookupResult,
-} from "@kierratysappi/application/lookup-schema";
+import type { ProductLookupResult } from "@kierratysappi/application/lookup-schema";
 import type { Gtin, Language } from "@kierratysappi/domain";
 import { Platform } from "react-native";
+import { resolveApiBaseUrl } from "./api-config";
+import { parseLookupHttpResponse } from "./lookup-response";
 
-const DEFAULT_API_URL =
-  Platform.OS === "android" ? "http://10.0.2.2:3000" : "http://127.0.0.1:3000";
-const API_URL = process.env.EXPO_PUBLIC_API_BASE_URL ?? DEFAULT_API_URL;
+const API_URL = resolveApiBaseUrl({
+  platform: Platform.OS,
+  appEnvironment: process.env.EXPO_PUBLIC_APP_ENV,
+  configuredUrl: process.env.EXPO_PUBLIC_API_BASE_URL,
+});
 const LOOKUP_TIMEOUT_MS = 8_000;
 
 export class LookupNetworkError extends Error {
@@ -24,14 +25,25 @@ export async function requestProductLookup(
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), LOOKUP_TIMEOUT_MS);
   try {
-    const response = await fetch(`${API_URL}/v1/recycling/lookup`, {
-      method: "POST",
-      headers: { Accept: "application/json", "Content-Type": "application/json" },
-      body: JSON.stringify({ gtin, language }),
-      signal: controller.signal,
-    });
-    const payload: unknown = await response.json();
-    return ProductLookupResultSchema.parse(payload);
+    let response: Response;
+    try {
+      response = await fetch(`${API_URL}/v1/recycling/lookup`, {
+        method: "POST",
+        headers: { Accept: "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify({ gtin, language }),
+        signal: controller.signal,
+      });
+    } catch {
+      throw new LookupNetworkError();
+    }
+
+    let payload: unknown;
+    try {
+      payload = await response.json();
+    } catch {
+      return { status: "provider_unavailable", gtin, retryable: true };
+    }
+    return parseLookupHttpResponse(response.status, payload, gtin);
   } catch (error) {
     if (error instanceof LookupNetworkError) throw error;
     throw new LookupNetworkError();

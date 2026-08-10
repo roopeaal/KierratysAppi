@@ -1,6 +1,8 @@
 import type { ProductLookupResult } from "@kierratysappi/application/lookup-schema";
+import type { MaterialFamily, PackagingShape } from "@kierratysappi/domain";
+import type { MessageKey } from "@kierratysappi/localization";
 import { useRouter } from "expo-router";
-import { ActivityIndicator, StyleSheet, View } from "react-native";
+import { ActivityIndicator, Linking, StyleSheet, View } from "react-native";
 import {
   AppText,
   BrandLockup,
@@ -50,7 +52,7 @@ export default function ResultScreen() {
   if (state.status === "offline") {
     return (
       <StateScreen
-        eyebrow="OFFLINE / SAVED LOCAL"
+        eyebrow={t("offlineEyebrow")}
         title={t("offlineTitle")}
         body={t("offlineBody")}
         tone="amber"
@@ -65,7 +67,7 @@ export default function ResultScreen() {
   if (state.status === "invalid") {
     return (
       <StateScreen
-        eyebrow="GTIN / INVALID"
+        eyebrow={t("invalidEyebrow")}
         title={t("checkCode")}
         body={t("invalidGtin")}
         tone="brick"
@@ -78,7 +80,7 @@ export default function ResultScreen() {
   if (state.status !== "complete") {
     return (
       <StateScreen
-        eyebrow="SCAN / EMPTY"
+        eyebrow={t("emptyScanEyebrow")}
         title={t("cameraTitle")}
         body={t("introBody")}
         tone="cobalt"
@@ -92,7 +94,7 @@ export default function ResultScreen() {
   if (result.status === "not_found") {
     return (
       <StateScreen
-        eyebrow="PRODUCT / UNKNOWN"
+        eyebrow={t("unknownProductEyebrow")}
         title={t("notFoundTitle")}
         body={t("notFoundBody")}
         tone="amber"
@@ -107,7 +109,7 @@ export default function ResultScreen() {
   if (result.status === "provider_unavailable") {
     return (
       <StateScreen
-        eyebrow="SOURCE / UNAVAILABLE"
+        eyebrow={t("unavailableSourceEyebrow")}
         title={t("providerUnavailableTitle")}
         body={t("providerUnavailableBody")}
         tone="brick"
@@ -131,9 +133,10 @@ function ProductResult({
 }) {
   const router = useRouter();
   const { palette } = useAppTheme();
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const name = result.product.name?.value ?? result.gtin;
   const brand = result.product.brands?.value.join(", ");
+  const provenance = result.product.packagingCompleteness.provenance;
 
   return (
     <Screen>
@@ -188,14 +191,9 @@ function ProductResult({
               <View style={sharedStyles.tightStack}>
                 <AppText variant="mono" style={{ color: palette.cobalt }}>
                   {String(index + 1).padStart(2, "0")} /{" "}
-                  {observation.materialFamily?.value.toUpperCase() ?? "UNKNOWN"}
+                  {materialLabel(observation.materialFamily?.value, t).toUpperCase()}
                 </AppText>
-                <AppText variant="heading">
-                  {observation.displayName?.value ??
-                    observation.shape?.value ??
-                    observation.materialFamily?.value ??
-                    t("packagingParts")}
-                </AppText>
+                <AppText variant="heading">{componentLabel(observation, t)}</AppText>
               </View>
               <SortingResultCard result={sorting} />
             </View>
@@ -211,10 +209,35 @@ function ProductResult({
           variant="secondary"
           onPress={() => router.push({ pathname: "/feedback", params: { gtin: result.gtin } })}
         />
-        <AppText variant="small" muted>
-          {t("dataSourceLabel")}: {result.provider.name} · {t("lastRetrievedLabel")}:{" "}
-          {formatDate(result.product.packagingCompleteness.provenance.retrievedAt)}
-        </AppText>
+        <View style={sharedStyles.tightStack}>
+          <AppText variant="small" muted>
+            {t("communityDataLabel")} · {t("lastRetrievedLabel")}:{" "}
+            {formatDate(provenance.retrievedAt, language)}
+          </AppText>
+          <View style={styles.disclosureRow}>
+            <AppText variant="small" muted>
+              {t("dataSourceLabel")}:
+            </AppText>
+            <InlineLink
+              label={result.provider.name}
+              onPress={() => void Linking.openURL(provenance.sourceUrl)}
+            />
+          </View>
+          {provenance.license.url && (
+            <View style={styles.disclosureRow}>
+              <AppText variant="small" muted>
+                {t("dataLicenseLabel")}:
+              </AppText>
+              <InlineLink
+                label={provenance.license.name}
+                onPress={() => void Linking.openURL(provenance.license.url ?? "")}
+              />
+            </View>
+          )}
+          <AppText variant="small" muted>
+            {t("dataAttributionLabel")}: {provenance.license.attributionText}
+          </AppText>
+        </View>
       </View>
     </Screen>
   );
@@ -270,8 +293,38 @@ function StateScreen({
   );
 }
 
-function formatDate(value: string) {
-  return value.slice(0, 10);
+function formatDate(value: string, language: "fi" | "en") {
+  return new Intl.DateTimeFormat(language === "fi" ? "fi-FI" : "en-GB", {
+    dateStyle: "medium",
+  }).format(new Date(value));
+}
+
+type Translator = (key: MessageKey) => string;
+
+function materialLabel(value: MaterialFamily | undefined, t: Translator): string {
+  if (!value || value === "unknown") return t("materialUnknown");
+  if (value === "plastic") return t("materialPlastic");
+  if (value === "carton") return t("materialCarton");
+  if (value === "paper") return t("materialPaper");
+  if (value === "glass") return t("materialGlass");
+  if (value === "metal") return t("materialMetal");
+  if (value === "wood") return t("materialWood");
+  if (value === "composite") return t("materialComposite");
+  return t("materialOther");
+}
+
+function componentLabel(
+  observation: {
+    readonly shape?: { readonly value: PackagingShape };
+    readonly materialFamily?: { readonly value: MaterialFamily };
+    readonly displayName?: { readonly value: string };
+  },
+  t: Translator,
+): string {
+  if (observation.shape?.value === "bottle") return t("shapeBottle");
+  if (observation.shape?.value === "can") return t("shapeCan");
+  if (observation.shape?.value === "jar") return t("shapeJar");
+  return observation.displayName?.value ?? materialLabel(observation.materialFamily?.value, t);
 }
 
 const styles = StyleSheet.create({
@@ -294,5 +347,6 @@ const styles = StyleSheet.create({
     marginTop: spacing.md,
   },
   resultStack: { paddingTop: spacing.xl, gap: spacing.md },
+  disclosureRow: { flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: spacing.xs },
   componentBlock: { gap: spacing.sm },
 });

@@ -3,7 +3,8 @@ import type { ProductDataProvider } from "@kierratysappi/data-providers";
 import { ProductObservationSchema, type FieldProvenance } from "@kierratysappi/domain";
 import type { FastifyInstance } from "fastify";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { buildApp } from "../app";
+import { buildApp, clientErrorLogFields } from "../app";
+import type { LookupObservation } from "../app";
 
 const apps: FastifyInstance[] = [];
 
@@ -14,6 +15,7 @@ afterEach(async () => {
 async function testApp(
   result: "found" | "not_found" | "error",
   allowedWebOrigins?: readonly string[],
+  observeLookup?: (observation: LookupObservation) => void,
 ) {
   const provenance: FieldProvenance = {
     sourceId: "fixture",
@@ -60,6 +62,7 @@ async function testApp(
   };
   const app = await buildApp({
     ...(allowedWebOrigins ? { allowedWebOrigins } : {}),
+    ...(observeLookup ? { observeLookup } : {}),
     lookupService: new ProductResolutionService({
       providers: [provider],
       now: () => new Date("2026-08-10T12:00:00.000Z"),
@@ -115,9 +118,12 @@ describe("API", () => {
 
     expect(invalidChecksum.statusCode).toBe(400);
     expect(invalidChecksum.json()).toMatchObject({ error: { code: "invalid_gtin" } });
-    expect(unexpectedField.statusCode).toBe(200);
-    expect(unexpectedField.json()).not.toHaveProperty("secret");
-    expect(provider.findByGtin).toHaveBeenCalledTimes(1);
+    expect(unexpectedField.statusCode).toBe(400);
+    expect(unexpectedField.json()).toMatchObject({ error: { code: "invalid_request" } });
+    expect(provider.findByGtin).not.toHaveBeenCalled();
+    expect(clientErrorLogFields(400)).toEqual({ statusCode: 400 });
+    expect(clientErrorLogFields(400)).not.toHaveProperty("err");
+    expect(clientErrorLogFields(400)).not.toHaveProperty("validation");
   });
 
   it.each([
@@ -174,5 +180,49 @@ describe("API", () => {
 
     expect(allowed.headers["access-control-allow-origin"]).toBe("https://preview.example.com");
     expect(denied.headers["access-control-allow-origin"]).toBeUndefined();
+  });
+
+  it("rate-limits repeated lookup traffic", async () => {
+    const { app } = await testApp("found");
+    for (let requestNumber = 0; requestNumber < 20; requestNumber += 1) {
+      const response = await app.inject({
+        method: "POST",
+        url: "/v1/recycling/lookup",
+        payload: { gtin: "3017620422003" },
+      });
+      expect(response.statusCode).toBe(200);
+    }
+
+    const limited = await app.inject({
+      method: "POST",
+      url: "/v1/recycling/lookup",
+      payload: { gtin: "3017620422003" },
+    });
+    expect(limited.statusCode).toBe(429);
+    expect(limited.json()).toEqual({
+      error: { code: "rate_limited", message: "Too many requests. Try again shortly." },
+    });
+  });
+
+  it("emits an aggregate lookup observation without a GTIN", async () => {
+    const observations: LookupObservation[] = [];
+    const { app } = await testApp("found", undefined, (observation) =>
+      observations.push(observation),
+    );
+    const response = await app.inject({
+      method: "POST",
+      url: "/v1/recycling/lookup",
+      payload: { gtin: "3017620422003" },
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(observations).toHaveLength(1);
+    expect(observations[0]).toMatchObject({
+      status: "resolved",
+      providerId: "fixture",
+      cacheHit: false,
+    });
+    expect(observations[0]).not.toHaveProperty("gtin");
+    expect(observations[0]?.durationMs).toBeGreaterThanOrEqual(0);
   });
 });

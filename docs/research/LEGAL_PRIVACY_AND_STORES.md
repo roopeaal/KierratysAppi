@@ -10,7 +10,7 @@ Finland's supplementary Data Protection Act is available at https://finlex.fi/en
 
 Implementation position:
 
-- No mandatory account for scanning; local history is device-only by default.
+- No mandatory account for scanning; local history is app-local and opt-in. Android backup is disabled, but an operating-system backup may include local data and signed iOS behavior still requires verification.
 - Camera frames are processed on device for barcodes and never uploaded.
 - A photo/OCR cloud path, correction evidence upload, analytics, monitoring, or location request requires a named purpose, lawful basis, clear just-in-time explanation, retention, recipient/region analysis, deletion/export path, and updated store declarations.
 - Strip image metadata before any authorized upload, reject unrelated content, and avoid raw photos/OCR text/location/barcodes in analytics or logs.

@@ -1,14 +1,18 @@
 # Release readiness
 
-Status: **production-capable foundation; not approved for public release**.
+Status: **NO-GO**. This is a tested source foundation, not a production-capable release.
 
-| Gate | Status | Evidence / next requirement |
+| Gate | Status | Evidence/requirement |
 | --- | --- | --- |
-| Core mobile/API flow | Implemented | Scanner/manual → API → OFF normalization → component rules → result; live web E2E verified |
-| Sorting accuracy/content review | Automated baseline passes | Rinki/Palpa sources and deterministic branch tests; owner/editorial review still required |
-| Security/privacy | Implemented baseline | Threat model, POST boundary, validation, response limits, CORS allowlist, RLS, Gitleaks/dependency gates; CodeQL and private-branch protection are externally plan-gated |
-| Accessibility | Code/web review complete; device blocked | Semantic roles, 48dp+ targets, dynamic text, non-color states; VoiceOver/TalkBack and OS large-text evidence required |
-| Automated validation | Passing | `pnpm validate` (65 tests and all builds), PGlite migration execution, Expo Doctor 20/20, compatibility and peer checks, dependency audit policy, CI/security workflows |
-| Native builds | Blocked | Android/iOS toolchains or approved EAS credentials |
-| Store content/assets | Drafted | App/adaptive/monochrome icons, splash, bundle IDs, EAS profiles, metadata draft; screenshots and legal approval remain |
-| Legal/owner approval | Blocked | Review of marked drafts |
+| Core source flow | Pass locally | Manual/live API→OFF and automated state/domain/provider/API evidence |
+| Local validation | Pass | 133 tests; format/lint/typecheck/build/export pass |
+| Expo compatibility | Fail | Doctor 19/20 and install check fail for four unaged patches |
+| Android/iOS builds | Blocked | No signed artifacts, installation or native runtime evidence |
+| Camera/accessibility/performance | Blocked | No physical device evidence |
+| Production service/recovery | Absent | No HTTPS endpoint/database/monitoring/restore drill |
+| Sorting/licensing/legal | Blocked | Human content, OFF and privacy/terms approval absent |
+| Store package | Incomplete | Icons exist; screenshots/feature graphic/forms/URLs/console validation absent |
+| Supply chain | Open high gates | Two high unpatched build-tool advisories; audit exception expires 2026-09-10 |
+| Release authorization | Not granted | No deploy, paid build, submission or publication performed |
+
+The controlling records are `docs/final/PRODUCTION_AUDIT.md`, `RELEASE_GO_NO_GO.md`, `OWNER_ACTIONS.md` and `TEST_EVIDENCE.md`.

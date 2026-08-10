@@ -21,6 +21,7 @@ describe("OpenFoodFactsProvider", () => {
       requestedInit = init;
       return jsonResponse({
         product: {
+          code: gtin,
           product_name_fi: "  Hasselpähkinälevite  ",
           brands: "Nutella, Ferrero, Nutella",
           image_front_url: "https://images.openfoodfacts.org/example.jpg",
@@ -56,6 +57,11 @@ describe("OpenFoodFactsProvider", () => {
     expect(result.product.packagingComponents[1]?.materialFamily?.value).toBe("plastic");
     expect(result.product.packagingComponents[1]?.shape?.value).toBe("lid");
     expect(result.product.name?.provenance.verificationStatus).toBe("community");
+    expect(result.product.name?.provenance.license).toMatchObject({
+      id: "open-food-facts-odbl-1.0-dbcl-1.0",
+      shareAlike: true,
+    });
+    expect(result.product.name?.provenance.license.name).toContain("DbCL 1.0");
     expect(result.product.imageUrl?.provenance.license.id).toBe("cc-by-sa-3.0");
 
     const parsedUrl = new URL(requestedUrl);
@@ -63,6 +69,7 @@ describe("OpenFoodFactsProvider", () => {
     expect(parsedUrl.pathname).toBe(`/api/v3/product/${gtin}`);
     expect(parsedUrl.searchParams.get("cc")).toBe("fi");
     expect(parsedUrl.searchParams.get("lc")).toBe("fi");
+    expect(parsedUrl.searchParams.get("product_type")).toBe("food");
     expect(new Headers(requestedInit?.headers).get("User-Agent")).toContain("KierratysAppi");
     expect(requestedInit?.redirect).toBe("manual");
   });
@@ -72,6 +79,7 @@ describe("OpenFoodFactsProvider", () => {
       fetch: async () =>
         jsonResponse({
           product: {
+            code: gtin,
             packagings: [{ material: "en:plastic", shape: "en:bottle" }],
           },
         }),
@@ -120,6 +128,37 @@ describe("OpenFoodFactsProvider", () => {
     });
   });
 
+  it("rejects a product whose returned GTIN does not match the request", async () => {
+    const provider = new OpenFoodFactsProvider({
+      fetch: async () => jsonResponse({ product: { code: "6410405196811" } }),
+    });
+
+    await expect(provider.findByGtin(gtin, context)).resolves.toEqual({
+      status: "error",
+      code: "invalid_response",
+      retryable: false,
+    });
+  });
+
+  it("rate-limits upstream calls below the provider per-IP ceiling", async () => {
+    const fetchMock: typeof fetch = vi.fn(async () =>
+      jsonResponse({ product: { code: gtin, packagings: [] } }),
+    );
+    const provider = new OpenFoodFactsProvider({
+      fetch: fetchMock,
+      maxRequestsPerMinute: 1,
+      now: () => new Date("2026-08-10T12:00:00.000Z"),
+    });
+
+    await expect(provider.findByGtin(gtin, context)).resolves.toMatchObject({ status: "found" });
+    await expect(provider.findByGtin(gtin, context)).resolves.toEqual({
+      status: "error",
+      code: "rate_limited",
+      retryable: true,
+    });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
   it("returns a retryable unavailable result after timeout", async () => {
     const provider = new OpenFoodFactsProvider({
       timeoutMs: 5,
@@ -143,6 +182,7 @@ describe("OpenFoodFactsProvider", () => {
       fetch: async () =>
         jsonResponse({
           product: {
+            code: gtin,
             image_front_url: "http://example.com/image.jpg",
             packagings: [null, "bad-row", { material: "en:unknown-material" }],
           },
@@ -155,5 +195,23 @@ describe("OpenFoodFactsProvider", () => {
     expect(result.product.imageUrl).toBeUndefined();
     expect(result.product.packagingComponents).toHaveLength(1);
     expect(result.product.packagingComponents[0]?.materialFamily).toBeUndefined();
+  });
+
+  it("does not infer materials or shapes from misleading taxonomy substrings", async () => {
+    const provider = new OpenFoodFactsProvider({
+      fetch: async () =>
+        jsonResponse({
+          product: {
+            code: gtin,
+            packagings: [{ material: "en:non-plastic", shape: "en:not-a-bottle" }],
+          },
+        }),
+    });
+
+    const result = await provider.findByGtin(gtin, context);
+    expect(result.status).toBe("found");
+    if (result.status !== "found") return;
+    expect(result.product.packagingComponents[0]?.materialFamily).toBeUndefined();
+    expect(result.product.packagingComponents[0]?.shape).toBeUndefined();
   });
 });

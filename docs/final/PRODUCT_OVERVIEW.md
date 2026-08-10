@@ -2,7 +2,7 @@
 
 ## Promise
 
-“Read the package. Know where it belongs.” KierrätysAppi turns a barcode into explainable Finnish packaging guidance, without pretending incomplete product databases are authoritative.
+“Read the package. Know where it belongs.” KierrätysAppi uses Open Food Facts food-product barcode data, when available, for explainable Finnish packaging guidance and offers material/manual fallbacks without pretending incomplete product databases are authoritative.
 
 ## Implemented experience
 
@@ -13,8 +13,8 @@
 - Manual material/shape/deposit confirmation; ambiguous deposit/glass cases stay questions.
 - Local EU packaging material-code entry with explicit package confirmation, official scheme provenance, and no photo/upload requirement.
 - Reviewed offline general packaging guide linked to Rinki.
-- Opt-in, device-only recent history with clear/disable deletion behavior.
-- Device-only correction drafts; no misleading active upload/moderation claim.
+- Opt-in app-local recent history with clear/disable/delete-all behavior; operating-system backup may include local data and is disclosed.
+- App-local correction drafts; no misleading active upload/moderation claim.
 - Draft privacy/terms clearly marked for legal review.
 - Material Ledger visual system, original deterministic icons, dark palette, scalable type and accessible controls.
 

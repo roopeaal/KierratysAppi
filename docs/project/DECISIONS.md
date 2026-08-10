@@ -77,7 +77,22 @@
 - Decision: parse a conservative Decision 97/129/EC identifier subset locally, require the user to confirm the visible mark, and retain the official scheme plus local-observation provenance. Conflicts, multiple codes, undefined values, and composites that lack a reviewed rule do not receive guessed guidance.
 - Reason: this delivers the deterministic value of label recognition without collecting an image or binding the product to an unapproved OCR/cloud workflow; a material mark also cannot establish shape, deposit, or collection eligibility by itself.
 
+## D-012 — Fresh Expo patches do not bypass the release-age gate
+
+- Date: 2026-08-10
+- Status: accepted; time-limited compatibility NO-GO
+- Decision: retain the aged Expo 57.0.11, constants 57.0.9, router 57.0.11, splash 57.0.5 and compatible transitive pins until the four newer SDK patches pass the repository's minimum-release-age policy. Do not use Expo dependency exclusions or an age-policy bypass merely to make Doctor green.
+- Reason: the compatible patches were published only hours before the audit. A deliberate 19/20 diagnostic is safer and more truthful than consuming unaged supply-chain inputs or hiding the mismatch.
+
+## D-013 — Adversarial audit result is NO-GO
+
+- Date: 2026-08-10
+- Status: accepted
+- Decision: the repository is not production-ready despite passing local validation. Native binaries/devices, infrastructure/recovery/monitoring, accountable content/legal/licensing approval and complete store evidence are release gates, not post-release follow-ups.
+- Reason: source-level checks cannot establish camera reliability, signed-binary behavior, production operations, lawful publication or store acceptance.
+
 ## Pending decisions
 
 - OCR implementation and whether a cloud AI path is justified after the typed-code flow is evaluated.
 - Production hosting/database/telemetry providers after owner cost/privacy-region approval.
+- Whether a distributable web build is in launch scope; if yes, the current 2.53 MiB entry requires optimization and deployed performance evidence.

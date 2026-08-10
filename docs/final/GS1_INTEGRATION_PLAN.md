@@ -2,7 +2,7 @@
 
 ## Non-negotiable gate
 
-Do not replace `MockGs1DataProvider` until the owner has written GS1/Synkka terms covering API/product scope, territories, authentication, price/rate limits, caching duration, derived data, display attribution, redistribution/export, deletion/correction, audit and termination. No GS1 partner/verified claim is allowed from the mock.
+Do not replace `MockGs1DataProvider` until the owner has current written GS1 Data terms, including any 2026 Synkka transition obligations, covering API/product scope, territories, authentication, price/rate limits, caching duration, derived data, display attribution, redistribution/export, deletion/correction, audit and termination. No GS1 partner/verified claim is allowed from the mock.
 
 ## Technical path
 

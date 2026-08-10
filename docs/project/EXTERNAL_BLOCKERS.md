@@ -1,17 +1,22 @@
 # External blockers
 
-These do not block local architecture, implementation, automated tests, documentation, or unsigned configuration work.
+These are release blockers or high-risk gates that cannot be completed without external authority, assets, accounts, contracts, devices, infrastructure or an upstream release. Exact procedures and evidence owners are in `docs/final/OWNER_ACTIONS.md`.
 
-| Blocker | Why owner/external action is required | Exact next action |
-| --- | --- | --- |
-| Physical camera validation | No Android/iOS test device is attached | Install an internal build on representative devices and execute the documented camera checklist |
-| Android native build | Java, Android SDK, and ADB are unavailable locally | Install the documented JDK/Android toolchain or authorize an EAS build after configuration passes |
-| iOS native build | Full Xcode and Apple signing identity are unavailable | Install/select supported Xcode and provide owner-controlled Apple/EAS credentials |
-| Store builds/submission | Expo/EAS, Google Play, and App Store credentials/terms/signing are owner-controlled | Review terms/costs, provide credentials via secret storage, approve build/submission |
-| GS1/Synkka data | Contract, licence, credentials, cost, and redistribution rights are unknown | Owner obtains written commercial terms and credentials before enabling the production adapter |
-| Legal publication | Product owner/legal counsel must approve privacy, terms, licensing, claims, and age-rating answers | Review marked drafts and sign off before public release |
-| Production infrastructure | Hosting/database/monitoring accounts and recurring cost choices require owner approval | Select providers and approve cost/privacy regions before deployment |
-| Photo/OCR workflow | Physical capture behavior and an image-processing approach are unverified; any upload additionally needs an approved privacy region, retention schedule, consent text, moderation capacity, and abuse controls | Validate capture on representative devices, choose on-device versus cloud processing, and approve the data-protection workflow before enabling photo/OCR; the completed typed-code parser remains local |
-| CodeQL upload on private GitHub repository | GitHub Code Security is not enabled and may require a paid Team/Enterprise security entitlement | Approve any plan/security cost, enable Code Security, then set repository variable `CODEQL_ENABLED=true`; until then the prepared CodeQL job skips while Gitleaks and dependency gates remain active |
-| Protected `main` branch | GitHub returned `403` and requires GitHub Pro or a public repository for branch protection | Keep the repository private; if the owner approves a plan upgrade, require PRs plus the `CI` and `Security` checks before merge. Do not make the repository public merely to unlock protection |
-| Metro `image-size` advisories | The advisory names `2.0.3` as patched, but npm currently publishes only `2.0.2` | Upgrade immediately when `2.0.3` or an Expo/Metro release containing it is available; temporary CI exception expires 2026-09-10 |
+| Blocker | Severity | Why external | Owner action |
+| --- | --- | --- | --- |
+| Android signed build/device/Play validation | blocker | No Java runtime, SDK/ADB, device, signing, EAS/Play authority | OA-08 |
+| iOS Xcode-26 archive/device/TestFlight validation | blocker | Only Command Line Tools; no signing, device, EAS/Apple authority | OA-09 |
+| Physical barcode/accessibility/performance/battery evidence | blocker/high | Requires installable signed builds and representative devices | OA-08, OA-09 |
+| Production HTTPS API/shared quota/database | blocker | Provider/region/cost/accounts/domain approval absent | OA-01 |
+| PostgreSQL backup/restore/RPO/RTO | high | No managed production database or operations owner | OA-02 |
+| OFF account/contact/licence approval | high | Owner account/mailbox and legal decision required | OA-03 |
+| Rinki/Palpa content/reuse approval | high | Trust-critical human editorial/legal approval required | OA-04 |
+| GS1 Data terms/access/decision | high | Commercial contract, cost, rights and credentials absent | OA-05 |
+| Privacy/GDPR/terms/hosted URLs | blocker | Controller/legal decisions and publication required | OA-06 |
+| Monitoring, alerts, contacts and incident drills | high | Vendor/account/privacy/on-call decisions absent | OA-07 |
+| Store screenshots/feature graphic/forms/validation | blocker/high | Depends on signed builds, accounts and approvals | OA-10 |
+| Four fresh Expo patches | high/time-gated | Minimum-release-age policy; current Doctor 19/20 | OA-11 |
+| Two high Metro `image-size` advisories | high/time-gated | Patched `2.0.3` is unpublished; exception expires 2026-09-10 | OA-11 |
+| Private branch protection/CodeQL | high governance | GitHub plan/Code Security approval; API currently returns 403 and no variable exists | OA-12 |
+
+Photo/OCR/cloud AI remains disabled and is not a launch blocker. Enabling it would create a new privacy, safety, moderation, device-evaluation and legal workstream requiring separate approval.

@@ -11,20 +11,39 @@ describe("API environment", () => {
   });
 
   it("requires an identified Open Food Facts contact in production", () => {
-    expect(() => parseEnvironment({ NODE_ENV: "production" })).toThrow("OFF_USER_AGENT");
+    expect(() =>
+      parseEnvironment({
+        NODE_ENV: "production",
+        WEB_ALLOWED_ORIGINS: "https://app.example.com",
+      }),
+    ).toThrow("OFF_USER_AGENT");
+    expect(() =>
+      parseEnvironment({
+        NODE_ENV: "production",
+        OFF_USER_AGENT: "KierratysAppi/1.0 (unmonitored-contact)",
+        WEB_ALLOWED_ORIGINS: "https://app.example.com",
+      }),
+    ).toThrow("monitored-email");
     expect(() =>
       parseEnvironment({
         NODE_ENV: "production",
         OFF_USER_AGENT: "KierratysAppi/1.0 (contact: ops@example.com)",
+        WEB_ALLOWED_ORIGINS: "https://app.example.com",
+      }),
+    ).toThrow("monitored-email");
+    expect(() =>
+      parseEnvironment({
+        NODE_ENV: "production",
+        OFF_USER_AGENT: "KierratysAppi/1.0 (contact: ops@kierratysappi.fi)",
       }),
     ).toThrow("WEB_ALLOWED_ORIGINS");
     expect(
       parseEnvironment({
         NODE_ENV: "production",
-        OFF_USER_AGENT: "KierratysAppi/1.0 (contact: ops@example.com)",
+        OFF_USER_AGENT: "KierratysAppi/1.0 (contact: ops@kierratysappi.fi)",
         WEB_ALLOWED_ORIGINS: "https://app.example.com",
       }).OFF_USER_AGENT,
-    ).toContain("ops@example.com");
+    ).toContain("ops@kierratysappi.fi");
   });
 
   it("accepts only exact HTTP origins", () => {

@@ -43,7 +43,7 @@ export default function FeedbackScreen() {
         <InlineLink label={t("close")} onPress={() => router.back()} />
       </View>
       <View style={styles.intro}>
-        <Eyebrow>FEEDBACK / LOCAL DRAFT</Eyebrow>
+        <Eyebrow>{t("feedbackEyebrow")}</Eyebrow>
         <AppText variant="title" accessibilityRole="header">
           {t("feedbackTitle")}
         </AppText>
@@ -79,6 +79,9 @@ export default function FeedbackScreen() {
       </View>
       <AppText variant="label" nativeID="feedback-note">
         {t("feedbackNote")}
+      </AppText>
+      <AppText variant="small" muted>
+        {t("feedbackPrivacyCaution")}
       </AppText>
       <TextInput
         accessibilityLabelledBy="feedback-note"

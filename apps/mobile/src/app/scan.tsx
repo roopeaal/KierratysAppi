@@ -2,7 +2,9 @@ import { type BarcodeScanningResult, CameraView, useCameraPermissions } from "ex
 import { useRouter } from "expo-router";
 import { useRef, useState } from "react";
 import { Linking, StyleSheet, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AppText, Button, InlineLink, Screen, sharedStyles } from "@/components/ui";
+import { SUPPORTED_BARCODE_TYPES } from "@/features/scan/barcode-formats";
 import { useScanSession } from "@/features/scan/session-context";
 import { useLanguage } from "@/i18n/language-context";
 import { radius, spacing, useAppTheme } from "@/theme/tokens";
@@ -12,6 +14,7 @@ export default function ScannerScreen() {
   const { palette } = useAppTheme();
   const { t } = useLanguage();
   const { lookupBarcode } = useScanSession();
+  const insets = useSafeAreaInsets();
   const [permission, requestPermission] = useCameraPermissions();
   const [locallyLocked, setLocallyLocked] = useState(false);
   const navigating = useRef(false);
@@ -33,7 +36,7 @@ export default function ScannerScreen() {
       <Screen>
         <View style={styles.permissionHeader}>
           <AppText variant="mono" style={{ color: palette.pine }}>
-            CAMERA / BARCODE
+            {t("cameraEyebrow")}
           </AppText>
           <InlineLink label={t("close")} onPress={() => router.back()} />
         </View>
@@ -75,11 +78,16 @@ export default function ScannerScreen() {
     <View style={styles.cameraScreen}>
       <CameraView
         accessibilityLabel={t("cameraTitle")}
-        barcodeScannerSettings={{ barcodeTypes: ["ean13", "ean8", "upc_a", "upc_e"] }}
+        barcodeScannerSettings={{ barcodeTypes: [...SUPPORTED_BARCODE_TYPES] }}
         onBarcodeScanned={locallyLocked ? undefined : onScanned}
         style={StyleSheet.absoluteFill}
       />
-      <View style={[styles.topOverlay, { backgroundColor: palette.cameraOverlay }]}>
+      <View
+        style={[
+          styles.topOverlay,
+          { backgroundColor: palette.cameraOverlay, paddingTop: insets.top + spacing.sm },
+        ]}
+      >
         <InlineLink label={t("close")} onPress={() => router.back()} />
         <AppText variant="label" style={{ color: "#FFFFFF" }}>
           {t("cameraTitle")}
@@ -95,7 +103,12 @@ export default function ScannerScreen() {
           <View style={[styles.scanLine, { backgroundColor: palette.pine }]} />
         </View>
       </View>
-      <View style={[styles.bottomOverlay, { backgroundColor: palette.cameraOverlay }]}>
+      <View
+        style={[
+          styles.bottomOverlay,
+          { backgroundColor: palette.cameraOverlay, paddingBottom: insets.bottom + spacing.lg },
+        ]}
+      >
         <AppText variant="heading" style={{ color: "#FFFFFF", textAlign: "center" }}>
           {t("cameraInstruction")}
         </AppText>
@@ -112,7 +125,6 @@ export default function ScannerScreen() {
 const styles = StyleSheet.create({
   cameraScreen: { flex: 1, backgroundColor: "#000000" },
   topOverlay: {
-    paddingTop: 58,
     paddingHorizontal: spacing.lg,
     paddingBottom: spacing.lg,
     flexDirection: "row",
@@ -133,7 +145,6 @@ const styles = StyleSheet.create({
   bottomOverlay: {
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.lg,
-    paddingBottom: 46,
     gap: spacing.lg,
   },
   permissionHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },

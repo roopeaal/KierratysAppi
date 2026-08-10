@@ -22,4 +22,4 @@ Immediately unpublish or supersede the affected immutable rule version, make cac
 
 ## Contacts and notifications
 
-**OWNER ACTION REQUIRED:** add security lead, privacy lead/DPO if applicable, legal counsel, hosting/database/provider contacts, app-store contacts, and Finnish supervisory/consumer-authority procedures before staging deployment.
+**OWNER ACTION REQUIRED / RELEASE BLOCKER:** OA-07 must name primary and backup security/SRE responders, privacy lead/DPO if applicable, legal counsel, sorting-content owner, hosting/database/OFF/GS1 contacts, app-store contacts, and Finnish supervisory/consumer-authority procedures before any preview or production deployment. A test alert and two tabletop drills are required evidence.

@@ -89,6 +89,12 @@ describe("database migrations", () => {
     await expect(
       database.query("INSERT INTO gtins (gtin, product_id) VALUES ($1, $2)", ["ABC", productId]),
     ).rejects.toThrow();
+    await expect(
+      database.query("INSERT INTO gtins (gtin, product_id) VALUES ($1, $2)", [
+        "3017620422004",
+        productId,
+      ]),
+    ).rejects.toThrow();
 
     await database.exec(`
       INSERT INTO regions (id, country_code, name_fi, name_en)
@@ -116,6 +122,38 @@ describe("database migrations", () => {
     ).rejects.toThrow("immutable");
   });
 
+  it("rejects a material code that contradicts the component material", async () => {
+    const database = await migratedDatabase();
+    const product = await database.query<{ id: string }>(
+      "INSERT INTO products DEFAULT VALUES RETURNING id",
+    );
+    const productId = product.rows[0]?.id;
+    await database.exec(`
+      INSERT INTO materials (id, family, name_fi, name_en) VALUES
+        ('pp', 'plastic', 'Polypropeeni', 'Polypropylene'),
+        ('paper', 'paper', 'Paperi', 'Paper');
+      INSERT INTO material_codes (code, material_id, standard_name, source_url)
+      VALUES ('05-PP', 'pp', '97/129/EY', 'https://eur-lex.europa.eu/');
+    `);
+
+    await expect(
+      database.query(
+        `INSERT INTO packaging_components
+          (product_id, stable_key, material_id, material_code)
+         VALUES ($1, 'component-1', 'paper', '05-PP')`,
+        [productId],
+      ),
+    ).rejects.toThrow();
+    await expect(
+      database.query(
+        `INSERT INTO packaging_components
+          (product_id, stable_key, material_code)
+         VALUES ($1, 'component-with-code-but-no-material', '05-PP')`,
+        [productId],
+      ),
+    ).rejects.toThrow();
+  });
+
   it("loads the reviewed Finnish reference seed idempotently", async () => {
     const database = await migratedDatabase();
     const seed = await readFile(seedPath, "utf8");
@@ -128,5 +166,13 @@ describe("database migrations", () => {
         (SELECT count(*)::integer FROM sorting_rule_versions) AS versions
     `);
     expect(result.rows[0]).toEqual({ rules: 5, versions: 5 });
+
+    const sources = await database.query<{ source_url: string }>(
+      "SELECT source_url FROM rule_sources ORDER BY organization",
+    );
+    expect(sources.rows.map((row) => row.source_url)).toEqual([
+      "https://rinkiin.fi/lajittelu-kotona/lajitteluohjeet/",
+      "https://www.palpa.fi/for-consumers/faq/",
+    ]);
   });
 });

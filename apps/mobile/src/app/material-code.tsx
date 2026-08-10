@@ -157,7 +157,7 @@ function RecognizedCode({
           ]}
         >
           <AppText variant="mono" muted>
-            {recognition.precision === "exact" ? "ID / EXACT" : "ID / GROUP"}
+            {recognition.precision === "exact" ? t("identifierExact") : t("identifierGroup")}
           </AppText>
           <AppText style={styles.code} adjustsFontSizeToFit numberOfLines={1}>
             {recognition.canonicalCode}

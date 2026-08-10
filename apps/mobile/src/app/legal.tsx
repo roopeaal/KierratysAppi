@@ -1,6 +1,8 @@
 import { useRouter } from "expo-router";
-import { StyleSheet, View } from "react-native";
-import { AppText, BrandLockup, Eyebrow, InlineLink, Paper, Screen } from "@/components/ui";
+import { useState } from "react";
+import { Alert, StyleSheet, View } from "react-native";
+import { AppText, BrandLockup, Button, Eyebrow, InlineLink, Paper, Screen } from "@/components/ui";
+import { clearAllLocalData } from "@/features/history/storage";
 import { useLanguage } from "@/i18n/language-context";
 import { spacing, useAppTheme } from "@/theme/tokens";
 
@@ -8,6 +10,20 @@ export default function LegalScreen() {
   const router = useRouter();
   const { palette } = useAppTheme();
   const { t } = useLanguage();
+  const [deleted, setDeleted] = useState(false);
+
+  const confirmDeletion = () => {
+    Alert.alert(t("deleteLocalDataConfirmTitle"), t("deleteLocalDataConfirmBody"), [
+      { text: t("cancel"), style: "cancel" },
+      {
+        text: t("deleteLocalDataConfirmAction"),
+        style: "destructive",
+        onPress: () => {
+          void clearAllLocalData().then(() => setDeleted(true));
+        },
+      },
+    ]);
+  };
   return (
     <Screen>
       <View style={styles.header}>
@@ -23,6 +39,16 @@ export default function LegalScreen() {
       <Paper>
         <AppText variant="heading">{t("privacyTitle")}</AppText>
         <AppText>{t("privacyDraft")}</AppText>
+      </Paper>
+      <Paper style={{ borderColor: palette.brick }}>
+        <AppText variant="heading">{t("deleteLocalData")}</AppText>
+        <AppText>{t("deleteLocalDataBody")}</AppText>
+        <Button label={t("deleteLocalData")} variant="danger" onPress={confirmDeletion} />
+        {deleted && (
+          <AppText accessibilityRole="alert" style={{ color: palette.pine }}>
+            {t("localDataDeleted")}
+          </AppText>
+        )}
       </Paper>
       <Paper>
         <AppText variant="heading">{t("termsTitle")}</AppText>

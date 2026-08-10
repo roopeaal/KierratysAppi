@@ -36,8 +36,16 @@ export type ApiEnvironment = z.infer<typeof ApiEnvironmentSchema>;
 
 export function parseEnvironment(environment: NodeJS.ProcessEnv): ApiEnvironment {
   const parsed = ApiEnvironmentSchema.parse(environment);
-  if (parsed.NODE_ENV === "production" && parsed.OFF_USER_AGENT.includes("example.invalid")) {
-    throw new Error("OFF_USER_AGENT must contain a monitored contact address in production");
+  if (
+    parsed.NODE_ENV === "production" &&
+    (/(?:@|\.)example\.(?:com|net|org)|\.invalid/u.test(parsed.OFF_USER_AGENT) ||
+      !/^[^/\s]+\/[^\s]+ \((?:contact:\s*)?[^@()\s]+@[^@()\s]+\.[^@()\s]+\)$/u.test(
+        parsed.OFF_USER_AGENT,
+      ))
+  ) {
+    throw new Error(
+      "OFF_USER_AGENT must use AppName/Version (monitored-email) format in production",
+    );
   }
   if (
     parsed.NODE_ENV === "production" &&

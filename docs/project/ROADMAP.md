@@ -24,9 +24,9 @@ Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally bl
 
 ## Phase 3 — Production core
 
-- [x] Add bounded cache, opt-in local history, local correction drafts, localization, no-op privacy-safe observability boundary, offline behavior, and database moderation boundary.
+- [x] Add bounded cache, opt-in local history, local correction drafts, localization, privacy-safe aggregate observability boundary, offline behavior, and database moderation boundary.
 - [x] Complete unit, contract, integration, migration and mobile-state tests.
-- [!] Wire production PostgreSQL repositories and authenticated moderation API after hosting/auth/operations providers are selected.
+- [!] Deploy the API and wire production PostgreSQL repositories only after hosting/auth/operations providers, privacy region, shared rate limits and recovery design are approved.
 
 ## Phase 4 — Camera intelligence
 
@@ -36,15 +36,16 @@ Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally bl
 
 ## Phase 5 — Polish
 
-- [x] Complete dark palette, restrained native navigation, haptics, original assets, performance budgets, and multi-viewport web visual QA.
+- [~] Complete dark palette, restrained navigation, haptics, original source assets and multi-viewport web visual QA; optimize or de-scope the web bundle after the distribution decision.
 - [!] Complete native dark/large-text/accessibility/performance evidence on physical devices.
 
 ## Phase 6 — Release engineering
 
-- [x] Complete CI, EAS configuration, store assets/metadata drafts, legal drafts, and release procedures.
+- [~] Complete source CI/EAS configuration, icon assets, metadata/legal drafts and release procedures; Expo Doctor is 19/20 until fresh patches age past policy.
+- [!] Produce signed-binary localized screenshots, Google feature graphic, hosted URLs and final store questionnaires.
 - [!] Generate signed Android/iOS production artifacts and submit without owner accounts, terms acceptance, credentials, and approval.
 
 ## Phase 7 — Release audit
 
-- [x] Run locally available security, privacy, web accessibility, data-licence, content, dependency and recovery-plan audits.
-- [!] Complete physical accessibility/performance, production backup restore, licence/legal, signed-binary and store audits with owner/external evidence.
+- [x] Run an adversarial 30-lane local production audit and repair every locally executable blocker/high finding discovered.
+- [!] Close the NO-GO gates in `docs/final/OWNER_ACTIONS.md`: physical accessibility/performance/camera, production backup/restore/monitoring, licence/legal/content, signed binaries and stores.

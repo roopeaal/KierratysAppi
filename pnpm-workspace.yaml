@@ -6,6 +6,19 @@ packages:
 allowBuilds:
   esbuild: true
 
+overrides:
+  '@expo/cli': 57.0.13
+  '@expo/fingerprint': 0.20.6
+  '@expo/inline-modules': 0.1.4
+  '@expo/local-build-cache-provider': 57.0.5
+  '@expo/metro-config': 57.0.7
+  '@expo/metro-runtime': 57.0.8
+  '@expo/prebuild-config': 57.0.10
+  '@expo/ui': 57.0.9
+  expo-asset: 57.0.9
+  expo-constants: 57.0.9
+  expo-server: 57.0.1
+
 onlyBuiltDependencies:
   - '@biomejs/biome'
   - esbuild

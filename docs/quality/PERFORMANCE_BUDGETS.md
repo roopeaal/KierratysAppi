@@ -14,4 +14,4 @@ These are release budgets to measure on representative physical devices and depl
 | Web entry bundle | warning ≥ 2 MiB uncompressed | Expo export artifact check |
 | Crash-free sessions | ≥ 99.8% | consented aggregate crash telemetry after vendor approval |
 
-The current static web entry is approximately 1.7 MiB uncompressed. Native startup, memory and animation frame stability are unmeasured because Android/iOS toolchains/devices are unavailable. CI must not claim those budgets until a reproducible measurement script and representative runner exist.
+The audited static web entry is 2,525,687 bytes uncompressed and 572,183 bytes gzip, so it exceeds the 2 MiB warning threshold. Web distribution must be either explicitly de-scoped or optimized and measured after deployment. Native startup, memory, animation frame stability, camera latency and battery impact are unmeasured because signed builds/devices are unavailable. CI must not claim those budgets until a reproducible measurement script and representative runner exist.

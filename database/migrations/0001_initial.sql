@@ -8,11 +8,27 @@ CREATE TABLE products (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 
+CREATE FUNCTION is_valid_gtin(value text) RETURNS boolean
+LANGUAGE sql IMMUTABLE STRICT AS $function$
+  SELECT
+    value ~ '^[0-9]+$'
+    AND length(value) IN (8, 12, 13, 14)
+    AND right(value, 1)::integer = (
+      10 - (
+        SELECT sum(
+          substring(value, position, 1)::integer *
+          CASE WHEN (length(value) - position) % 2 = 1 THEN 3 ELSE 1 END
+        )
+        FROM generate_series(1, length(value) - 1) AS position
+      ) % 10
+    ) % 10;
+$function$;
+
 CREATE TABLE gtins (
   gtin varchar(14) PRIMARY KEY,
   product_id uuid NOT NULL REFERENCES products(id) ON DELETE CASCADE,
   created_at timestamptz NOT NULL DEFAULT now(),
-  CHECK (gtin ~ '^[0-9]+$' AND length(gtin) IN (8, 12, 13, 14))
+  CHECK (is_valid_gtin(gtin))
 );
 CREATE INDEX gtins_product_id_idx ON gtins(product_id);
 
@@ -98,6 +114,7 @@ CREATE TABLE material_codes (
   source_url text NOT NULL CHECK (source_url ~ '^https://'),
   effective_from date,
   effective_to date,
+  UNIQUE (code, material_id),
   CHECK (effective_to IS NULL OR effective_from IS NULL OR effective_to >= effective_from)
 );
 
@@ -108,7 +125,7 @@ CREATE TABLE packaging_components (
   packaging_status text NOT NULL DEFAULT 'unknown'
     CHECK (packaging_status IN ('packaging', 'non_packaging', 'unknown')),
   material_id text REFERENCES materials(id) ON DELETE RESTRICT,
-  material_code text REFERENCES material_codes(code) ON DELETE RESTRICT,
+  material_code text,
   shape text CHECK (shape IS NULL OR shape IN ('bottle', 'can', 'jar', 'box', 'carton', 'bag', 'wrap', 'tray', 'cup', 'cap', 'lid', 'pump', 'tube', 'other', 'unknown')),
   deposit_return_status text NOT NULL DEFAULT 'unknown'
     CHECK (deposit_return_status IN ('yes', 'no', 'not_applicable', 'unknown')),
@@ -118,7 +135,10 @@ CREATE TABLE packaging_components (
   emptied text NOT NULL DEFAULT 'unknown' CHECK (emptied IN ('yes', 'no', 'unknown')),
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now(),
-  UNIQUE (product_id, stable_key)
+  UNIQUE (product_id, stable_key),
+  CHECK (material_code IS NULL OR material_id IS NOT NULL),
+  FOREIGN KEY (material_code, material_id)
+    REFERENCES material_codes(code, material_id) ON DELETE RESTRICT
 );
 CREATE INDEX packaging_components_product_id_idx ON packaging_components(product_id);
 

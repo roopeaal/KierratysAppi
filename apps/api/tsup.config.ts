@@ -4,6 +4,6 @@ export default defineConfig({
   entry: ["src/server.ts"],
   format: ["esm"],
   clean: true,
-  sourcemap: true,
+  sourcemap: false,
   noExternal: [/^@kierratysappi\//u],
 });

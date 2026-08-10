@@ -1,6 +1,6 @@
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { Alert, StyleSheet, View } from "react-native";
 import {
   AppText,
   BrandLockup,
@@ -42,9 +42,17 @@ export default function HistoryScreen() {
     await setHistoryEnabled(!enabled);
     refresh();
   };
-  const clear = async () => {
-    await clearHistory();
-    refresh();
+  const confirmClear = () => {
+    Alert.alert(t("clearHistoryConfirmTitle"), t("clearHistoryConfirmBody"), [
+      { text: t("cancel"), style: "cancel" },
+      {
+        text: t("clearHistoryConfirmAction"),
+        style: "destructive",
+        onPress: () => {
+          void clearHistory().then(refresh);
+        },
+      },
+    ]);
   };
   const openEntry = async (gtin: string) => {
     const attempt = await lookupBarcode(gtin, "history");
@@ -87,14 +95,14 @@ export default function HistoryScreen() {
                     {entry.scannedAt.slice(0, 10)} · {entry.resultStatus}
                   </AppText>
                 </View>
-                <InlineLink label="→" onPress={() => void openEntry(entry.gtin)} />
+                <InlineLink label={t("openResult")} onPress={() => void openEntry(entry.gtin)} />
               </View>
             </Paper>
           ))
         )}
       </View>
       {entries.length > 0 && (
-        <Button label={t("clearHistory")} variant="danger" onPress={() => void clear()} />
+        <Button label={t("clearHistory")} variant="danger" onPress={confirmClear} />
       )}
       <AppText variant="small" style={{ color: palette.muted }}>
         {t("privacySummary")}

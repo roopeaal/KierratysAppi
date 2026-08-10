@@ -13,10 +13,10 @@ import { useLanguage } from "@/i18n/language-context";
 import { spacing, useAppTheme } from "@/theme/tokens";
 
 const GUIDE = [
-  ["materialPlastic", "guidePlastic", "PLASTIC"],
-  ["materialCarton", "guideCarton", "CARTON"],
-  ["materialGlass", "guideGlass", "GLASS"],
-  ["materialMetal", "guideMetal", "METAL"],
+  ["materialPlastic", "guidePlastic"],
+  ["materialCarton", "guideCarton"],
+  ["materialGlass", "guideGlass"],
+  ["materialMetal", "guideMetal"],
 ] as const;
 
 export default function GuideScreen() {
@@ -30,21 +30,21 @@ export default function GuideScreen() {
         <InlineLink label={t("close")} onPress={() => router.back()} />
       </View>
       <View style={styles.intro}>
-        <Eyebrow>OFFLINE / FI</Eyebrow>
+        <Eyebrow>{t("materialGuideEyebrow")}</Eyebrow>
         <AppText variant="title" accessibilityRole="header">
           {t("materialGuideTitle")}
         </AppText>
         <AppText muted>{t("materialGuideBody")}</AppText>
       </View>
       <View style={styles.grid}>
-        {GUIDE.map(([title, body, code], index) => (
-          <Paper key={code} style={styles.guideCard}>
+        {GUIDE.map(([title, body], index) => (
+          <Paper key={title} style={styles.guideCard}>
             <View style={styles.cardNumber}>
               <AppText
                 variant="mono"
                 style={{ color: index % 2 === 0 ? palette.pine : palette.cobalt }}
               >
-                {String(index + 1).padStart(2, "0")} / {code}
+                {String(index + 1).padStart(2, "0")} / {t(title).toUpperCase()}
               </AppText>
             </View>
             <AppText variant="heading">{t(title)}</AppText>
@@ -62,8 +62,10 @@ export default function GuideScreen() {
           {t("ruleSourceLabel").toUpperCase()}
         </AppText>
         <InlineLink
-          label="Rinki — sorting instructions"
-          onPress={() => void Linking.openURL("https://rinkiin.fi/en/sorting-instructions/")}
+          label="Suomen Pakkauskierrätys RINKI Oy"
+          onPress={() =>
+            void Linking.openURL("https://rinkiin.fi/lajittelu-kotona/lajitteluohjeet/")
+          }
         />
         <AppText variant="small" muted>
           {t("checkedLabel")}: 2026-08-10

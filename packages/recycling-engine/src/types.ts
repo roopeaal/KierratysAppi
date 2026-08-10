@@ -22,6 +22,8 @@ export const SortingRuleReferenceSchema = z.object({
   sourceName: z.string().min(1),
   sourceUrl: z.url(),
   checkedAt: z.iso.date(),
+  effectiveFrom: z.iso.date(),
+  effectiveTo: z.iso.date().optional(),
   verificationStatus: z.literal("verified"),
 });
 export type SortingRuleReference = z.infer<typeof SortingRuleReferenceSchema>;
@@ -67,6 +69,7 @@ export const UnknownSortingResultSchema = SortingBaseSchema.extend({
     "material_missing",
     "unsupported_material",
     "hazardous_or_pressurized",
+    "no_effective_rule",
   ]),
   nextAction: LocalizedTextSchema,
   sources: z.array(SortingRuleReferenceSchema),

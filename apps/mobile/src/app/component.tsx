@@ -92,7 +92,7 @@ export default function ManualComponentScreen() {
         <InlineLink label={t("close")} onPress={() => router.back()} />
       </View>
       <View style={styles.intro}>
-        <Eyebrow>MANUAL / OBSERVED</Eyebrow>
+        <Eyebrow>{t("manualObservationEyebrow")}</Eyebrow>
         <AppText variant="title" accessibilityRole="header">
           {t("selectMaterialTitle")}
         </AppText>

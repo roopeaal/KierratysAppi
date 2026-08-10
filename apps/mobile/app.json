@@ -13,7 +13,8 @@
       "buildNumber": "1",
       "supportsTablet": true,
       "infoPlist": {
-        "NSCameraUsageDescription": "Kameraa käytetään viivakoodin lukemiseen. Kamerakuvaa ei lähetetä ilman erillistä suostumusta.",
+        "NSCameraUsageDescription": "Kameraa käytetään vain viivakoodin lukemiseen. Kamerakuvaa ei lähetetä.",
+        "CFBundleAllowMixedLocalizations": true,
         "ITSAppUsesNonExemptEncryption": false
       },
       "privacyManifests": {
@@ -28,24 +29,37 @@
     "android": {
       "package": "fi.roopeaaltonen.kierratysappi",
       "versionCode": 1,
+      "allowBackup": false,
       "adaptiveIcon": {
         "backgroundColor": "#F4F0E6",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": true,
-      "permissions": ["android.permission.CAMERA"]
+      "permissions": ["android.permission.CAMERA"],
+      "blockedPermissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.SYSTEM_ALERT_WINDOW"
+      ]
     },
     "web": {
       "output": "static",
       "favicon": "./assets/images/favicon.png"
+    },
+    "locales": {
+      "fi": "./locales/fi.json",
+      "en": "./locales/en.json"
     },
     "plugins": [
       "expo-router",
       [
         "expo-camera",
         {
-          "cameraPermission": "Salli kameran käyttö viivakoodin lukemista varten. Kamerakuvaa ei lähetetä ilman erillistä suostumusta."
+          "cameraPermission": "Kameraa käytetään vain viivakoodin lukemiseen. Kamerakuvaa ei lähetetä.",
+          "microphonePermission": false,
+          "recordAudioAndroid": false
         }
       ],
       [

@@ -30,6 +30,10 @@ export function LanguageProvider({ children }: PropsWithChildren) {
     });
   }, []);
 
+  useEffect(() => {
+    if (typeof document !== "undefined") document.documentElement.lang = language;
+  }, [language]);
+
   const setLanguage = useCallback((next: Language) => {
     setLanguageState(next);
     void AsyncStorage.setItem(LANGUAGE_KEY, next);

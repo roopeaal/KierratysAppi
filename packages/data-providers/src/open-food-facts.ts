@@ -16,11 +16,13 @@ import type { ProductDataProvider, ProviderRequestContext } from "./contracts";
 const API_ORIGIN = "https://world.openfoodfacts.org";
 const MAX_RESPONSE_BYTES = 1_000_000;
 const DEFAULT_TIMEOUT_MS = 4_500;
+const DEFAULT_MAX_REQUESTS_PER_MINUTE = 12;
+const RATE_WINDOW_MS = 60_000;
 
 const DATABASE_LICENSE: SourceLicense = {
-  id: "odbl-1.0",
-  name: "Open Database License 1.0",
-  url: "https://opendatacommons.org/licenses/odbl/1-0/",
+  id: "open-food-facts-odbl-1.0-dbcl-1.0",
+  name: "ODbL 1.0 database / DbCL 1.0 contents",
+  url: "https://openfoodfacts.github.io/documentation/docs/Product-Opener/api/tutorials/license-be-on-the-legal-side/",
   attributionText: "Open Food Facts contributors",
   shareAlike: true,
 };
@@ -34,7 +36,7 @@ const IMAGE_LICENSE: SourceLicense = {
 };
 
 const ResponseSchema = z.object({
-  product: z.record(z.string(), z.unknown()),
+  product: z.object({ code: z.string() }).catchall(z.unknown()),
 });
 
 type FetchLike = typeof fetch;
@@ -44,6 +46,7 @@ export type OpenFoodFactsProviderOptions = {
   readonly timeoutMs?: number;
   readonly now?: () => Date;
   readonly userAgent?: string;
+  readonly maxRequestsPerMinute?: number;
 };
 
 export class OpenFoodFactsProvider implements ProductDataProvider {
@@ -54,16 +57,26 @@ export class OpenFoodFactsProvider implements ProductDataProvider {
   readonly #timeoutMs: number;
   readonly #now: () => Date;
   readonly #userAgent: string;
+  readonly #maxRequestsPerMinute: number;
+  readonly #requestTimestamps: number[] = [];
 
   constructor(options: OpenFoodFactsProviderOptions = {}) {
     this.#fetch = options.fetch ?? globalThis.fetch;
     this.#timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS;
     this.#now = options.now ?? (() => new Date());
     this.#userAgent = options.userAgent ?? "KierratysAppi/0.1 (contact: app-owner@example.invalid)";
+    this.#maxRequestsPerMinute = options.maxRequestsPerMinute ?? DEFAULT_MAX_REQUESTS_PER_MINUTE;
+    if (!Number.isSafeInteger(this.#maxRequestsPerMinute) || this.#maxRequestsPerMinute < 1) {
+      throw new Error("maxRequestsPerMinute must be a positive safe integer");
+    }
   }
 
   async findByGtin(gtin: Gtin, context: ProviderRequestContext): Promise<ProviderProductResult> {
     const canonicalGtin = GtinSchema.parse(gtin);
+    const requestedAt = this.#now();
+    if (!this.#reserveProviderRequest(requestedAt.getTime())) {
+      return { status: "error", code: "rate_limited", retryable: true };
+    }
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), this.#timeoutMs);
     const abortFromCaller = () => controller.abort();
@@ -85,7 +98,7 @@ export class OpenFoodFactsProvider implements ProductDataProvider {
       );
       url.searchParams.set("lc", context.language);
       url.searchParams.set("cc", "fi");
-      url.searchParams.set("product_type", "all");
+      url.searchParams.set("product_type", "food");
 
       const response = await this.#fetch(url, {
         headers: {
@@ -114,8 +127,15 @@ export class OpenFoodFactsProvider implements ProductDataProvider {
       if (!parsed.success) {
         return { status: "error", code: "invalid_response", retryable: false };
       }
+      const returnedGtin = GtinSchema.safeParse(parsed.data.product.code);
+      if (
+        !returnedGtin.success ||
+        returnedGtin.data.padStart(14, "0") !== canonicalGtin.padStart(14, "0")
+      ) {
+        return { status: "error", code: "invalid_response", retryable: false };
+      }
 
-      const product = normalizeProduct(canonicalGtin, parsed.data.product, this.#now());
+      const product = normalizeProduct(canonicalGtin, parsed.data.product, requestedAt);
       return { status: "found", product };
     } catch (error) {
       if (isAbortError(error)) {
@@ -126,6 +146,18 @@ export class OpenFoodFactsProvider implements ProductDataProvider {
       clearTimeout(timeout);
       context.signal?.removeEventListener("abort", abortFromCaller);
     }
+  }
+
+  #reserveProviderRequest(nowMs: number): boolean {
+    while (
+      this.#requestTimestamps.length > 0 &&
+      (this.#requestTimestamps[0] ?? nowMs) <= nowMs - RATE_WINDOW_MS
+    ) {
+      this.#requestTimestamps.shift();
+    }
+    if (this.#requestTimestamps.length >= this.#maxRequestsPerMinute) return false;
+    this.#requestTimestamps.push(nowMs);
+    return true;
   }
 }
 
@@ -255,49 +287,76 @@ function taxonomyText(input: unknown): string | undefined {
 }
 
 function mapMaterial(value: string | undefined): MaterialFamily | undefined {
-  const normalized = value?.toLowerCase();
+  const normalized = value?.trim().toLowerCase();
   if (!normalized) return undefined;
-  if (normalized.includes("plastic")) return "plastic";
-  if (
-    normalized.includes("paperboard") ||
-    normalized.includes("cardboard") ||
-    normalized.includes("carton")
-  )
-    return "carton";
-  if (normalized.includes("paper")) return "paper";
-  if (normalized.includes("glass")) return "glass";
-  if (
-    normalized.includes("metal") ||
-    normalized.includes("steel") ||
-    normalized.includes("aluminium")
-  )
-    return "metal";
-  if (normalized.includes("wood") || normalized.includes("cork")) return "wood";
-  if (normalized.includes("composite")) return "composite";
-  return undefined;
+  return MATERIAL_TAXONOMY.get(normalized);
 }
 
 function mapShape(value: string | undefined): PackagingShape | undefined {
-  const normalized = value?.toLowerCase();
+  const normalized = value?.trim().toLowerCase();
   if (!normalized) return undefined;
-  const mappings: ReadonlyArray<readonly [string, PackagingShape]> = [
-    ["bottle", "bottle"],
-    ["can", "can"],
-    ["jar", "jar"],
-    ["box", "box"],
-    ["carton", "carton"],
-    ["bag", "bag"],
-    ["wrapper", "wrap"],
-    ["wrap", "wrap"],
-    ["tray", "tray"],
-    ["cup", "cup"],
-    ["cap", "cap"],
-    ["lid", "lid"],
-    ["pump", "pump"],
-    ["tube", "tube"],
-  ];
-  return mappings.find(([needle]) => normalized.includes(needle))?.[1];
+  return SHAPE_TAXONOMY.get(normalized);
 }
+
+const MATERIAL_TAXONOMY = new Map<string, MaterialFamily>([
+  ["plastic", "plastic"],
+  ["en:plastic", "plastic"],
+  ["paperboard", "carton"],
+  ["en:paperboard", "carton"],
+  ["cardboard", "carton"],
+  ["en:cardboard", "carton"],
+  ["carton", "carton"],
+  ["en:carton", "carton"],
+  ["paper", "paper"],
+  ["en:paper", "paper"],
+  ["glass", "glass"],
+  ["en:glass", "glass"],
+  ["metal", "metal"],
+  ["en:metal", "metal"],
+  ["steel", "metal"],
+  ["en:steel", "metal"],
+  ["aluminium", "metal"],
+  ["en:aluminium", "metal"],
+  ["aluminum", "metal"],
+  ["en:aluminum", "metal"],
+  ["wood", "wood"],
+  ["en:wood", "wood"],
+  ["cork", "wood"],
+  ["en:cork", "wood"],
+  ["composite", "composite"],
+  ["en:composite", "composite"],
+]);
+
+const SHAPE_TAXONOMY = new Map<string, PackagingShape>([
+  ["bottle", "bottle"],
+  ["en:bottle", "bottle"],
+  ["can", "can"],
+  ["en:can", "can"],
+  ["jar", "jar"],
+  ["en:jar", "jar"],
+  ["box", "box"],
+  ["en:box", "box"],
+  ["carton", "carton"],
+  ["en:carton", "carton"],
+  ["bag", "bag"],
+  ["en:bag", "bag"],
+  ["wrapper", "wrap"],
+  ["en:wrapper", "wrap"],
+  ["wrap", "wrap"],
+  ["en:wrap", "wrap"],
+  ["tray", "tray"],
+  ["en:tray", "tray"],
+  ["cup", "cup"],
+  ["en:cup", "cup"],
+  ["cap", "cap"],
+  ["en:cap", "cap"],
+  ["lid", "lid"],
+  ["en:lid", "lid"],
+  ["pump", "pump"],
+  ["en:pump", "pump"],
+  ["tube", "tube"],
+  ["en:tube", "tube"],
+]);
 
 function stringList(input: unknown): string[] {
   if (typeof input !== "string") return [];

@@ -36,7 +36,7 @@ Last reviewed: 2026-08-10. Scope: mobile barcode flow, public lookup API, extern
 - A bottle with unknown deposit status asks the user to inspect the Finnish deposit mark.
 - Incomplete packaging never implies the displayed component list is exhaustive.
 - A forged provider recycling label cannot override a verified Finnish sorting rule.
-- An offline cached answer identifies its cached/rule dates.
+- No cached answer is presented as available offline. If offline result serving is introduced, it must identify cache/rule dates and a safe staleness policy.
 
 ## Residual risk / gates
 

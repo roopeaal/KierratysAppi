@@ -118,6 +118,24 @@ describe("ProductResolutionService", () => {
     }
   });
 
+  it("bounds the in-process cache and evicts the oldest locale entry", async () => {
+    const findByGtin = vi.fn(async () => ({ status: "found" as const, product: product(true) }));
+    const cache = new Map();
+    const service = new ProductResolutionService({
+      providers: [provider("primary", findByGtin)],
+      cache,
+      maxCacheEntries: 1,
+      now: () => new Date("2026-08-10T12:00:00.000Z"),
+    });
+
+    await service.lookup({ gtin, country: "FI", language: "fi" });
+    await service.lookup({ gtin, country: "FI", language: "en" });
+    await service.lookup({ gtin, country: "FI", language: "fi" });
+
+    expect(cache.size).toBe(1);
+    expect(findByGtin).toHaveBeenCalledTimes(3);
+  });
+
   it("returns not-found only when every provider completed successfully", async () => {
     const notFoundService = new ProductResolutionService({
       providers: [provider("primary", async () => ({ status: "not_found" }))],
@@ -149,5 +167,15 @@ describe("ProductResolutionService", () => {
     expect(() => new ProductResolutionService({ providers: [] })).toThrow(
       "At least one product data provider is required",
     );
+  });
+
+  it("rejects an invalid cache bound", () => {
+    expect(
+      () =>
+        new ProductResolutionService({
+          providers: [provider("primary", async () => ({ status: "not_found" }))],
+          maxCacheEntries: 0,
+        }),
+    ).toThrow("maxCacheEntries must be a positive safe integer");
   });
 });

@@ -10,6 +10,7 @@ import {
 
 const FOUND_TTL_MS = 6 * 60 * 60 * 1_000;
 const NOT_FOUND_TTL_MS = 15 * 60 * 1_000;
+const DEFAULT_MAX_CACHE_ENTRIES = 5_000;
 
 type CacheRecord = {
   readonly provider: { readonly id: string; readonly name: string } | undefined;
@@ -22,20 +23,27 @@ export type ProductResolutionServiceOptions = {
   readonly providers: readonly ProductDataProvider[];
   readonly now?: () => Date;
   readonly cache?: Map<string, CacheRecord>;
+  readonly maxCacheEntries?: number;
 };
 
 export class ProductResolutionService {
   readonly #providers: readonly ProductDataProvider[];
   readonly #now: () => Date;
   readonly #cache: Map<string, CacheRecord>;
+  readonly #maxCacheEntries: number;
 
   constructor(options: ProductResolutionServiceOptions) {
     if (options.providers.length === 0) {
       throw new Error("At least one product data provider is required");
     }
+    const maxCacheEntries = options.maxCacheEntries ?? DEFAULT_MAX_CACHE_ENTRIES;
+    if (!Number.isSafeInteger(maxCacheEntries) || maxCacheEntries < 1) {
+      throw new Error("maxCacheEntries must be a positive safe integer");
+    }
     this.#providers = options.providers;
     this.#now = options.now ?? (() => new Date());
     this.#cache = options.cache ?? new Map();
+    this.#maxCacheEntries = maxCacheEntries;
   }
 
   async lookup(input: ProductLookupInput, signal?: AbortSignal): Promise<ProductLookupResult> {
@@ -100,6 +108,13 @@ export class ProductResolutionService {
     ttlMs: number,
     now: Date,
   ): CacheRecord {
+    this.#pruneCache(now.getTime());
+    this.#cache.delete(key);
+    while (this.#cache.size >= this.#maxCacheEntries) {
+      const oldestKey = this.#cache.keys().next().value as string | undefined;
+      if (oldestKey === undefined) break;
+      this.#cache.delete(oldestKey);
+    }
     const record: CacheRecord = {
       provider: provider ? { id: provider.id, name: provider.displayName } : undefined,
       result,
@@ -108,6 +123,12 @@ export class ProductResolutionService {
     };
     this.#cache.set(key, record);
     return record;
+  }
+
+  #pruneCache(nowMs: number): void {
+    for (const [key, record] of this.#cache) {
+      if (record.expiresAt <= nowMs) this.#cache.delete(key);
+    }
   }
 
   #toLookupResult(

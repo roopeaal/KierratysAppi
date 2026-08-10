@@ -21,6 +21,7 @@ export const PALPA_RULE: SortingRuleReference = {
   sourceName: "Suomen Palautuspakkaus Oy (Palpa)",
   sourceUrl: "https://www.palpa.fi/for-consumers/faq/",
   checkedAt: "2026-08-10",
+  effectiveFrom: "2026-08-10",
   verificationStatus: "verified",
 };
 
@@ -52,6 +53,7 @@ export const MATERIAL_RULES: readonly MaterialRule[] = [
       sourceUrl:
         "https://rinkiin.fi/lajittelu-kotona/lajitteluohjeet/muovipakkausten-lajitteluohjeet/",
       checkedAt: "2026-08-10",
+      effectiveFrom: "2026-08-10",
       verificationStatus: "verified",
     },
   },
@@ -77,6 +79,7 @@ export const MATERIAL_RULES: readonly MaterialRule[] = [
       sourceUrl:
         "https://rinkiin.fi/lajittelu-kotona/lajitteluohjeet/kartonkipakkausten-lajitteluohjeet/",
       checkedAt: "2026-08-10",
+      effectiveFrom: "2026-08-10",
       verificationStatus: "verified",
     },
   },
@@ -108,6 +111,7 @@ export const MATERIAL_RULES: readonly MaterialRule[] = [
       sourceUrl:
         "https://rinkiin.fi/lajittelu-kotona/lajitteluohjeet/lasipakkausten-lajitteluohjeet/",
       checkedAt: "2026-08-10",
+      effectiveFrom: "2026-08-10",
       verificationStatus: "verified",
     },
   },
@@ -121,8 +125,8 @@ export const MATERIAL_RULES: readonly MaterialRule[] = [
       en: "Empty the package. Take metal items larger than the collection opening to the place specified by your municipality.",
     },
     explanation: {
-      fi: "Tämä on kotitalouden metallipakkaus tai pienmetalli, joten siihen sovelletaan valtakunnallista metallinkeräyksen ohjetta.",
-      en: "This is household metal packaging or small metal, so the nationwide metal-collection rule applies.",
+      fi: "Tämä on kotitalouden metallipakkaus, joten siihen sovelletaan valtakunnallista metallinkeräyksen ohjetta.",
+      en: "This is household metal packaging, so the nationwide metal-collection rule applies.",
     },
     exceptions: [hazardousException],
     reference: {
@@ -132,6 +136,7 @@ export const MATERIAL_RULES: readonly MaterialRule[] = [
       sourceName: "Suomen Pakkauskierrätys RINKI Oy",
       sourceUrl: "https://rinkiin.fi/lajittelu-kotona/lajitteluohjeet/metallin-lajitteluohjeet/",
       checkedAt: "2026-08-10",
+      effectiveFrom: "2026-08-10",
       verificationStatus: "verified",
     },
   },

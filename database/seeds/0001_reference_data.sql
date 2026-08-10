@@ -27,7 +27,7 @@ INSERT INTO rule_sources (
     '00000000-0000-4000-8000-000000000101',
     'Suomen Pakkauskierrätys RINKI Oy',
     'Sorting instructions',
-    'https://rinkiin.fi/en/sorting-instructions/',
+    'https://rinkiin.fi/lajittelu-kotona/lajitteluohjeet/',
     '2026-08-10',
     'verified',
     '{"reuse":"link-and-paraphrase","legal_review_required":true}'
@@ -36,7 +36,7 @@ INSERT INTO rule_sources (
     '00000000-0000-4000-8000-000000000102',
     'Suomen Palautuspakkaus Oy (Palpa)',
     'Deposit system',
-    'https://www.palpa.fi/beverage-container-recycling/deposit-refund-system/',
+    'https://www.palpa.fi/for-consumers/faq/',
     '2026-08-10',
     'verified',
     '{"reuse":"link-and-paraphrase","legal_review_required":true}'

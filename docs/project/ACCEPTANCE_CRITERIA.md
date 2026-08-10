@@ -24,5 +24,8 @@
 
 - `pnpm validate` succeeds from a clean install.
 - CI configuration mirrors local validation.
-- Native configuration passes Expo diagnostics that do not require signing.
+- Expo Doctor and `expo install --check` pass without exclusions or release-age-policy bypasses.
+- Signed Android/iOS builds pass the physical camera, accessibility, large-text, reduced-motion, dark-mode, performance, battery and upgrade matrix.
+- Production HTTPS API, shared quota controls, PostgreSQL migration/backup/restore, monitoring/alerts and incident contacts have operational evidence.
+- Privacy/terms, OFF licensing/account use and Rinki/Palpa rule content have named approvals; store materials/forms are complete and validated.
 - Physical-device, signed-build, store, and legal-owner gaps are explicitly blocked rather than claimed complete.

@@ -4,6 +4,7 @@ const HISTORY_ENABLED_KEY = "@kierratysappi/history-enabled/v1";
 const HISTORY_KEY = "@kierratysappi/history/v1";
 const PENDING_KEY = "@kierratysappi/pending-lookups/v1";
 const FEEDBACK_KEY = "@kierratysappi/feedback-drafts/v1";
+const APP_STORAGE_PREFIX = "@kierratysappi/";
 
 export type HistoryEntry = {
   readonly gtin: string;
@@ -41,6 +42,15 @@ export async function addHistoryEntry(entry: HistoryEntry): Promise<void> {
 
 export async function clearHistory(): Promise<void> {
   await AsyncStorage.removeItem(HISTORY_KEY);
+}
+
+export async function clearAllLocalData(): Promise<void> {
+  const appKeys = (await AsyncStorage.getAllKeys()).filter(isAppStorageKey);
+  if (appKeys.length > 0) await AsyncStorage.multiRemove(appKeys);
+}
+
+export function isAppStorageKey(key: string): boolean {
+  return key.startsWith(APP_STORAGE_PREFIX);
 }
 
 export async function queuePendingLookup(gtin: string): Promise<void> {

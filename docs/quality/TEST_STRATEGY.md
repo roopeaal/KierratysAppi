@@ -4,14 +4,14 @@
 
 - Domain unit tests: GTIN-8/12/13/14 normalization/checksum, confidence tiers, and provenance caps.
 - Policy unit tests: packaging status, hazard/pressure, deposit precedence, glass shape, supported and unsupported materials.
-- Provider contract tests: URL/header contract, normalization, unsafe image filtering, partial packaging, timeout, 404, 429, 5xx, redirects, malformed and oversized bodies, and explicit GS1 mock status.
+- Provider contract tests: fixed food-product URL/header contract, returned-GTIN binding, exact conservative taxonomy mapping, normalization, unsafe image filtering, partial packaging, local quota, timeout, 404, 429, 5xx, redirects, malformed and oversized bodies, combined OFF licence provenance, and explicit GS1 mock status.
 - Application integration tests: provider fallback, cache/freshness, missing packaging, component rule evaluation, not-found versus outage.
-- HTTP integration tests: health/OpenAPI, body validation, response status mapping, size limit, configured CORS origins, security response behavior.
-- Migration tests: execute SQL in PGlite PostgreSQL, assert all 26 entities, row security, constraints, and rule-version immutability.
-- Mobile-state tests: duplicate scan window and offline recovery state.
+- HTTP integration tests: health/OpenAPI, strict body validation, response status mapping, size/rate limits, configured CORS origins, aggregate lookup observation and generic security response behavior.
+- Migration tests: execute SQL in PGlite PostgreSQL, assert all 26 entities, row security, GTIN/material integrity, idempotent seeds and rule-version immutability.
+- Mobile tests: duplicate scan window, offline/protocol recovery states, production API URL validation, supported barcode formats, scoped local deletion, reduced-motion transition selection and token contrast.
 - Build checks: declaration/package builds, bundled API, Expo static export, Expo compatibility and peer checks.
 
-The root `pnpm validate` command is the local source of truth. CI runs the same command from a frozen lockfile and adds Expo Doctor and the dependency-audit policy.
+The root `pnpm validate` command is the local source-validation gate. CI runs it from a frozen lockfile and adds Expo Doctor and the dependency-audit policy. A passing local gate is not release acceptance while Doctor/native/device/infrastructure/legal/store evidence is missing.
 
 ## Required device/E2E evidence
 

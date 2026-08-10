@@ -16,19 +16,33 @@ import Fastify, {
 } from "fastify";
 import { z } from "zod";
 
-const LookupBodySchema = z.object({
-  gtin: z.string().min(1).max(32),
-  language: z.enum(["fi", "en"]).default("fi"),
-});
+const LookupBodySchema = z
+  .object({
+    gtin: z.string().min(1).max(32),
+    language: z.enum(["fi", "en"]).default("fi"),
+  })
+  .strict();
 
 export interface LookupService {
   lookup(input: ProductLookupInput, signal?: AbortSignal): Promise<ProductLookupResult>;
+}
+
+export type LookupObservation = {
+  readonly status: ProductLookupResult["status"];
+  readonly providerId: string | undefined;
+  readonly cacheHit: boolean;
+  readonly durationMs: number;
+};
+
+export function clientErrorLogFields(statusCode: number): { readonly statusCode: number } {
+  return { statusCode };
 }
 
 export type BuildAppOptions = {
   readonly lookupService: LookupService;
   readonly logger?: false | FastifyLoggerOptions;
   readonly allowedWebOrigins?: readonly string[];
+  readonly observeLookup?: (observation: LookupObservation) => void;
 };
 
 export async function buildApp(options: BuildAppOptions): Promise<FastifyInstance> {
@@ -40,7 +54,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     ajv: {
       customOptions: {
         allErrors: false,
-        removeAdditional: true,
+        removeAdditional: false,
       },
     },
   });
@@ -63,6 +77,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
     max: 60,
     timeWindow: "1 minute",
     errorResponseBuilder: () => ({
+      statusCode: 429,
       error: { code: "rate_limited", message: "Too many requests. Try again shortly." },
     }),
   });
@@ -134,12 +149,14 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
             },
           },
           400: errorResponseSchema("invalid_request"),
+          429: errorResponseSchema("rate_limited"),
           404: statusResponseSchema("not_found"),
           503: statusResponseSchema("provider_unavailable"),
         },
       },
     },
     async (request, reply) => {
+      const startedAt = Date.now();
       const body = LookupBodySchema.safeParse(request.body);
       if (!body.success) {
         return reply.code(400).send({
@@ -169,6 +186,21 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
           ),
         );
 
+        const observation: LookupObservation = {
+          status: result.status,
+          providerId:
+            result.status === "resolved" || result.status === "packaging_missing"
+              ? result.provider.id
+              : undefined,
+          cacheHit:
+            result.status === "resolved" || result.status === "packaging_missing"
+              ? result.cache.hit
+              : false,
+          durationMs: Math.max(0, Date.now() - startedAt),
+        };
+        options.observeLookup?.(observation);
+        request.log.info({ lookup: observation }, "Lookup completed");
+
         reply.header("Cache-Control", "private, no-store");
         if (result.status === "not_found") {
           return reply.code(404).send(result);
@@ -190,12 +222,24 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   );
 
   app.setErrorHandler(async (error: FastifyError, request, reply) => {
-    request.log.error({ err: error }, "Unhandled request error");
-    return reply.code(error.statusCode && error.statusCode < 500 ? error.statusCode : 500).send({
+    const statusCode = error.statusCode && error.statusCode < 500 ? error.statusCode : 500;
+    if (statusCode >= 500) {
+      request.log.error({ err: error }, "Unhandled request error");
+    } else {
+      request.log.warn(clientErrorLogFields(statusCode), "Request rejected");
+    }
+    const response =
+      statusCode === 413
+        ? { code: "payload_too_large", message: "Request body is too large." }
+        : statusCode === 429
+          ? { code: "rate_limited", message: "Too many requests. Try again shortly." }
+          : statusCode === 400
+            ? { code: "invalid_request", message: "Request body is invalid." }
+            : { code: "internal_error", message: "Unexpected server error." };
+    return reply.code(statusCode).send({
       error: {
-        code: error.statusCode === 413 ? "payload_too_large" : "internal_error",
-        message:
-          error.statusCode && error.statusCode < 500 ? error.message : "Unexpected server error.",
+        code: response.code,
+        message: response.message,
       },
     });
   });

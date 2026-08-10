@@ -1,0 +1,9 @@
+{
+  "ios": {
+    "CFBundleDisplayName": "KierrätysAppi",
+    "NSCameraUsageDescription": "The camera is used only to read barcodes. Camera frames are not uploaded."
+  },
+  "android": {
+    "app_name": "KierrätysAppi"
+  }
+}

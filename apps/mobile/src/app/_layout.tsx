@@ -8,14 +8,17 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
+import { useReducedMotion } from "react-native-reanimated";
 import { LanguageProvider } from "@/i18n/language-context";
 import { ScanSessionProvider } from "@/features/scan/session-context";
+import { navigationAnimation } from "@/features/accessibility/motion";
 import { useAppTheme } from "@/theme/tokens";
 
 void SplashScreen.preventAutoHideAsync();
 
 function Navigation() {
   const { palette, isDark } = useAppTheme();
+  const reducedMotion = useReducedMotion();
   return (
     <>
       <StatusBar style={isDark ? "light" : "dark"} />
@@ -23,7 +26,7 @@ function Navigation() {
         screenOptions={{
           headerShown: false,
           contentStyle: { backgroundColor: palette.background },
-          animation: "fade_from_bottom",
+          animation: navigationAnimation(reducedMotion),
         }}
       />
     </>
