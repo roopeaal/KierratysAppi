@@ -37,7 +37,7 @@ This report is deliberately separate from simulator, web and generated-configura
 | Unrelated purpose strings | Pass configuration | No microphone or location usage description is generated. Location is not used by the current product. |
 | Development compile | Pass | Xcode Debug build completed for `iphoneos` on 2026-08-22, then passed again after the six Expo-compatible patch updates and refreshed pods. Dependency compiler warnings remain; no build error occurred. |
 | Development signature | Pass | All 11 embedded frameworks passed strict signature verification and the app passed recursive `codesign --verify --deep --strict`. This is development evidence, not App Store archive evidence. |
-| Development install/launch | Pass/confirmation pending for latest rebuild | The earlier renewed build loaded 1,801 modules and the owner confirmed home. After dependency updates, `devicectl` installed/launched the rebuilt app and Metro 57.0.15 loaded 1,804 modules; owner-side home confirmation is pending. |
+| Development install/launch | Pass | The earlier renewed build loaded 1,801 modules and the owner confirmed home. After dependency updates, `devicectl` installed/launched the rebuilt app, Metro 57.0.15 loaded 1,804 modules and the owner again confirmed the normal home screen. |
 | Entitlements | Partial | Development signing/install passes. Final archive entitlements remain unverified. |
 | Privacy manifest | Pass configuration | No tracking or collected data types; UserDefaults required-reason API uses `CA92.1`. Final dependency-merged archive remains unverified. |
 | Icons/splash | Pass generation | App icon, splash logo at 1x/2x/3x, splash background and storyboard are generated from source assets. |

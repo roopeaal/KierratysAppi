@@ -17,7 +17,7 @@ Evidence date: 2026-08-22. Host: macOS, local Node 26.4.0 and pnpm 11.16.0; prod
 | Generated privacy/entitlements | Empty app entitlements; no tracking/collected types; UserDefaults reason `CA92.1` |
 | Debug native compile | Pass on 2026-08-22 for generic `iphoneos`, including a second build after Expo/pod patch updates; dependency warnings were emitted, no build error |
 | Recursive signature | Pass: 11/11 embedded frameworks valid; `codesign --verify --deep --strict` passed for the app |
-| Physical install/runtime matrix | Partial pass: the earlier development install covers launch, lifecycle, EAN-13, permissions, known/unknown/OFF/offline/retry/cache/provenance; the post-patch build is installed/launched with owner-side home confirmation pending; see `docs/final/PHYSICAL_IOS_VALIDATION.md` |
+| Physical install/runtime matrix | Partial pass: the earlier development install covers lifecycle, EAN-13, permissions, known/unknown/OFF/offline/retry/cache/provenance; the post-patch build also installed, launched and reached the owner-confirmed normal home screen; see `docs/final/PHYSICAL_IOS_VALIDATION.md` |
 
 Official Expo and Apple requirements were rechecked on 2026-08-10. Expo SDK 57 requires Xcode 26.4+ and iOS 16.4+; Xcode 26.6 supports this host. Apple permits local Personal-Team testing with seven-day provisioning limits. The observed profile did expire after seven days; a renewed build/install on 2026-08-22 restored the development run. This is not release/TestFlight evidence.
 
