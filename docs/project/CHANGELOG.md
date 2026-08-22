@@ -1,5 +1,14 @@
 # Project changelog
 
+## 2026-08-22
+
+- Compiled, strictly signature-verified, installed and launched an Xcode 26.6 Debug build on an iPhone 12 Pro Max running iOS 26.1.
+- Recorded partial physical passes for lifecycle, camera permission/revocation/settings recovery, a real EAN-13 unknown-product flow, known OFF resolution, offline/retry/cache recovery, invalid-manual rejection and product/licence/rule provenance links.
+- Observed and documented the expected seven-day Personal-Team expiry; renewed the owner account/profile, rebuilt, reinstalled, re-trusted and restored the development run without claiming release readiness.
+- Revalidated the time-sensitive Expo gate, installed six SDK-supported patches after they cleared an explicitly enforced strict 1,440-minute release age, removed stale compatibility overrides, and restored install-check/Doctor 20/20/peer-check success.
+- Excluded generated native projects and Expo's generated environment declaration from Biome and locked the dependency-age policy, each with a repository-policy regression; validation now runs 133 application tests plus two policy tests.
+- Retained NO-GO for archive/TestFlight, remaining camera/accessibility/performance evidence, Android, infrastructure, legal/licensing/content and store gates.
+
 ## 2026-08-10
 
 - Initialized the empty repository.

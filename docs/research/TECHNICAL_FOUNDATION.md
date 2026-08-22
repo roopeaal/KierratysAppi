@@ -1,16 +1,17 @@
 # Technical foundation research
 
-Accessed: 2026-08-10. Sources are official project documentation or package metadata.
+Accessed: 2026-08-10; dependency-age and Expo patch metadata rechecked 2026-08-22. Sources are official project documentation or package metadata.
 
 ## Current mobile toolchain
 
 - Expo's current setup guide names SDK 57 and recommends Node.js LTS: https://docs.expo.dev/get-started/create-a-project/
-- The SDK 57 template resolves Expo 57.0.11, React Native 0.86.2, React 19.2.3, Expo Router 57.0.11, and TypeScript 6.0.3. These were verified by generating the official template locally.
+- The installed compatible patch set resolves Expo 57.0.15, React Native 0.86.2, React 19.2.3, Expo Router 57.0.15, and TypeScript 6.0.3. `expo install --check` and Expo Doctor 1.20.1 independently confirm compatibility.
 - Expo Router is the supported file-based routing/deep-linking layer and its SDK 57 bundled version is documented at https://docs.expo.dev/versions/latest/sdk/router/.
-- `expo-camera` 57.0.3 provides `CameraView`, camera-permission hooks, and barcode detection. Only one preview should be mounted; Android/iOS scanning requires a device: https://docs.expo.dev/versions/latest/sdk/camera/.
+- `expo-camera` 57.0.4 provides `CameraView`, camera-permission hooks, and barcode detection. Only one preview should be mounted; Android/iOS scanning requires a device: https://docs.expo.dev/versions/latest/sdk/camera/.
 - Expo recommends development builds for production applications rather than treating Expo Go as the whole development environment: https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/.
 - EAS's SDK 57 Android image currently uses Node 22.23.1, pnpm 11.9.0, Java 17, and Maestro 2.6.1. The build image can be pinned by SDK alias: https://docs.expo.dev/build-reference/infrastructure/.
 - Node 26 is still `Current` in August 2026; Node says production applications should use an LTS line. Node 24 is LTS: https://nodejs.org/en/about/previous-releases.
+- Pnpm 11 documents `minimumReleaseAge` in minutes, with a 1,440-minute default, and says explicit configuration enables strict resolution by default: https://pnpm.io/settings/dependency-resolution#minimumreleaseage. The workspace encodes both the 1,440-minute value and strict mode so the policy is reviewable and deterministic.
 
 ### Decision
 

@@ -37,16 +37,16 @@ Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally bl
 ## Phase 5 — Polish
 
 - [~] Complete dark palette, restrained navigation, haptics, original source assets and multi-viewport web visual QA; optimize or de-scope the web bundle after the distribution decision.
-- [~] Complete native dark/large-text/accessibility/performance evidence on physical iPhone: host/config preflight is recorded, but full Xcode and the device run are pending.
+- [~] Complete native dark/large-text/accessibility/performance evidence on physical iPhone: Xcode development build/install and core flows pass; VoiceOver, largest text, dark/reduced-motion and performance/battery rows remain.
 
 ## Phase 6 — Release engineering
 
-- [~] Complete source CI/EAS configuration, icon assets, metadata/legal drafts and release procedures; Expo Doctor is 19/20 until fresh patches age past policy.
+- [~] Complete source CI/EAS configuration, icon assets, metadata/legal drafts and release procedures; Expo compatibility now passes behind strict release-age enforcement, while native release and store gates remain.
 - [!] Produce signed-binary localized screenshots, Google feature graphic, hosted URLs and final store questionnaires.
 - [!] Generate signed Android/iOS production artifacts and submit without owner accounts, terms acceptance, credentials, and approval.
 
 ## Phase 7 — Release audit
 
 - [x] Run an adversarial 30-lane local production audit and repair every locally executable blocker/high finding discovered.
-- [~] Execute `docs/final/PHYSICAL_IOS_VALIDATION.md`; local Xcode 26.6 was selected as the free first path and all physical rows remain unrun.
+- [~] Execute `docs/final/PHYSICAL_IOS_VALIDATION.md`; the local Xcode 26.6/Personal-Team build passes core lifecycle, permission, EAN-13, OFF, offline/retry/cache and provenance flows, while the broader matrix remains open.
 - [!] Close the NO-GO gates in `docs/final/OWNER_ACTIONS.md`: physical accessibility/performance/camera, production backup/restore/monitoring, licence/legal/content, signed binaries and stores.

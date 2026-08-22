@@ -11,7 +11,7 @@
 - Mobile tests: duplicate scan window, offline/protocol recovery states, production API URL validation, supported barcode formats, scoped local deletion, reduced-motion transition selection and token contrast.
 - Build checks: declaration/package builds, bundled API, Expo static export, Expo compatibility and peer checks.
 
-The root `pnpm validate` command is the local source-validation gate. CI runs it from a frozen lockfile and adds Expo Doctor and the dependency-audit policy. A passing local gate is not release acceptance while Doctor/native/device/infrastructure/legal/store evidence is missing.
+The root `pnpm validate` command is the local source-validation gate. CI runs it from a frozen lockfile and adds Expo Doctor and the dependency-audit policy. A passing local gate and Doctor 20/20 are not release acceptance while native/device/infrastructure/legal/store evidence is missing.
 
 ## Required device/E2E evidence
 

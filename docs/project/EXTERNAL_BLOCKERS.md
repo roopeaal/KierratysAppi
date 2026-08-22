@@ -5,8 +5,8 @@ These are release blockers or high-risk gates that cannot be completed without e
 | Blocker | Severity | Why external | Owner action |
 | --- | --- | --- | --- |
 | Android signed build/device/Play validation | blocker | No Java runtime, SDK/ADB, device, signing, EAS/Play authority | OA-08 |
-| iOS physical development run and Xcode-26 archive/TestFlight validation | blocker | Host is compatible with Xcode 26.6, but only Command Line Tools are installed; physical iPhone details/pairing, signing and release authority remain absent | `docs/final/PHYSICAL_IOS_VALIDATION.md`, OA-09 |
-| Physical barcode/accessibility/performance/battery evidence | blocker/high | Requires installable signed builds and representative devices | OA-08, OA-09 |
+| iOS release archive/TestFlight validation | blocker | Local Personal-Team compile/sign/install/core-device flow passes, but paid-program archive, final entitlements/privacy report, TestFlight processing and release authority remain absent | `docs/final/PHYSICAL_IOS_VALIDATION.md`, OA-09 |
+| Remaining physical barcode/accessibility/performance/battery evidence | blocker/high | One iPhone development build and EAN-13/core-flow subset pass; broader iOS matrix and all Android device evidence require continued manual device work | OA-08, OA-09 |
 | Production HTTPS API/shared quota/database | blocker | Provider/region/cost/accounts/domain approval absent | OA-01 |
 | PostgreSQL backup/restore/RPO/RTO | high | No managed production database or operations owner | OA-02 |
 | OFF account/contact/licence approval | high | Owner account/mailbox and legal decision required | OA-03 |
@@ -15,7 +15,6 @@ These are release blockers or high-risk gates that cannot be completed without e
 | Privacy/GDPR/terms/hosted URLs | blocker | Controller/legal decisions and publication required | OA-06 |
 | Monitoring, alerts, contacts and incident drills | high | Vendor/account/privacy/on-call decisions absent | OA-07 |
 | Store screenshots/feature graphic/forms/validation | blocker/high | Depends on signed builds, accounts and approvals | OA-10 |
-| Four fresh Expo patches | high/time-gated | Minimum-release-age policy; current Doctor 19/20 | OA-11 |
 | Two high Metro `image-size` advisories | high/time-gated | Patched `2.0.3` is unpublished; exception expires 2026-09-10 | OA-11 |
 | Private branch protection/CodeQL | high governance | GitHub plan/Code Security approval; API currently returns 403 and no variable exists | OA-12 |
 

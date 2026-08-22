@@ -5,10 +5,10 @@ Status: **NO-GO**. This is a tested source foundation, not a production-capable 
 | Gate | Status | Evidence/requirement |
 | --- | --- | --- |
 | Core source flow | Pass locally | Manual/live API→OFF and automated state/domain/provider/API evidence |
-| Local validation | Pass | 133 tests; format/lint/typecheck/build/export pass |
-| Expo compatibility | Fail | Doctor 19/20 and install check fail for four unaged patches |
-| Android/iOS builds | Blocked | No signed artifacts, installation or native runtime evidence |
-| Camera/accessibility/performance | Blocked | No physical device evidence |
+| Local validation | Pass | 133 application tests plus two repository-policy regressions; format/lint/typecheck/build/export pass |
+| Expo compatibility | Pass | Strict 1,440-minute age gate; install check clean and Doctor 20/20 |
+| Android/iOS builds | Partial/blocked | iOS Personal-Team Debug compile/sign/install/core runtime passes; Android and iOS archive/TestFlight/release builds remain absent |
+| Camera/accessibility/performance | Partial/blocked | One physical EAN-13 and permission/offline/provenance subset passes on iPhone; broader barcode, VoiceOver/large text and performance/battery remain |
 | Production service/recovery | Absent | No HTTPS endpoint/database/monitoring/restore drill |
 | Sorting/licensing/legal | Blocked | Human content, OFF and privacy/terms approval absent |
 | Store package | Incomplete | Icons exist; screenshots/feature graphic/forms/URLs/console validation absent |

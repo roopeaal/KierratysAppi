@@ -15,7 +15,7 @@
     "format:check": "biome format .",
     "lint": "biome lint .",
     "security:audit": "node scripts/audit-policy.mjs",
-    "test": "pnpm -r --if-present test",
+    "test": "node --test scripts/__tests__/*.test.mjs && pnpm -r --if-present test",
     "test:coverage": "pnpm -r --if-present test:coverage",
     "typecheck": "pnpm -r --if-present typecheck",
     "validate": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build"

@@ -1,6 +1,6 @@
 # Current state
 
-Last updated: 2026-08-10 after the physical-iOS preflight.
+Last updated: 2026-08-22 after the first partial physical-iOS run and renewed Personal-Team build.
 
 ## Verified implementation
 
@@ -14,22 +14,23 @@ Last updated: 2026-08-10 after the physical-iOS preflight.
 ## Current validation truth
 
 - `pnpm install --frozen-lockfile`: pass.
-- `pnpm validate`: pass; 133 tests across 20 files, all type/lint/format checks, package/API builds and 12-route web export.
+- `pnpm validate`: pass; 133 application tests across 20 Vitest files plus two Node repository-policy regressions (135 automated tests total), all type/lint/format checks, package/API builds and 12-route web export.
 - `pnpm test:coverage`: pass; core domain/provider/engine/application/API packages have approximately 90%+ statement coverage, while tested mobile modules are 62.02% and do not cover native UI behavior.
 - `pnpm security:audit`: pass under an explicit policy that temporarily accepts two high Metro `image-size` build-tool advisories until 2026-09-10 because the declared patched version is unpublished.
-- Expo Doctor 1.20.1: **19/20, not green**. Four patches released hours before the audit are deliberately not installed until the minimum-release-age gate passes. `expo install --check` fails for the same versions.
+- Expo Doctor 1.20.1: **20/20**. `expo install --check` passes after installing the six SDK-supported patches once they exceeded the explicit strict 1,440-minute release-age gate; peer-dependency check is clean.
 - API production smoke: pass locally; health/OpenAPI/strict validation verified. No deployed production service exists.
-- Web entry: 2,525,687 bytes uncompressed / 572,183 bytes gzip, above the 2 MiB warning budget.
-- Clean iOS/Android prebuild configuration inspection passes the intended permission/privacy source configuration; no native binary was compiled.
+- Web entry: 2,528,030 bytes uncompressed / 571,827 bytes gzip, above the 2 MiB warning budget.
+- Clean Android prebuild configuration inspection passes the intended permission/privacy source configuration; no Android binary was compiled.
 - Live browser/manual/API→OFF lookup and mobile/desktop visual inspection passed. This is not physical-camera/native evidence.
-- Physical-iOS preflight independently confirmed that the Apple M1 host runs macOS 26.5.2 and is compatible with Xcode 26.6, but only Command Line Tools are installed. A fresh generated iOS project has deployment target 16.4, bundle ID `fi.roopeaaltonen.kierratysappi`, localized Finnish/English camera purpose strings, no microphone/location purpose string, empty entitlements, the expected privacy manifest, and generated icon/splash assets. No binary was compiled or installed.
-- The selected first device path is a local Xcode 26.6 development build through `expo run:ios --device`, using a free Apple Personal Team if necessary. This avoids paid EAS/Apple membership for local testing; Personal-Team provisioning expires after seven days.
-- Git remained clean at preflight start. Local `main`/`d41d248` is two audited commits ahead of `origin/main`/`87404a0`; no push occurred because prior authorization is absent.
+- Xcode 26.6 with the iOS 26.5 SDK is installed. A Debug `iphoneos` build based on `aae5fab` passed before and after the six Expo/pod patch updates; all 11 embedded frameworks and the app passed strict recursive code-sign verification, and `devicectl` installed/launched the post-patch build on a paired iPhone 12 Pro Max running iOS 26.1. Metro 57.0.15 bundled 1,804 modules; final owner-side home confirmation for this latest rebuild is pending. The system `xcode-select` still points to Command Line Tools, so native commands explicitly set `DEVELOPER_DIR`.
+- Partial physical iOS validation now passes interactive home launch, background/foreground, force-quit relaunch, barcode-specific pre-permission copy, camera allow/revoke/settings recovery, one real EAN-13 `not_found` flow, known OFF resolution, offline/no-request behavior, restored retry/cache hit, invalid-manual local rejection, and visible/openable product/licence/rule provenance. VoiceOver, largest text, dark/reduced-motion, broader barcode conditions and performance/battery remain unrun.
+- The free Personal-Team artifact expired after seven days as expected. The owner re-added the Apple account, a new profile/build was installed on 2026-08-22, the renewed developer profile was trusted, and launch recovered. This development artifact is not archive/TestFlight/release evidence.
+- This work unit began from clean local `main`/`aae5fab`, three audited commits ahead of `origin/main`/`87404a0`. Its dependency, validation and physical-evidence changes are intended for one local commit; no push occurred because authorization is absent.
 
 ## Release state
 
 **NO-GO.** See `docs/final/PRODUCTION_AUDIT.md`, `RELEASE_GO_NO_GO.md`, `OWNER_ACTIONS.md` and `TEST_EVIDENCE.md`.
 
-Open blockers include full Xcode installation and physical iPhone pairing before the local iOS run, signed Android/iOS release builds, physical camera/accessibility/performance testing, production API/database/monitoring and restore drill, OFF owner account/licence approval, GS1 Data contract decision, independent Finnish content approval, privacy/terms/GDPR approval, hosted support/privacy URLs, final store assets/forms/console validation, two unpatched high build-tool advisories and the time-gated Expo compatibility patches.
+Open blockers include signed Android and iOS release/TestFlight builds, the remaining physical camera/accessibility/performance matrix, production API/database/monitoring and restore drill, OFF owner account/licence approval, GS1 Data contract decision, independent Finnish content approval, privacy/terms/GDPR approval, hosted support/privacy URLs, final store assets/forms/console validation and two unpatched high build-tool advisories.
 
-No production deployment, paid build, account action, contract acceptance, signing, submission, push or public publication occurred. See `docs/final/PHYSICAL_IOS_VALIDATION.md` for the pending physical matrix.
+No production deployment, paid build, contract acceptance, submission, push or public publication occurred. Owner-controlled Apple account and free Personal-Team signing were used only for the local development device run. See `docs/final/PHYSICAL_IOS_VALIDATION.md` for exact passed and pending rows.

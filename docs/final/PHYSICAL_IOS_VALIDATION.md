@@ -1,8 +1,8 @@
 # Physical iOS validation
 
-Status date: 2026-08-10
+Status date: 2026-08-22
 
-Status: **NOT RUN — waiting for full Xcode and the physical iPhone**
+Status: **PARTIALLY RUN — development build installed; core iPhone flow passes, full matrix remains open**
 
 This report is deliberately separate from simulator, web and generated-configuration evidence. No physical-device row may become Pass without observing the named build on the recorded iPhone.
 
@@ -10,53 +10,56 @@ This report is deliberately separate from simulator, web and generated-configura
 
 | Field | Value |
 | --- | --- |
-| Repository commit | `d41d248a321879361e970a6c66b7845c7938882e` at preflight; local `main` was two commits ahead of `origin/main` |
+| Repository source | Working tree based on `aae5fab00dd11f5bd451b27ad710432bbddc4fa5`; the 2026-08-22 dependency/evidence work unit is pending its local commit |
 | App version/build | `0.1.0` / iOS build `1` |
 | Bundle identifier | `fi.roopeaaltonen.kierratysappi` |
 | Host | Apple M1, macOS 26.5.2 (`25F84`) |
-| Xcode | Not installed; Command Line Tools only |
-| Selected install method | Local Xcode 26.6 development build using `expo run:ios --device` and automatic signing |
+| Xcode | 26.6 (`17F113`), iOS 26.5 SDK; commands use an explicit `DEVELOPER_DIR` because system `xcode-select` remains on Command Line Tools |
+| Selected install method | Local Xcode development build and `devicectl` install using automatic Personal-Team signing |
 | Signing scope | Apple Personal Team is sufficient for local testing; seven-day provisioning limits apply |
-| iPhone model | Pending physical-device connection |
-| iOS version | Pending physical-device connection |
-| Tester | Pending |
-| Physical run date | Pending |
-| Screenshots/logs | Pending; do not use web screenshots as native evidence |
+| iPhone model | iPhone 12 Pro Max |
+| iOS version | 26.1 (`23B82`) |
+| Tester | Repository owner for manual observations; Codex for build/device/API/Metro logs |
+| Physical run date | 2026-08-10 and renewed-profile continuation on 2026-08-22 |
+| Screenshots/logs | Interactive observations plus Xcode, `devicectl`, Metro and privacy-safe API logs; no native screenshots captured yet |
 
 ## Automated preflight evidence
 
 | Check | Result | Evidence |
 | --- | --- | --- |
-| Git synchronization | Pass as inspection; not pushed | Clean `main`; local HEAD `d41d248`, `origin/main` `87404a0`, ahead two. No prior push authorization exists. |
+| Git synchronization | Pass as inspection; not pushed | Clean `main` at test start; local HEAD `aae5fab`, `origin/main` `87404a0`, ahead three. No prior push authorization exists. |
 | Host compatibility | Pass | macOS 26.5.2 is in Xcode 26.6’s supported macOS 26.2–26.x range. |
-| Full Xcode | **Blocked** | `/Applications` has no Xcode; `xcode-select -p` selects `/Library/Developer/CommandLineTools`; `xcodebuild -version` and `xcrun devicectl` are unavailable. |
-| Expo/iOS compatibility | Configuration pass | SDK 57 requires Xcode 26.4+ and iOS 16.4+. Generated project target is iOS 16.4. |
+| Full Xcode | Pass | Xcode 26.6 and the iOS 26.5 SDK are installed and usable through explicit `DEVELOPER_DIR`. |
+| Expo/iOS compatibility | Pass | SDK 57 requires Xcode 26.4+ and iOS 16.4+. Generated project target is iOS 16.4; supported patches are installed, install check passes and Doctor 1.20.1 is 20/20. |
 | Native generation | Pass | A clean ignored-workspace `expo prebuild --clean --platform ios --no-install` completed. |
 | Bundle/version | Pass | Generated project has bundle ID `fi.roopeaaltonen.kierratysappi`, marketing version `0.1.0` and build `1`. |
 | Camera purpose | Pass configuration | Finnish and English `NSCameraUsageDescription` state barcode-only camera use and no frame upload. |
 | Unrelated purpose strings | Pass configuration | No microphone or location usage description is generated. Location is not used by the current product. |
-| Entitlements | Pass configuration | Generated app entitlements plist is empty. Final signed entitlements remain unverified. |
+| Development compile | Pass | Xcode Debug build completed for `iphoneos` on 2026-08-22, then passed again after the six Expo-compatible patch updates and refreshed pods. Dependency compiler warnings remain; no build error occurred. |
+| Development signature | Pass | All 11 embedded frameworks passed strict signature verification and the app passed recursive `codesign --verify --deep --strict`. This is development evidence, not App Store archive evidence. |
+| Development install/launch | Pass/confirmation pending for latest rebuild | The earlier renewed build loaded 1,801 modules and the owner confirmed home. After dependency updates, `devicectl` installed/launched the rebuilt app and Metro 57.0.15 loaded 1,804 modules; owner-side home confirmation is pending. |
+| Entitlements | Partial | Development signing/install passes. Final archive entitlements remain unverified. |
 | Privacy manifest | Pass configuration | No tracking or collected data types; UserDefaults required-reason API uses `CA92.1`. Final dependency-merged archive remains unverified. |
 | Icons/splash | Pass generation | App icon, splash logo at 1x/2x/3x, splash background and storyboard are generated from source assets. |
 | Appearance/orientation | Pass configuration | Automatic light/dark style; phone portrait scope. iPad remains configured for portrait and landscape. |
 | EAS development profile | Present but not selected | `developmentClient:true`, internal distribution and Node 24.19.0 exist. EAS is a fallback only and was not invoked. |
 
-The generated inspection artifact is under ignored `work/ios-prebuild.YzkNSG/`. It is not a compiled binary and is not release evidence.
+The current development build is generated under ignored `work/ios-refresh-derived/`. It is a short-lived Personal-Team development artifact, not an archive, TestFlight build or release artifact. The free provisioning profile expired after seven days as expected and was renewed/reinstalled on 2026-08-22.
 
 ## Physical test matrix
 
-Every row is currently **Not run**. Record Pass/Fail, measured value where applicable, and a screenshot/log identifier after the same build is installed.
+Rows not exercised remain **Not run**. `Pass` means the named behavior was observed on the recorded iPhone; it does not generalize to other hardware, release configuration or stores.
 
 ### Installation and lifecycle
 
 | Scenario | Status | Evidence/notes |
 | --- | --- | --- |
-| Fresh install and first launch | Not run | Requires device |
-| Cold start | Not run | Measure from icon tap to interactive home |
+| Fresh install and first launch | Pass | Development build installed and launched on 2026-08-10; renewed profile/build installed and launched on 2026-08-22 |
+| Cold start | Partial | Force-quit relaunch reached interactive UI; no release-build tap-to-interactive timing captured |
 | Warm start | Not run | Measure from icon tap to interactive home |
-| Background → foreground | Not run | Requires device |
-| Force quit → relaunch | Not run | Requires device |
-| Lock → unlock while open | Not run | Requires device |
+| Background → foreground | Pass | Owner confirmed return worked |
+| Force quit → relaunch | Pass | Owner confirmed force-quit relaunch worked |
+| Lock → unlock while open | Partial | App returned, but a transient development-only Expo CLI warning appeared; DevTools showed a temporary CLI connectivity warning |
 | Safe areas and Dynamic Island/notch | Not run | Record device form factor |
 | Keyboard avoidance/manual entry | Not run | Include largest text |
 | Light and dark appearance | Not run | Check all result states |
@@ -66,22 +69,22 @@ Every row is currently **Not run**. Record Pass/Fail, measured value where appli
 
 | Scenario | Status | Evidence/notes |
 | --- | --- | --- |
-| Context screen appears before system prompt | Not run | Fresh permission state |
-| Allow camera | Not run | Scanner must open |
+| Context screen appears before system prompt | Pass | Barcode-specific explanation appeared before the iOS prompt |
+| Allow camera | Pass | iOS prompt appeared and allowing it opened the live scanner |
 | Deny camera | Not run | Manual entry and recovery must remain available |
-| Enable later in iOS Settings | Not run | Scanner must recover after returning |
-| Revoke while app is backgrounded | Not run | Must return to safe denied state |
+| Enable later in iOS Settings | Pass | `Avaa asetukset` opened the app settings; re-enabling Camera restored the scanner without a second prompt |
+| Revoke while app is backgrounded | Pass | Revoking Camera in Settings changed the scan route to the denied/recovery UI |
 | Permission change after force quit | Not run | Requires relaunch |
 
 ### Barcode scanner
 
 | Scenario | Status | Evidence/notes |
 | --- | --- | --- |
-| Valid EAN-13 | Not run | Use physical label and record GTIN separately from routine logs |
+| Valid EAN-13 | Pass | Physical package decoded and produced the safe `not_found` flow; API recorded one successful `not_found` completion in 162 ms without logging the raw GTIN |
 | Valid EAN-8 | Not run | Supported format |
 | Valid UPC-A | Not run | Supported format |
 | UPC-E/unsupported format | Not run | Must not become a guessed GTIN or start a lookup |
-| Malformed/invalid checksum manual value | Not run | Must remain local |
+| Malformed/invalid checksum manual value | Pass | Manual `123` showed `Tarkista koodi`; API log remained empty |
 | Duplicate callback suppression | Not run | One lookup for rapid identical callbacks |
 | Close range | Not run | Record approximate distance |
 | Farther range | Not run | Record approximate distance |
@@ -96,16 +99,16 @@ Every row is currently **Not run**. Record Pass/Fail, measured value where appli
 
 | Scenario | Status | Evidence/notes |
 | --- | --- | --- |
-| Known Open Food Facts food product | Not run | Requires reachable development API and monitored test setup |
-| Unknown valid GTIN | Not run | Must show not found |
+| Known Open Food Facts food product | Pass | Manual `3017620422003` resolved to Nutella through OFF; provider log completed in 343 ms |
+| Unknown valid GTIN | Pass | Physical EAN-13 showed `Tuotetta ei löytynyt`; no guessed product or sorting answer |
 | Slow network | Not run | Use Network Link Conditioner or equivalent |
-| Airplane mode/offline | Not run | Must retain retry context locally |
-| Restore network and retry | Not run | Must recover without duplicate request storm |
+| Airplane mode/offline | Pass | Same known GTIN showed `Ei verkkoyhteyttä`; no API request was emitted |
+| Restore network and retry | Pass | `Yritä uudelleen` recovered to Nutella without re-entering the code |
 | Provider timeout/error | Not run | Requires controlled API/provider fixture |
 | Backend unavailable | Not run | Must show provider unavailable, not fabricate result |
 | Change network during lookup | Not run | Wi-Fi/cellular transition if available |
 | Background app during lookup | Not run | Result/retry state must remain coherent |
-| Cached result | Not run | Record request count and cache provenance |
+| Cached result | Pass | Restored retry returned a cache hit in 8 ms; result retained cache/source disclosure |
 | Stale result behavior | Not run | Requires controlled clock/cache fixture; never present stale as current |
 | Malformed API response | Not run | Controlled fixture; must become provider unavailable |
 | Long product name | Not run | Controlled fixture and largest text |
@@ -115,9 +118,9 @@ Every row is currently **Not run**. Record Pass/Fail, measured value where appli
 
 | Scenario | Status | Evidence/notes |
 | --- | --- | --- |
-| Component-level sorting | Not run | Every component inspected |
-| Source/provenance/rule date | Not run | Must remain visible and readable |
-| Confidence and verification state | Not run | Must not be color-only |
+| Component-level sorting | Pass for known fixture | Owner confirmed component cards on the Nutella result; this is one fixture, not full content acceptance |
+| Source/provenance/rule date | Pass for known fixture | Product source, licence, attribution, sorting-rule source and checked date were visible; OFF product, OFF licence and RINKI rule links opened the expected pages |
+| Confidence and verification state | Pass for known fixture | Owner confirmed textual confidence/percentage, destination and explanation; uncertainty was not color-only |
 | Ambiguous packaging | Not run | Must ask/retain uncertainty |
 | Missing packaging information | Not run | Must remain unknown |
 | Confirmed material code | Not run | User confirms visible code |
@@ -152,15 +155,17 @@ Every row is currently **Not run**. Record Pass/Fail, measured value where appli
 | Unexpected heat | Not run | Record duration and device state |
 | Battery impact | Not run | Extended camera session; record duration/percentage/context |
 | Excess repeated API requests | Not run | Inspect privacy-safe request counts, not raw GTIN logs |
-| Force quit/relaunch recovery | Not run | Local settings/history semantics preserved |
+| Force quit/relaunch recovery | Pass functionally | Development build relaunched after force quit; no performance timing captured |
 | Backend/provider failure recovery | Not run | Restore service and retry |
 | Very large Dynamic Type under failures | Not run | Offline/provider/ambiguity screens |
 
-## Defects
+## Defects and development-only observations
 
-- No physical defect can yet be claimed because the app has not been installed.
+- The first 2026-08-10 Personal-Team artifact contained unsigned embedded frameworks even though the app wrapper was signed. The artifact was repaired by signing all 11 frameworks and re-signing/verifying the app before install. The clean 2026-08-22 Xcode build produced zero unsigned frameworks and passed strict recursive verification without the repair.
+- The Personal-Team profile expired after seven days and iOS correctly refused launch. Renewing the Apple account/profile, rebuilding, reinstalling and trusting the renewed developer profile restored launch. This is an expected limitation of free local provisioning and remains unsuitable for distribution.
+- After a lifecycle test, the development build displayed `Open debugger to view warnings`; the in-app button did not respond. Mac DevTools showed only a transient inability to reach Expo CLI. Metro then reconnected and no application warning remained. This does not validate production behavior and should be rechecked in a release build.
 - Preflight documentation defect fixed: `docs/quality/MANUAL_TEST_CHECKLIST.md` no longer claims UPC-E is supported and now requires safe rejection.
 
 ## Remaining boundary
 
-Install and initialize Xcode 26.6. After that, connect the iPhone and collect its exact model/iOS version before generating, signing or installing the app. Do not use passwords, verification codes, certificates or signing keys in repository files or chat.
+Continue the remaining physical matrix, starting with VoiceOver and largest Dynamic Type on the home, permission, manual, offline and known-result flows. Release remains blocked until a paid-program release archive/TestFlight build, broader Apple device matrix and all remaining accessibility/performance/camera cases pass.

@@ -2,7 +2,7 @@
 
 Audit date: 2026-08-10
 
-Follow-up physical-iOS preflight: 2026-08-10 at local `d41d248`, two commits ahead of `origin/main`. See `PHYSICAL_IOS_VALIDATION.md`.
+Follow-up physical-iOS run: 2026-08-10 and a 2026-08-22 work unit based on local `aae5fab`, which began three commits ahead of `origin/main`. See `PHYSICAL_IOS_VALIDATION.md`.
 
 Decision: **NO-GO**
 
@@ -10,13 +10,13 @@ Repository: `roopeaal/KierratysAppi`, private `main`
 
 Audited baseline: clean local `536003e`, one commit ahead of `origin/main` (`87404a0`)
 
-This audit did not accept earlier readiness statements as evidence. It inspected source, generated native configuration, dependency resolution, build output, GitHub state, live API behavior, live Open Food Facts behavior, rendered web behavior, and official external requirements independently. Locally executable blocker/high findings were repaired and tested during the audit. Remaining blocker/high findings require devices, accounts, contracts, legal/content approval, production infrastructure, or a package release that does not yet exist.
+This audit did not accept earlier readiness statements as evidence. It inspected source, generated native configuration, dependency resolution, build output, GitHub state, live API behavior, live Open Food Facts behavior, rendered web behavior, and official external requirements independently. Locally executable blocker/high findings were repaired and tested during the audit. Remaining blocker/high findings require devices, accounts, contracts, legal/content approval, production infrastructure, or an upstream advisory fix that does not yet exist.
 
 ## Decision basis
 
-The repository is a strong, testable prototype but is not a releasable production system. There is no signed Android or iOS build, physical barcode evidence, deployed API, production database, backup drill, monitoring/on-call service, approved privacy/terms/licensing position, store submission package, or store account evidence. Expo diagnostics also reject four deliberately held-back patches published too recently to satisfy the repository's supply-chain age gate.
+The repository is a strong, testable prototype but is not a releasable production system. One short-lived iOS Personal-Team Debug build and a limited physical EAN-13/core-flow subset now pass, but there is no Android build, iOS archive/TestFlight build, complete physical matrix, deployed API, production database, backup drill, monitoring/on-call service, approved privacy/terms/licensing position, store submission package, or store account evidence. Expo compatibility now passes after the supported patches cleared the strict release-age gate.
 
-No locally executable blocker, critical, or high finding identified by this audit remains open. The open blocker/high findings are explicitly external or time-gated. That does not make the release safe: the decision remains NO-GO.
+No locally executable source blocker, critical, or high finding identified in the original repository audit remains open. The newly enabled iPhone manual/native-automation work is now partially executable and in progress; Android, release signing/stores, infrastructure, legal/licensing/content approval and upstream package gates remain external or time-gated. The decision remains NO-GO.
 
 ## Evidence lanes
 
@@ -24,32 +24,32 @@ No locally executable blocker, critical, or high finding identified by this audi
 | ---: | --- | --- | --- |
 | 1 | Product requirements and acceptance criteria | P0 behavior is specified and automated at domain/API/state boundaries; release acceptance remains incomplete | AUD-027, AUD-035 |
 | 2 | Android functionality | Source configuration prebuilds; no APK/AAB, install, launch, or Android runtime evidence | AUD-006, AUD-015 |
-| 3 | iOS functionality and configuration | Clean prebuild has localized camera text and no microphone declaration; no archive/install/runtime evidence | AUD-006, AUD-016 |
-| 4 | Physical-device-capable barcode flows | EAN-8/EAN-13/UPC-A formats and duplicate suppression are coded; camera accuracy is unverified | AUD-007, AUD-017 |
+| 3 | iOS functionality and configuration | Personal-Team Debug compile/sign/install/launch and core permission/network flows pass on one iPhone; archive/TestFlight/release evidence remains absent | AUD-006, AUD-016 |
+| 4 | Physical-device-capable barcode flows | One real EAN-13 and permission/recovery path pass; EAN-8/UPC-A/unsupported/adverse/rapid/multiple-code reliability remains unverified | AUD-007, AUD-017 |
 | 5 | Product resolution and fallback | OFF-only production composition is conservative; provider fallback is tested but GS1 is unavailable | AUD-002, AUD-003, AUD-020 |
 | 6 | Open Food Facts licensing | Combined ODbL/DbCL disclosure and attribution now ship; legal/account/usage approval remains open | AUD-005, AUD-019 |
 | 7 | GS1 Data boundary | Synthetic adapter is excluded from the API bundle; 2026 GS1 Data contract/access is absent | AUD-020, AUD-034 |
 | 8 | Recycling accuracy/provenance | Effective-dated Rinki/Palpa rules and safe uncertainty exist; independent content approval does not | AUD-012, AUD-021 |
-| 9 | Unknown/ambiguous/offline | Distinct states are tested; malformed server data no longer masquerades as offline | AUD-008 |
+| 9 | Unknown/ambiguous/offline | Distinct states are automated; physical unknown, offline/no-request and restored retry/cache paths now pass on one iPhone | AUD-008 |
 | 10 | OCR and AI safety | Photo, OCR, upload, and cloud AI are disabled; threat-model gates exist | AUD-033 |
 | 11 | Security | Input/body/redirect/response limits, CORS, no-store, RLS, dependency and secret gates exist; deployment controls are absent | AUD-010, AUD-018, AUD-025, AUD-028 |
 | 12 | Privacy/GDPR | Collection is minimized and local deletion exists; controller notice, lawful basis, rights process, and approval are absent | AUD-009, AUD-022, AUD-032 |
-| 13 | Accessibility | Web semantics/focus/contrast and code-level reduced motion pass; native assistive-tech evidence is absent | AUD-014, AUD-026 |
-| 14 | Performance/bundle | API is small; web entry is 2,525,687 bytes / 572,183 gzip; native budgets are unmeasured | AUD-026, AUD-030 |
+| 13 | Accessibility | Web semantics/focus/contrast and code-level reduced motion pass; native VoiceOver/largest-text evidence remains absent despite an installable iPhone build | AUD-014, AUD-026 |
+| 14 | Performance/bundle | API is small; physical provider completions of 162/343 ms and an 8 ms cache hit were observed, but end-to-end native budgets remain unmeasured; web entry is 2,528,030 bytes / 571,827 gzip | AUD-026, AUD-030 |
 | 15 | Database integrity/migration/recovery | Migration constraints and PGlite tests pass; no production repository or restore drill exists | AUD-011, AUD-024 |
 | 16 | API reliability/validation/rate limits | Strict validation, timeouts, body limits, local rate limits and production smoke pass; multi-instance behavior is unresolved | AUD-004, AUD-010, AUD-018 |
 | 17 | Observability/incident response | Privacy-safe aggregate hook/runbooks exist; no monitoring, alerting, on-call roster, or SLO evidence exists | AUD-025 |
-| 18 | Test layers | 133 tests pass with useful core coverage; signed native E2E/contract environment evidence is absent | AUD-027 |
-| 19 | Visual design | Desktop/mobile rendered flows are consistent and overflow-free; signed-binary store/device inspection is absent | AUD-031 |
+| 18 | Test layers | 133 application tests plus two repository-policy regressions pass with useful core coverage and a manual iPhone smoke subset; native automation/release E2E and production contract-environment evidence are absent | AUD-027 |
+| 19 | Visual design | Desktop/mobile rendered flows are consistent and overflow-free; an owner observed core iPhone screens, but signed-release store/device screenshots and broad visual QA are absent | AUD-031 |
 | 20 | Animation/reduced motion/battery | Root transitions honor reduced motion; native frame/battery impact is unmeasured | AUD-014, AUD-026 |
 | 21 | Localization | Finnish/English UI and native permission strings exist; device truncation/assistive-tech checks remain | AUD-014, AUD-036 |
-| 22 | Dependency/supply chain | Frozen lock, exact CI actions, audit policy pass; two high unpatched advisories and fresh Expo patch gate remain | AUD-013, AUD-028, AUD-029 |
-| 23 | CI/CD/reproducibility | Frozen install and validation pass locally; remote latest pushed commit was green, but audit commit is not pushed and current Doctor would fail | AUD-013, AUD-029 |
-| 24 | App Store/Play requirements | Identifiers/config exist; no Xcode 26/iOS 26 archive, API 36 AAB, signing, or console validation exists | AUD-015, AUD-016, AUD-023 |
+| 22 | Dependency/supply chain | Frozen lock, explicit strict 1,440-minute release age, exact CI actions, install check, Doctor and audit policy pass; two high unpatched advisories remain | AUD-013, AUD-028, AUD-029 |
+| 23 | CI/CD/reproducibility | Frozen install, validation and Doctor 20/20 pass locally; remote latest pushed commit was green, but the audit commit is not pushed | AUD-013, AUD-029 |
+| 24 | App Store/Play requirements | Identifiers/config and Personal-Team signing exist; no Xcode 26/iOS 26 archive/TestFlight, API 36 AAB or console validation exists | AUD-015, AUD-016, AUD-023 |
 | 25 | Store assets/descriptions/questionnaires | Source icons exist; screenshots, feature graphic, hosted URLs, forms and signed-binary answers are incomplete | AUD-031 |
 | 26 | Legal review markers | Drafts are visibly marked, but publication-grade documents and approval are absent | AUD-022 |
 | 27 | Deletion/export/retention | All app-prefixed local data can be deleted; export/controller rights and production retention procedure are unresolved | AUD-009, AUD-032 |
-| 28 | Credentials/accounts/manual actions | Required store, EAS, OFF, hosting, monitoring, GS1 and signing authority are absent | AUD-015, AUD-016, AUD-018, AUD-019, AUD-020, AUD-023 |
+| 28 | Credentials/accounts/manual actions | A local Apple account/Personal Team was used for device testing; required paid store/release, EAS, OFF, hosting, monitoring and GS1 authority remain absent | AUD-015, AUD-016, AUD-018, AUD-019, AUD-020, AUD-023 |
 | 29 | Documentation accuracy | Earlier 100-test/Doctor-20-of-20/local-done claims were false after independent verification and are replaced | AUD-035 |
 | 30 | Unsupported claims/placeholders/fake data | Production rejects placeholder contacts/URLs; barcode copy now discloses food/community-data scope; mock GS1 is not bundled, but drafts and test-only mock exports remain visible | AUD-008, AUD-019, AUD-022, AUD-034, AUD-037 |
 
@@ -205,25 +205,25 @@ No locally executable blocker, critical, or high finding identified by this audi
 - Required remediation: build with Android API 36-compatible tooling, inspect the signed merged manifest/SBOM, install on the device matrix, execute the checklist, and validate the AAB in Play Console.
 - Execution boundary: requires toolchain/device/signing/store authority.
 
-### AUD-016 — iOS release has no Xcode 26.4+ compile/archive/install/runtime evidence
+### AUD-016 — iOS release lacks archive/TestFlight/release-matrix evidence
 
 - Severity: **blocker**
-- Status: **open, externally blocked**
-- Evidence: the Apple M1 host runs macOS 26.5.2 and can run Xcode 26.6, but only Command Line Tools are installed; `xcodebuild` and `devicectl` are unavailable. Expo SDK 57 requires Xcode 26.4+ and iOS 16.4+. A fresh generated project confirms iOS 16.4, the expected bundle ID, localized camera strings, no microphone/location strings, empty entitlements and the privacy manifest, but no binary, pairing or runtime exists. Since 2026-04-28 Apple also requires Xcode 26+ with the iOS 26 SDK for uploads.
+- Status: **open; local manual matrix in progress, release path externally blocked**
+- Evidence: Xcode 26.6/iOS 26.5 SDK now compiles the Debug app. All 11 embedded frameworks and the app pass strict recursive signature verification; `devicectl` installs/launches it on an iPhone 12 Pro Max/iOS 26.1, and core flows pass. The free Personal-Team profile expired after seven days and required owner renewal/reinstall/trust. No paid-program archive, final archive entitlement/privacy report, TestFlight processing, release-configuration install or representative Apple device matrix exists. Apple uploads require supported Xcode/iOS SDK tooling.
 - Affected files/flows: whole iOS app, entitlements, privacy manifest merge, localization, signing, App Store validation.
-- Reproduction: `xcode-select -p` returns the Command Line Tools path; `xcodebuild -version` and `xcrun devicectl list devices` fail.
-- Required remediation: first install Xcode 26.6 and execute the local Personal-Team matrix in `PHYSICAL_IOS_VALIDATION.md`; separately archive with supported Xcode/iOS SDK, inspect final entitlements/privacy report, install through TestFlight/internal distribution, and run the release device matrix.
-- Execution boundary: Xcode installation and physical iPhone interaction are manual. Local testing can use a free Personal Team; archive/TestFlight still requires owner-controlled paid membership/signing authority.
+- Reproduction: inspect `PHYSICAL_IOS_VALIDATION.md`; development rows are partial and archive/TestFlight/release rows have no artifact ID, hash or console output.
+- Required remediation: complete the remaining local matrix, then archive with owner-controlled paid-program credentials, inspect final entitlements/privacy report, install through TestFlight/internal distribution and run the release device matrix.
+- Execution boundary: remaining manual device work is executable with the owner present; archive/TestFlight still requires owner-controlled paid membership, signing and store authority.
 
 ### AUD-017 — Physical barcode reliability is unverified
 
 - Severity: **blocker**
-- Status: **open, externally blocked**
-- Evidence: code recognizes three formats and web/manual flows work, but there is no camera evidence for glare, curvature, dim light, damage, duplicate scans, permissions, focus, or latency.
+- Status: **open; iPhone subset in progress, representative/Android coverage externally blocked**
+- Evidence: code recognizes three formats and one physical EAN-13 plus allow/revoke/settings recovery now pass on iPhone. There is still no physical EAN-8/UPC-A/UPC-E-rejection evidence or camera evidence for glare, curvature, dim light, damage, duplicate scans, multiple symbols, focus range or end-to-end latency.
 - Affected files/flows: scanner, permission recovery, haptics, duplicate suppression, camera lifecycle.
-- Reproduction: no attached device exists on which to execute `docs/quality/MANUAL_TEST_CHECKLIST.md`.
+- Reproduction: inspect the physical matrix: only the named EAN-13 and permission subset is marked Pass; all adverse-condition and other-format rows remain Not run.
 - Required remediation: test EAN-8, EAN-13 and UPC-A on representative Android/iOS hardware and record build/device/OS/pass-fail evidence.
-- Execution boundary: requires physical devices and installable builds.
+- Execution boundary: continued iPhone work is manually executable; Android and representative device coverage remain externally blocked.
 
 ### AUD-018 — No production API/infrastructure or multi-instance reliability design
 
@@ -305,25 +305,25 @@ No locally executable blocker, critical, or high finding identified by this audi
 - Required remediation: owner selects EU-compatible monitoring, names primary/backup responders, configures aggregate availability/latency/error/quota alerts, tests an alert and tabletop incident, and records retention/access.
 - Execution boundary: vendor/account/privacy/contact decisions.
 
-### AUD-026 — Native accessibility/performance/animation/battery evidence is absent
+### AUD-026 — Native accessibility/performance/animation/battery evidence is incomplete
 
 - Severity: **high**
-- Status: **open, externally blocked**
-- Evidence: code and web review pass, but there is no VoiceOver/TalkBack, largest text, switch/keyboard, color-mode, native frame pacing, cold/warm start, memory, camera power, or reduced-motion device evidence.
+- Status: **open, partially executable with manual device work**
+- Evidence: code and web review pass, and functional background/force-quit plus permission/offline/result flows now pass on one iPhone development build. There is still no VoiceOver/TalkBack, largest text, switch/keyboard, color-mode, measured native frame pacing/startup, memory, camera power/battery or reduced-motion device evidence.
 - Affected files/flows: all screens, navigation, camera and haptics.
-- Reproduction: no signed/device test report exists.
+- Reproduction: inspect `PHYSICAL_IOS_VALIDATION.md`; functional rows are partial while all assistive-technology and measured performance/battery rows remain Not run.
 - Required remediation: execute and record the manual matrix on representative recent/small/tablet devices against stated performance budgets.
-- Execution boundary: physical devices and installable builds.
+- Execution boundary: the iPhone subset is manually executable now; Android and representative multi-device coverage remain externally blocked.
 
 ### AUD-027 — Mandatory native E2E and production contract evidence is missing
 
 - Severity: **high**
-- Status: **open, externally blocked**
-- Evidence: 133 unit/integration/contract/migration/mobile-state tests pass, but there is no native UI automation or physical camera E2E, signed-build smoke, real database integration, deployed fault/load test, or store-installed upgrade test.
+- Status: **open, partially executable locally**
+- Evidence: 133 application unit/integration/contract/migration/mobile-state tests plus two repository-policy regressions pass, and a manual signed-development-build smoke subset now boots on iPhone. There is still no native UI automation, complete physical camera E2E, release-signed smoke, real database integration, deployed fault/load test or store-installed upgrade test.
 - Affected files/flows: cross-system release behavior.
-- Reproduction: enumerate tests; they do not boot a native signed binary or deployed environment.
+- Reproduction: enumerate automated tests; they do not boot a native binary or deployed environment. Compare the limited manual rows in `PHYSICAL_IOS_VALIDATION.md` with the unrun matrix.
 - Required remediation: add Maestro/Detox or equivalent for non-camera flows, physical camera checklist, deployed provider/database contracts, outage/load/upgrade tests, and attach artifacts.
-- Execution boundary: local harness work is possible after an installable build/environment exists; meaningful acceptance is externally blocked today.
+- Execution boundary: a local iOS harness is now technically possible and remains locally executable work; production contracts, store upgrade and Android/release acceptance remain externally blocked.
 
 ### AUD-028 — Two high transitive build-tool advisories are unpatched
 
@@ -335,21 +335,21 @@ No locally executable blocker, critical, or high finding identified by this audi
 - Required remediation: upgrade to a compatible dependency containing `image-size>=2.0.3` immediately when published; otherwise stop at expiry and perform a new explicit risk decision.
 - Execution boundary: upstream package release is required; no safe patched version exists now.
 
-### AUD-029 — Expo compatibility gate currently fails
+### AUD-029 — Expo compatibility and supply-age enforcement
 
 - Severity: **high**
-- Status: **open, externally time-blocked**
-- Evidence: Expo Doctor 1.20.1 passes 19/20 and `expo install --check` fails because Expo 57.0.12, constants 57.0.10, router 57.0.12 and splash 57.0.6 were published only hours before the audit. Installing them violates the mandatory minimum-release-age policy; aged 57.0.11/57.0.9/57.0.11/57.0.5 and transitive versions are pinned.
+- Status: **resolved locally on 2026-08-22**
+- Evidence: the time-sensitive gate was rerun and identified six supported patches. Their registry publication times exceeded the explicit strict 1,440-minute policy, so Expo 57.0.15, camera 57.0.4, constants 57.0.13, linking 57.0.7, router 57.0.15 and splash 57.0.7 were installed without exclusions. `expo install --check` passes, Doctor 1.20.1 passes 20/20, peer checking passes and the lockfile passes supply-chain verification.
 - Affected files/flows: mobile dependency resolution and CI's Expo health step.
-- Reproduction: run the two Expo diagnostics.
-- Required remediation: after the release-age window, re-review changelogs/advisories, install the supported patch set through Expo, regenerate the lockfile, and require Doctor 20/20 plus full validation.
-- Execution boundary: waiting for the established supply-chain age window is required; exclusion/age bypass is not an acceptable local fix.
+- Reproduction: run `expo install --check`, Expo Doctor 1.20.1 and `pnpm peers check`; inspect `pnpm-workspace.yaml` for strict age enforcement.
+- Required remediation: completed; keep the diagnostics mandatory after dependency changes and never add a broad release-age exclusion to force fresh packages.
+- Execution boundary: locally completed; future patch sets remain subject to the same age and diagnostic gates.
 
 ### AUD-030 — Web bundle exceeds its warning budget and lacks a supported-distribution decision
 
 - Severity: **medium**
 - Status: **open, locally executable after product decision**
-- Evidence: entry bundle is 2,525,687 bytes uncompressed and 572,183 bytes gzip, above the documented 2 MiB warning threshold; prior docs claimed about 1.7 MiB. The primary product is native and web support has not been approved.
+- Evidence: entry bundle is 2,528,030 bytes uncompressed and 571,827 bytes gzip, above the documented 2 MiB warning threshold; prior docs claimed about 1.7 MiB. The primary product is native and web support has not been approved.
 - Affected files/flows: Expo web initial load and performance docs.
 - Reproduction: export web and measure `_expo/static/js/web/entry-*.js`.
 - Required remediation: decide whether web is supported; if yes, set compressed budgets, inspect bundle composition, defer camera/native-only code, and measure deployed CWV; if no, remove web release claims.
@@ -399,7 +399,7 @@ No locally executable blocker, critical, or high finding identified by this audi
 
 - Severity: **high**
 - Status: **resolved locally by this audit**
-- Evidence: `CURRENT_STATE`, `RELEASE_READINESS`, performance and test evidence claimed locally complete, 100 tests, Expo Doctor 20/20, compatibility pass and about 1.7 MiB web entry. Independent checks found 133 tests, Doctor 19/20, compatibility failure and a 2.53 MiB entry.
+- Evidence: `CURRENT_STATE`, `RELEASE_READINESS`, performance and test evidence claimed locally complete, 100 tests, Expo Doctor 20/20, compatibility pass and about 1.7 MiB web entry. The initial independent check found 133 application tests, Doctor 19/20, compatibility failure and a 2.53 MiB entry. Dated follow-up now records 135 total automated tests and a separately verified dependency update to Doctor 20/20.
 - Affected files/flows: project-control/final documentation and release decisions.
 - Reproduction: compare prior text with current commands/artifacts.
 - Required remediation: replace claims with dated command evidence and explicit failures/blockers; never infer native/store results.

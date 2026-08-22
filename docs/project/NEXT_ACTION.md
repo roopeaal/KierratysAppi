@@ -1,3 +1,3 @@
 # Next action
 
-Install Xcode 26.6 from the Mac App Store, open it once, accept its license and allow the initial iOS platform components to finish installing; then report that Xcode is ready.
+Run VoiceOver and largest Dynamic Type on the installed iPhone development build across the home, camera-permission recovery, manual-invalid, offline-retry and known-product result flows, recording each pass/fail in `docs/final/PHYSICAL_IOS_VALIDATION.md`.

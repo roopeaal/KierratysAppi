@@ -1,21 +1,21 @@
 # Release decision
 
-Decision date: 2026-08-10
+Decision date: 2026-08-22
 
 Decision: **NO-GO for preview, production, TestFlight, Play testing, and public store submission**
 
-The locally testable source tree is valid, but the product is not production-ready. A clean `pnpm validate` passes with 133 tests and both API/web builds. Physical-iOS preflight confirms a compatible macOS host and correct generated configuration, but full Xcode is not installed and no app has run on the iPhone. Configuration evidence does not substitute for native binaries, physical camera/accessibility/performance tests, production infrastructure, legal/content/licensing approval, or store validation.
+The locally testable source tree is valid, but the product is not production-ready. A clean `pnpm validate` passes with 133 application tests plus two repository-policy regressions (135 total) and both API/web builds. An Xcode 26.6 Personal-Team Debug build now compiles, passes strict recursive signing, installs and runs on one iPhone; core lifecycle, permission, EAN-13, OFF, offline/retry/cache and provenance flows pass. This short-lived development subset does not substitute for Android, an iOS archive/TestFlight build, the remaining camera/accessibility/performance matrix, production infrastructure, legal/content/licensing approval or store validation.
 
 ## Mandatory gate result
 
 | Gate | Result | Release consequence |
 | --- | --- | --- |
-| No unresolved locally executable blocker/critical/high | Pass after audit repairs | All such findings found in source were fixed and regression-tested |
-| Mandatory local tests | Pass | Format, lint, typecheck, 133 tests, API build and 12-route web export pass |
-| Expo compatibility | **Fail** | Doctor 19/20; four just-published patches are held until the supply-chain age window passes |
+| No unresolved locally executable blocker/critical/high | **Not satisfied for GO** | Original source findings were repaired, but the newly enabled iPhone manual/automation portions of blocker/high findings remain incomplete |
+| Mandatory local tests | Pass | Format, lint, typecheck, 135 automated tests, API build and 12-route web export pass |
+| Expo compatibility | Pass | SDK-supported patches installed after the strict 1,440-minute age gate; install check clean and Doctor 20/20 |
 | Android release build | **No evidence** | No JDK/SDK/ADB/signing/AAB/device run |
-| iOS development/release build | **No runtime evidence** | Xcode 26.6 is compatible with the host but absent; generated config passes, while compile/sign/install/archive/TestFlight/device run remain unperformed |
-| Physical barcode test | **No evidence** | Camera flow cannot be accepted from web/manual simulation |
+| iOS development/release build | **Partial development evidence; no release evidence** | Personal-Team Debug compile/sign/install/launch passes on one iPhone; archive, final entitlement/privacy inspection, TestFlight processing and release-configuration matrix remain unperformed |
+| Physical barcode test | **Partial** | One real EAN-13 and permission/recovery path pass; EAN-8, UPC-A, unsupported UPC-E and adverse/rapid/multiple-code conditions remain |
 | Production API/database | **Absent** | Mobile production URL intentionally fails closed; no deployed service or restore drill |
 | Privacy/GDPR/terms | **Unapproved draft** | No controller/legal sign-off or hosted URLs |
 | OFF licence/account | **Incomplete external gate** | Implementation is attributable; owner account/contact/legal approval absent |
@@ -30,7 +30,7 @@ The locally testable source tree is valid, but the product is not production-rea
 
 All blocker/high owner actions in `docs/final/OWNER_ACTIONS.md` must have attached evidence. In particular:
 
-1. Expo-supported patches age past policy, are reviewed/installed, and Doctor passes 20/20.
+1. Keep Expo-supported patches behind the strict 1,440-minute release-age policy and require install check plus Doctor 20/20 after every dependency change.
 2. A production-like HTTPS API and PostgreSQL environment pass load/failure, migration, backup/restore, monitoring and incident tests.
 3. Signed API-36 Android and Xcode-26/iOS-26 iOS builds pass the device matrix, including real barcodes, permissions, VoiceOver/TalkBack, large text, reduced motion and performance budgets.
 4. Privacy/terms, OFF licensing/account use, Rinki/Palpa copy/provenance and store questionnaires receive named approval.

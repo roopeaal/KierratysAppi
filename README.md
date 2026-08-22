@@ -32,7 +32,7 @@ pnpm validate
 pnpm security:audit
 ```
 
-The Expo compatibility release gate is currently intentionally red: Doctor is 19/20 and `expo install --check` reports four patches released too recently to satisfy the minimum-release-age policy. See `docs/final/RELEASE_GO_NO_GO.md`; do not add exclusions to hide it.
+Expo compatibility currently passes: SDK-supported patches are installed, `expo install --check` is clean, and Expo Doctor 1.20.1 passes 20/20. The workspace enforces a strict 1,440-minute minimum release age for dependency resolution; do not add exclusions merely to consume a fresh release.
 
 The generated API contract is available at `GET /v1/openapi.json`; product lookup is `POST /v1/recycling/lookup` with `{ "gtin": "…", "language": "fi" }`.
 

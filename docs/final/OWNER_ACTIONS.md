@@ -90,9 +90,10 @@ These are the exact externally controlled actions required to move the NO-GO dec
 ## OA-09 — iOS signed build and device acceptance
 
 - Owner: **iOS release engineer**; approver: **Product owner**
+- Current evidence: steps 1–2 are partially complete for one Personal-Team Debug build on an iPhone 12 Pro Max/iOS 26.1. Core lifecycle, permission, EAN-13, OFF, offline/retry/cache and provenance flows pass; the remaining matrix and all release steps stay open.
 - Procedure:
-  1. Install Xcode 26.6 on the compatible macOS 26.5.2 host and allow its iOS platform components to finish.
-  2. For the first physical run, pair the iPhone, enable Developer Mode and use Xcode automatic signing with an owner-controlled Personal Team if no paid membership is available. Run the full matrix in `PHYSICAL_IOS_VALIDATION.md`; seven-day free-provisioning limits apply.
+  1. **Completed for development:** Xcode 26.6 and the iOS 26.5 SDK are installed on the compatible macOS 26.5.2 host.
+  2. **Partially completed:** the iPhone is paired with Developer Mode, and an owner-controlled Personal-Team build is installed. Continue every remaining row in `PHYSICAL_IOS_VALIDATION.md`; renew/reinstall after the observed seven-day expiry when necessary.
   3. After Expo Doctor is 20/20, archive with owner-controlled paid-program credentials and the supported iOS SDK.
   4. Inspect final entitlements, privacy manifest/reasons and localized Info.plist strings; verify no microphone or unused location declaration.
   5. Install on current/small iPhone and supported iPad; run physical barcode, VoiceOver, largest text, reduced motion, dark mode, offline/outage, performance/memory/battery and upgrade checks.
@@ -114,7 +115,7 @@ These are the exact externally controlled actions required to move the NO-GO dec
 
 - Owner: **Dependency/security owner**
 - Procedure:
-  1. When the four Expo patches have aged past policy, review changelogs/advisories, run `expo install`, frozen install, `pnpm validate`, `expo install --check` and Expo Doctor 1.20.1; require 20/20.
+  1. Completed 2026-08-22: installed the six supported Expo patches after the strict 1,440-minute age gate; install check and Doctor 1.20.1 pass 20/20. Repeat age verification, frozen install, full validation, install check and Doctor after every dependency change.
   2. Monitor `image-size`; upgrade to a compatible path containing `>=2.0.3` as soon as published.
   3. Before 2026-09-10, remove the two exceptions or record a new explicit owner-approved decision; do not silently extend.
   4. Push the audit commit only when authorized and require remote CI/Security success.

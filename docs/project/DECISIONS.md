@@ -80,7 +80,7 @@
 ## D-012 — Fresh Expo patches do not bypass the release-age gate
 
 - Date: 2026-08-10
-- Status: accepted; time-limited compatibility NO-GO
+- Status: superseded after the gate passed on 2026-08-22
 - Decision: retain the aged Expo 57.0.11, constants 57.0.9, router 57.0.11, splash 57.0.5 and compatible transitive pins until the four newer SDK patches pass the repository's minimum-release-age policy. Do not use Expo dependency exclusions or an age-policy bypass merely to make Doctor green.
 - Reason: the compatible patches were published only hours before the audit. A deliberate 19/20 diagnostic is safer and more truthful than consuming unaged supply-chain inputs or hiding the mismatch.
 
@@ -97,6 +97,20 @@
 - Status: accepted for physical development validation
 - Decision: install Xcode 26.6 and use `expo run:ios --device` with automatic local signing. A free Apple Personal Team is sufficient for this device-only stage; do not invoke EAS or a paid Apple Developer operation unless local compilation is proven incompatible.
 - Reason: Expo SDK 57 requires Xcode 26.4+ and supports iOS 16.4+. Apple and Expo document local device builds as the only development-build route that can use free Personal-Team provisioning; it produces stronger native evidence at lower cost than a cloud build.
+
+## D-015 — Treat Personal-Team builds as expiring test fixtures
+
+- Date: 2026-08-22
+- Status: accepted for local device validation
+- Decision: record free Personal-Team artifacts as seven-day development fixtures that require an owner-controlled account, renewed provisioning, reinstallation and device trust after expiry. They may establish named physical behaviors but never archive, TestFlight, distribution or unattended-runtime readiness. Keep the local Metro/API dependency explicit in every development-run claim.
+- Reason: the first installed artifact expired after seven days and iOS correctly rejected it. A renewed Xcode build passed strict recursive signing, installed and launched after the owner restored account/trust state. The observed lifecycle makes any durable/release claim from this artifact misleading.
+
+## D-016 — Enforce a strict one-day dependency release age
+
+- Date: 2026-08-22
+- Status: accepted
+- Decision: configure pnpm with `minimumReleaseAge: 1440` and strict mode for all direct and transitive dependencies, without a broad exclusion. Once a supported Expo patch set clears that age, require lockfile supply-chain verification, peer checking, `expo install --check`, Doctor 20/20 and full validation.
+- Reason: the earlier policy named an age gate but did not encode its duration. Pnpm 11 documents 1,440 minutes as its supply-chain delay default; explicit strict configuration makes failure deterministic. The six current Expo patches were more than one day old and passed the complete compatibility gate.
 
 ## Pending decisions
 
