@@ -10,7 +10,7 @@ This report is deliberately separate from simulator, web and generated-configura
 
 | Field | Value |
 | --- | --- |
-| Repository source | Working tree based on local `7e77d0a`; the 2026-08-26 accessibility/dependency evidence work unit is pending its local commit |
+| Repository source | Local `main`; audited implementation/evidence commits remain unpushed to `origin/main` |
 | App version/build | `0.1.0` / iOS build `1` |
 | Bundle identifier | `fi.roopeaaltonen.kierratysappi` |
 | Host | Apple M1, macOS 26.5.2 (`25F84`) |
@@ -136,6 +136,7 @@ Rows not exercised remain **Not run**. `Pass` means the named behavior was obser
 | VoiceOver focus order | Partial | Direct-touch navigation passed from home scan action to scanner title/close and back to manual entry. Full sequential swipe order, permission recovery, results and settings remain unverified. |
 | VoiceOver labels/traits/hints | Partial | Home scan action announced `Skannaa pakkaus`, button trait and privacy/purpose hint; scanner title and close link were named; manual action and corrected EAN/GTIN text-field name/hint/trait were announced. Remaining screens are unrun. |
 | VoiceOver error recovery | Partial | Initial manual-invalid alert was visible but silent, then its first explicit announcement was interrupted by button focus. The locally repaired high-priority iOS announcement was physically confirmed to read the full `Tarkista koodin numerot...` message. Offline/provider states remain unrun. |
+| VoiceOver asynchronous lookup result | Failed, repaired locally; retest deferred | Nutella rendered during a known-product run, but VoiceOver remained on `Hae tuote`. Loading and all terminal lookup states now use a pure tested announcement mapping; the device retest is deferred until after functional and visual work. |
 | Increase Contrast | Not run | Information remains legible |
 | Reduce Motion | Not run | No essential information loss; transitions suppressed |
 | Button Shapes/related options | Not run | Actions remain distinguishable |
@@ -167,8 +168,9 @@ Rows not exercised remain **Not run**. `Pass` means the named behavior was obser
 - On 2026-08-26, the stopped Metro service produced the development-client-only `No script URL provided` screen. Restarting the local API/Metro services and launching with the explicit LAN payload restored the app. This is expected for the development artifact and is not evidence about a self-contained release build.
 - Physical VoiceOver testing found that `accessibilityLabelledBy` alone did not name the manual field on iOS: VoiceOver used the placeholder. Explicit localized `accessibilityLabel` values were added to all three text inputs; the manual field then announced `EAN- tai GTIN-koodi`, its text-field trait and hint.
 - Physical VoiceOver testing found that a React Native `accessibilityRole="alert"` did not automatically announce the manual validation error on iOS. A centralized iOS announcement path now covers manual validation, material-code/component results, feedback save and local-data deletion. The manual error uses high priority because a queued/default announcement was physically observed to be interrupted; the repaired full announcement passed on the device.
+- The later known-product VoiceOver run exposed an equivalent asynchronous state-change gap: Nutella rendered while speech remained on the earlier search button. The result route now explicitly announces loading, offline, invalid, not-found, provider-unavailable, resolved and packaging-missing states through a pure mapping with regression coverage. This source repair has not yet been physically reconfirmed.
 - Preflight documentation defect fixed: `docs/quality/MANUAL_TEST_CHECKLIST.md` no longer claims UPC-E is supported and now requires safe rejection.
 
 ## Remaining boundary
 
-Continue the remaining physical matrix with VoiceOver on known-product and offline/provider-result flows, then largest Dynamic Type. Release remains blocked until a paid-program release archive/TestFlight build, broader Apple device matrix and all remaining accessibility/performance/camera cases pass.
+Continue functional validation with the backend-unavailable to restored-retry flow while VoiceOver is disabled. Resume the remaining VoiceOver and largest-Dynamic-Type matrix after functional and visual stabilization. Release remains blocked until a paid-program release archive/TestFlight build, broader Apple device matrix and all remaining accessibility/performance/camera cases pass.

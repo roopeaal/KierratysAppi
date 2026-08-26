@@ -37,7 +37,7 @@ Verified: 2026-08-22. Secret presence was checked without intentionally reading 
 | Maps/collection points | P1 | Web research | KIVO/Rinki/open data | Varies | Location/network | Defer until licence/API is verified |
 | Error monitoring | Yes later | None | Sentry or provider-neutral adapter | High | Telemetry | Define boundary; provider needs owner privacy/cost approval |
 | Analytics | Yes later | None | privacy-preserving adapter | Varies | Usage telemetry | Default off until consent/provider decision |
-| Accessibility audit | Yes | Accessibility skills, tests and installed iPhone development build | Platform screen readers/device review | High | Local UI/device | Run VoiceOver/largest-text iPhone matrix next; Android remains blocked |
+| Accessibility audit | Yes | Accessibility skills, tests and installed iPhone development build | Platform screen readers/device review | High | Local UI/device | Resume remaining VoiceOver/largest-text iPhone matrix after functional/visual stabilization; Android remains blocked |
 | Vulnerability/secret scanning | Yes | package audit, GitHub CI | OSV/CodeQL/Gitleaks | High | Repo read | Configure trusted CI tools with minimal permissions |
 | End-to-end testing | Yes | Browser tooling and manual iPhone runtime; no native automation harness | Maestro/Detox candidate | High | App/device | Continue manual matrix and add automation later; Android/release E2E blocked |
 | Store metadata/screenshots | Yes | Local scripts/docs/image tools | Expo/store tooling | High | Local files; later accounts | Prepare locally; do not publish |

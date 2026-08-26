@@ -116,8 +116,8 @@
 
 - Date: 2026-08-26
 - Status: accepted
-- Decision: retain visible React Native alert/live-region semantics, but also provide every current dynamic status screen an explicit iOS accessibility announcement. Every text input has its own localized `accessibilityLabel` even when associated visible label metadata exists. Important recovery errors use high priority; informational results are queued at default priority.
-- Reason: physical VoiceOver testing showed that `accessibilityLabelledBy` did not name the manual field on iOS and `accessibilityRole="alert"` did not announce its new validation message. A default explicit announcement was then interrupted by button focus, while the high-priority repair read the complete recovery instruction. The implementation and regression policy reflect observed behavior rather than assumed cross-platform parity.
+- Decision: retain visible React Native alert/live-region semantics, but also provide every current dynamic status screen an explicit iOS accessibility announcement. Every text input has its own localized `accessibilityLabel` even when associated visible label metadata exists. Loading is queued at default priority; terminal results and recovery errors use high priority so stale focused-control speech cannot suppress the state change.
+- Reason: physical VoiceOver testing showed that `accessibilityLabelledBy` did not name the manual field on iOS, `accessibilityRole="alert"` did not announce its new validation message and a known-product completion left VoiceOver speaking the earlier submit button. A default explicit announcement was also interrupted by button focus, while the high-priority manual repair read the complete recovery instruction. The implementation and regression policy reflect observed behavior rather than assumed cross-platform parity.
 
 ## Pending decisions
 

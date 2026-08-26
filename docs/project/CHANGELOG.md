@@ -4,10 +4,11 @@
 
 - Continued the physical iPhone audit with VoiceOver and found that iOS used the manual field placeholder as its name and did not reliably announce the validation error.
 - Added explicit localized names to every mobile text input and centralized iOS announcements for manual validation, material/component results, feedback save and local-data deletion; physically verified the corrected field name and complete uninterruptible manual error.
-- Added three repository-policy accessibility regressions, raising the passing suite to 133 application tests plus five policy tests (138 total).
+- Found that the known-product screen updated to Nutella while VoiceOver remained on the submit button; added a pure lookup-state announcement mapping and explicit result-screen announcements for loading, offline, invalid, not-found, provider-unavailable, resolved and packaging-missing states. The code has automated evidence; its device retest is deferred until after functional and visual work.
+- Added three repository-policy accessibility regressions and one lookup-announcement test, raising the passing suite to 134 application tests plus five policy tests (139 total).
 - Revalidated the time-sensitive Expo gate, installed Expo 57.0.16 plus the compatible constants/router/splash patches after the strict age threshold, deduplicated the native constants module and restored install-check/Doctor 20/20/peer-check success.
 - Refreshed iOS pods, rebuilt and strictly verified the app plus 11 embedded frameworks, installed/launched it on the paired iPhone and confirmed the normal VoiceOver-enabled home after a 1,805-module bundle.
-- Retained NO-GO and left known-result/offline VoiceOver, largest text, broader camera/performance, Android, release, infrastructure, legal/licensing/content and store gates open.
+- Retained NO-GO and left the asynchronous-result VoiceOver device retest, remaining VoiceOver/largest text, broader camera/performance, Android, release, infrastructure, legal/licensing/content and store gates open. Continued device work now prioritizes functional and visual flows before the broader accessibility matrix.
 
 ## 2026-08-22
 

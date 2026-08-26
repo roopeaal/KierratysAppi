@@ -2,6 +2,7 @@ import type { ProductLookupResult } from "@kierratysappi/application/lookup-sche
 import type { MaterialFamily, PackagingShape } from "@kierratysappi/domain";
 import type { MessageKey } from "@kierratysappi/localization";
 import { useRouter } from "expo-router";
+import { useEffect } from "react";
 import { ActivityIndicator, Linking, StyleSheet, View } from "react-native";
 import {
   AppText,
@@ -17,6 +18,8 @@ import {
   sharedStyles,
 } from "@/components/ui";
 import { SortingResultCard } from "@/components/sorting-result";
+import { announceAccessibility } from "@/features/accessibility/announcements";
+import { lookupAnnouncement } from "@/features/accessibility/result-announcement";
 import { useScanSession } from "@/features/scan/session-context";
 import { useLanguage } from "@/i18n/language-context";
 import { spacing, useAppTheme } from "@/theme/tokens";
@@ -26,6 +29,11 @@ export default function ResultScreen() {
   const { palette } = useAppTheme();
   const { t } = useLanguage();
   const { state, lookupBarcode, reset } = useScanSession();
+
+  useEffect(() => {
+    const announcement = lookupAnnouncement(state, t);
+    if (announcement) announceAccessibility(announcement.message, announcement.priority);
+  }, [state, t]);
 
   const startOver = () => {
     reset();

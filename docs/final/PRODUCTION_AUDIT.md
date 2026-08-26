@@ -2,7 +2,7 @@
 
 Audit date: 2026-08-10
 
-Follow-up physical-iOS runs: 2026-08-10, 2026-08-22 and a 2026-08-26 VoiceOver/dependency work unit based on local `7e77d0a`, five commits ahead of `origin/main`. See `PHYSICAL_IOS_VALIDATION.md`.
+Follow-up physical-iOS runs: 2026-08-10, 2026-08-22 and a 2026-08-26 VoiceOver/dependency work unit on local `main`; audited commits remain unpushed to `origin/main`. See `PHYSICAL_IOS_VALIDATION.md`.
 
 Decision: **NO-GO**
 
@@ -16,7 +16,7 @@ This audit did not accept earlier readiness statements as evidence. It inspected
 
 The repository is a strong, testable prototype but is not a releasable production system. One short-lived iOS Personal-Team Debug build and a limited physical EAN-13/core-flow subset now pass, but there is no Android build, iOS archive/TestFlight build, complete physical matrix, deployed API, production database, backup drill, monitoring/on-call service, approved privacy/terms/licensing position, store submission package, or store account evidence. Expo compatibility now passes after the supported patches cleared the strict release-age gate.
 
-No locally executable source blocker, critical, or high finding identified so far remains open. The iPhone run exposed and physically verified the repair of a high VoiceOver naming/announcement defect; the remaining iPhone manual/native-automation work is in progress. Android, release signing/stores, infrastructure, legal/licensing/content approval and upstream package gates remain external or time-gated. The decision remains NO-GO.
+No locally executable source blocker, critical, or high finding identified so far remains open. The iPhone run exposed and physically verified the repair of a high VoiceOver naming/manual-error defect, then exposed an asynchronous known-product announcement gap that is now repaired and regression-tested locally. Its device retest and the remaining iPhone manual/native-automation work are still open. Android, release signing/stores, infrastructure, legal/licensing/content approval and upstream package gates remain external or time-gated. The decision remains NO-GO.
 
 ## Evidence lanes
 
@@ -34,12 +34,12 @@ No locally executable source blocker, critical, or high finding identified so fa
 | 10 | OCR and AI safety | Photo, OCR, upload, and cloud AI are disabled; threat-model gates exist | AUD-033 |
 | 11 | Security | Input/body/redirect/response limits, CORS, no-store, RLS, dependency and secret gates exist; deployment controls are absent | AUD-010, AUD-018, AUD-025, AUD-028 |
 | 12 | Privacy/GDPR | Collection is minimized and local deletion exists; controller notice, lawful basis, rights process, and approval are absent | AUD-009, AUD-022, AUD-032 |
-| 13 | Accessibility | Web semantics/focus/contrast and code-level reduced motion pass; partial iPhone VoiceOver testing found and verified a high text-field/status-announcement repair, while remaining VoiceOver/TalkBack/largest-text evidence is open | AUD-014, AUD-026, AUD-038 |
+| 13 | Accessibility | Web semantics/focus/contrast and code-level reduced motion pass; partial iPhone VoiceOver testing found and verified a high text-field/manual-status repair, then found an async-result gap now repaired locally but awaiting device retest; remaining VoiceOver/TalkBack/largest-text evidence is open | AUD-014, AUD-026, AUD-038 |
 | 14 | Performance/bundle | API is small; physical provider completions of 162/343 ms and an 8 ms cache hit were observed, but end-to-end native budgets remain unmeasured; web entry is 2,529,592 bytes / 572,284 gzip | AUD-026, AUD-030 |
 | 15 | Database integrity/migration/recovery | Migration constraints and PGlite tests pass; no production repository or restore drill exists | AUD-011, AUD-024 |
 | 16 | API reliability/validation/rate limits | Strict validation, timeouts, body limits, local rate limits and production smoke pass; multi-instance behavior is unresolved | AUD-004, AUD-010, AUD-018 |
 | 17 | Observability/incident response | Privacy-safe aggregate hook/runbooks exist; no monitoring, alerting, on-call roster, or SLO evidence exists | AUD-025 |
-| 18 | Test layers | 133 application tests plus five repository-policy regressions pass (138 total) with useful core coverage and a manual iPhone smoke subset; native automation/release E2E and production contract-environment evidence are absent | AUD-027 |
+| 18 | Test layers | 134 application tests plus five repository-policy regressions pass (139 total) with useful core coverage and a manual iPhone smoke subset; native automation/release E2E and production contract-environment evidence are absent | AUD-027 |
 | 19 | Visual design | Desktop/mobile rendered flows are consistent and overflow-free; an owner observed core iPhone screens, but signed-release store/device screenshots and broad visual QA are absent | AUD-031 |
 | 20 | Animation/reduced motion/battery | Root transitions honor reduced motion; native frame/battery impact is unmeasured | AUD-014, AUD-026 |
 | 21 | Localization | Finnish/English UI and native permission strings exist; device truncation/assistive-tech checks remain | AUD-014, AUD-036 |
@@ -309,7 +309,7 @@ No locally executable source blocker, critical, or high finding identified so fa
 
 - Severity: **high**
 - Status: **open, partially executable with manual device work**
-- Evidence: code and web review pass, functional background/force-quit plus permission/offline/result flows pass on one iPhone development build, and partial VoiceOver home/scanner/manual-invalid coverage now passes after AUD-038 repair. Known/offline/provider results, full sequential focus order, TalkBack, largest text, switch/keyboard, color modes, measured native frame pacing/startup, memory, camera power/battery and reduced-motion device evidence remain open.
+- Evidence: code and web review pass, functional background/force-quit plus permission/offline/result flows pass on one iPhone development build, and partial VoiceOver home/scanner/manual-invalid coverage now passes after AUD-038 repair. The known-product VoiceOver run exposed an additional async-result gap that is repaired locally but awaits device retest. Offline/provider announcements, full sequential focus order, TalkBack, largest text, switch/keyboard, color modes, measured native frame pacing/startup, memory, camera power/battery and reduced-motion device evidence remain open.
 - Affected files/flows: all screens, navigation, camera and haptics.
 - Reproduction: inspect `PHYSICAL_IOS_VALIDATION.md`; VoiceOver rows are partial while largest-text and measured performance/battery rows remain Not run.
 - Required remediation: execute and record the manual matrix on representative recent/small/tablet devices against stated performance budgets.
@@ -319,7 +319,7 @@ No locally executable source blocker, critical, or high finding identified so fa
 
 - Severity: **high**
 - Status: **open, partially executable locally**
-- Evidence: 133 application unit/integration/contract/migration/mobile-state tests plus five repository-policy regressions pass (138 total), and a manual signed-development-build smoke/VoiceOver subset now runs on iPhone. There is still no native UI automation, complete physical camera E2E, release-signed smoke, real database integration, deployed fault/load test or store-installed upgrade test.
+- Evidence: 134 application unit/integration/contract/migration/mobile-state/accessibility tests plus five repository-policy regressions pass (139 total), and a manual signed-development-build smoke/VoiceOver subset now runs on iPhone. There is still no native UI automation, complete physical camera E2E, release-signed smoke, real database integration, deployed fault/load test or store-installed upgrade test.
 - Affected files/flows: cross-system release behavior.
 - Reproduction: enumerate automated tests; they do not boot a native binary or deployed environment. Compare the limited manual rows in `PHYSICAL_IOS_VALIDATION.md` with the unrun matrix.
 - Required remediation: add Maestro/Detox or equivalent for non-camera flows, physical camera checklist, deployed provider/database contracts, outage/load/upgrade tests, and attach artifacts.
@@ -399,7 +399,7 @@ No locally executable source blocker, critical, or high finding identified so fa
 
 - Severity: **high**
 - Status: **resolved locally by this audit**
-- Evidence: `CURRENT_STATE`, `RELEASE_READINESS`, performance and test evidence claimed locally complete, 100 tests, Expo Doctor 20/20, compatibility pass and about 1.7 MiB web entry. The initial independent check found 133 application tests, Doctor 19/20, compatibility failure and a 2.53 MiB entry. Dated follow-up now records 138 total automated tests and separately verified dependency updates that restore Doctor 20/20.
+- Evidence: `CURRENT_STATE`, `RELEASE_READINESS`, performance and test evidence claimed locally complete, 100 tests, Expo Doctor 20/20, compatibility pass and about 1.7 MiB web entry. The initial independent check found 133 application tests, Doctor 19/20, compatibility failure and a 2.53 MiB entry. Dated follow-up now records 139 total automated tests and separately verified dependency updates that restore Doctor 20/20.
 - Affected files/flows: project-control/final documentation and release decisions.
 - Reproduction: compare prior text with current commands/artifacts.
 - Required remediation: replace claims with dated command evidence and explicit failures/blockers; never infer native/store results.
@@ -425,15 +425,15 @@ No locally executable source blocker, critical, or high finding identified so fa
 - Required remediation: align every launch claim with actual provider scope and incomplete community coverage.
 - Execution boundary: completed locally; final store copy still requires OA-10 approval.
 
-### AUD-038 — iOS VoiceOver did not reliably name inputs or announce dynamic errors
+### AUD-038 — iOS VoiceOver did not reliably name inputs or announce dynamic state changes
 
 - Severity: **high**
-- Status: **resolved locally and physically verified for the manual-invalid flow**
-- Evidence: on the 2026-08-26 iPhone run, the manual GTIN input announced its placeholder instead of its visible field label because `accessibilityLabelledBy` was insufficient on iOS. After adding explicit localized labels to every text input, VoiceOver announced `EAN- tai GTIN-koodi`, the text-field trait and the length hint. The visible `accessibilityRole="alert"` validation message was initially silent; its first explicit default/queued announcement was interrupted by button focus. A centralized high-priority iOS path then read the complete validation instruction automatically. Three repository-policy regressions cover text-input names, uninterruptible important announcements and explicit iOS paths for every current dynamic alert/live-region screen.
-- Affected files/flows: manual GTIN, material-code input/result, manual component result, feedback draft, local-data deletion and any future dynamic status message.
-- Reproduction: with VoiceOver enabled, enter `123` in manual GTIN and submit. Before repair, the field name came from `3017 6204 22003` and the visible error was not announced; a default explicit announcement was cut off by the focused search button.
-- Required remediation: provide explicit localized `accessibilityLabel` on every React Native text input and explicitly announce iOS dynamic status/error changes; important errors use high priority so focus speech cannot interrupt recovery instructions. Retain visible alert/live-region semantics for other platforms and add every new dynamic screen to the regression policy.
-- Execution boundary: code repair and manual-invalid physical verification are complete locally; the remaining result/offline/provider VoiceOver matrix remains part of AUD-026.
+- Status: **resolved locally; physically verified for input naming/manual-invalid, async-result retest deferred**
+- Evidence: on the 2026-08-26 iPhone run, the manual GTIN input announced its placeholder instead of its visible field label because `accessibilityLabelledBy` was insufficient on iOS. After adding explicit localized labels to every text input, VoiceOver announced `EAN- tai GTIN-koodi`, the text-field trait and the length hint. The visible `accessibilityRole="alert"` validation message was initially silent; its first explicit default/queued announcement was interrupted by button focus. A centralized high-priority iOS path then read the complete validation instruction automatically. A later known-product run rendered Nutella while VoiceOver stayed on `Hae tuote`; the result route now maps loading and every terminal lookup state to an explicit announcement. One pure mapping regression with eight state assertions plus three repository-policy regressions cover the repaired boundaries.
+- Affected files/flows: manual GTIN, lookup loading/completion/failure states, material-code input/result, manual component result, feedback draft, local-data deletion and any future dynamic status message.
+- Reproduction: (1) with VoiceOver enabled, enter `123` in manual GTIN and submit; before repair, the field name came from `3017 6204 22003` and the visible error was not announced, then a default explicit announcement was cut off by the focused search button. (2) submit known GTIN `3017620422003`; before the async repair, Nutella rendered but VoiceOver continued to announce the prior search button.
+- Required remediation: provide explicit localized `accessibilityLabel` on every React Native text input and explicitly announce iOS dynamic status/error changes. Queue loading at default priority; use high priority for terminal state changes so stale focus speech cannot suppress them. Retain visible alert/live-region semantics for other platforms and add every new dynamic screen to the regression policy.
+- Execution boundary: source repair, regression tests and manual-invalid physical verification are complete locally. The owner chose to resume the async result and broader VoiceOver device matrix after functional and visual stabilization; those evidence rows remain part of AUD-026 and are not claimed as passed.
 
 ## Authoritative current requirements checked
 

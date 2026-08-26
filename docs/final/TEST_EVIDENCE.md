@@ -26,7 +26,7 @@ Official Expo and Apple requirements were rechecked on 2026-08-10. Expo SDK 57 r
 | Command/evidence | Result |
 | --- | --- |
 | `pnpm install --frozen-lockfile` | Pass from the locked dependency graph |
-| `pnpm validate` | Pass: format, lint, strict typecheck, 133 application tests plus five repository-policy regressions, package/API builds and 12-route Expo web export |
+| `pnpm validate` | Pass: format, lint, strict typecheck, 134 application tests plus five repository-policy regressions, package/API builds and 12-route Expo web export |
 | Domain | 48 tests, 3 files |
 | PostgreSQL migration/seed | 5 tests, 1 file; full 26-table PGlite execution |
 | Data providers | 14 tests, 2 files |
@@ -34,12 +34,12 @@ Official Expo and Apple requirements were rechecked on 2026-08-10. Expo SDK 57 r
 | Localization | 3 tests, 1 file |
 | Application resolution/cache | 8 tests, 1 file |
 | API | 12 tests, 2 files |
-| Mobile state/config/storage/contrast | 35 tests, 9 files |
-| **Application subtotal** | **133 tests, 20 Vitest files** |
+| Mobile state/config/storage/contrast/accessibility | 36 tests, 10 files |
+| **Application subtotal** | **134 tests, 21 Vitest files** |
 | Repository policy | 5 Node tests covering generated-tree exclusion, strict dependency age, text-input names, high-priority iOS alerts and explicit dynamic-status announcement paths |
-| **Automated total** | **138 tests** |
-| `pnpm test:coverage` | Pass; all 133 tests rerun with coverage |
-| `pnpm security:audit` | Pass policy: 4 advisories reviewed; two exact high build-tool exceptions expire 2026-09-10 |
+| **Automated total** | **139 tests** |
+| `pnpm test:coverage` | Pass; all 134 application tests reran with coverage |
+| `pnpm security:audit` | Pass policy: two exact high build-tool advisories reviewed and accepted only until 2026-09-10 |
 | API production smoke | Pass on `127.0.0.1:3107`: health, OpenAPI 429 schema, strict extra-field 400; rejected request log contained only request ID/status/message, not the submitted field/value |
 | API bundle inspection | Pass: one 52,431-byte JS file, no sourcemap, no GS1 mock symbol |
 | iOS clean prebuild inspection | Pass configuration: localized fi/en camera text, no microphone purpose string, privacy manifest says no tracking/collected types and UserDefaults reason CA92.1 |
@@ -57,8 +57,8 @@ Coverage is useful but not a release gate substitute. V8 summaries:
 | Data providers | 94.07% | 90.82% | 95.83% | 95.07% |
 | Recycling engine | 92.42% | 77.55% | 100% | 91.93% |
 | Application | 90.54% | 83.33% | 100% | 92.95% |
-| API | 96.92% | 93.33% | 92.85% | 98.43% |
-| Mobile tested modules | 62.02% | 73.77% | 52% | 64.28% |
+| API | 95.58% | 91.48% | 93.33% | 97.01% |
+| Mobile tested modules | 67.74% | 79.22% | 53.84% | 69.51% |
 | Localization | 100% | 100% | 100% | 100% |
 | Database SQL | Not meaningfully represented by V8 | PGlite behavior tests are the evidence |
 
@@ -68,6 +68,7 @@ Mobile coverage excludes most rendered route/component code; it must not be inte
 
 - Real GTIN `3017620422003` resolved through local API → OFF to Nutella with four packaging components. Missing cap material remained unknown. Source, community status, combined ODbL/DbCL, attribution and retrieval date were visible.
 - Manual invalid GTIN produced a visible web alert. On physical iOS, VoiceOver exposed two defects: the placeholder became the field name and the alert was silent/interrupted. Explicit localized text-input labels and a high-priority iOS announcement path were added; VoiceOver then announced the correct EAN/GTIN field name/hint/trait and read the full validation instruction automatically.
+- A later known-product run rendered Nutella but VoiceOver stayed on `Hae tuote`. The result screen now maps and announces loading plus every terminal lookup state. Six state expectations and repository policy pass; physical confirmation of this repair is deferred while functional and visual testing takes priority.
 - Home/result/legal screens were inspected at 1280×720 and 390×844 with no horizontal overflow. Keyboard focus outline was visible; document language followed selected UI language.
 - Legal showed confirmed all-local-data deletion.
 - Web browser state was restored and audit tabs finalized after inspection.
@@ -100,7 +101,7 @@ Mobile coverage excludes most rendered route/component code; it must not be inte
 | Android compile/sign/install | Unavailable: no Java runtime, Android SDK/ADB/EAS credentials | External blocker |
 | iOS release archive/TestFlight | Development compile/sign/install passes, but no paid-program archive, TestFlight processing or release-configuration install exists | External account/signing/store blocker |
 | Physical barcode matrix | Partial: one EAN-13 and permission/recovery paths pass; EAN-8, UPC-A, UPC-E rejection, glare/distance/damage/multiple/rapid cases remain | Physical/manual blocker |
-| VoiceOver/TalkBack/large text | Partial iPhone VoiceOver pass: home/scanner/manual-invalid subset; TalkBack, largest text and remaining result/recovery flows unrun | Physical/manual blocker; iPhone work continues, Android is unavailable |
+| VoiceOver/TalkBack/large text | Partial iPhone VoiceOver pass: home/scanner/manual-invalid subset; async result repair passes locally but awaits device retest; TalkBack, largest text and remaining recovery flows are unrun | Physical/manual blocker; broader accessibility follows functional/visual work, Android is unavailable |
 | Production API/database/monitoring | Does not exist | External infrastructure blocker |
 | Backup/restore/load/failover | Not run | External infrastructure blocker |
 | Store console/binary validation | Not run | External account/signing blocker |

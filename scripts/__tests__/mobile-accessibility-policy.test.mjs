@@ -42,6 +42,7 @@ test("every dynamic mobile alert has an explicit iOS announcement path", () => {
     "component.tsx",
     "feedback.tsx",
     "legal.tsx",
+    "result.tsx",
   ]) {
     const source = readFileSync(join("apps/mobile/src/app", screen), "utf8");
     assert.match(source, /announceAccessibility\(/, `${screen} needs an iOS announcement path`);
