@@ -2,6 +2,7 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Keyboard, StyleSheet, TextInput, View } from "react-native";
 import { AppText, BrandLockup, Button, InlineLink, Screen, sharedStyles } from "@/components/ui";
+import { announceAccessibility } from "@/features/accessibility/announcements";
 import { useScanSession } from "@/features/scan/session-context";
 import { useLanguage } from "@/i18n/language-context";
 import { radius, spacing, useAppTheme } from "@/theme/tokens";
@@ -19,6 +20,7 @@ export default function ManualEntryScreen() {
     const attempt = await lookupBarcode(value, "manual");
     if (!attempt.accepted && attempt.reason === "invalid") {
       setInvalid(true);
+      announceAccessibility(t("invalidGtin"), "high");
       return;
     }
     if (attempt.accepted) router.replace("/result");
@@ -40,6 +42,7 @@ export default function ManualEntryScreen() {
             {t("gtinLabel")}
           </AppText>
           <TextInput
+            accessibilityLabel={t("gtinLabel")}
             accessibilityLabelledBy="gtin-label"
             accessibilityHint={t("gtinHint")}
             autoComplete="off"

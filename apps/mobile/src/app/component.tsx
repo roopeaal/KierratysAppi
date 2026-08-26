@@ -4,6 +4,7 @@ import type {
   MaterialFamily,
   PackagingShape,
 } from "@kierratysappi/domain";
+import { localizedText } from "@kierratysappi/localization";
 import { sortPackagingComponent, type SortingResult } from "@kierratysappi/recycling-engine";
 import { useRouter } from "expo-router";
 import { useState } from "react";
@@ -18,6 +19,7 @@ import {
   Screen,
   sharedStyles,
 } from "@/components/ui";
+import { announceAccessibility } from "@/features/accessibility/announcements";
 import { useLanguage } from "@/i18n/language-context";
 import { radius, spacing, useAppTheme } from "@/theme/tokens";
 
@@ -68,20 +70,27 @@ export default function ManualComponentScreen() {
       },
     };
     const observed = <T,>(value: T) => ({ value, provenance });
-    setResult(
-      sortPackagingComponent({
-        component: {
-          id: "local-component",
-          packagingStatus: observed("packaging"),
-          materialFamily: observed(material),
-          shape: observed(shape),
-          depositReturnStatus: observed(
-            shape === "bottle" || shape === "can" ? deposit : "not_applicable",
-          ),
-          conditions: { hazardousResidue: "unknown", pressurized: "unknown", emptied: "unknown" },
-        },
-        context: { country: "FI", language, evaluatedAt: now },
-      }),
+    const nextResult = sortPackagingComponent({
+      component: {
+        id: "local-component",
+        packagingStatus: observed("packaging"),
+        materialFamily: observed(material),
+        shape: observed(shape),
+        depositReturnStatus: observed(
+          shape === "bottle" || shape === "can" ? deposit : "not_applicable",
+        ),
+        conditions: { hazardousResidue: "unknown", pressurized: "unknown", emptied: "unknown" },
+      },
+      context: { country: "FI", language, evaluatedAt: now },
+    });
+    setResult(nextResult);
+    announceAccessibility(
+      nextResult.status === "resolved"
+        ? localizedText(language, nextResult.destination.label)
+        : nextResult.status === "ambiguous"
+          ? localizedText(language, nextResult.question)
+          : localizedText(language, nextResult.nextAction),
+      nextResult.status === "resolved" ? "default" : "high",
     );
   };
 

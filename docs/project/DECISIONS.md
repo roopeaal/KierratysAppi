@@ -112,6 +112,13 @@
 - Decision: configure pnpm with `minimumReleaseAge: 1440` and strict mode for all direct and transitive dependencies, without a broad exclusion. Once a supported Expo patch set clears that age, require lockfile supply-chain verification, peer checking, `expo install --check`, Doctor 20/20 and full validation.
 - Reason: the earlier policy named an age gate but did not encode its duration. Pnpm 11 documents 1,440 minutes as its supply-chain delay default; explicit strict configuration makes failure deterministic. The six current Expo patches were more than one day old and passed the complete compatibility gate.
 
+## D-017 — Use explicit iOS announcements for dynamic native status changes
+
+- Date: 2026-08-26
+- Status: accepted
+- Decision: retain visible React Native alert/live-region semantics, but also provide every current dynamic status screen an explicit iOS accessibility announcement. Every text input has its own localized `accessibilityLabel` even when associated visible label metadata exists. Important recovery errors use high priority; informational results are queued at default priority.
+- Reason: physical VoiceOver testing showed that `accessibilityLabelledBy` did not name the manual field on iOS and `accessibilityRole="alert"` did not announce its new validation message. A default explicit announcement was then interrupted by button focus, while the high-priority repair read the complete recovery instruction. The implementation and regression policy reflect observed behavior rather than assumed cross-platform parity.
+
 ## Pending decisions
 
 - OCR implementation and whether a cloud AI path is justified after the typed-code flow is evaluated.

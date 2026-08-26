@@ -1,6 +1,6 @@
 # Physical iOS validation
 
-Status date: 2026-08-22
+Status date: 2026-08-26
 
 Status: **PARTIALLY RUN — development build installed; core iPhone flow passes, full matrix remains open**
 
@@ -10,7 +10,7 @@ This report is deliberately separate from simulator, web and generated-configura
 
 | Field | Value |
 | --- | --- |
-| Repository source | Working tree based on `aae5fab00dd11f5bd451b27ad710432bbddc4fa5`; the 2026-08-22 dependency/evidence work unit is pending its local commit |
+| Repository source | Working tree based on local `7e77d0a`; the 2026-08-26 accessibility/dependency evidence work unit is pending its local commit |
 | App version/build | `0.1.0` / iOS build `1` |
 | Bundle identifier | `fi.roopeaaltonen.kierratysappi` |
 | Host | Apple M1, macOS 26.5.2 (`25F84`) |
@@ -20,7 +20,7 @@ This report is deliberately separate from simulator, web and generated-configura
 | iPhone model | iPhone 12 Pro Max |
 | iOS version | 26.1 (`23B82`) |
 | Tester | Repository owner for manual observations; Codex for build/device/API/Metro logs |
-| Physical run date | 2026-08-10 and renewed-profile continuation on 2026-08-22 |
+| Physical run date | 2026-08-10, renewed-profile continuation on 2026-08-22 and VoiceOver/patch continuation on 2026-08-26 |
 | Screenshots/logs | Interactive observations plus Xcode, `devicectl`, Metro and privacy-safe API logs; no native screenshots captured yet |
 
 ## Automated preflight evidence
@@ -30,21 +30,21 @@ This report is deliberately separate from simulator, web and generated-configura
 | Git synchronization | Pass as inspection; not pushed | Clean `main` at test start; local HEAD `aae5fab`, `origin/main` `87404a0`, ahead three. No prior push authorization exists. |
 | Host compatibility | Pass | macOS 26.5.2 is in Xcode 26.6’s supported macOS 26.2–26.x range. |
 | Full Xcode | Pass | Xcode 26.6 and the iOS 26.5 SDK are installed and usable through explicit `DEVELOPER_DIR`. |
-| Expo/iOS compatibility | Pass | SDK 57 requires Xcode 26.4+ and iOS 16.4+. Generated project target is iOS 16.4; supported patches are installed, install check passes and Doctor 1.20.1 is 20/20. |
+| Expo/iOS compatibility | Pass | SDK 57 requires Xcode 26.4+ and iOS 16.4+. Generated project target is iOS 16.4; the 2026-08-24 supported patches cleared the strict age gate, install check passes and Doctor 1.20.1 is 20/20 after native deduplication. |
 | Native generation | Pass | A clean ignored-workspace `expo prebuild --clean --platform ios --no-install` completed. |
 | Bundle/version | Pass | Generated project has bundle ID `fi.roopeaaltonen.kierratysappi`, marketing version `0.1.0` and build `1`. |
 | Camera purpose | Pass configuration | Finnish and English `NSCameraUsageDescription` state barcode-only camera use and no frame upload. |
 | Unrelated purpose strings | Pass configuration | No microphone or location usage description is generated. Location is not used by the current product. |
-| Development compile | Pass | Xcode Debug build completed for `iphoneos` on 2026-08-22, then passed again after the six Expo-compatible patch updates and refreshed pods. Dependency compiler warnings remain; no build error occurred. |
+| Development compile | Pass | Xcode Debug build completed for `iphoneos` on 2026-08-22 and again on 2026-08-26 after Expo 57.0.16 and refreshed pods. Dependency build-script warnings remain; no build error occurred. |
 | Development signature | Pass | All 11 embedded frameworks passed strict signature verification and the app passed recursive `codesign --verify --deep --strict`. This is development evidence, not App Store archive evidence. |
-| Development install/launch | Pass | The earlier renewed build loaded 1,801 modules and the owner confirmed home. After dependency updates, `devicectl` installed/launched the rebuilt app, Metro 57.0.15 loaded 1,804 modules and the owner again confirmed the normal home screen. |
+| Development install/launch | Pass | The renewed builds loaded 1,801/1,804 modules on 2026-08-22. On 2026-08-26, `devicectl` installed/launched the Expo 57.0.16 rebuild, Metro loaded 1,805 modules and the owner confirmed the normal home screen with VoiceOver enabled. |
 | Entitlements | Partial | Development signing/install passes. Final archive entitlements remain unverified. |
 | Privacy manifest | Pass configuration | No tracking or collected data types; UserDefaults required-reason API uses `CA92.1`. Final dependency-merged archive remains unverified. |
 | Icons/splash | Pass generation | App icon, splash logo at 1x/2x/3x, splash background and storyboard are generated from source assets. |
 | Appearance/orientation | Pass configuration | Automatic light/dark style; phone portrait scope. iPad remains configured for portrait and landscape. |
 | EAS development profile | Present but not selected | `developmentClient:true`, internal distribution and Node 24.19.0 exist. EAS is a fallback only and was not invoked. |
 
-The current development build is generated under ignored `work/ios-refresh-derived/`. It is a short-lived Personal-Team development artifact, not an archive, TestFlight build or release artifact. The free provisioning profile expired after seven days as expected and was renewed/reinstalled on 2026-08-22.
+The current development build is generated under ignored `work/ios-refresh-derived/`. It is a short-lived Personal-Team development artifact, not an archive, TestFlight build or release artifact. The free provisioning profile expired after seven days as expected, was renewed/reinstalled on 2026-08-22 and remained usable for the 2026-08-26 rebuild.
 
 ## Physical test matrix
 
@@ -54,14 +54,14 @@ Rows not exercised remain **Not run**. `Pass` means the named behavior was obser
 
 | Scenario | Status | Evidence/notes |
 | --- | --- | --- |
-| Fresh install and first launch | Pass | Development build installed and launched on 2026-08-10; renewed profile/build installed and launched on 2026-08-22 |
+| Fresh install and first launch | Pass | Development build installed and launched on 2026-08-10; renewed builds installed/launched on 2026-08-22 and 2026-08-26 |
 | Cold start | Partial | Force-quit relaunch reached interactive UI; no release-build tap-to-interactive timing captured |
 | Warm start | Not run | Measure from icon tap to interactive home |
 | Background → foreground | Pass | Owner confirmed return worked |
 | Force quit → relaunch | Pass | Owner confirmed force-quit relaunch worked |
 | Lock → unlock while open | Partial | App returned, but a transient development-only Expo CLI warning appeared; DevTools showed a temporary CLI connectivity warning |
 | Safe areas and Dynamic Island/notch | Not run | Record device form factor |
-| Keyboard avoidance/manual entry | Not run | Include largest text |
+| Keyboard avoidance/manual entry | Partial | Standard-size manual input and numeric Search submission worked with VoiceOver; largest text remains unrun |
 | Light and dark appearance | Not run | Check all result states |
 | Portrait behavior | Not run | Phone is portrait-only by configuration |
 
@@ -133,9 +133,9 @@ Rows not exercised remain **Not run**. `Pass` means the named behavior was obser
 | Scenario | Status | Evidence/notes |
 | --- | --- | --- |
 | Dynamic Type through largest accessibility size | Not run | All core flows operable |
-| VoiceOver focus order | Not run | Home, permission, scanner alternative, result, errors, settings |
-| VoiceOver labels/traits/hints | Not run | No unlabeled action controls |
-| VoiceOver error recovery | Not run | Invalid/offline/provider states |
+| VoiceOver focus order | Partial | Direct-touch navigation passed from home scan action to scanner title/close and back to manual entry. Full sequential swipe order, permission recovery, results and settings remain unverified. |
+| VoiceOver labels/traits/hints | Partial | Home scan action announced `Skannaa pakkaus`, button trait and privacy/purpose hint; scanner title and close link were named; manual action and corrected EAN/GTIN text-field name/hint/trait were announced. Remaining screens are unrun. |
+| VoiceOver error recovery | Partial | Initial manual-invalid alert was visible but silent, then its first explicit announcement was interrupted by button focus. The locally repaired high-priority iOS announcement was physically confirmed to read the full `Tarkista koodin numerot...` message. Offline/provider states remain unrun. |
 | Increase Contrast | Not run | Information remains legible |
 | Reduce Motion | Not run | No essential information loss; transitions suppressed |
 | Button Shapes/related options | Not run | Actions remain distinguishable |
@@ -164,8 +164,11 @@ Rows not exercised remain **Not run**. `Pass` means the named behavior was obser
 - The first 2026-08-10 Personal-Team artifact contained unsigned embedded frameworks even though the app wrapper was signed. The artifact was repaired by signing all 11 frameworks and re-signing/verifying the app before install. The clean 2026-08-22 Xcode build produced zero unsigned frameworks and passed strict recursive verification without the repair.
 - The Personal-Team profile expired after seven days and iOS correctly refused launch. Renewing the Apple account/profile, rebuilding, reinstalling and trusting the renewed developer profile restored launch. This is an expected limitation of free local provisioning and remains unsuitable for distribution.
 - After a lifecycle test, the development build displayed `Open debugger to view warnings`; the in-app button did not respond. Mac DevTools showed only a transient inability to reach Expo CLI. Metro then reconnected and no application warning remained. This does not validate production behavior and should be rechecked in a release build.
+- On 2026-08-26, the stopped Metro service produced the development-client-only `No script URL provided` screen. Restarting the local API/Metro services and launching with the explicit LAN payload restored the app. This is expected for the development artifact and is not evidence about a self-contained release build.
+- Physical VoiceOver testing found that `accessibilityLabelledBy` alone did not name the manual field on iOS: VoiceOver used the placeholder. Explicit localized `accessibilityLabel` values were added to all three text inputs; the manual field then announced `EAN- tai GTIN-koodi`, its text-field trait and hint.
+- Physical VoiceOver testing found that a React Native `accessibilityRole="alert"` did not automatically announce the manual validation error on iOS. A centralized iOS announcement path now covers manual validation, material-code/component results, feedback save and local-data deletion. The manual error uses high priority because a queued/default announcement was physically observed to be interrupted; the repaired full announcement passed on the device.
 - Preflight documentation defect fixed: `docs/quality/MANUAL_TEST_CHECKLIST.md` no longer claims UPC-E is supported and now requires safe rejection.
 
 ## Remaining boundary
 
-Continue the remaining physical matrix, starting with VoiceOver and largest Dynamic Type on the home, permission, manual, offline and known-result flows. Release remains blocked until a paid-program release archive/TestFlight build, broader Apple device matrix and all remaining accessibility/performance/camera cases pass.
+Continue the remaining physical matrix with VoiceOver on known-product and offline/provider-result flows, then largest Dynamic Type. Release remains blocked until a paid-program release archive/TestFlight build, broader Apple device matrix and all remaining accessibility/performance/camera cases pass.

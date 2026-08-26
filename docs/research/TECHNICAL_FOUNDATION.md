@@ -5,7 +5,7 @@ Accessed: 2026-08-10; dependency-age and Expo patch metadata rechecked 2026-08-2
 ## Current mobile toolchain
 
 - Expo's current setup guide names SDK 57 and recommends Node.js LTS: https://docs.expo.dev/get-started/create-a-project/
-- The installed compatible patch set resolves Expo 57.0.15, React Native 0.86.2, React 19.2.3, Expo Router 57.0.15, and TypeScript 6.0.3. `expo install --check` and Expo Doctor 1.20.1 independently confirm compatibility.
+- The revalidated compatible patch set resolves Expo 57.0.16, React Native 0.86.2, React 19.2.3, Expo Router 57.0.16, and TypeScript 6.0.3. `expo install --check` and Expo Doctor 1.20.1 independently confirm compatibility after native dependency deduplication.
 - Expo Router is the supported file-based routing/deep-linking layer and its SDK 57 bundled version is documented at https://docs.expo.dev/versions/latest/sdk/router/.
 - `expo-camera` 57.0.4 provides `CameraView`, camera-permission hooks, and barcode detection. Only one preview should be mounted; Android/iOS scanning requires a device: https://docs.expo.dev/versions/latest/sdk/camera/.
 - Expo recommends development builds for production applications rather than treating Expo Go as the whole development environment: https://docs.expo.dev/workflow/upgrading-expo-sdk-walkthrough/.

@@ -22,6 +22,7 @@ import {
   StatusPill,
   sharedStyles,
 } from "@/components/ui";
+import { announceAccessibility } from "@/features/accessibility/announcements";
 import { sortRecognizedMaterialCode } from "@/features/material-code/sorting";
 import { useLanguage } from "@/i18n/language-context";
 import { radius, spacing, useAppTheme } from "@/theme/tokens";
@@ -36,20 +37,29 @@ export default function MaterialCodeScreen() {
 
   const parse = () => {
     Keyboard.dismiss();
-    setAttempt(parseMaterialIdentificationCode(value));
+    const nextAttempt = parseMaterialIdentificationCode(value);
+    setAttempt(nextAttempt);
     setSorting(undefined);
+    announceAccessibility(
+      nextAttempt.status === "recognized"
+        ? t("materialCodeRecognized")
+        : nextAttempt.status === "ambiguous"
+          ? t("materialCodeAmbiguousTitle")
+          : t("materialCodeUnknownTitle"),
+      nextAttempt.status === "recognized" ? "default" : "high",
+    );
   };
 
   const confirm = (recognition: RecognizedMaterialCode) => {
     const observedAt = new Date().toISOString();
-    setSorting(
-      sortRecognizedMaterialCode({
-        recognition,
-        language,
-        observedAt,
-        componentId: `material-code-${Date.now()}`,
-      }),
-    );
+    const nextSorting = sortRecognizedMaterialCode({
+      recognition,
+      language,
+      observedAt,
+      componentId: `material-code-${Date.now()}`,
+    });
+    setSorting(nextSorting);
+    announceAccessibility(sortingAnnouncement(nextSorting, language));
   };
 
   return (
@@ -73,6 +83,7 @@ export default function MaterialCodeScreen() {
             {t("materialCodeLabel")}
           </AppText>
           <TextInput
+            accessibilityLabel={t("materialCodeLabel")}
             accessibilityLabelledBy="material-code-label"
             accessibilityHint={t("materialCodeHint")}
             autoCapitalize="characters"
@@ -129,6 +140,12 @@ export default function MaterialCodeScreen() {
       )}
     </Screen>
   );
+}
+
+function sortingAnnouncement(result: SortingResult, language: "fi" | "en"): string {
+  if (result.status === "resolved") return localizedText(language, result.destination.label);
+  if (result.status === "ambiguous") return localizedText(language, result.question);
+  return localizedText(language, result.nextAction);
 }
 
 function RecognizedCode({

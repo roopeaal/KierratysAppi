@@ -1,5 +1,14 @@
 # Project changelog
 
+## 2026-08-26
+
+- Continued the physical iPhone audit with VoiceOver and found that iOS used the manual field placeholder as its name and did not reliably announce the validation error.
+- Added explicit localized names to every mobile text input and centralized iOS announcements for manual validation, material/component results, feedback save and local-data deletion; physically verified the corrected field name and complete uninterruptible manual error.
+- Added three repository-policy accessibility regressions, raising the passing suite to 133 application tests plus five policy tests (138 total).
+- Revalidated the time-sensitive Expo gate, installed Expo 57.0.16 plus the compatible constants/router/splash patches after the strict age threshold, deduplicated the native constants module and restored install-check/Doctor 20/20/peer-check success.
+- Refreshed iOS pods, rebuilt and strictly verified the app plus 11 embedded frameworks, installed/launched it on the paired iPhone and confirmed the normal VoiceOver-enabled home after a 1,805-module bundle.
+- Retained NO-GO and left known-result/offline VoiceOver, largest text, broader camera/performance, Android, release, infrastructure, legal/licensing/content and store gates open.
+
 ## 2026-08-22
 
 - Compiled, strictly signature-verified, installed and launched an Xcode 26.6 Debug build on an iPhone 12 Pro Max running iOS 26.1.

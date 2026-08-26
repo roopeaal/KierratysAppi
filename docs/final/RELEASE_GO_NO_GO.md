@@ -1,20 +1,20 @@
 # Release decision
 
-Decision date: 2026-08-22
+Decision date: 2026-08-26
 
 Decision: **NO-GO for preview, production, TestFlight, Play testing, and public store submission**
 
-The locally testable source tree is valid, but the product is not production-ready. A clean `pnpm validate` passes with 133 application tests plus two repository-policy regressions (135 total) and both API/web builds. An Xcode 26.6 Personal-Team Debug build now compiles, passes strict recursive signing, installs and runs on one iPhone; core lifecycle, permission, EAN-13, OFF, offline/retry/cache and provenance flows pass. This short-lived development subset does not substitute for Android, an iOS archive/TestFlight build, the remaining camera/accessibility/performance matrix, production infrastructure, legal/content/licensing approval or store validation.
+The locally testable source tree is valid, but the product is not production-ready. A clean `pnpm validate` passes with 133 application tests plus five repository-policy regressions (138 total) and both API/web builds. An Expo 57.0.16 Xcode 26.6 Personal-Team Debug build compiles, passes strict recursive signing, installs and runs on one iPhone; core lifecycle, permission, EAN-13, OFF, offline/retry/cache, provenance and a repaired manual-invalid VoiceOver subset pass. This short-lived development subset does not substitute for Android, an iOS archive/TestFlight build, the remaining camera/accessibility/performance matrix, production infrastructure, legal/content/licensing approval or store validation.
 
 ## Mandatory gate result
 
 | Gate | Result | Release consequence |
 | --- | --- | --- |
 | No unresolved locally executable blocker/critical/high | **Not satisfied for GO** | Original source findings were repaired, but the newly enabled iPhone manual/automation portions of blocker/high findings remain incomplete |
-| Mandatory local tests | Pass | Format, lint, typecheck, 135 automated tests, API build and 12-route web export pass |
-| Expo compatibility | Pass | SDK-supported patches installed after the strict 1,440-minute age gate; install check clean and Doctor 20/20 |
+| Mandatory local tests | Pass | Format, lint, typecheck, 138 automated tests, API build and 12-route web export pass |
+| Expo compatibility | Pass | Expo 57.0.16 patch set installed after the strict 1,440-minute age gate; native duplicate removed, install check clean and Doctor 20/20 |
 | Android release build | **No evidence** | No JDK/SDK/ADB/signing/AAB/device run |
-| iOS development/release build | **Partial development evidence; no release evidence** | Personal-Team Debug compile/sign/install/launch passes on one iPhone; archive, final entitlement/privacy inspection, TestFlight processing and release-configuration matrix remain unperformed |
+| iOS development/release build | **Partial development evidence; no release evidence** | Latest Expo 57.0.16 Personal-Team Debug compile/sign/install/launch passes on one iPhone; archive, final entitlement/privacy inspection, TestFlight processing and release-configuration matrix remain unperformed |
 | Physical barcode test | **Partial** | One real EAN-13 and permission/recovery path pass; EAN-8, UPC-A, unsupported UPC-E and adverse/rapid/multiple-code conditions remain |
 | Production API/database | **Absent** | Mobile production URL intentionally fails closed; no deployed service or restore drill |
 | Privacy/GDPR/terms | **Unapproved draft** | No controller/legal sign-off or hosted URLs |

@@ -6,7 +6,7 @@ No production dependency is accepted solely from memory. Versions will be pinned
 | --- | --- | --- | --- |
 | Package manager | pnpm 11 workspace | Accepted | Installed locally; deterministic workspace support; pin via `packageManager` and Corepack-compatible CI. |
 | Runtime | Node 24 LTS | Accepted | Expo recommends LTS and Node marks v24 LTS; local Node 26 is Current. |
-| Mobile | Expo 57.0.15, React Native 0.86.2, React 19.2.3, Expo Router 57.0.15 | Accepted compatible patch set | Six supported patches cleared the strict 1,440-minute age gate on 2026-08-22; install check and Doctor 1.20.1 pass 20/20 without exclusions. |
+| Mobile | Expo 57.0.16, React Native 0.86.2, React 19.2.3, Expo Router 57.0.16 | Accepted compatible patch set | Four newer supported patches cleared the strict 1,440-minute age gate on 2026-08-26; deduplication, install check, Doctor 1.20.1 20/20, peer check, full validation and physical iOS rebuild/launch pass without exclusions. |
 | Camera | expo-camera 57.0.3 | Accepted | Official SDK camera/barcode and permission API; physical behavior remains a device gate. |
 | API | Fastify 5.11.x | Accepted | Small, schema-oriented TypeScript boundary; framework-independent domain/services. |
 | Validation | Zod 4.4.x | Accepted | Shared runtime schemas for external JSON, API contracts, and mobile; no `any` at provider boundary. |

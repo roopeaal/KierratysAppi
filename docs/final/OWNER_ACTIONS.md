@@ -115,7 +115,7 @@ These are the exact externally controlled actions required to move the NO-GO dec
 
 - Owner: **Dependency/security owner**
 - Procedure:
-  1. Completed 2026-08-22: installed the six supported Expo patches after the strict 1,440-minute age gate; install check and Doctor 1.20.1 pass 20/20. Repeat age verification, frozen install, full validation, install check and Doctor after every dependency change.
+  1. Completed and revalidated 2026-08-26: installed the latest four supported Expo patches after the strict 1,440-minute age gate, removed a stale nested native module and passed frozen install, full validation, install check, Doctor 1.20.1 20/20, peer check and physical iOS rebuild/launch. Repeat this procedure after every dependency change.
   2. Monitor `image-size`; upgrade to a compatible path containing `>=2.0.3` as soon as published.
   3. Before 2026-09-10, remove the two exceptions or record a new explicit owner-approved decision; do not silently extend.
   4. Push the audit commit only when authorized and require remote CI/Security success.

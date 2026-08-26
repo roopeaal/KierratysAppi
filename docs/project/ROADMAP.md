@@ -37,7 +37,7 @@ Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally bl
 ## Phase 5 — Polish
 
 - [~] Complete dark palette, restrained navigation, haptics, original source assets and multi-viewport web visual QA; optimize or de-scope the web bundle after the distribution decision.
-- [~] Complete native dark/large-text/accessibility/performance evidence on physical iPhone: Xcode development build/install and core flows pass; VoiceOver, largest text, dark/reduced-motion and performance/battery rows remain.
+- [~] Complete native dark/large-text/accessibility/performance evidence on physical iPhone: the latest Expo 57.0.16 development build/install passes, partial VoiceOver home/scanner/manual-invalid coverage passes after repairing text-field naming and dynamic announcements, and remaining VoiceOver/largest-text/dark/reduced-motion/performance/battery rows remain.
 
 ## Phase 6 — Release engineering
 
@@ -48,5 +48,5 @@ Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally bl
 ## Phase 7 — Release audit
 
 - [x] Run an adversarial 30-lane local production audit and repair every locally executable blocker/high finding discovered.
-- [~] Execute `docs/final/PHYSICAL_IOS_VALIDATION.md`; the local Xcode 26.6/Personal-Team build passes core lifecycle, permission, EAN-13, OFF, offline/retry/cache and provenance flows, while the broader matrix remains open.
+- [~] Execute `docs/final/PHYSICAL_IOS_VALIDATION.md`; the local Xcode 26.6/Personal-Team build passes core lifecycle, permission, EAN-13, OFF, offline/retry/cache, provenance and a repaired partial VoiceOver path, while the broader matrix remains open.
 - [!] Close the NO-GO gates in `docs/final/OWNER_ACTIONS.md`: physical accessibility/performance/camera, production backup/restore/monitoring, licence/legal/content, signed binaries and stores.

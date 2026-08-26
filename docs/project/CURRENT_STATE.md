@@ -1,6 +1,6 @@
 # Current state
 
-Last updated: 2026-08-22 after the first partial physical-iOS run and renewed Personal-Team build.
+Last updated: 2026-08-26 after partial VoiceOver testing, accessibility repair and Expo 57.0.16 native rebuild.
 
 ## Verified implementation
 
@@ -14,18 +14,18 @@ Last updated: 2026-08-22 after the first partial physical-iOS run and renewed Pe
 ## Current validation truth
 
 - `pnpm install --frozen-lockfile`: pass.
-- `pnpm validate`: pass; 133 application tests across 20 Vitest files plus two Node repository-policy regressions (135 automated tests total), all type/lint/format checks, package/API builds and 12-route web export.
+- `pnpm validate`: pass; 133 application tests across 20 Vitest files plus five Node repository-policy regressions (138 automated tests total), all type/lint/format checks, package/API builds and 12-route web export.
 - `pnpm test:coverage`: pass; core domain/provider/engine/application/API packages have approximately 90%+ statement coverage, while tested mobile modules are 62.02% and do not cover native UI behavior.
 - `pnpm security:audit`: pass under an explicit policy that temporarily accepts two high Metro `image-size` build-tool advisories until 2026-09-10 because the declared patched version is unpublished.
-- Expo Doctor 1.20.1: **20/20**. `expo install --check` passes after installing the six SDK-supported patches once they exceeded the explicit strict 1,440-minute release-age gate; peer-dependency check is clean.
+- Expo Doctor 1.20.1: **20/20**. `expo install --check` passes after the four 2026-08-24 SDK-supported patches exceeded the explicit strict 1,440-minute release-age gate; `pnpm dedupe` removed the stale nested constants version and peer-dependency checking is clean. Current direct versions include Expo 57.0.16, constants 57.0.14, router 57.0.16 and splash 57.0.8.
 - API production smoke: pass locally; health/OpenAPI/strict validation verified. No deployed production service exists.
-- Web entry: 2,528,030 bytes uncompressed / 571,827 bytes gzip, above the 2 MiB warning budget.
+- Web entry: 2,529,592 bytes uncompressed / 572,284 bytes gzip, above the 2 MiB warning budget.
 - Clean Android prebuild configuration inspection passes the intended permission/privacy source configuration; no Android binary was compiled.
 - Live browser/manual/API→OFF lookup and mobile/desktop visual inspection passed. This is not physical-camera/native evidence.
-- Xcode 26.6 with the iOS 26.5 SDK is installed. A Debug `iphoneos` build based on `aae5fab` passed before and after the six Expo/pod patch updates; all 11 embedded frameworks and the app passed strict recursive code-sign verification, and `devicectl` installed/launched the post-patch build on a paired iPhone 12 Pro Max running iOS 26.1. Metro 57.0.15 bundled 1,804 modules and the owner confirmed the normal home screen. The system `xcode-select` still points to Command Line Tools, so native commands explicitly set `DEVELOPER_DIR`.
-- Partial physical iOS validation now passes interactive home launch, background/foreground, force-quit relaunch, barcode-specific pre-permission copy, camera allow/revoke/settings recovery, one real EAN-13 `not_found` flow, known OFF resolution, offline/no-request behavior, restored retry/cache hit, invalid-manual local rejection, and visible/openable product/licence/rule provenance. VoiceOver, largest text, dark/reduced-motion, broader barcode conditions and performance/battery remain unrun.
+- Xcode 26.6 with the iOS 26.5 SDK is installed. A Debug `iphoneos` build passed on 2026-08-26 after Expo 57.0.16 and refreshed pods; all 11 embedded frameworks and the app passed strict recursive code-sign verification, and `devicectl` installed/launched it on the paired iPhone 12 Pro Max running iOS 26.1. Metro bundled 1,805 modules and the owner confirmed the normal home screen with VoiceOver enabled. The system `xcode-select` still points to Command Line Tools, so native commands explicitly set `DEVELOPER_DIR`.
+- Partial physical iOS validation now passes interactive home launch, background/foreground, force-quit relaunch, barcode-specific pre-permission copy, camera allow/revoke/settings recovery, one real EAN-13 `not_found` flow, known OFF resolution, offline/no-request behavior, restored retry/cache hit, invalid-manual local rejection, visible/openable product/licence/rule provenance and a partial VoiceOver home/scanner/manual-invalid path. Physical VoiceOver found and verified fixes for iOS text-input naming and an interrupted/silent validation alert; all text inputs now have explicit localized labels and current dynamic status screens have explicit iOS announcements. Remaining VoiceOver flows, largest text, dark/reduced-motion, broader barcode conditions and performance/battery remain unrun.
 - The free Personal-Team artifact expired after seven days as expected. The owner re-added the Apple account, a new profile/build was installed on 2026-08-22, the renewed developer profile was trusted, and launch recovered. This development artifact is not archive/TestFlight/release evidence.
-- This work unit began from clean local `main`/`aae5fab`, three audited commits ahead of `origin/main`/`87404a0`. Its dependency, validation and physical-evidence changes are intended for one local commit; no push occurred because authorization is absent.
+- This work unit began from clean local `main`/`7e77d0a`, five audited commits ahead of `origin/main`/`87404a0`. Its accessibility, dependency, validation and physical-evidence changes are intended for one local commit; no push occurred because authorization is absent.
 
 ## Release state
 

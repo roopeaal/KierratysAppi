@@ -2,6 +2,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, StyleSheet, TextInput, View } from "react-native";
 import { AppText, BrandLockup, Button, Eyebrow, InlineLink, Paper, Screen } from "@/components/ui";
+import { announceAccessibility } from "@/features/accessibility/announcements";
 import { saveFeedbackDraft } from "@/features/history/storage";
 import { useLanguage } from "@/i18n/language-context";
 import { radius, spacing, useAppTheme } from "@/theme/tokens";
@@ -34,6 +35,7 @@ export default function FeedbackScreen() {
       createdAt: new Date().toISOString(),
     });
     setSaved(true);
+    announceAccessibility(t("draftSaved"));
   };
 
   return (
@@ -84,6 +86,7 @@ export default function FeedbackScreen() {
         {t("feedbackPrivacyCaution")}
       </AppText>
       <TextInput
+        accessibilityLabel={t("feedbackNote")}
         accessibilityLabelledBy="feedback-note"
         multiline
         maxLength={2_000}

@@ -1,6 +1,6 @@
 # Test evidence
 
-Evidence date: 2026-08-22. Host: macOS, local Node 26.4.0 and pnpm 11.16.0; production/CI/EAS Node is pinned to 24.19.0.
+Evidence date: 2026-08-26. Host: macOS, local Node 26.4.0 and pnpm 11.16.0; production/CI/EAS Node is pinned to 24.19.0.
 
 ## Physical iOS preflight
 
@@ -15,9 +15,9 @@ Evidence date: 2026-08-22. Host: macOS, local Node 26.4.0 and pnpm 11.16.0; prod
 | Generated deployment/bundle | iOS 16.4; `fi.roopeaaltonen.kierratysappi`; version `0.1.0`, build `1` |
 | Generated purpose strings | Finnish/English camera-only text; no microphone or location usage string |
 | Generated privacy/entitlements | Empty app entitlements; no tracking/collected types; UserDefaults reason `CA92.1` |
-| Debug native compile | Pass on 2026-08-22 for generic `iphoneos`, including a second build after Expo/pod patch updates; dependency warnings were emitted, no build error |
+| Debug native compile | Pass on 2026-08-22 and 2026-08-26 for generic `iphoneos`; the latest build uses Expo 57.0.16 and refreshed pods. Dependency build-script warnings were emitted, no build error |
 | Recursive signature | Pass: 11/11 embedded frameworks valid; `codesign --verify --deep --strict` passed for the app |
-| Physical install/runtime matrix | Partial pass: the earlier development install covers lifecycle, EAN-13, permissions, known/unknown/OFF/offline/retry/cache/provenance; the post-patch build also installed, launched and reached the owner-confirmed normal home screen; see `docs/final/PHYSICAL_IOS_VALIDATION.md` |
+| Physical install/runtime matrix | Partial pass: development installs cover lifecycle, EAN-13, permissions, known/unknown/OFF/offline/retry/cache/provenance; the Expo 57.0.16 build installed/launched, loaded 1,805 modules, reached the owner-confirmed home and passed the repaired manual-invalid VoiceOver flow; see `docs/final/PHYSICAL_IOS_VALIDATION.md` |
 
 Official Expo and Apple requirements were rechecked on 2026-08-10. Expo SDK 57 requires Xcode 26.4+ and iOS 16.4+; Xcode 26.6 supports this host. Apple permits local Personal-Team testing with seven-day provisioning limits. The observed profile did expire after seven days; a renewed build/install on 2026-08-22 restored the development run. This is not release/TestFlight evidence.
 
@@ -26,7 +26,7 @@ Official Expo and Apple requirements were rechecked on 2026-08-10. Expo SDK 57 r
 | Command/evidence | Result |
 | --- | --- |
 | `pnpm install --frozen-lockfile` | Pass from the locked dependency graph |
-| `pnpm validate` | Pass: format, lint, strict typecheck, 133 application tests plus two repository-policy regressions, package/API builds and 12-route Expo web export |
+| `pnpm validate` | Pass: format, lint, strict typecheck, 133 application tests plus five repository-policy regressions, package/API builds and 12-route Expo web export |
 | Domain | 48 tests, 3 files |
 | PostgreSQL migration/seed | 5 tests, 1 file; full 26-table PGlite execution |
 | Data providers | 14 tests, 2 files |
@@ -36,8 +36,8 @@ Official Expo and Apple requirements were rechecked on 2026-08-10. Expo SDK 57 r
 | API | 12 tests, 2 files |
 | Mobile state/config/storage/contrast | 35 tests, 9 files |
 | **Application subtotal** | **133 tests, 20 Vitest files** |
-| Repository policy | 2 Node tests proving generated native trees stay outside Biome and the strict dependency-age policy cannot silently disappear |
-| **Automated total** | **135 tests** |
+| Repository policy | 5 Node tests covering generated-tree exclusion, strict dependency age, text-input names, high-priority iOS alerts and explicit dynamic-status announcement paths |
+| **Automated total** | **138 tests** |
 | `pnpm test:coverage` | Pass; all 133 tests rerun with coverage |
 | `pnpm security:audit` | Pass policy: 4 advisories reviewed; two exact high build-tool exceptions expire 2026-09-10 |
 | API production smoke | Pass on `127.0.0.1:3107`: health, OpenAPI 429 schema, strict extra-field 400; rejected request log contained only request ID/status/message, not the submitted field/value |
@@ -67,7 +67,7 @@ Mobile coverage excludes most rendered route/component code; it must not be inte
 ## Live and visual evidence
 
 - Real GTIN `3017620422003` resolved through local API → OFF to Nutella with four packaging components. Missing cap material remained unknown. Source, community status, combined ODbL/DbCL, attribution and retrieval date were visible.
-- Manual invalid GTIN produced an accessible alert.
+- Manual invalid GTIN produced a visible web alert. On physical iOS, VoiceOver exposed two defects: the placeholder became the field name and the alert was silent/interrupted. Explicit localized text-input labels and a high-priority iOS announcement path were added; VoiceOver then announced the correct EAN/GTIN field name/hint/trait and read the full validation instruction automatically.
 - Home/result/legal screens were inspected at 1280×720 and 390×844 with no horizontal overflow. Keyboard focus outline was visible; document language followed selected UI language.
 - Legal showed confirmed all-local-data deletion.
 - Web browser state was restored and audit tabs finalized after inspection.
@@ -75,12 +75,12 @@ Mobile coverage excludes most rendered route/component code; it must not be inte
 - A physical EAN-13 package decoded and produced a single safe `not_found` result; the privacy-safe server observation completed in 162 ms without raw-GTIN logging.
 - Airplane mode produced the offline screen with no API request. Restoring network and retrying recovered without re-entry and returned a cache hit in 8 ms.
 - Camera pre-permission explanation, allow, permission revocation while backgrounded, denied recovery UI, deep-link to app settings and permission restoration all worked on-device. Initial system-prompt denial remains unrun.
-- Manual `123` produced `Tarkista koodi` and generated no API request.
+- Manual `123` produced `Tarkista koodi`, generated no API request and, after repair, announced the complete validation instruction through VoiceOver without requiring focus on the error.
 
 ## Bundle/performance evidence
 
 - Expo export: 12 static routes, 62 files, about 5.4 MiB total.
-- Main web entry: 2,528,030 bytes uncompressed; 571,827 bytes gzip.
+- Main web entry: 2,529,592 bytes uncompressed; 572,284 bytes gzip.
 - Secondary web chunk: 45,171 bytes uncompressed; 14,833 bytes gzip.
 - The entry exceeds the documented 2 MiB warning threshold. No native startup, memory, frame pacing, camera latency or battery claim is made.
 
@@ -89,7 +89,7 @@ Mobile coverage excludes most rendered route/component code; it must not be inte
 | Check | Result |
 | --- | --- |
 | Explicit supply-chain age policy | `minimumReleaseAge: 1440` and strict enforcement in `pnpm-workspace.yaml`; lockfile verification passes |
-| `expo install --check` | Pass after six SDK-supported patch updates |
+| `expo install --check` | Pass after the 2026-08-22 six-package and 2026-08-26 four-package SDK-supported patch updates |
 | Expo Doctor 1.20.1 | **20/20** |
 | `pnpm peers check` | Pass: no peer dependency issues |
 
@@ -100,7 +100,7 @@ Mobile coverage excludes most rendered route/component code; it must not be inte
 | Android compile/sign/install | Unavailable: no Java runtime, Android SDK/ADB/EAS credentials | External blocker |
 | iOS release archive/TestFlight | Development compile/sign/install passes, but no paid-program archive, TestFlight processing or release-configuration install exists | External account/signing/store blocker |
 | Physical barcode matrix | Partial: one EAN-13 and permission/recovery paths pass; EAN-8, UPC-A, UPC-E rejection, glare/distance/damage/multiple/rapid cases remain | Physical/manual blocker |
-| VoiceOver/TalkBack/large text | Not run | Physical/manual blocker; iPhone is now available, Android is not |
+| VoiceOver/TalkBack/large text | Partial iPhone VoiceOver pass: home/scanner/manual-invalid subset; TalkBack, largest text and remaining result/recovery flows unrun | Physical/manual blocker; iPhone work continues, Android is unavailable |
 | Production API/database/monitoring | Does not exist | External infrastructure blocker |
 | Backup/restore/load/failover | Not run | External infrastructure blocker |
 | Store console/binary validation | Not run | External account/signing blocker |

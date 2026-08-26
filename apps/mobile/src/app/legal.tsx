@@ -2,6 +2,7 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, StyleSheet, View } from "react-native";
 import { AppText, BrandLockup, Button, Eyebrow, InlineLink, Paper, Screen } from "@/components/ui";
+import { announceAccessibility } from "@/features/accessibility/announcements";
 import { clearAllLocalData } from "@/features/history/storage";
 import { useLanguage } from "@/i18n/language-context";
 import { spacing, useAppTheme } from "@/theme/tokens";
@@ -19,7 +20,10 @@ export default function LegalScreen() {
         text: t("deleteLocalDataConfirmAction"),
         style: "destructive",
         onPress: () => {
-          void clearAllLocalData().then(() => setDeleted(true));
+          void clearAllLocalData().then(() => {
+            setDeleted(true);
+            announceAccessibility(t("localDataDeleted"), "high");
+          });
         },
       },
     ]);

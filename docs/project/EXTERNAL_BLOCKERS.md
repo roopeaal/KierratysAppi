@@ -6,7 +6,7 @@ These are release blockers or high-risk gates that cannot be completed without e
 | --- | --- | --- | --- |
 | Android signed build/device/Play validation | blocker | No Java runtime, SDK/ADB, device, signing, EAS/Play authority | OA-08 |
 | iOS release archive/TestFlight validation | blocker | Local Personal-Team compile/sign/install/core-device flow passes, but paid-program archive, final entitlements/privacy report, TestFlight processing and release authority remain absent | `docs/final/PHYSICAL_IOS_VALIDATION.md`, OA-09 |
-| Remaining physical barcode/accessibility/performance/battery evidence | blocker/high | One iPhone development build and EAN-13/core-flow subset pass; broader iOS matrix and all Android device evidence require continued manual device work | OA-08, OA-09 |
+| Remaining physical barcode/accessibility/performance/battery evidence | blocker/high | One iPhone development build, EAN-13/core-flow subset and repaired partial VoiceOver path pass; broader iOS matrix and all Android device evidence require continued manual device work | OA-08, OA-09 |
 | Production HTTPS API/shared quota/database | blocker | Provider/region/cost/accounts/domain approval absent | OA-01 |
 | PostgreSQL backup/restore/RPO/RTO | high | No managed production database or operations owner | OA-02 |
 | OFF account/contact/licence approval | high | Owner account/mailbox and legal decision required | OA-03 |

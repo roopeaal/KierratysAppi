@@ -10,7 +10,7 @@
 - Local history and drafts rely on AsyncStorage, not encrypted high-security storage; they are minimized. Android backup is disabled, but signed iOS/operating-system backup behavior is not verified and the UI discloses that a backup may include local data.
 - No analytics/crash vendor is active; telemetry is a no-op privacy boundary until approval.
 - One physical EAN-13, permission-recovery, known/unknown/OFF/offline/cache and provenance subset passes on iPhone. EAN-8/UPC-A and adverse camera conditions, VoiceOver/largest text/dark/reduced-motion, native performance/battery and device screenshots remain unmeasured.
-- The exported web entry is 2,528,030 bytes uncompressed / 571,827 bytes gzip and exceeds its warning budget; web distribution is undecided.
+- The exported web entry is 2,529,592 bytes uncompressed / 572,284 bytes gzip and exceeds its warning budget; web distribution is undecided.
 - Privacy/terms/store metadata are drafts pending external review.
 - Two Metro `image-size` build-tool DoS advisories have time-limited exceptions because the declared patched release is unavailable.
 - Expo compatibility passes, but every future dependency update remains subject to the strict 1,440-minute age gate, install check, Doctor and full validation.
