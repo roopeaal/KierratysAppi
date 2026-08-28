@@ -1,21 +1,21 @@
 # Release decision
 
-Decision date: 2026-08-26
+Decision date: 2026-08-28
 
 Decision: **NO-GO for preview, production, TestFlight, Play testing, and public store submission**
 
-The locally testable source tree is valid, but the product is not production-ready. A clean `pnpm validate` passes with 134 application tests plus five repository-policy regressions (139 total) and both API/web builds. An Expo 57.0.16 Xcode 26.6 Personal-Team Debug build compiles, passes strict recursive signing, installs and runs on one iPhone; core lifecycle, permission, EAN-13, OFF, offline/retry/cache, provenance and a repaired manual-invalid VoiceOver subset pass. Asynchronous lookup announcements are also repaired and tested locally after a known-product device failure, but await device retest. This short-lived development subset does not substitute for Android, an iOS archive/TestFlight build, the remaining camera/accessibility/performance matrix, production infrastructure, legal/content/licensing approval or store validation.
+The locally testable source tree is valid, but the product is not production-ready. A pinned-pnpm `corepack pnpm validate` passes with 154 application tests plus eight repository-policy regressions (162 total) and both API/web builds. A rebuilt Expo 57.0.16 development client compiles, passes strict recursive signing, installs and runs on one iPhone; core lifecycle, permission, EAN-13, OFF, offline/retry/cache, controlled backend-unavailable recovery, provenance, answer-first Home/result UI and a repaired manual-invalid VoiceOver subset pass. The latest asynchronous result announcement is source-tested but still awaits VoiceOver device retest. Fresh Expo-supported patches are also held by the mandatory one-day supply-chain gate until 2026-08-29 10:49 UTC, making Doctor 19/20 today. This short-lived development subset does not substitute for Android, an iOS archive/TestFlight build, the remaining camera/accessibility/performance matrix, production infrastructure, legal/content/licensing approval or store validation.
 
 ## Mandatory gate result
 
 | Gate | Result | Release consequence |
 | --- | --- | --- |
-| No unresolved locally executable blocker/critical/high | **Not satisfied for GO** | Original source findings were repaired, but the newly enabled iPhone manual/automation portions of blocker/high findings remain incomplete |
-| Mandatory local tests | Pass | Format, lint, typecheck, 139 automated tests, API build and 12-route web export pass |
-| Expo compatibility | Pass | Expo 57.0.16 patch set installed after the strict 1,440-minute age gate; native duplicate removed, install check clean and Doctor 20/20 |
+| No unresolved locally executable blocker/critical/high | **Not satisfied for GO** | Source-level high findings found in this run were repaired, but manually executable iPhone camera/accessibility/performance rows and native E2E remain incomplete |
+| Mandatory local tests | Pass | Format, lint, typecheck, 162 automated tests, API build and 12-route web export pass using project-pinned pnpm 11.16.0 |
+| Expo compatibility | **Temporarily fail / time-gated** | Eight patch mismatches make Doctor 19/20. Three newest required packages cannot pass strict release age before 2026-08-29 10:49 UTC; no bypass was used |
 | Android release build | **No evidence** | No JDK/SDK/ADB/signing/AAB/device run |
 | iOS development/release build | **Partial development evidence; no release evidence** | Latest Expo 57.0.16 Personal-Team Debug compile/sign/install/launch passes on one iPhone; archive, final entitlement/privacy inspection, TestFlight processing and release-configuration matrix remain unperformed |
-| Physical barcode test | **Partial** | One real EAN-13 and permission/recovery path pass; EAN-8, UPC-A, unsupported UPC-E and adverse/rapid/multiple-code conditions remain |
+| Physical barcode test | **Partial** | One real EAN-13, permission/recovery and scanner-control semantics pass; EAN-8, UPC-A, unsupported UPC-E, actual torch toggle and adverse/rapid/multiple-code conditions remain |
 | Production API/database | **Absent** | Mobile production URL intentionally fails closed; no deployed service or restore drill |
 | Privacy/GDPR/terms | **Unapproved draft** | No controller/legal sign-off or hosted URLs |
 | OFF licence/account | **Incomplete external gate** | Implementation is attributable; owner account/contact/legal approval absent |

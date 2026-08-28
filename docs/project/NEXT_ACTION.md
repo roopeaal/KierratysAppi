@@ -1,3 +1,3 @@
 # Next action
 
-Run the backend-unavailable to restored-retry flow on the installed Expo 57.0.16 iPhone development build with VoiceOver disabled, recording UI recovery and privacy-safe API evidence in `docs/final/PHYSICAL_IOS_VALIDATION.md`.
+After the strict release-age gate opens at 2026-08-29 10:49 UTC, install the eight Expo-supported patch versions without exclusions, then require frozen install, peer check, `expo install --check`, Expo Doctor 20/20, full validation and a rebuilt/reinstalled iOS development client before accepting the dependency update.

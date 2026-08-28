@@ -36,17 +36,17 @@ Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally bl
 
 ## Phase 5 — Polish
 
-- [~] Complete dark palette, restrained navigation, haptics, original source assets and multi-viewport web visual QA; optimize or de-scope the web bundle after the distribution decision.
-- [~] Complete native dark/large-text/accessibility/performance evidence on physical iPhone: the latest Expo 57.0.16 development build/install passes, partial VoiceOver home/scanner/manual-invalid coverage passes after repairing text-field naming and dynamic announcements, and the asynchronous result repair has automated evidence but awaits a later device retest. Per owner sequencing, broader VoiceOver/largest-text work resumes after functional and visual flows; dark/reduced-motion/performance/battery rows remain open.
+- [~] The answer-first Home/result redesign, semantic token layer, scanner torch control, localized safe uncertainty, stable automation identifiers and FI/EN multi-viewport browser QA pass. Dark/native-large-text visual evidence and the web distribution/2.54 MiB bundle decision remain open.
+- [~] Physical iPhone QA now includes screenshots and semantic inspection of the redesigned Finnish Home, manual entry, resolved/unknown result content and scanner controls. Partial VoiceOver home/scanner/manual-invalid coverage passes; async-result VoiceOver, dark/largest-text/reduced-motion, valid performance/battery measurements and broader camera conditions remain open.
 
 ## Phase 6 — Release engineering
 
-- [~] Complete source CI/EAS configuration, icon assets, metadata/legal drafts and release procedures; Expo compatibility now passes behind strict release-age enforcement, while native release and store gates remain.
+- [~] Source CI/EAS configuration, development-client dependency policy, icon assets, metadata/legal drafts and release procedures exist. Expo compatibility is temporarily 19/20 because three required patches published on 2026-08-28 remain blocked by the strict age gate until 2026-08-29 10:49 UTC; native release and store gates remain.
 - [!] Produce signed-binary localized screenshots, Google feature graphic, hosted URLs and final store questionnaires.
 - [!] Generate signed Android/iOS production artifacts and submit without owner accounts, terms acceptance, credentials, and approval.
 
 ## Phase 7 — Release audit
 
 - [x] Run an adversarial 30-lane local production audit and repair every locally executable blocker/high finding discovered.
-- [~] Execute `docs/final/PHYSICAL_IOS_VALIDATION.md`; the local Xcode 26.6/Personal-Team build passes core lifecycle, permission, EAN-13, OFF, offline/retry/cache, provenance and a repaired partial VoiceOver path. Backend-unavailable recovery is next; broader accessibility and performance follow functional/visual stabilization.
+- [~] Execute `docs/final/PHYSICAL_IOS_VALIDATION.md`; the local Xcode 26.6/Personal-Team development client passes core lifecycle, permission, EAN-13, OFF, offline/retry/cache, controlled backend-unavailable recovery, provenance, answer-first UI and a repaired partial VoiceOver path. Dependency revalidation after the age gate is next; broader accessibility and performance remain.
 - [!] Close the NO-GO gates in `docs/final/OWNER_ACTIONS.md`: physical accessibility/performance/camera, production backup/restore/monitoring, licence/legal/content, signed binaries and stores.

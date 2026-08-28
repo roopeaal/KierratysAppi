@@ -48,3 +48,40 @@ test("every dynamic mobile alert has an explicit iOS announcement path", () => {
     assert.match(source, /announceAccessibility\(/, `${screen} needs an iOS announcement path`);
   }
 });
+
+test("critical mobile journeys expose stable semantic automation identifiers", () => {
+  const requiredIdentifiers = {
+    "index.tsx": ["home-screen", "home-scan-action", "home-manual-action"],
+    "scan.tsx": [
+      "scanner-permission-screen",
+      "scanner-permission-action",
+      "scanner-camera-screen",
+      "scanner-torch-action",
+      "scanner-camera-manual-action",
+    ],
+    "manual.tsx": ["manual-entry-screen", "manual-gtin-input", "manual-submit-action"],
+    "result.tsx": [
+      "result-loading-screen",
+      "result-not-found-screen",
+      "result-provider-unavailable-screen",
+      "product-result-screen",
+      "result-scan-another-action",
+    ],
+  };
+
+  for (const [screen, identifiers] of Object.entries(requiredIdentifiers)) {
+    const source = readFileSync(join("apps/mobile/src/app", screen), "utf8");
+    for (const identifier of identifiers) {
+      assert.match(
+        source,
+        new RegExp(`testID=["']${identifier}["']`),
+        `${screen} needs ${identifier}`,
+      );
+    }
+  }
+});
+
+test("shared text does not cap operating-system font scaling", () => {
+  const source = readFileSync(join("apps/mobile/src/components", "ui.tsx"), "utf8");
+  assert.doesNotMatch(source, /maxFontSizeMultiplier=/);
+});

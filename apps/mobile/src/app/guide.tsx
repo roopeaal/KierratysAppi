@@ -27,7 +27,7 @@ export default function GuideScreen() {
     <Screen>
       <View style={styles.header}>
         <BrandLockup compact />
-        <InlineLink label={t("close")} onPress={() => router.back()} />
+        <InlineLink label={t("close")} onPress={() => router.back()} role="button" />
       </View>
       <View style={styles.intro}>
         <Eyebrow>{t("materialGuideEyebrow")}</Eyebrow>

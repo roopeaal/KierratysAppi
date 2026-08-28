@@ -20,6 +20,68 @@ export const radius = {
   pill: 999,
 } as const;
 
+export const typography = {
+  display: {
+    fontFamily: "Atkinson_700Bold",
+    fontSize: 40,
+    lineHeight: 43,
+    letterSpacing: -1.1,
+  },
+  title: {
+    fontFamily: "Atkinson_700Bold",
+    fontSize: 28,
+    lineHeight: 34,
+    letterSpacing: -0.4,
+  },
+  heading: {
+    fontFamily: "Atkinson_700Bold",
+    fontSize: 21,
+    lineHeight: 27,
+  },
+  body: {
+    fontFamily: "Atkinson_400Regular",
+    fontSize: 17,
+    lineHeight: 24,
+  },
+  small: {
+    fontFamily: "Atkinson_400Regular",
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  label: {
+    fontFamily: "Atkinson_700Bold",
+    fontSize: 16,
+    lineHeight: 20,
+  },
+  mono: {
+    fontFamily: "IBMPlexMono_600SemiBold",
+    fontSize: 12,
+    lineHeight: 17,
+    letterSpacing: 0.8,
+  },
+} as const;
+
+export const controls = {
+  minimumTouchTarget: 44,
+  buttonMinHeight: 56,
+  inputMinHeight: 60,
+} as const;
+
+export const interaction = {
+  pressedOpacity: 0.76,
+  disabledOpacity: 0.48,
+} as const;
+
+export const motion = {
+  quick: 120,
+  standard: 180,
+} as const;
+
+export const elevation = {
+  none: 0,
+  raised: 2,
+} as const;
+
 export function useAppTheme(): { palette: AppPalette; isDark: boolean } {
   const isDark = useColorScheme() === "dark";
   return { palette: isDark ? darkPalette : lightPalette, isDark };

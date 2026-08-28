@@ -2,6 +2,12 @@
 
 Record only sources actually opened. Each research document includes access date, URL, the supported finding, uncertainty, and implementation consequence.
 
+## 2026-08-28
+
+- Revalidated only time-sensitive audit boundaries from official sources: Expo development-client setup/rebuild guidance and current `expo-dev-client` recommendation; Apple Xcode 26 upload and seven-day Personal-Team limits; Google Play's 2026-08-31 API-36 deadline; OFF licence/rate limits; Rinki nationwide packaging guidance; Palpa deposit identification; and GS1 Data's staged 2026 Synkka transition/integration-access boundary.
+- The sources support the existing conservative implementation and external-blocker classifications. They do not supply GS1 contractual rights, human approval of the app's rule copy, OFF legal/controller approval, signed-store acceptance or a reason to upgrade dependencies before the encoded release-age gate.
+- Current URLs and consequences remain recorded in `docs/final/PRODUCTION_AUDIT.md`, `TEST_EVIDENCE.md`, `DATA_AND_LICENSING.md` and `OWNER_ACTIONS.md`.
+
 ## 2026-08-10
 
 - Started environment and repository discovery.

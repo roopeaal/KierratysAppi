@@ -5,7 +5,7 @@ import { AppText, BrandLockup, Button, InlineLink, Screen, sharedStyles } from "
 import { announceAccessibility } from "@/features/accessibility/announcements";
 import { useScanSession } from "@/features/scan/session-context";
 import { useLanguage } from "@/i18n/language-context";
-import { radius, spacing, useAppTheme } from "@/theme/tokens";
+import { controls, radius, spacing, useAppTheme } from "@/theme/tokens";
 
 export default function ManualEntryScreen() {
   const router = useRouter();
@@ -27,10 +27,15 @@ export default function ManualEntryScreen() {
   };
 
   return (
-    <Screen>
+    <Screen testID="manual-entry-screen">
       <View style={styles.header}>
         <BrandLockup compact />
-        <InlineLink label={t("close")} onPress={() => router.back()} />
+        <InlineLink
+          label={t("close")}
+          onPress={() => router.back()}
+          role="button"
+          testID="manual-close-action"
+        />
       </View>
       <View style={styles.body}>
         <AppText variant="title" accessibilityRole="header">
@@ -67,6 +72,7 @@ export default function ManualEntryScreen() {
               },
             ]}
             value={value}
+            testID="manual-gtin-input"
           />
           {invalid && (
             <AppText style={{ color: palette.brick }} accessibilityRole="alert">
@@ -78,6 +84,7 @@ export default function ManualEntryScreen() {
           label={t("lookupAction")}
           onPress={() => void submit()}
           disabled={value.trim().length === 0}
+          testID="manual-submit-action"
         />
       </View>
     </Screen>
@@ -93,7 +100,7 @@ const styles = StyleSheet.create({
   },
   body: { paddingTop: spacing.xxl, gap: spacing.lg },
   input: {
-    minHeight: 60,
+    minHeight: controls.inputMinHeight,
     borderWidth: 2,
     borderRadius: radius.md,
     paddingHorizontal: spacing.md,

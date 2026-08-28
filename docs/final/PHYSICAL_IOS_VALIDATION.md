@@ -1,6 +1,6 @@
 # Physical iOS validation
 
-Status date: 2026-08-26
+Status date: 2026-08-28
 
 Status: **PARTIALLY RUN — development build installed; core iPhone flow passes, full matrix remains open**
 
@@ -20,8 +20,8 @@ This report is deliberately separate from simulator, web and generated-configura
 | iPhone model | iPhone 12 Pro Max |
 | iOS version | 26.1 (`23B82`) |
 | Tester | Repository owner for manual observations; Codex for build/device/API/Metro logs |
-| Physical run date | 2026-08-10, renewed-profile continuation on 2026-08-22 and VoiceOver/patch continuation on 2026-08-26 |
-| Screenshots/logs | Interactive observations plus Xcode, `devicectl`, Metro and privacy-safe API logs; no native screenshots captured yet |
+| Physical run date | 2026-08-10, renewed-profile continuation on 2026-08-22, VoiceOver/patch continuation on 2026-08-26 and development-client/UI continuation on 2026-08-28 |
+| Screenshots/logs | Interactive observations plus Xcode, `devicectl`, Metro and privacy-safe API logs. Ignored `work/ui-qa/after-home-fi-ios-physical.png` and `after-result-fi-ios-physical.png` capture the 2026-08-28 UI; no live camera frame was captured |
 
 ## Automated preflight evidence
 
@@ -30,21 +30,21 @@ This report is deliberately separate from simulator, web and generated-configura
 | Git synchronization | Pass as inspection; not pushed | Clean `main` at test start; local HEAD `aae5fab`, `origin/main` `87404a0`, ahead three. No prior push authorization exists. |
 | Host compatibility | Pass | macOS 26.5.2 is in Xcode 26.6’s supported macOS 26.2–26.x range. |
 | Full Xcode | Pass | Xcode 26.6 and the iOS 26.5 SDK are installed and usable through explicit `DEVELOPER_DIR`. |
-| Expo/iOS compatibility | Pass | SDK 57 requires Xcode 26.4+ and iOS 16.4+. Generated project target is iOS 16.4; the 2026-08-24 supported patches cleared the strict age gate, install check passes and Doctor 1.20.1 is 20/20 after native deduplication. |
+| Expo/iOS compatibility | Time-gated revalidation | The installed SDK 57 native set previously passed. On 2026-08-28 Expo published a new supported patch set; Doctor is now 19/20 and install check reports eight mismatches. The strict 1,440-minute policy forbids the newest required patches until 2026-08-29 10:49 UTC. The currently installed development client remains functional, but no new compatibility claim is made. |
 | Native generation | Pass | A clean ignored-workspace `expo prebuild --clean --platform ios --no-install` completed. |
 | Bundle/version | Pass | Generated project has bundle ID `fi.roopeaaltonen.kierratysappi`, marketing version `0.1.0` and build `1`. |
 | Camera purpose | Pass configuration | Finnish and English `NSCameraUsageDescription` state barcode-only camera use and no frame upload. |
 | Unrelated purpose strings | Pass configuration | No microphone or location usage description is generated. Location is not used by the current product. |
-| Development compile | Pass | Xcode Debug build completed for `iphoneos` on 2026-08-22 and again on 2026-08-26 after Expo 57.0.16 and refreshed pods. Dependency build-script warnings remain; no build error occurred. |
+| Development compile | Pass | Xcode Debug build completed for `iphoneos` on 2026-08-22/26. On 2026-08-28 a fresh ignored prebuild/pod install included `expo-dev-client`, dev-launcher and dev-menu 57.0.16; its Xcode build passed. Dependency build-script warnings remain; no build error occurred. |
 | Development signature | Pass | All 11 embedded frameworks passed strict signature verification and the app passed recursive `codesign --verify --deep --strict`. This is development evidence, not App Store archive evidence. |
-| Development install/launch | Pass | The renewed builds loaded 1,801/1,804 modules on 2026-08-22. On 2026-08-26, `devicectl` installed/launched the Expo 57.0.16 rebuild, Metro loaded 1,805 modules and the owner confirmed the normal home screen with VoiceOver enabled. |
+| Development install/launch | Pass | The earlier renewed builds launched. The 2026-08-28 development-client artifact installed/launched through the explicit Metro payload, replaced the `No script URL provided` failure with a functional recoverable client, and physically rendered the redesigned Home/manual/result. |
 | Entitlements | Partial | Development signing/install passes. Final archive entitlements remain unverified. |
 | Privacy manifest | Pass configuration | No tracking or collected data types; UserDefaults required-reason API uses `CA92.1`. Final dependency-merged archive remains unverified. |
 | Icons/splash | Pass generation | App icon, splash logo at 1x/2x/3x, splash background and storyboard are generated from source assets. |
 | Appearance/orientation | Pass configuration | Automatic light/dark style; phone portrait scope. iPad remains configured for portrait and landscape. |
-| EAS development profile | Present but not selected | `developmentClient:true`, internal distribution and Node 24.19.0 exist. EAS is a fallback only and was not invoked. |
+| EAS development profile | Source invariant repaired | `developmentClient:true`, internal distribution and Node 24.19.0 exist; the matching `expo-dev-client` dependency and a repository-policy regression now exist. EAS itself was not invoked. |
 
-The current development build is generated under ignored `work/ios-refresh-derived/`. It is a short-lived Personal-Team development artifact, not an archive, TestFlight build or release artifact. The free provisioning profile expired after seven days as expected, was renewed/reinstalled on 2026-08-22 and remained usable for the 2026-08-26 rebuild.
+The current development build is generated under ignored `work/ios-dev-client-derived/`. It is a short-lived Personal-Team development artifact, not an archive, TestFlight build or release artifact. The free provisioning profile expired after seven days as expected, was renewed/reinstalled on 2026-08-22 and remained usable for the 2026-08-28 continuation.
 
 ## Physical test matrix
 
@@ -94,6 +94,7 @@ Rows not exercised remain **Not run**. `Pass` means the named behavior was obser
 | Partially obscured barcode | Not run | Must not guess |
 | Multiple visible barcodes | Not run | Record selected behavior |
 | Rapid repeated scans | Not run | Observe haptics and request count |
+| Torch control | Partial | The redesigned physical scanner semantic tree exposed localized `Sytytä valo`; the development automation toolbar overlaps the top-right target, so an actual on/off toggle is not claimed |
 
 ### Product lookup and network state
 
@@ -104,8 +105,8 @@ Rows not exercised remain **Not run**. `Pass` means the named behavior was obser
 | Slow network | Not run | Use Network Link Conditioner or equivalent |
 | Airplane mode/offline | Pass | Same known GTIN showed `Ei verkkoyhteyttä`; no API request was emitted |
 | Restore network and retry | Pass | `Yritä uudelleen` recovered to Nutella without re-entering the code |
-| Provider timeout/error | Not run | Requires controlled API/provider fixture |
-| Backend unavailable | Not run | Must show provider unavailable, not fabricate result |
+| Provider timeout/error | Pass for controlled unavailable fixture | Fixture produced provider-unavailable rather than unknown/offline; provider-specific timeout timing remains unrun |
+| Backend unavailable | Pass | `Tietolähde ei vastaa` appeared with source-unavailable status; restoring the real backend and pressing Retry recovered to Nutella without code re-entry |
 | Change network during lookup | Not run | Wi-Fi/cellular transition if available |
 | Background app during lookup | Not run | Result/retry state must remain coherent |
 | Cached result | Pass | Restored retry returned a cache hit in 8 ms; result retained cache/source disclosure |
@@ -118,9 +119,9 @@ Rows not exercised remain **Not run**. `Pass` means the named behavior was obser
 
 | Scenario | Status | Evidence/notes |
 | --- | --- | --- |
-| Component-level sorting | Pass for known fixture | Owner confirmed component cards on the Nutella result; this is one fixture, not full content acceptance |
-| Source/provenance/rule date | Pass for known fixture | Product source, licence, attribution, sorting-rule source and checked date were visible; OFF product, OFF licence and RINKI rule links opened the expected pages |
-| Confidence and verification state | Pass for known fixture | Owner confirmed textual confidence/percentage, destination and explanation; uncertainty was not color-only |
+| Component-level sorting | Pass for known fixture and redesigned presentation | Physical screenshot/semantic tree show `Näin lajittelet pakkauksen`, component identity, destination, preparation and explanation before product metadata; this remains one fixture, not full content acceptance |
+| Source/provenance/rule date | Pass for known fixture | Product source/licence/attribution remain visible below guidance. Sorting evidence now explicitly includes source, FI jurisdiction, checked date, rule version and verification; earlier source links opened expected pages |
+| Confidence and verification state | Pass for known fixture | Physical semantic tree exposed `Luottamus: Osittaiset pakkaustiedot, 55%`; unknown reason is localized and no-source cases explicitly say no verified rule was applied |
 | Ambiguous packaging | Not run | Must ask/retain uncertainty |
 | Missing packaging information | Not run | Must remain unknown |
 | Confirmed material code | Not run | User confirms visible code |
@@ -151,13 +152,13 @@ Rows not exercised remain **Not run**. `Pass` means the named behavior was obser
 | Camera-open latency | Not run | Measure tap to usable preview |
 | Barcode-decode latency | Not run | Physical label, repeated samples |
 | Scan-to-result latency | Not run | Separate API/provider latency |
-| Visible frame drops | Not run | Record screen/scenario |
+| Visible frame drops | Measurement unavailable | 2026-08-28 xctrace Animation Hitches attempt matched no app process and captured zero frames; its reported zero dropped frames is invalid and not accepted as a pass |
 | Memory warnings/leaks | Not run | Xcode memory graph/Instruments if available |
 | Unexpected heat | Not run | Record duration and device state |
 | Battery impact | Not run | Extended camera session; record duration/percentage/context |
 | Excess repeated API requests | Not run | Inspect privacy-safe request counts, not raw GTIN logs |
 | Force quit/relaunch recovery | Pass functionally | Development build relaunched after force quit; no performance timing captured |
-| Backend/provider failure recovery | Not run | Restore service and retry |
+| Backend/provider failure recovery | Pass functionally | Controlled unavailable response rendered correctly; restoring the API and retrying recovered without re-entry. Current privacy-safe live/cache observations were 249 ms / 5 ms |
 | Very large Dynamic Type under failures | Not run | Offline/provider/ambiguity screens |
 
 ## Defects and development-only observations
@@ -166,6 +167,7 @@ Rows not exercised remain **Not run**. `Pass` means the named behavior was obser
 - The Personal-Team profile expired after seven days and iOS correctly refused launch. Renewing the Apple account/profile, rebuilding, reinstalling and trusting the renewed developer profile restored launch. This is an expected limitation of free local provisioning and remains unsuitable for distribution.
 - After a lifecycle test, the development build displayed `Open debugger to view warnings`; the in-app button did not respond. Mac DevTools showed only a transient inability to reach Expo CLI. Metro then reconnected and no application warning remained. This does not validate production behavior and should be rechecked in a release build.
 - On 2026-08-26, the stopped Metro service produced the development-client-only `No script URL provided` screen. Restarting the local API/Metro services and launching with the explicit LAN payload restored the app. This is expected for the development artifact and is not evidence about a self-contained release build.
+- Independent inspection then found that `developmentClient:true` had no `expo-dev-client` dependency, so the installed shell was not actually a recoverable development client. A fresh prebuild/pod/Xcode artifact containing dev-client/dev-launcher/dev-menu fixed the null script URL failure; recursive app/framework signature verification, install, launch and Home/manual/result runtime checks passed. The policy test now fails any future mismatched profile.
 - Physical VoiceOver testing found that `accessibilityLabelledBy` alone did not name the manual field on iOS: VoiceOver used the placeholder. Explicit localized `accessibilityLabel` values were added to all three text inputs; the manual field then announced `EAN- tai GTIN-koodi`, its text-field trait and hint.
 - Physical VoiceOver testing found that a React Native `accessibilityRole="alert"` did not automatically announce the manual validation error on iOS. A centralized iOS announcement path now covers manual validation, material-code/component results, feedback save and local-data deletion. The manual error uses high priority because a queued/default announcement was physically observed to be interrupted; the repaired full announcement passed on the device.
 - The later known-product VoiceOver run exposed an equivalent asynchronous state-change gap: Nutella rendered while speech remained on the earlier search button. The result route now explicitly announces loading, offline, invalid, not-found, provider-unavailable, resolved and packaging-missing states through a pure mapping with regression coverage. This source repair has not yet been physically reconfirmed.
@@ -173,4 +175,4 @@ Rows not exercised remain **Not run**. `Pass` means the named behavior was obser
 
 ## Remaining boundary
 
-Continue functional validation with the backend-unavailable to restored-retry flow while VoiceOver is disabled. Resume the remaining VoiceOver and largest-Dynamic-Type matrix after functional and visual stabilization. Release remains blocked until a paid-program release archive/TestFlight build, broader Apple device matrix and all remaining accessibility/performance/camera cases pass.
+After the 2026-08-29 dependency-age gate, update/revalidate the supported Expo patch set and rebuild/reinstall the development client. Then resume VoiceOver, largest-Dynamic-Type, dark/reduced-motion and valid performance/battery evidence. Release remains blocked until a paid-program release archive/TestFlight build, broader Apple device matrix and all remaining accessibility/performance/camera cases pass.

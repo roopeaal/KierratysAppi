@@ -1,13 +1,13 @@
 import { type BarcodeScanningResult, CameraView, useCameraPermissions } from "expo-camera";
 import { useRouter } from "expo-router";
 import { useRef, useState } from "react";
-import { Linking, StyleSheet, View } from "react-native";
+import { Linking, Pressable, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AppText, Button, InlineLink, Screen, sharedStyles } from "@/components/ui";
 import { SUPPORTED_BARCODE_TYPES } from "@/features/scan/barcode-formats";
 import { useScanSession } from "@/features/scan/session-context";
 import { useLanguage } from "@/i18n/language-context";
-import { radius, spacing, useAppTheme } from "@/theme/tokens";
+import { controls, interaction, radius, spacing, useAppTheme } from "@/theme/tokens";
 
 export default function ScannerScreen() {
   const router = useRouter();
@@ -17,6 +17,7 @@ export default function ScannerScreen() {
   const insets = useSafeAreaInsets();
   const [permission, requestPermission] = useCameraPermissions();
   const [locallyLocked, setLocallyLocked] = useState(false);
+  const [torchEnabled, setTorchEnabled] = useState(false);
   const navigating = useRef(false);
 
   const onScanned = async ({ data }: BarcodeScanningResult) => {
@@ -33,12 +34,17 @@ export default function ScannerScreen() {
 
   if (!permission?.granted) {
     return (
-      <Screen>
+      <Screen testID="scanner-permission-screen">
         <View style={styles.permissionHeader}>
           <AppText variant="mono" style={{ color: palette.pine }}>
             {t("cameraEyebrow")}
           </AppText>
-          <InlineLink label={t("close")} onPress={() => router.back()} />
+          <InlineLink
+            label={t("close")}
+            onPress={() => router.back()}
+            role="button"
+            testID="scanner-close-action"
+          />
         </View>
         <View style={styles.permissionBody}>
           <View
@@ -59,14 +65,23 @@ export default function ScannerScreen() {
           </AppText>
           <View style={[sharedStyles.stack, styles.permissionActions]}>
             {permission?.canAskAgain === false ? (
-              <Button label={t("openSettings")} onPress={() => void Linking.openSettings()} />
+              <Button
+                label={t("openSettings")}
+                onPress={() => void Linking.openSettings()}
+                testID="scanner-settings-action"
+              />
             ) : (
-              <Button label={t("cameraAction")} onPress={() => void requestPermission()} />
+              <Button
+                label={t("cameraAction")}
+                onPress={() => void requestPermission()}
+                testID="scanner-permission-action"
+              />
             )}
             <Button
               label={t("manualEntry")}
               variant="secondary"
               onPress={() => router.replace("/manual")}
+              testID="scanner-permission-manual-action"
             />
           </View>
         </View>
@@ -75,12 +90,14 @@ export default function ScannerScreen() {
   }
 
   return (
-    <View style={styles.cameraScreen}>
+    <View style={styles.cameraScreen} testID="scanner-camera-screen">
       <CameraView
         accessibilityLabel={t("cameraTitle")}
         barcodeScannerSettings={{ barcodeTypes: [...SUPPORTED_BARCODE_TYPES] }}
+        enableTorch={torchEnabled}
         onBarcodeScanned={locallyLocked ? undefined : onScanned}
         style={StyleSheet.absoluteFill}
+        testID="scanner-camera"
       />
       <View
         style={[
@@ -88,17 +105,36 @@ export default function ScannerScreen() {
           { backgroundColor: palette.cameraOverlay, paddingTop: insets.top + spacing.sm },
         ]}
       >
-        <InlineLink label={t("close")} onPress={() => router.back()} />
+        <InlineLink
+          label={t("close")}
+          onPress={() => router.back()}
+          color="#FFFFFF"
+          role="button"
+          testID="scanner-close-action"
+        />
         <AppText variant="label" style={{ color: "#FFFFFF" }}>
           {t("cameraTitle")}
         </AppText>
-        <View style={{ width: 44 }} />
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={torchEnabled ? t("torchTurnOff") : t("torchTurnOn")}
+          accessibilityState={{ selected: torchEnabled }}
+          hitSlop={8}
+          onPress={() => setTorchEnabled((enabled) => !enabled)}
+          testID="scanner-torch-action"
+          style={({ pressed }) => [styles.torchAction, pressed && styles.pressed]}
+        >
+          <AppText variant="mono" style={styles.torchLabel}>
+            {t("torchShort")}
+          </AppText>
+        </Pressable>
       </View>
       <View style={styles.targetArea} pointerEvents="none">
         <View
           accessible
           accessibilityLabel={t("cameraFrameLabel")}
           style={[styles.scanFrame, { borderColor: "#FFFFFF" }]}
+          testID="scanner-frame"
         >
           <View style={[styles.scanLine, { backgroundColor: palette.pine }]} />
         </View>
@@ -116,6 +152,7 @@ export default function ScannerScreen() {
           label={t("manualEntry")}
           variant="secondary"
           onPress={() => router.replace("/manual")}
+          testID="scanner-camera-manual-action"
         />
       </View>
     </View>
@@ -131,6 +168,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
+  torchAction: {
+    minWidth: 52,
+    minHeight: controls.minimumTouchTarget,
+    paddingHorizontal: spacing.xs,
+    borderWidth: 1,
+    borderColor: "rgba(255, 255, 255, 0.72)",
+    borderRadius: radius.pill,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  torchLabel: { color: "#FFFFFF" },
+  pressed: { opacity: interaction.pressedOpacity },
   targetArea: { flex: 1, alignItems: "center", justifyContent: "center" },
   scanFrame: {
     width: "82%",

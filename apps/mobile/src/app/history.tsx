@@ -63,7 +63,7 @@ export default function HistoryScreen() {
     <Screen>
       <View style={styles.header}>
         <BrandLockup compact />
-        <InlineLink label={t("close")} onPress={() => router.back()} />
+        <InlineLink label={t("close")} onPress={() => router.back()} role="button" />
       </View>
       <View style={styles.intro}>
         <Eyebrow>{t("localOnly").toUpperCase()}</Eyebrow>
@@ -95,7 +95,11 @@ export default function HistoryScreen() {
                     {entry.scannedAt.slice(0, 10)} · {entry.resultStatus}
                   </AppText>
                 </View>
-                <InlineLink label={t("openResult")} onPress={() => void openEntry(entry.gtin)} />
+                <InlineLink
+                  label={t("openResult")}
+                  onPress={() => void openEntry(entry.gtin)}
+                  role="button"
+                />
               </View>
             </Paper>
           ))

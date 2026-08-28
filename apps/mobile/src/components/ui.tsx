@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLanguage } from "@/i18n/language-context";
-import { radius, spacing, useAppTheme } from "@/theme/tokens";
+import { controls, interaction, radius, spacing, typography, useAppTheme } from "@/theme/tokens";
 
 type TextVariant = "display" | "title" | "heading" | "body" | "small" | "label" | "mono";
 
@@ -26,9 +26,12 @@ export function AppText({
   const { palette } = useAppTheme();
   return (
     <Text
-      maxFontSizeMultiplier={2.2}
       {...props}
-      style={[textStyles[variant], { color: muted ? palette.muted : palette.ink }, style]}
+      style={[
+        textStyles[variant],
+        { color: muted ? palette.textSecondary : palette.textPrimary },
+        style,
+      ]}
     />
   );
 }
@@ -37,15 +40,21 @@ export function Screen({
   children,
   scroll = true,
   style,
-}: PropsWithChildren<{ readonly scroll?: boolean; readonly style?: StyleProp<ViewStyle> }>) {
+  testID,
+}: PropsWithChildren<{
+  readonly scroll?: boolean;
+  readonly style?: StyleProp<ViewStyle>;
+  readonly testID?: string;
+}>) {
   const { palette } = useAppTheme();
   const { language } = useLanguage();
   const content = <View style={[styles.content, style]}>{children}</View>;
   return (
     <SafeAreaView
       accessibilityLanguage={language === "fi" ? "fi-FI" : "en"}
-      style={[styles.safeArea, { backgroundColor: palette.background }]}
+      style={[styles.safeArea, { backgroundColor: palette.bgCanvas }]}
       edges={["top", "bottom"]}
+      testID={testID}
     >
       {scroll ? (
         <ScrollView
@@ -66,7 +75,11 @@ export function BrandLockup({ compact = false }: { readonly compact?: boolean })
   const { palette } = useAppTheme();
   const { t } = useLanguage();
   return (
-    <View style={styles.brand} accessibilityRole="header">
+    <View
+      style={styles.brand}
+      accessible
+      accessibilityLabel={compact ? t("appName") : `${t("appName")}. ${t("tagline")}`}
+    >
       <View style={[styles.brandMark, { borderColor: palette.ink }]} accessibilityElementsHidden>
         <View style={[styles.brandMarkTop, { backgroundColor: palette.pine }]} />
         <View style={[styles.brandMarkBottom, { backgroundColor: palette.cobalt }]} />
@@ -91,6 +104,8 @@ type ButtonProps = {
   readonly disabled?: boolean;
   readonly busy?: boolean;
   readonly accessibilityHint?: string;
+  readonly style?: StyleProp<ViewStyle>;
+  readonly testID?: string;
 };
 
 export function Button({
@@ -100,19 +115,21 @@ export function Button({
   disabled = false,
   busy = false,
   accessibilityHint,
+  style,
+  testID,
 }: ButtonProps) {
   const { palette } = useAppTheme();
   const backgrounds = {
-    primary: palette.pine,
-    secondary: palette.surfaceRaised,
+    primary: palette.actionPrimary,
+    secondary: palette.actionSecondary,
     quiet: "transparent",
     danger: palette.brickSoft,
   };
   const foregrounds = {
     primary: palette.onStrong,
-    secondary: palette.ink,
-    quiet: palette.cobalt,
-    danger: palette.brick,
+    secondary: palette.textPrimary,
+    quiet: palette.actionLink,
+    danger: palette.statusError,
   };
   return (
     <Pressable
@@ -122,12 +139,19 @@ export function Button({
       accessibilityState={{ disabled, busy }}
       disabled={disabled || busy}
       onPress={onPress}
+      testID={testID}
       style={({ pressed }) => [
         styles.button,
+        style,
         {
           backgroundColor: backgrounds[variant],
-          borderColor: variant === "secondary" ? palette.line : backgrounds[variant],
-          opacity: disabled ? 0.5 : pressed ? 0.78 : 1,
+          borderColor: variant === "secondary" ? palette.borderSubtle : backgrounds[variant],
+          opacity:
+            disabled || busy
+              ? interaction.disabledOpacity
+              : pressed
+                ? interaction.pressedOpacity
+                : 1,
         },
       ]}
     >
@@ -145,11 +169,17 @@ export function Button({
 export function Paper({
   children,
   style,
-}: PropsWithChildren<{ readonly style?: StyleProp<ViewStyle> }>) {
+  testID,
+}: PropsWithChildren<{ readonly style?: StyleProp<ViewStyle>; readonly testID?: string }>) {
   const { palette } = useAppTheme();
   return (
     <View
-      style={[styles.paper, { backgroundColor: palette.surface, borderColor: palette.line }, style]}
+      style={[
+        styles.paper,
+        { backgroundColor: palette.bgSurface, borderColor: palette.borderSubtle },
+        style,
+      ]}
+      testID={testID}
     >
       {children}
     </View>
@@ -184,7 +214,7 @@ export function SectionHeader({
 
 export function Rule({ style }: { readonly style?: StyleProp<ViewStyle> }) {
   const { palette } = useAppTheme();
-  return <View style={[styles.rule, { backgroundColor: palette.line }, style]} />;
+  return <View style={[styles.rule, { backgroundColor: palette.borderSubtle }, style]} />;
 }
 
 export function StatusPill({
@@ -214,23 +244,34 @@ export function StatusPill({
 export function InlineLink({
   label,
   onPress,
+  accessibilityHint,
+  testID,
+  color,
+  role = "link",
 }: {
   readonly label: string;
   readonly onPress: () => void;
+  readonly accessibilityHint?: string;
+  readonly testID?: string;
+  readonly color?: string;
+  readonly role?: "link" | "button";
 }) {
   const { palette } = useAppTheme();
   return (
     <Pressable
-      accessibilityRole="link"
+      accessibilityRole={role}
+      accessibilityLabel={label}
+      accessibilityHint={accessibilityHint}
       onPress={onPress}
       hitSlop={8}
+      testID={testID}
       style={({ pressed }) => ({
-        opacity: pressed ? 0.65 : 1,
-        minHeight: 44,
+        opacity: pressed ? interaction.pressedOpacity : 1,
+        minHeight: controls.minimumTouchTarget,
         justifyContent: "center",
       })}
     >
-      <AppText variant="label" style={{ color: palette.cobalt }}>
+      <AppText variant="label" style={{ color: color ?? palette.actionLink }}>
         {label}
       </AppText>
     </Pressable>
@@ -245,44 +286,13 @@ export const sharedStyles = StyleSheet.create({
 });
 
 const textStyles = StyleSheet.create<Record<TextVariant, TextStyle>>({
-  display: {
-    fontFamily: "Atkinson_700Bold",
-    fontSize: 40,
-    lineHeight: 43,
-    letterSpacing: -1.1,
-  },
-  title: {
-    fontFamily: "Atkinson_700Bold",
-    fontSize: 28,
-    lineHeight: 34,
-    letterSpacing: -0.4,
-  },
-  heading: {
-    fontFamily: "Atkinson_700Bold",
-    fontSize: 21,
-    lineHeight: 27,
-  },
-  body: {
-    fontFamily: "Atkinson_400Regular",
-    fontSize: 17,
-    lineHeight: 24,
-  },
-  small: {
-    fontFamily: "Atkinson_400Regular",
-    fontSize: 14,
-    lineHeight: 20,
-  },
-  label: {
-    fontFamily: "Atkinson_700Bold",
-    fontSize: 16,
-    lineHeight: 20,
-  },
-  mono: {
-    fontFamily: "IBMPlexMono_600SemiBold",
-    fontSize: 12,
-    lineHeight: 17,
-    letterSpacing: 0.8,
-  },
+  display: typography.display,
+  title: typography.title,
+  heading: typography.heading,
+  body: typography.body,
+  small: typography.small,
+  label: typography.label,
+  mono: typography.mono,
 });
 
 const styles = StyleSheet.create({
@@ -309,7 +319,7 @@ const styles = StyleSheet.create({
     transform: [{ rotate: "-12deg" }],
   },
   button: {
-    minHeight: 54,
+    minHeight: controls.buttonMinHeight,
     borderRadius: radius.md,
     borderWidth: 1,
     paddingHorizontal: spacing.lg,

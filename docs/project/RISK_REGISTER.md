@@ -13,7 +13,7 @@
 | Material code mistaken for complete sorting evidence | Medium | High | Explicit package confirmation, separate provenance, conservative mappings, existing shape/deposit/hazard questions, composites safe unknown | Mitigated baseline |
 | Sorting guidance creates misleading environmental claim | Medium | High | Factual wording, no impact claims, named source and status | Open |
 | Toolchain incompatibility with installed Node 26 | Medium | Medium | CI and `.nvmrc` pin Node 24 LTS; local Node 26 also validated | Mitigated |
-| Fresh package supply-chain risk | Medium | High | Strict 1,440-minute release age, frozen lockfile, no broad exclusion, Expo install check and Doctor after changes | Enforced; Doctor 20/20 |
+| Fresh package supply-chain risk | Medium | High | Strict 1,440-minute release age, frozen lockfile, no broad exclusion, Expo install check and Doctor after changes | Enforced; Doctor 19/20 until the dated 2026-08-29 patch-age gate opens |
 | Accessibility regression in camera-first flow | Medium | High | Semantic UI, manual-entry parity, viewport QA, physical VoiceOver/TalkBack checklist | Device evidence required |
 | `image-size` parser denial of service in Metro build tooling | Low | Medium | Trusted repository assets only, CI resource limits, expiring advisory allowlist, weekly Dependabot | Accepted until 2026-09-10 or patch publication |
 | Production outage/incident undetected | High | High | Aggregate telemetry boundary, SLO/alerts/on-call/tabletop required | External operations blocker |

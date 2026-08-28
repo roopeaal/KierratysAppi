@@ -115,10 +115,12 @@ These are the exact externally controlled actions required to move the NO-GO dec
 
 - Owner: **Dependency/security owner**
 - Procedure:
-  1. Completed and revalidated 2026-08-26: installed the latest four supported Expo patches after the strict 1,440-minute age gate, removed a stale nested native module and passed frozen install, full validation, install check, Doctor 1.20.1 20/20, peer check and physical iOS rebuild/launch. Repeat this procedure after every dependency change.
-  2. Monitor `image-size`; upgrade to a compatible path containing `>=2.0.3` as soon as published.
-  3. Before 2026-09-10, remove the two exceptions or record a new explicit owner-approved decision; do not silently extend.
-  4. Push the audit commit only when authorized and require remote CI/Security success.
+  1. Wait until 2026-08-29 10:49 UTC so Expo 57.0.18, constants 57.0.16 and font 57.0.2 satisfy the strict 1,440-minute age rule. Do not add `minimumReleaseAgeExclude`, `expo.install.exclude` or any diagnostic bypass.
+  2. Install all eight versions named by `expo install --check`: Expo 57.0.18, constants 57.0.16, font/haptics 57.0.2, linking 57.0.8, router 57.0.17, system-ui 57.0.3 and React Native 0.86.3. Preserve an SDK-compatible `expo-dev-client` dependency.
+  3. Require `corepack pnpm install --frozen-lockfile`, `corepack pnpm peers check`, `expo install --check`, Expo Doctor 1.20.1 20/20, `corepack pnpm validate`, security audit and coverage. Re-prebuild pods, rebuild/sign/install the iOS development client and repeat Home/manual/result startup smoke because native versions changed.
+  4. Monitor `image-size`; upgrade to a compatible path containing `>=2.0.3` as soon as published.
+  5. Before 2026-09-10, remove the two exceptions or record a new explicit owner-approved decision; do not silently extend.
+  6. Push the audit commit only when authorized and require remote CI/Security success.
 - Success evidence: dependency diff, lockfile, green command/remote logs, advisory closure or signed re-review.
 
 ## OA-12 — GitHub controls

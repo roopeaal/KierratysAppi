@@ -66,7 +66,7 @@ export default function MaterialCodeScreen() {
     <Screen>
       <View style={styles.header}>
         <BrandLockup compact />
-        <InlineLink label={t("close")} onPress={() => router.back()} />
+        <InlineLink label={t("close")} onPress={() => router.back()} role="button" />
       </View>
 
       <View style={styles.hero}>

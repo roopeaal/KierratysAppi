@@ -1,5 +1,15 @@
 # Project changelog
 
+## 2026-08-28
+
+- Added the missing SDK-compatible `expo-dev-client` runtime required by the development EAS profile, rebuilt/prebuilt/pod-installed the iOS client, verified the app plus 11 embedded-framework signatures, and installed/launched it on the physical iPhone; a repository-policy test prevents profile/runtime drift.
+- Reworked Home and result into an answer-first hierarchy, added semantic color/type/control/motion tokens, localized every sorting destination and uncertainty reason, and retained complete rule/source evidence for resolved, ambiguous and unknown states.
+- Added stable critical automation IDs, uncapped platform font scaling, internal button semantics, localized scanner torch control and answer-first result announcements.
+- Rendered Finnish/English Home/manual/resolved/ambiguous/offline flows at phone width, checked Home/result at desktop width with zero measured horizontal overflow, and physically inspected the redesigned Finnish Home/manual/resolved result without capturing live camera frames.
+- Added presentation, announcement, contrast, accessibility-policy and development-client-policy regressions. Full validation now passes 154 application tests plus eight policy tests (162 total); coverage, security policy, peer checks and frozen install pass.
+- Rechecked the time-sensitive Expo compatibility gate. Eight supported patches now exist, but the newest three cannot satisfy the strict 1,440-minute age policy until 2026-08-29 10:49 UTC; Doctor is truthfully 19/20 and no bypass was added.
+- Retained NO-GO for the dependency update/rebuild, remaining native accessibility/camera/performance evidence, Android and release builds, production operations, legal/licensing/content approvals and store submission evidence.
+
 ## 2026-08-26
 
 - Continued the physical iPhone audit with VoiceOver and found that iOS used the manual field placeholder as its name and did not reliably announce the validation error.

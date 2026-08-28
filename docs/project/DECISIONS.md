@@ -119,8 +119,22 @@
 - Decision: retain visible React Native alert/live-region semantics, but also provide every current dynamic status screen an explicit iOS accessibility announcement. Every text input has its own localized `accessibilityLabel` even when associated visible label metadata exists. Loading is queued at default priority; terminal results and recovery errors use high priority so stale focused-control speech cannot suppress the state change.
 - Reason: physical VoiceOver testing showed that `accessibilityLabelledBy` did not name the manual field on iOS, `accessibilityRole="alert"` did not announce its new validation message and a known-product completion left VoiceOver speaking the earlier submit button. A default explicit announcement was also interrupted by button focus, while the high-priority manual repair read the complete recovery instruction. The implementation and regression policy reflect observed behavior rather than assumed cross-platform parity.
 
+## D-018 — Development-client profiles require the native client dependency
+
+- Date: 2026-08-28
+- Status: accepted
+- Decision: every EAS profile with `developmentClient:true` must have an SDK-compatible `expo-dev-client` runtime dependency, and a repository-policy test enforces the relationship. Local physical validation uses a freshly prebuilt/pod-installed client whose app and embedded frameworks pass strict signature verification.
+- Reason: the profile previously promised a development client but built a plain Debug shell. It initially launched only while a script URL happened to be available, then failed with `No script URL provided` and could not recover reliably after Metro/lifecycle changes. The missing native runtime was a source defect, not an Apple-account or device-trust issue.
+
+## D-019 — Mobile guidance is answer-first and evidence-complete
+
+- Date: 2026-08-28
+- Status: accepted
+- Decision: Home shows scan and manual entry before history/guide/supporting content. Product results show component sorting guidance before product identity/provider metadata. Resolved destinations precede confidence and explanation; ambiguous/unknown results localize every destination/reason and show full rule evidence or explicitly state that no verified rule was applied. Product/provider/licence data remains visible below the action and is not removed.
+- Reason: the prior decorative Home mark delayed the primary task, and the result hero required users to parse Nutella metadata before seeing where the package belongs. Raw enum labels and incomplete ambiguous/unknown rule disclosure also weakened localization and the trust invariant. Browser plus physical iPhone comparison showed the revised hierarchy surfaces the actionable destination in the first result viewport without hiding uncertainty or provenance.
+
 ## Pending decisions
 
 - OCR implementation and whether a cloud AI path is justified after the typed-code flow is evaluated.
 - Production hosting/database/telemetry providers after owner cost/privacy-region approval.
-- Whether a distributable web build is in launch scope; if yes, the current 2.53 MiB entry requires optimization and deployed performance evidence.
+- Whether a distributable web build is in launch scope; if yes, the current 2.54 MiB entry requires optimization and deployed performance evidence.

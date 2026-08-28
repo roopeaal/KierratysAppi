@@ -9,10 +9,10 @@
 - Correction reports are local drafts, not submitted; the UI states this. No admin moderation endpoint is exposed without authentication/operations.
 - Local history and drafts rely on AsyncStorage, not encrypted high-security storage; they are minimized. Android backup is disabled, but signed iOS/operating-system backup behavior is not verified and the UI discloses that a backup may include local data.
 - No analytics/crash vendor is active; telemetry is a no-op privacy boundary until approval.
-- One physical EAN-13, permission-recovery, known/unknown/OFF/offline/cache and provenance subset passes on iPhone. A home/scanner/manual-invalid VoiceOver subset passes; the repaired asynchronous-result announcement still awaits device retest. EAN-8/UPC-A and adverse camera conditions, remaining VoiceOver/largest text/dark/reduced-motion, native performance/battery and device screenshots remain unmeasured.
-- The exported web entry is 2,529,592 bytes uncompressed / 572,284 bytes gzip and exceeds its warning budget; web distribution is undecided.
+- One physical EAN-13, permission-recovery, known/unknown/OFF/offline/cache and provenance subset passes on iPhone. The redesigned Home/manual/resolved result and a home/scanner/manual-invalid VoiceOver subset pass; the repaired asynchronous-result announcement and actual torch operation still await device retest. EAN-8/UPC-A and adverse camera conditions, remaining VoiceOver/largest text/dark/reduced-motion and valid native performance/battery evidence remain unmeasured.
+- The exported web entry is 2,539,834 bytes uncompressed / 575,888 bytes gzip and exceeds its warning budget; web distribution is undecided.
 - Privacy/terms/store metadata are drafts pending external review.
 - Two Metro `image-size` build-tool DoS advisories have time-limited exceptions because the declared patched release is unavailable.
-- Expo compatibility passes, but every future dependency update remains subject to the strict 1,440-minute age gate, install check, Doctor and full validation.
+- Expo compatibility is temporarily 19/20 because eight supported patches are held until the strict 1,440-minute age gate opens on 2026-08-29 10:49 UTC. Every dependency update remains subject to install check, Doctor, full validation and native rebuild where applicable.
 - GitHub Code Security is not enabled for the private repository, so the prepared CodeQL job is feature-gated; enabling it may require owner-approved paid plan/security access.
 - GitHub branch protection is unavailable on the current private-repository plan; GitHub returned `403` and offered a Pro upgrade or public visibility.

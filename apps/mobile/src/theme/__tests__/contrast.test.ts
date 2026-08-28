@@ -22,6 +22,24 @@ describe("theme contrast", () => {
   ])("keeps %s at WCAG AA for normal text", (_name, foreground, background) => {
     expect(contrastRatio(foreground, background)).toBeGreaterThanOrEqual(4.5);
   });
+
+  it.each([
+    ["light semantic primary text", lightPalette.textPrimary, lightPalette.bgCanvas],
+    ["light semantic secondary text", lightPalette.textSecondary, lightPalette.bgCanvas],
+    ["light semantic link", lightPalette.actionLink, lightPalette.bgCanvas],
+    ["dark semantic primary text", darkPalette.textPrimary, darkPalette.bgCanvas],
+    ["dark semantic secondary text", darkPalette.textSecondary, darkPalette.bgCanvas],
+    ["dark semantic link", darkPalette.actionLink, darkPalette.bgCanvas],
+  ])("keeps %s at WCAG AA", (_name, foreground, background) => {
+    expect(contrastRatio(foreground, background)).toBeGreaterThanOrEqual(4.5);
+  });
+
+  it.each([
+    ["light strong border", lightPalette.borderStrong, lightPalette.bgCanvas],
+    ["dark strong border", darkPalette.borderStrong, darkPalette.bgCanvas],
+  ])("keeps %s distinguishable", (_name, foreground, background) => {
+    expect(contrastRatio(foreground, background)).toBeGreaterThanOrEqual(3);
+  });
 });
 
 function contrastRatio(foreground: string, background: string): number {

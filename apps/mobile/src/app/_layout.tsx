@@ -25,7 +25,7 @@ function Navigation() {
       <Stack
         screenOptions={{
           headerShown: false,
-          contentStyle: { backgroundColor: palette.background },
+          contentStyle: { backgroundColor: palette.bgCanvas },
           animation: navigationAnimation(reducedMotion),
         }}
       />

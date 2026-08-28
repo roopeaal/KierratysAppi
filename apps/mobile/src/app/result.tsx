@@ -27,13 +27,13 @@ import { spacing, useAppTheme } from "@/theme/tokens";
 export default function ResultScreen() {
   const router = useRouter();
   const { palette } = useAppTheme();
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const { state, lookupBarcode, reset } = useScanSession();
 
   useEffect(() => {
-    const announcement = lookupAnnouncement(state, t);
+    const announcement = lookupAnnouncement(state, t, language);
     if (announcement) announceAccessibility(announcement.message, announcement.priority);
-  }, [state, t]);
+  }, [language, state, t]);
 
   const startOver = () => {
     reset();
@@ -42,7 +42,7 @@ export default function ResultScreen() {
 
   if (state.status === "loading") {
     return (
-      <Screen scroll={false} style={styles.centered}>
+      <Screen scroll={false} style={styles.centered} testID="result-loading-screen">
         <ActivityIndicator size="large" color={palette.pine} accessibilityLabel={t("loading")} />
         <AppText variant="title" style={styles.centerText}>
           {t("loading")}
@@ -68,6 +68,7 @@ export default function ResultScreen() {
         primary={{ label: t("retry"), onPress: () => void lookupBarcode(state.gtin, "manual") }}
         secondary={{ label: t("materialGuideAction"), onPress: () => router.push("/guide") }}
         close={startOver}
+        testID="result-offline-screen"
       />
     );
   }
@@ -81,6 +82,7 @@ export default function ResultScreen() {
         tone="brick"
         primary={{ label: t("manualEntry"), onPress: () => router.replace("/manual") }}
         close={startOver}
+        testID="result-invalid-screen"
       />
     );
   }
@@ -94,6 +96,7 @@ export default function ResultScreen() {
         tone="cobalt"
         primary={{ label: t("scanAction"), onPress: () => router.replace("/scan") }}
         close={startOver}
+        testID="result-empty-screen"
       />
     );
   }
@@ -110,6 +113,7 @@ export default function ResultScreen() {
         primary={{ label: t("checkCode"), onPress: () => router.replace("/manual") }}
         secondary={{ label: t("materialGuideAction"), onPress: () => router.push("/guide") }}
         close={startOver}
+        testID="result-not-found-screen"
       />
     );
   }
@@ -125,6 +129,7 @@ export default function ResultScreen() {
         primary={{ label: t("retry"), onPress: () => void lookupBarcode(result.gtin, "manual") }}
         secondary={{ label: t("materialGuideAction"), onPress: () => router.push("/guide") }}
         close={startOver}
+        testID="result-provider-unavailable-screen"
       />
     );
   }
@@ -147,45 +152,47 @@ function ProductResult({
   const provenance = result.product.packagingCompleteness.provenance;
 
   return (
-    <Screen>
+    <Screen testID="product-result-screen">
       <View style={styles.header}>
         <BrandLockup compact />
-        <InlineLink label={t("close")} onPress={onClose} />
+        <InlineLink
+          label={t("close")}
+          onPress={onClose}
+          role="button"
+          testID="result-close-action"
+        />
       </View>
-      <View style={styles.productHero}>
-        <Eyebrow>{t("productLabel")}</Eyebrow>
+
+      <View style={styles.answerIntro}>
+        <Eyebrow>{t("resultEyebrow")}</Eyebrow>
         <AppText variant="title" accessibilityRole="header">
-          {name}
+          {t("resultTitle")}
         </AppText>
-        {brand && <AppText muted>{brand}</AppText>}
-        <AppText variant="mono" muted>
-          {result.gtin}
-        </AppText>
-        <View style={styles.sourceRow}>
-          <StatusPill label={result.cache.hit ? t("cachedLabel") : t("liveLabel")} tone="cobalt" />
-          <AppText variant="small" muted>
-            {result.provider.name}
-          </AppText>
-        </View>
       </View>
 
       {result.status === "packaging_missing" ? (
         <View style={styles.resultStack}>
-          <Paper style={{ borderColor: palette.amber }}>
+          <Paper style={{ borderColor: palette.amber }} testID="packaging-missing-result">
             <StatusPill label={t("confidenceUnknown")} tone="amber" />
             <AppText variant="heading">{t("packagingMissingTitle")}</AppText>
             <AppText>{t("packagingMissingBody")}</AppText>
           </Paper>
-          <Button label={t("materialCodeAction")} onPress={() => router.push("./material-code")} />
+          <Button
+            label={t("materialCodeAction")}
+            onPress={() => router.push("./material-code")}
+            testID="result-material-code-action"
+          />
           <Button
             label={t("manualComponentAction")}
             variant="secondary"
             onPress={() => router.push("/component")}
+            testID="result-manual-component-action"
           />
           <Button
             label={t("feedbackMissing")}
             variant="secondary"
             onPress={() => router.push("/feedback?category=missing_data")}
+            testID="result-missing-feedback-action"
           />
           <AppText variant="small" muted style={styles.centerText}>
             {t("materialCodeLocalNote")}
@@ -209,14 +216,32 @@ function ProductResult({
         </View>
       )}
 
-      <View style={styles.resultStack}>
-        <Rule />
-        <Button label={t("scanAnother")} onPress={onClose} />
+      <View style={styles.nextActions}>
+        <Button label={t("scanAnother")} onPress={onClose} testID="result-scan-another-action" />
         <Button
           label={t("correctionAction")}
           variant="secondary"
           onPress={() => router.push({ pathname: "/feedback", params: { gtin: result.gtin } })}
+          testID="result-feedback-action"
         />
+      </View>
+
+      <View style={styles.productSummary}>
+        <Rule />
+        <SectionHeader title={t("productDetailsTitle")} />
+        <View style={sharedStyles.tightStack}>
+          <AppText variant="heading">{name}</AppText>
+          {brand && <AppText muted>{brand}</AppText>}
+          <AppText variant="mono" muted>
+            {result.gtin}
+          </AppText>
+        </View>
+        <View style={styles.sourceRow}>
+          <StatusPill label={result.cache.hit ? t("cachedLabel") : t("liveLabel")} tone="cobalt" />
+          <AppText variant="small" muted>
+            {result.provider.name}
+          </AppText>
+        </View>
         <View style={sharedStyles.tightStack}>
           <AppText variant="small" muted>
             {t("communityDataLabel")} · {t("lastRetrievedLabel")}:{" "}
@@ -260,6 +285,7 @@ type StateScreenProps = {
   readonly primary: { readonly label: string; readonly onPress: () => void };
   readonly secondary?: { readonly label: string; readonly onPress: () => void };
   readonly close: () => void;
+  readonly testID: string;
 };
 
 function StateScreen({
@@ -271,13 +297,14 @@ function StateScreen({
   primary,
   secondary,
   close,
+  testID,
 }: StateScreenProps) {
   const { t } = useLanguage();
   return (
-    <Screen>
+    <Screen testID={testID}>
       <View style={styles.header}>
         <BrandLockup compact />
-        <InlineLink label={t("close")} onPress={close} />
+        <InlineLink label={t("close")} onPress={close} role="button" testID="result-close-action" />
       </View>
       <View style={styles.stateBody}>
         <StatusPill label={eyebrow} tone={tone} />
@@ -291,9 +318,14 @@ function StateScreen({
           </AppText>
         )}
         <View style={[sharedStyles.stack, styles.stateActions]}>
-          <Button label={primary.label} onPress={primary.onPress} />
+          <Button label={primary.label} onPress={primary.onPress} testID="result-primary-action" />
           {secondary && (
-            <Button label={secondary.label} variant="secondary" onPress={secondary.onPress} />
+            <Button
+              label={secondary.label}
+              variant="secondary"
+              onPress={secondary.onPress}
+              testID="result-secondary-action"
+            />
           )}
         </View>
       </View>
@@ -346,7 +378,7 @@ const styles = StyleSheet.create({
   centerText: { textAlign: "center" },
   stateBody: { paddingTop: spacing.xxl, gap: spacing.lg },
   stateActions: { marginTop: spacing.md },
-  productHero: { paddingTop: spacing.xxl, gap: spacing.xs },
+  answerIntro: { paddingTop: spacing.xl, gap: spacing.sm },
   sourceRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -355,6 +387,8 @@ const styles = StyleSheet.create({
     marginTop: spacing.md,
   },
   resultStack: { paddingTop: spacing.xl, gap: spacing.md },
+  nextActions: { paddingTop: spacing.xl, gap: spacing.md },
+  productSummary: { paddingTop: spacing.xl, gap: spacing.md },
   disclosureRow: { flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: spacing.xs },
   componentBlock: { gap: spacing.sm },
 });

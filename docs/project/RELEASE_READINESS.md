@@ -5,10 +5,10 @@ Status: **NO-GO**. This is a tested source foundation, not a production-capable 
 | Gate | Status | Evidence/requirement |
 | --- | --- | --- |
 | Core source flow | Pass locally | Manual/live API→OFF and automated state/domain/provider/API evidence |
-| Local validation | Pass | 134 application tests plus five repository-policy regressions (139 total); format/lint/typecheck/build/export pass |
-| Expo compatibility | Pass | Strict 1,440-minute age gate; install check clean and Doctor 20/20 |
+| Local validation | Pass | 154 application tests plus eight repository-policy regressions (162 total); format/lint/typecheck/build/12-route export pass |
+| Expo compatibility | Temporarily fail/time-gated | Eight supported patch mismatches make Doctor 19/20; the strict 1,440-minute age gate opens 2026-08-29 10:49 UTC and was not bypassed |
 | Android/iOS builds | Partial/blocked | iOS Personal-Team Debug compile/sign/install/core runtime passes; Android and iOS archive/TestFlight/release builds remain absent |
-| Camera/accessibility/performance | Partial/blocked | One physical EAN-13 and permission/offline/provenance subset plus repaired home/scanner/manual-invalid VoiceOver coverage pass on iPhone; asynchronous result announcements are repaired and tested locally but await device retest, and broader barcode, VoiceOver/large text and performance/battery remain |
+| Camera/accessibility/performance | Partial/blocked | One physical EAN-13 and permission/offline/provenance subset plus redesigned Home/manual/result and repaired home/scanner/manual-invalid VoiceOver coverage pass on iPhone; async result announcements and actual torch operation await device retest, and broader barcode, VoiceOver/large text/dark/reduced-motion and valid performance/battery evidence remain |
 | Production service/recovery | Absent | No HTTPS endpoint/database/monitoring/restore drill |
 | Sorting/licensing/legal | Blocked | Human content, OFF and privacy/terms approval absent |
 | Store package | Incomplete | Icons exist; screenshots/feature graphic/forms/URLs/console validation absent |

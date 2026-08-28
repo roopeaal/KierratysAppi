@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
@@ -8,7 +7,6 @@ import {
   Button,
   Eyebrow,
   InlineLink,
-  Paper,
   Rule,
   Screen,
   SectionHeader,
@@ -17,18 +15,7 @@ import {
 import { isHistoryEnabled } from "@/features/history/storage";
 import { useScanSession } from "@/features/scan/session-context";
 import { useLanguage } from "@/i18n/language-context";
-import { radius, spacing, useAppTheme } from "@/theme/tokens";
-
-const WELCOME_SEEN_KEY = "@kierratysappi/welcome-seen/v1";
-const BARCODE_BARS = [
-  { id: "bar-a", width: 2 },
-  { id: "bar-b", width: 1 },
-  { id: "bar-c", width: 3 },
-  { id: "bar-d", width: 1 },
-  { id: "bar-e", width: 2 },
-  { id: "bar-f", width: 3 },
-  { id: "bar-g", width: 1 },
-] as const;
+import { controls, interaction, radius, spacing, useAppTheme } from "@/theme/tokens";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -36,29 +23,22 @@ export default function HomeScreen() {
   const { language, setLanguage, t } = useLanguage();
   const { reset } = useScanSession();
   const [historyEnabled, setHistoryState] = useState(false);
-  const [firstVisit, setFirstVisit] = useState(true);
 
   useFocusEffect(
     useCallback(() => {
       reset();
-      void Promise.all([isHistoryEnabled(), AsyncStorage.getItem(WELCOME_SEEN_KEY)]).then(
-        ([enabled, seen]) => {
-          setHistoryState(enabled);
-          setFirstVisit(seen !== "true");
-          if (seen !== "true") void AsyncStorage.setItem(WELCOME_SEEN_KEY, "true");
-        },
-      );
+      void isHistoryEnabled().then(setHistoryState);
     }, [reset]),
   );
 
   return (
-    <Screen>
+    <Screen testID="home-screen">
       <View style={styles.topbar}>
-        <BrandLockup />
+        <BrandLockup compact />
         <View
           style={[
             styles.languageSwitch,
-            { borderColor: palette.line, backgroundColor: palette.surface },
+            { borderColor: palette.borderSubtle, backgroundColor: palette.bgSurface },
           ]}
           accessibilityRole="radiogroup"
           accessibilityLabel={t("languageLabel")}
@@ -70,11 +50,16 @@ export default function HomeScreen() {
               accessibilityState={{ checked: language === item }}
               accessibilityLabel={item === "fi" ? t("finnish") : t("english")}
               onPress={() => setLanguage(item)}
-              style={[styles.languageChoice, language === item && { backgroundColor: palette.ink }]}
+              testID={`language-${item}`}
+              style={({ pressed }) => [
+                styles.languageChoice,
+                language === item && { backgroundColor: palette.textPrimary },
+                pressed && { opacity: interaction.pressedOpacity },
+              ]}
             >
               <AppText
                 variant="mono"
-                style={{ color: language === item ? palette.background : palette.muted }}
+                style={{ color: language === item ? palette.bgCanvas : palette.textSecondary }}
               >
                 {item.toUpperCase()}
               </AppText>
@@ -84,14 +69,11 @@ export default function HomeScreen() {
       </View>
 
       <View style={styles.hero}>
-        <View style={styles.heroCopy}>
-          <Eyebrow>{t("introEyebrow")}</Eyebrow>
-          <AppText variant="display" accessibilityRole="header">
-            {t("introTitle")}
-          </AppText>
-          <AppText style={styles.intro}>{t("introBody")}</AppText>
-        </View>
-        <SortingMark />
+        <Eyebrow>{t("introEyebrow")}</Eyebrow>
+        <AppText variant="display" accessibilityRole="header">
+          {t("introTitle")}
+        </AppText>
+        <AppText style={styles.intro}>{t("introBody")}</AppText>
       </View>
 
       <View style={[sharedStyles.stack, styles.actions]}>
@@ -99,38 +81,43 @@ export default function HomeScreen() {
           label={t("scanAction")}
           onPress={() => router.push("/scan")}
           accessibilityHint={t("cameraPurpose")}
+          testID="home-scan-action"
         />
         <Button
           label={t("manualEntry")}
           variant="secondary"
           onPress={() => router.push("/manual")}
+          accessibilityHint={t("gtinHint")}
+          testID="home-manual-action"
         />
       </View>
 
-      <View style={[styles.privacyStrip, { borderColor: palette.line }]}>
-        <View style={[styles.privacyDot, { backgroundColor: palette.pine }]} />
+      <View style={[styles.privacyStrip, { borderColor: palette.borderSubtle }]}>
+        <View style={[styles.privacyDot, { backgroundColor: palette.statusSuccess }]} />
         <AppText variant="small" style={styles.privacyText}>
           {t("privacySummary")}
         </AppText>
       </View>
 
-      {firstVisit && (
-        <Paper style={{ backgroundColor: palette.pineSoft }}>
-          <Eyebrow>{t("localOnly").toUpperCase()}</Eyebrow>
-          <AppText variant="heading">{t("privacySummary")}</AppText>
-          <AppText muted>{t("cameraPermissionBody")}</AppText>
-        </Paper>
-      )}
-
       <View style={styles.section}>
-        <SectionHeader
-          title={t("recentScans")}
-          action={<InlineLink label={t("historyTitle")} onPress={() => router.push("/history")} />}
-        />
-        <Paper>
+        <SectionHeader title={t("recentScans")} />
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={t("historyTitle")}
+          accessibilityHint={historyEnabled ? t("historyOn") : t("historyOff")}
+          onPress={() => router.push("/history")}
+          testID="home-history-action"
+          style={({ pressed }) => [
+            styles.historyRow,
+            {
+              borderColor: palette.borderSubtle,
+              opacity: pressed ? interaction.pressedOpacity : 1,
+            },
+          ]}
+        >
           <View style={sharedStyles.row}>
-            <View style={[styles.historyGlyph, { borderColor: palette.cobalt }]}>
-              <AppText variant="mono" style={{ color: palette.cobalt }}>
+            <View style={[styles.historyGlyph, { borderColor: palette.actionLink }]}>
+              <AppText variant="mono" style={{ color: palette.actionLink }}>
                 ↺
               </AppText>
             </View>
@@ -140,25 +127,33 @@ export default function HomeScreen() {
                 {t("localOnly")}
               </AppText>
             </View>
+            <AppText variant="heading" style={{ color: palette.actionLink }}>
+              →
+            </AppText>
           </View>
-        </Paper>
+        </Pressable>
       </View>
 
       <View style={styles.section}>
         <SectionHeader title={t("materialGuideTitle")} />
         <Pressable
           accessibilityRole="button"
+          accessibilityLabel={t("materialGuideAction")}
           onPress={() => router.push("/guide")}
+          testID="home-guide-action"
           style={({ pressed }) => [
             styles.guideRow,
-            { borderColor: palette.line, opacity: pressed ? 0.7 : 1 },
+            {
+              borderColor: palette.borderSubtle,
+              opacity: pressed ? interaction.pressedOpacity : 1,
+            },
           ]}
         >
           <View style={styles.guideText}>
             <AppText variant="heading">{t("materialGuideAction")}</AppText>
             <AppText muted>{t("materialGuideBody")}</AppText>
           </View>
-          <AppText variant="title" style={{ color: palette.cobalt }}>
+          <AppText variant="title" style={{ color: palette.actionLink }}>
             →
           </AppText>
         </Pressable>
@@ -166,36 +161,17 @@ export default function HomeScreen() {
 
       <Rule style={styles.footerRule} />
       <View style={styles.footer}>
-        <InlineLink label={t("legalAction")} onPress={() => router.push("/legal")} />
+        <InlineLink
+          label={t("legalAction")}
+          onPress={() => router.push("/legal")}
+          role="button"
+          testID="home-legal-action"
+        />
         <AppText variant="mono" muted>
-          RULESET FI · 2026.08
+          {t("rulesetVersion")}
         </AppText>
       </View>
     </Screen>
-  );
-}
-
-function SortingMark() {
-  const { palette } = useAppTheme();
-  return (
-    <View style={[styles.sortingMark, { borderColor: palette.ink }]} accessibilityElementsHidden>
-      <View style={[styles.sortingTop, { backgroundColor: palette.pineSoft }]}>
-        <View style={[styles.barcode, { borderColor: palette.pine }]}>
-          {BARCODE_BARS.map(({ id, width }) => (
-            <View key={id} style={{ width, height: 34, backgroundColor: palette.pine }} />
-          ))}
-        </View>
-      </View>
-      <View style={[styles.sortingBottom, { backgroundColor: palette.cobaltSoft }]}>
-        <AppText variant="mono" style={{ color: palette.cobalt }}>
-          01 / TUNNISTA
-        </AppText>
-        <AppText variant="mono" style={{ color: palette.cobalt }}>
-          02 / LAJITTELE
-        </AppText>
-      </View>
-      <View style={[styles.sortingSeam, { backgroundColor: palette.background }]} />
-    </View>
   );
 }
 
@@ -208,48 +184,15 @@ const styles = StyleSheet.create({
   },
   languageSwitch: { flexDirection: "row", borderWidth: 1, borderRadius: radius.pill, padding: 3 },
   languageChoice: {
-    minWidth: 42,
-    minHeight: 40,
+    minWidth: controls.minimumTouchTarget,
+    minHeight: controls.minimumTouchTarget,
     borderRadius: radius.pill,
     alignItems: "center",
     justifyContent: "center",
   },
-  hero: { paddingTop: spacing.xxl, gap: spacing.xl },
-  heroCopy: { gap: spacing.md },
+  hero: { paddingTop: spacing.xl, gap: spacing.md },
   intro: { maxWidth: 530 },
-  sortingMark: {
-    height: 174,
-    borderWidth: 2,
-    borderRadius: radius.lg,
-    overflow: "hidden",
-    transform: [{ rotate: "-1deg" }],
-  },
-  sortingTop: { flex: 1, alignItems: "center", justifyContent: "center" },
-  sortingBottom: {
-    flex: 1,
-    paddingHorizontal: spacing.lg,
-    justifyContent: "center",
-    gap: spacing.xs,
-  },
-  sortingSeam: {
-    position: "absolute",
-    height: 10,
-    width: "110%",
-    left: -14,
-    top: 81,
-    transform: [{ rotate: "-2deg" }],
-  },
-  barcode: {
-    height: 48,
-    minWidth: 160,
-    borderWidth: 1,
-    borderRadius: radius.sm,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 5,
-  },
-  actions: { paddingTop: spacing.xl },
+  actions: { paddingTop: spacing.lg },
   privacyStrip: {
     marginTop: spacing.lg,
     borderTopWidth: 1,
@@ -262,6 +205,13 @@ const styles = StyleSheet.create({
   privacyDot: { width: 9, height: 9, borderRadius: 5 },
   privacyText: { flex: 1 },
   section: { marginTop: spacing.xxl, gap: spacing.md },
+  historyRow: {
+    minHeight: 88,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    justifyContent: "center",
+    paddingVertical: spacing.md,
+  },
   historyGlyph: {
     width: 44,
     height: 44,

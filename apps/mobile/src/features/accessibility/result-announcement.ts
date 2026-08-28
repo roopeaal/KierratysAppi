@@ -1,4 +1,13 @@
-import type { MessageKey } from "@kierratysappi/localization";
+import type { Language, LocalizedText } from "@kierratysappi/domain";
+import { localizedText, type MessageKey } from "@kierratysappi/localization";
+
+type AnnouncementSortingResult =
+  | {
+      readonly status: "resolved";
+      readonly destination: { readonly label: LocalizedText };
+    }
+  | { readonly status: "ambiguous"; readonly question: LocalizedText }
+  | { readonly status: "unknown"; readonly nextAction: LocalizedText };
 
 type LookupAnnouncementState =
   | { readonly status: "idle" }
@@ -11,7 +20,13 @@ type LookupAnnouncementState =
         | { readonly status: "not_found" }
         | { readonly status: "provider_unavailable" }
         | {
-            readonly status: "resolved" | "packaging_missing";
+            readonly status: "resolved";
+            readonly gtin: string;
+            readonly product: { readonly name?: { readonly value: string } };
+            readonly components: readonly { readonly sorting: AnnouncementSortingResult }[];
+          }
+        | {
+            readonly status: "packaging_missing";
             readonly gtin: string;
             readonly product: { readonly name?: { readonly value: string } };
           };
@@ -27,6 +42,7 @@ export type LookupAnnouncement = {
 export function lookupAnnouncement(
   state: LookupAnnouncementState,
   t: Translator,
+  language: Language,
 ): LookupAnnouncement | undefined {
   if (state.status === "loading") return { message: t("loading"), priority: "default" };
   if (state.status === "offline") {
@@ -47,9 +63,29 @@ export function lookupAnnouncement(
   }
 
   const name = state.result.product.name?.value ?? state.result.gtin;
+  if (state.result.status === "packaging_missing") {
+    return { message: `${name}. ${t("packagingMissingTitle")}`, priority: "high" };
+  }
+
+  const firstSortingResult = state.result.components[0]?.sorting;
+  if (!firstSortingResult) return { message: name, priority: "high" };
+  if (firstSortingResult.status === "resolved") {
+    return {
+      message: `${t("sortingResultReady")}. ${localizedText(
+        language,
+        firstSortingResult.destination.label,
+      )}. ${name}`,
+      priority: "high",
+    };
+  }
+  if (firstSortingResult.status === "ambiguous") {
+    return {
+      message: `${t("needsCheckLabel")}. ${localizedText(language, firstSortingResult.question)}`,
+      priority: "high",
+    };
+  }
   return {
-    message:
-      state.result.status === "packaging_missing" ? `${name}. ${t("packagingMissingTitle")}` : name,
+    message: `${t("confidenceUnknown")}. ${localizedText(language, firstSortingResult.nextAction)}`,
     priority: "high",
   };
 }

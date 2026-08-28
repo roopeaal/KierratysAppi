@@ -15,6 +15,7 @@ These are release blockers or high-risk gates that cannot be completed without e
 | Privacy/GDPR/terms/hosted URLs | blocker | Controller/legal decisions and publication required | OA-06 |
 | Monitoring, alerts, contacts and incident drills | high | Vendor/account/privacy/on-call decisions absent | OA-07 |
 | Store screenshots/feature graphic/forms/validation | blocker/high | Depends on signed builds, accounts and approvals | OA-10 |
+| Fresh Expo-supported patch age gate | high/time-gated | Expo 57.0.18, constants 57.0.16 and font 57.0.2 were published 2026-08-28 10:47–10:48 UTC; strict 1,440-minute policy forbids installation until 2026-08-29 10:49 UTC | OA-11 |
 | Two high Metro `image-size` advisories | high/time-gated | Patched `2.0.3` is unpublished; exception expires 2026-09-10 | OA-11 |
 | Private branch protection/CodeQL | high governance | GitHub plan/Code Security approval; API currently returns 403 and no variable exists | OA-12 |
 

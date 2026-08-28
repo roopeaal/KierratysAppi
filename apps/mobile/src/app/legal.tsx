@@ -32,7 +32,7 @@ export default function LegalScreen() {
     <Screen>
       <View style={styles.header}>
         <BrandLockup compact />
-        <InlineLink label={t("close")} onPress={() => router.back()} />
+        <InlineLink label={t("close")} onPress={() => router.back()} role="button" />
       </View>
       <View style={styles.intro}>
         <Eyebrow color={palette.brick}>{t("legalReview")}</Eyebrow>
