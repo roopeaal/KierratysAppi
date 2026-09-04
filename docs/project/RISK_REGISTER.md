@@ -13,9 +13,9 @@
 | Material code mistaken for complete sorting evidence | Medium | High | Explicit package confirmation, separate provenance, conservative mappings, existing shape/deposit/hazard questions, composites safe unknown | Mitigated baseline |
 | Sorting guidance creates misleading environmental claim | Medium | High | Factual wording, no impact claims, named source and status | Open |
 | Toolchain incompatibility with installed Node 26 | Medium | Medium | CI and `.nvmrc` pin Node 24 LTS; local Node 26 also validated | Mitigated |
-| Fresh package supply-chain risk | Medium | High | Strict 1,440-minute release age, frozen lockfile, no broad exclusion, Expo install check and Doctor after changes | Enforced; Doctor 19/20 until the dated 2026-08-29 patch-age gate opens |
+| Fresh package supply-chain risk | Medium | High | Strict 1,440-minute release age, frozen lockfile, no broad exclusion, Expo install check and Doctor after changes | Enforced; Expo 57.0.19 set passes install check and Doctor 20/20 on 2026-09-04 |
 | Accessibility regression in camera-first flow | Medium | High | Semantic UI, manual-entry parity, viewport QA, physical VoiceOver/TalkBack checklist | Device evidence required |
-| `image-size` parser denial of service in Metro build tooling | Low | Medium | Trusted repository assets only, CI resource limits, expiring advisory allowlist, weekly Dependabot | Accepted until 2026-09-10 or patch publication |
+| Dependency denial of service and incorrect URI parsing | Medium | High | Weekly audit, fail-closed report validation, bounded audit process, no high/critical exceptions, patched fast-uri lock floors | 2026-09-04: fast-uri updated to 3.1.7/4.1.4; Metro no longer includes image-size and its old exceptions are removed; lower findings remain monitored |
 | Production outage/incident undetected | High | High | Aggregate telemetry boundary, SLO/alerts/on-call/tabletop required | External operations blocker |
 | Backup cannot be restored | Medium | High | Managed PITR, least-privilege migration and isolated quarterly restore/reconciliation | External database blocker |
 | Store/privacy declarations mismatch final binary | Medium | High | Generate from final signed binaries/SDK inventory; legal/store approval and console exports | External release blocker |

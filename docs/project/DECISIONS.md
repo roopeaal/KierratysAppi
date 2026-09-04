@@ -133,6 +133,13 @@
 - Decision: Home shows scan and manual entry before history/guide/supporting content. Product results show component sorting guidance before product identity/provider metadata. Resolved destinations precede confidence and explanation; ambiguous/unknown results localize every destination/reason and show full rule evidence or explicitly state that no verified rule was applied. Product/provider/licence data remains visible below the action and is not removed.
 - Reason: the prior decorative Home mark delayed the primary task, and the result hero required users to parse Nutella metadata before seeing where the package belongs. Raw enum labels and incomplete ambiguous/unknown rule disclosure also weakened localization and the trust invariant. Browser plus physical iPhone comparison showed the revised hierarchy surfaces the actionable destination in the first result viewport without hiding uncertainty or provenance.
 
+## D-020 — Close obsolete security exceptions and fail closed on audit errors
+
+- Date: 2026-09-04
+- Status: accepted
+- Decision: use compatible transitive fast-uri patches within the existing 3.x and 4.x parent ranges, with regression-tested security floors. Remove the old image-size advisory exceptions because the updated Metro graph no longer contains that dependency. Reject every high/critical finding and reject missing, malformed, inconsistent or failed registry responses; bound the audit subprocess to 60 seconds.
+- Reason: the new lockfile audit found four high advisories affecting both installed fast-uri majors. Eligible upstream patches existed, so no exception or compatibility-breaking override was justified. The previous audit parser could treat an error-shaped JSON response without advisories as an empty successful audit.
+
 ## Pending decisions
 
 - OCR implementation and whether a cloud AI path is justified after the typed-code flow is evaluated.

@@ -1,8 +1,8 @@
 # Physical iOS validation
 
-Status date: 2026-08-28
+Status date: 2026-09-04
 
-Status: **PARTIALLY RUN — development build installed; core iPhone flow passes, full matrix remains open**
+Status: **PARTIALLY RUN — fresh signed client installed and launcher opens; current Metro connection fails, new-binary Home smoke pending; earlier core-flow evidence remains historical**
 
 This report is deliberately separate from simulator, web and generated-configuration evidence. No physical-device row may become Pass without observing the named build on the recorded iPhone.
 
@@ -13,14 +13,14 @@ This report is deliberately separate from simulator, web and generated-configura
 | Repository source | Local `main`; audited implementation/evidence commits remain unpushed to `origin/main` |
 | App version/build | `0.1.0` / iOS build `1` |
 | Bundle identifier | `fi.roopeaaltonen.kierratysappi` |
-| Host | Apple M1, macOS 26.5.2 (`25F84`) |
+| Host | Apple M1, macOS Tahoe 26.7 (`25G220`) for the 2026-09-04 rebuild; earlier evidence used 26.5.2 |
 | Xcode | 26.6 (`17F113`), iOS 26.5 SDK; commands use an explicit `DEVELOPER_DIR` because system `xcode-select` remains on Command Line Tools |
 | Selected install method | Local Xcode development build and `devicectl` install using automatic Personal-Team signing |
 | Signing scope | Apple Personal Team is sufficient for local testing; seven-day provisioning limits apply |
 | iPhone model | iPhone 12 Pro Max |
 | iOS version | 26.1 (`23B82`) |
 | Tester | Repository owner for manual observations; Codex for build/device/API/Metro logs |
-| Physical run date | 2026-08-10, renewed-profile continuation on 2026-08-22, VoiceOver/patch continuation on 2026-08-26 and development-client/UI continuation on 2026-08-28 |
+| Physical run date | 2026-08-10/22/26/28 core-flow evidence; 2026-09-04 fresh signed install/launcher and failed Metro connection |
 | Screenshots/logs | Interactive observations plus Xcode, `devicectl`, Metro and privacy-safe API logs. Ignored `work/ui-qa/after-home-fi-ios-physical.png` and `after-result-fi-ios-physical.png` capture the 2026-08-28 UI; no live camera frame was captured |
 
 ## Automated preflight evidence
@@ -28,23 +28,23 @@ This report is deliberately separate from simulator, web and generated-configura
 | Check | Result | Evidence |
 | --- | --- | --- |
 | Git synchronization | Pass as inspection; not pushed | Clean `main` at test start; local HEAD `aae5fab`, `origin/main` `87404a0`, ahead three. No prior push authorization exists. |
-| Host compatibility | Pass | macOS 26.5.2 is in Xcode 26.6’s supported macOS 26.2–26.x range. |
+| Host compatibility | Pass | macOS Tahoe 26.7 is in Xcode 26.6's supported macOS 26.2–26.x range; local tool invocation and native build pass. |
 | Full Xcode | Pass | Xcode 26.6 and the iOS 26.5 SDK are installed and usable through explicit `DEVELOPER_DIR`. |
-| Expo/iOS compatibility | Time-gated revalidation | The installed SDK 57 native set previously passed. On 2026-08-28 Expo published a new supported patch set; Doctor is now 19/20 and install check reports eight mismatches. The strict 1,440-minute policy forbids the newest required patches until 2026-08-29 10:49 UTC. The currently installed development client remains functional, but no new compatibility claim is made. |
+| Expo/iOS compatibility | Pass source/build checks | 2026-09-04 Expo 57.0.19 / RN 0.86.3 / dev-client 57.0.18 passes frozen install, peers, Expo install check and Doctor 20/20 without exclusions. Native pod manifest/lock and versions agree. Product-screen runtime is separately pending. |
 | Native generation | Pass | A clean ignored-workspace `expo prebuild --clean --platform ios --no-install` completed. |
 | Bundle/version | Pass | Generated project has bundle ID `fi.roopeaaltonen.kierratysappi`, marketing version `0.1.0` and build `1`. |
 | Camera purpose | Pass configuration | Finnish and English `NSCameraUsageDescription` state barcode-only camera use and no frame upload. |
 | Unrelated purpose strings | Pass configuration | No microphone or location usage description is generated. Location is not used by the current product. |
-| Development compile | Pass | Xcode Debug build completed for `iphoneos` on 2026-08-22/26. On 2026-08-28 a fresh ignored prebuild/pod install included `expo-dev-client`, dev-launcher and dev-menu 57.0.16; its Xcode build passed. Dependency build-script warnings remain; no build error occurred. |
+| Development compile | Pass | Fresh 2026-09-04 live-workspace generation, 111-pod installation and Xcode Debug `iphoneos` build pass with Expo 57.0.19 / RN 0.86.3 / dev-client 57.0.18. Dependency build-script warnings remain; no build error occurred. |
 | Development signature | Pass | All 11 embedded frameworks passed strict signature verification and the app passed recursive `codesign --verify --deep --strict`. This is development evidence, not App Store archive evidence. |
-| Development install/launch | Pass | The earlier renewed builds launched. The 2026-08-28 development-client artifact installed/launched through the explicit Metro payload, replaced the `No script URL provided` failure with a functional recoverable client, and physically rendered the redesigned Home/manual/result. |
+| Development install/launch | Partial | 2026-09-04 fresh install and native launcher/onboarding pass, with profile valid until 2026-09-11 07:01:05 UTC. Explicit Metro connection reports server refused connection, so current Home/manual/result smoke is not passed. Earlier 2026-08-28 product-screen passes remain historical. |
 | Entitlements | Partial | Development signing/install passes. Final archive entitlements remain unverified. |
 | Privacy manifest | Pass configuration | No tracking or collected data types; UserDefaults required-reason API uses `CA92.1`. Final dependency-merged archive remains unverified. |
 | Icons/splash | Pass generation | App icon, splash logo at 1x/2x/3x, splash background and storyboard are generated from source assets. |
 | Appearance/orientation | Pass configuration | Automatic light/dark style; phone portrait scope. iPad remains configured for portrait and landscape. |
 | EAS development profile | Source invariant repaired | `developmentClient:true`, internal distribution and Node 24.19.0 exist; the matching `expo-dev-client` dependency and a repository-policy regression now exist. EAS itself was not invoked. |
 
-The current development build is generated under ignored `work/ios-dev-client-derived/`. It is a short-lived Personal-Team development artifact, not an archive, TestFlight build or release artifact. The free provisioning profile expired after seven days as expected, was renewed/reinstalled on 2026-08-22 and remained usable for the 2026-08-28 continuation.
+The current development build is under ignored `work/ios-dev-client-2026-09-04-derived/`, generated from live `apps/mobile/ios`, not stale copied staging. It is a short-lived Personal-Team development artifact, not an archive, TestFlight build or release artifact. The previous profile expired on 2026-08-29; the new profile expires 2026-09-11 07:01:05 UTC. Mac LAN/local API and Metro health pass, Node's incoming firewall permission is allowed, and block-all is disabled. The owner must confirm shared non-isolated Wi-Fi and iOS Local Network permission before the current Home/manual/result smoke can finish. Actual connection failure is captured in ignored `work/ui-qa/2026-09-04-ios-dev-client-connection-error.png`.
 
 ## Physical test matrix
 
@@ -175,4 +175,4 @@ Rows not exercised remain **Not run**. `Pass` means the named behavior was obser
 
 ## Remaining boundary
 
-After the 2026-08-29 dependency-age gate, update/revalidate the supported Expo patch set and rebuild/reinstall the development client. Then resume VoiceOver, largest-Dynamic-Type, dark/reduced-motion and valid performance/battery evidence. Release remains blocked until a paid-program release archive/TestFlight build, broader Apple device matrix and all remaining accessibility/performance/camera cases pass.
+Restore device-to-Mac connectivity and verify Home/manual/known result on the already installed 2026-09-04 client before further physical functional/visual tests. The remaining VoiceOver, largest-Dynamic-Type, dark/reduced-motion and valid performance/battery matrix is still open. Release remains blocked until a paid-program release archive/TestFlight build, broader Apple device matrix and all remaining acceptance gates pass.

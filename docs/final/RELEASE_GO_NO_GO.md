@@ -1,20 +1,20 @@
 # Release decision
 
-Decision date: 2026-08-28
+Decision date: 2026-09-04
 
 Decision: **NO-GO for preview, production, TestFlight, Play testing, and public store submission**
 
-The locally testable source tree is valid, but the product is not production-ready. A pinned-pnpm `corepack pnpm validate` passes with 154 application tests plus eight repository-policy regressions (162 total) and both API/web builds. A rebuilt Expo 57.0.16 development client compiles, passes strict recursive signing, installs and runs on one iPhone; core lifecycle, permission, EAN-13, OFF, offline/retry/cache, controlled backend-unavailable recovery, provenance, answer-first Home/result UI and a repaired manual-invalid VoiceOver subset pass. The latest asynchronous result announcement is source-tested but still awaits VoiceOver device retest. Fresh Expo-supported patches are also held by the mandatory one-day supply-chain gate until 2026-08-29 10:49 UTC, making Doctor 19/20 today. This short-lived development subset does not substitute for Android, an iOS archive/TestFlight build, the remaining camera/accessibility/performance matrix, production infrastructure, legal/content/licensing approval or store validation.
+The product is not production-ready. The September dependency set passes frozen install, peer checking, Expo install check and Doctor 1.20.1 20/20 under the unchanged strict one-day release-age policy. Full pinned-pnpm validation passes 167 tests and API/web builds. High `fast-uri` advisories are patched, and the old Metro `image-size` path and its exceptions are removed. A captured post-update raw audit reports zero high/critical records, six moderate and one low; the final live security-policy rerun fails closed because the npm audit endpoint times out, so it is not a green gate. Historical August iPhone evidence covers core lifecycle, permission, EAN-13, OFF, offline/retry/cache, controlled backend-unavailable recovery, provenance, answer-first Home/result UI and a repaired manual-invalid VoiceOver subset. This short-lived development subset does not substitute for Android, an iOS archive/TestFlight build, the remaining camera/accessibility/performance matrix, production infrastructure, legal/content/licensing approval or store validation.
 
 ## Mandatory gate result
 
 | Gate | Result | Release consequence |
 | --- | --- | --- |
 | No unresolved locally executable blocker/critical/high | **Not satisfied for GO** | Source-level high findings found in this run were repaired, but manually executable iPhone camera/accessibility/performance rows and native E2E remain incomplete |
-| Mandatory local tests | Pass | Format, lint, typecheck, 162 automated tests, API build and 12-route web export pass using project-pinned pnpm 11.16.0 |
-| Expo compatibility | **Temporarily fail / time-gated** | Eight patch mismatches make Doctor 19/20. Three newest required packages cannot pass strict release age before 2026-08-29 10:49 UTC; no bypass was used |
+| Mandatory local tests | **Pass on 2026-09-04** | Format, lint, typecheck, 154 application/13 policy tests (167 total), API/package builds and 12-route web export pass with nested pnpm 11.16.0. Initial CPU-contention database timeouts passed unchanged narrow/full reruns after native compile; no timeout was relaxed |
+| Expo compatibility | **Pass on 2026-09-04** | Supported Expo 57.0.19/RN 0.86.3 patch set, frozen install, peers, install check and Doctor 1.20.1 20/20 pass; no age or diagnostic bypass |
 | Android release build | **No evidence** | No JDK/SDK/ADB/signing/AAB/device run |
-| iOS development/release build | **Partial development evidence; no release evidence** | Latest Expo 57.0.16 Personal-Team Debug compile/sign/install/launch passes on one iPhone; archive, final entitlement/privacy inspection, TestFlight processing and release-configuration matrix remain unperformed |
+| iOS development/release build | **Compile/signatures/install/native launch pass; Home blocked by device-to-Mac connection; no release evidence** | September 4's current Expo/RN client reaches its native server picker but opening Metro reports server refused connection. Mac-side services/firewall checks pass; owner must confirm same reachable Wi-Fi and iOS Local Network permission. Home is not verified. Profile expires September 11 07:01:05 UTC; archive/TestFlight/release matrix remain unperformed |
 | Physical barcode test | **Partial** | One real EAN-13, permission/recovery and scanner-control semantics pass; EAN-8, UPC-A, unsupported UPC-E, actual torch toggle and adverse/rapid/multiple-code conditions remain |
 | Production API/database | **Absent** | Mobile production URL intentionally fails closed; no deployed service or restore drill |
 | Privacy/GDPR/terms | **Unapproved draft** | No controller/legal sign-off or hosted URLs |
@@ -24,7 +24,7 @@ The locally testable source tree is valid, but the product is not production-rea
 | Store materials/forms | **Incomplete** | Real screenshots, feature graphic, questionnaires, URLs and console validation absent |
 | Observability/incident response | **Non-operational** | No monitoring/alerts/on-call/contacts |
 | Backup/recovery | **No operational evidence** | Schema tests pass; production backup/restore does not exist |
-| Supply-chain advisories | **Open high** | Two build-tool advisories await an unpublished patched version; exception expires 2026-09-10 |
+| Supply-chain advisories | **Final live policy gate fails closed: external endpoint timeout** | Captured post-update raw audit has zero high/critical and six moderate/one low. `fast-uri` 3.1.7/4.1.4 repair eight high records; Metro has no `image-size` path/exception. The final live command failed after 60 seconds; rerun successfully when the npm audit endpoint responds |
 
 ## Conditions required to reconsider GO
 
@@ -35,6 +35,6 @@ All blocker/high owner actions in `docs/final/OWNER_ACTIONS.md` must have attach
 3. Signed API-36 Android and Xcode-26/iOS-26 iOS builds pass the device matrix, including real barcodes, permissions, VoiceOver/TalkBack, large text, reduced motion and performance budgets.
 4. Privacy/terms, OFF licensing/account use, Rinki/Palpa copy/provenance and store questionnaires receive named approval.
 5. Final localized store assets and metadata are validated in App Store Connect and Play Console.
-6. The audit commit passes remote CI/security checks and the two high dependency advisories are patched or receive a new accountable decision before expiry.
+6. The audit commit passes remote CI/security checks; dependency policy continues to fail every high/critical advisory and invalid registry report, and lower-severity findings receive compatible follow-up updates or a documented accountable risk decision.
 
-No deployment, paid build, account creation, contract acceptance, signing, submission, or public publication was performed by this audit.
+No deployment, paid build, account creation, contract acceptance, store submission, push or public publication was performed. Owner-controlled Personal-Team signing is authorized only for the local development-device workflow, not production release.

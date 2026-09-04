@@ -1,6 +1,6 @@
 # Owner actions
 
-These are the exact externally controlled actions required to move the NO-GO decision. “Owner” names an accountable role; the product owner must assign a real person before execution.
+These are the exact owner-controlled release actions and recurring engineering gates required to move the NO-GO decision. Latest dependency/startup review: 2026-09-04. “Owner” names an accountable role; the product owner must assign a real person before execution.
 
 ## OA-01 — Production infrastructure
 
@@ -90,10 +90,10 @@ These are the exact externally controlled actions required to move the NO-GO dec
 ## OA-09 — iOS signed build and device acceptance
 
 - Owner: **iOS release engineer**; approver: **Product owner**
-- Current evidence: steps 1–2 are partially complete for one Personal-Team Debug build on an iPhone 12 Pro Max/iOS 26.1. Core lifecycle, permission, EAN-13, OFF, offline/retry/cache and provenance flows pass; the remaining matrix and all release steps stay open.
+- Current evidence: steps 1–2 are partially complete. September 4's fresh current-dependency Personal-Team Debug build, strict recursive signature verification (all 11 embedded frameworks), physical install and native development-client launch pass. Its renewed profile expires 2026-09-11 07:01:05 UTC. Onboarding/server selection works, but opening the current Metro URL produces `Error loading app` / server refused connection; Home is **not verified**. Mac-side API/Metro loopback and LAN health checks pass, services bind all interfaces, Node's incoming firewall rule is allowed and block-all is off. The owner must verify the physical phone-to-Mac LAN/permission prerequisite. Historical iPhone evidence covers broader core flows; the remaining matrix and all release steps stay open.
 - Procedure:
-  1. **Completed for development:** Xcode 26.6 and the iOS 26.5 SDK are installed on the compatible macOS 26.5.2 host.
-  2. **Partially completed:** the iPhone is paired with Developer Mode, and an owner-controlled Personal-Team build is installed. Continue every remaining row in `PHYSICAL_IOS_VALIDATION.md`; renew/reinstall after the observed seven-day expiry when necessary.
+  1. **Completed for development:** Xcode 26.6 and the iOS 26.5 SDK are installed; the host is now macOS Tahoe 26.7.
+  2. **External device action required:** the device owner confirms that iPhone and Mac use the same reachable Wi-Fi network and enables KierrätysAppi's Local Network access in iOS Settings. The iOS engineer then retries the current Metro URL printed by the running development server. If refused, record whether guest/client isolation or a VPN blocks device-to-Mac access; request owner/network-administrator approval for any network change rather than disabling the firewall. Once reachable, verify Home, manual entry and a known product result; continue the remaining `PHYSICAL_IOS_VALIDATION.md` rows. Renew/reinstall before September 11 profile expiry when needed.
   3. After Expo Doctor is 20/20, archive with owner-controlled paid-program credentials and the supported iOS SDK.
   4. Inspect final entitlements, privacy manifest/reasons and localized Info.plist strings; verify no microphone or unused location declaration.
   5. Install on current/small iPhone and supported iPad; run physical barcode, VoiceOver, largest text, reduced motion, dark mode, offline/outage, performance/memory/battery and upgrade checks.
@@ -114,12 +114,14 @@ These are the exact externally controlled actions required to move the NO-GO dec
 ## OA-11 — Supply-chain gates
 
 - Owner: **Dependency/security owner**
+- Current evidence: on 2026-09-04, the August age gate is no longer an obstacle. Expo 57.0.19, constants 57.0.17, dev-client 57.0.18, font 57.0.3, haptics 57.0.2, linking 57.0.9, router 57.0.18, system-ui 57.0.3 and React Native 0.86.3 pass frozen install, peer check, Expo install check and Doctor 1.20.1 20/20 without exclusions. The obsolete Metro `image-size` path and its two exceptions are removed; newly found `fast-uri` highs are addressed by 3.1.7/4.1.4 and policy regressions.
+- External validation blocker: the captured post-update raw audit has zero high/critical records, but the final live `security:audit` fails closed after 60 seconds because the npm audit endpoint is unresponsive. The dependency/security owner must rerun the project-pinned `corepack pnpm security:audit` when the endpoint recovers, retain the complete result and resolve every returned high/critical finding; ordinary registry GET success or the older snapshot does not satisfy this live gate.
 - Procedure:
-  1. Wait until 2026-08-29 10:49 UTC so Expo 57.0.18, constants 57.0.16 and font 57.0.2 satisfy the strict 1,440-minute age rule. Do not add `minimumReleaseAgeExclude`, `expo.install.exclude` or any diagnostic bypass.
-  2. Install all eight versions named by `expo install --check`: Expo 57.0.18, constants 57.0.16, font/haptics 57.0.2, linking 57.0.8, router 57.0.17, system-ui 57.0.3 and React Native 0.86.3. Preserve an SDK-compatible `expo-dev-client` dependency.
+  1. Preserve the strict 1,440-minute release-age rule for every future direct/transitive update. Do not add `minimumReleaseAgeExclude`, `expo.install.exclude` or any diagnostic bypass.
+  2. Install the complete SDK-compatible patch set identified by a fresh `expo install --check`; preserve an SDK-compatible `expo-dev-client` dependency and record exact resolved versions/publication-age evidence.
   3. Require `corepack pnpm install --frozen-lockfile`, `corepack pnpm peers check`, `expo install --check`, Expo Doctor 1.20.1 20/20, `corepack pnpm validate`, security audit and coverage. Re-prebuild pods, rebuild/sign/install the iOS development client and repeat Home/manual/result startup smoke because native versions changed.
-  4. Monitor `image-size`; upgrade to a compatible path containing `>=2.0.3` as soon as published.
-  5. Before 2026-09-10, remove the two exceptions or record a new explicit owner-approved decision; do not silently extend.
+  4. Run the high/critical-fail audit policy after every lockfile change and monitor lower-severity advisories. The previous `image-size` exceptions are closed and must not silently return.
+  5. Retain regression checks for strict release age, patched `fast-uri` floors and failure on every high/critical advisory, including the formerly excepted advisory IDs.
   6. Push the audit commit only when authorized and require remote CI/Security success.
 - Success evidence: dependency diff, lockfile, green command/remote logs, advisory closure or signed re-review.
 

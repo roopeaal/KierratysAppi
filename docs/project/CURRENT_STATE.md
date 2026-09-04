@@ -1,6 +1,14 @@
 # Current state
 
-Last updated: 2026-08-28 after the answer-first mobile UI work unit, development-client repair, browser QA and physical iPhone verification.
+Last updated: 2026-09-04 after the Expo/security update, fresh signed iPhone installation and final local validation. Physical product-screen evidence is historical unless explicitly dated below.
+
+## Latest iPhone recovery — 2026-09-04
+
+- Completed the current Expo 57.0.19 / React Native 0.86.3 / development-client 57.0.18 patch set without release-age exclusions. The fresh live-workspace iOS pod lock matches its manifest and JavaScript versions; stale copied native staging was not reused.
+- After the owner upgraded the Mac to Tahoe 26.7 and freed disk space, Xcode 26.6 built a new Debug `iphoneos` client. Recursive app signing and all 11 embedded framework signatures pass. The installed new profile expires **2026-09-11 07:01:05 UTC**, replacing the fixture whose profile expired on 2026-08-29.
+- Installation and native development-client launch on the connected iPhone pass. Onboarding completes, but connecting to the explicit current Metro URL reports `Error loading app` / server refused connection. **The redesigned Home/manual/result flow has not been reverified on this new binary.** A screenshot of the actual failure is retained under ignored `work/ui-qa/2026-09-04-ios-dev-client-connection-error.png`.
+- API `/v1/health` and Metro `/status` pass from both localhost and the Mac's LAN address; both services bind all interfaces. The macOS firewall explicitly permits the actual Node executable and does not block all connections. The remaining device-to-Mac LAN/Local Network permission prerequisite requires owner confirmation; no firewall, network, account or paid-service setting was changed.
+- Final full validation passes 167 tests. A post-patch raw dependency audit snapshot reports zero high/critical findings, but the final live security-policy rerun fails closed because the registry audit endpoint times out. This is an external validation gate, not a security-policy pass or production GO.
 
 ## Verified implementation
 
@@ -16,14 +24,14 @@ Last updated: 2026-08-28 after the answer-first mobile UI work unit, development
 
 ## Current validation truth
 
-- `corepack pnpm install --frozen-lockfile`: pass against the pnpm 11.16.0 project pin. The interactive host also has pnpm 11.19.0; release evidence uses the project-pinned invocation.
-- `corepack pnpm validate`: pass; 154 application tests across 22 Vitest files plus eight Node repository-policy regressions (162 automated tests total), all format/lint/strict-type checks, package/API builds and 12-route web export pass.
+- `corepack pnpm install --frozen-lockfile`: pass against the pnpm 11.16.0 project pin. Final validation used isolated Corepack shims so nested `pnpm` also resolves to 11.16.0; no global tool configuration changed.
+- `corepack pnpm validate`: pass; 154 application tests across 22 Vitest files plus 13 Node repository-policy regressions (167 automated tests total), all format/lint/strict-type checks, package/API builds and 12-route web export pass. Earlier parallel test attempts hit the unchanged database timeout under native-build load; the narrow database and complete rerun passed after compilation.
 - `corepack pnpm test:coverage`: pass. Core domain/provider/engine/application/API packages remain approximately 90%+ statement coverage; tested mobile modules are 70.75% and do not cover most rendered native UI.
-- `corepack pnpm security:audit`: pass under an explicit policy that temporarily accepts two high Metro `image-size` build-tool advisories until 2026-09-10 because the declared patched version is unpublished.
+- `corepack pnpm security:audit`: final live rerun **blocked/fails closed** at its 60-second timeout. Independent audit-endpoint POST also timed out while package metadata GET returned 200. Earlier post-patch raw snapshot: zero high, zero critical, six moderate, one low. Both fast-uri majors are patched to 3.1.7/4.1.4; Metro no longer includes image-size, and all high/critical exceptions have been removed. Report validation and security floors have regression tests.
 - `corepack pnpm peers check`: pass.
-- Expo Doctor 1.20.1 is currently **19/20**, and `expo install --check` reports eight supported patch mismatches. Expo 57.0.18, constants 57.0.16 and font 57.0.2 were published on 2026-08-28 at 10:47–10:48 UTC; the mandatory strict 1,440-minute supply-chain gate blocks their installation until 2026-08-29 10:49 UTC (13:49 Europe/Helsinki). No exclusion or age bypass was added. Current installed versions remain the previously verified native set.
+- Expo Doctor 1.20.1 is **20/20** and `expo install --check` passes for the current supported set. The strict 1,440-minute supply-chain gate remains enforced; no exclusion or bypass was added.
 - API production smoke: pass locally; health/OpenAPI/strict validation verified. No deployed production service exists.
-- Web entry: 2,539,834 bytes uncompressed / 575,888 bytes gzip, above the 2 MiB warning budget and 0.4% larger than the prior baseline.
+- Web entry: 2,540,918 bytes uncompressed / 575,233 bytes gzip, above the 2 MiB warning budget. This is bundle evidence, not measured browser or device performance.
 - Browser QA passed at 390×844 and 1280×720 in Finnish and English for Home, manual entry, resolved result, ambiguous result and offline recovery. The measured Home/result desktop views had zero horizontally overflowing DOM elements. Dark mode and true native Dynamic Type were not visually claimed.
 - The controlled backend-unavailable state showed provider failure without reclassifying the product; restoring the real API and pressing retry recovered to the known result without code re-entry. Privacy-safe API evidence contained no raw GTIN.
 - The EAS development profile previously declared `developmentClient:true` without `expo-dev-client`; this caused the observed `No script URL provided` failure. Adding the native dependency, rebuilding the ignored iOS project/pods, recursively verifying the app plus 11 frameworks, installing and launching the fresh client resolved startup. A repository policy now prevents recurrence.
@@ -36,6 +44,6 @@ Last updated: 2026-08-28 after the answer-first mobile UI work unit, development
 
 **NO-GO.** See `docs/final/PRODUCTION_AUDIT.md`, `RELEASE_GO_NO_GO.md`, `OWNER_ACTIONS.md` and `TEST_EVIDENCE.md`.
 
-Open blockers include the fresh Expo patch age gate, signed Android and iOS release/TestFlight builds, the remaining physical camera/accessibility/performance matrix, production API/database/monitoring and restore drill, OFF owner account/licence approval, GS1 Data contract decision, independent Finnish content approval, privacy/terms/GDPR approval, hosted support/privacy URLs, final store assets/forms/console validation and two unpatched high build-tool advisories.
+Open blockers include device-to-Mac connectivity for the new client, the timed-out live registry audit, signed Android and iOS release/TestFlight builds, the remaining physical camera/accessibility/performance matrix, production API/database/monitoring and restore drill, OFF owner account/licence approval, GS1 Data contract decision, independent Finnish content approval, privacy/terms/GDPR approval, hosted support/privacy URLs and final store assets/forms/console validation.
 
 No production deployment, paid build, contract acceptance, submission, push or public publication occurred. Owner-controlled Apple account and free Personal-Team signing were used only for the local development device run. See `docs/final/PHYSICAL_IOS_VALIDATION.md` for exact passed and pending rows.

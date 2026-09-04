@@ -15,8 +15,12 @@ These are release blockers or high-risk gates that cannot be completed without e
 | Privacy/GDPR/terms/hosted URLs | blocker | Controller/legal decisions and publication required | OA-06 |
 | Monitoring, alerts, contacts and incident drills | high | Vendor/account/privacy/on-call decisions absent | OA-07 |
 | Store screenshots/feature graphic/forms/validation | blocker/high | Depends on signed builds, accounts and approvals | OA-10 |
-| Fresh Expo-supported patch age gate | high/time-gated | Expo 57.0.18, constants 57.0.16 and font 57.0.2 were published 2026-08-28 10:47–10:48 UTC; strict 1,440-minute policy forbids installation until 2026-08-29 10:49 UTC | OA-11 |
-| Two high Metro `image-size` advisories | high/time-gated | Patched `2.0.3` is unpublished; exception expires 2026-09-10 | OA-11 |
+| Live npm audit endpoint availability | high validation gate | Final 2026-09-04 audit-policy run fails closed after 60 seconds; independent official audit POST also times out while package metadata GET succeeds. Earlier post-patch snapshot has zero high/critical findings, but is not a fresh live-policy pass | OA-11: dependency/security owner reruns the bounded audit on an approved functioning network and attaches the result; no exception or bypass |
+| iPhone-to-Mac development connectivity | high development gate | Fresh signed client installs/launches but cannot connect to the explicit Mac Metro address; Mac LAN/local health and Node firewall allowance pass. Shared network/Local Network permission need owner confirmation | OA-09: owner confirms both devices use a non-isolated shared LAN and app Local Network permission; Codex reconnects client and verifies Home/manual/result |
 | Private branch protection/CodeQL | high governance | GitHub plan/Code Security approval; API currently returns 403 and no variable exists | OA-12 |
 
 Photo/OCR/cloud AI remains disabled and is not a launch blocker. Enabling it would create a new privacy, safety, moderation, device-evaluation and legal workstream requiring separate approval.
+
+## Local development recovery — 2026-09-04
+
+The old release-age, disk-space and expired-fixture prerequisites are resolved. The owner updated the Mac to Tahoe 26.7 and freed space; Codex installed compatible patches, passed Doctor 20/20 and 167-test validation, rebuilt/signed all 11 frameworks plus app, and installed/launched the new client. Its profile expires 2026-09-11 at 07:01:05 UTC. No user data was deleted. The remaining current device prerequisite is the LAN connection in the table, not an Apple signing failure. The old image-size dependency and exceptions are gone; newly found fast-uri highs were patched within the existing major ranges. See `NEXT_ACTION.md` and OA-09/OA-11 for the remaining named procedures.

@@ -1,17 +1,21 @@
 # Dependency decisions
 
-No production dependency is accepted solely from memory. Versions will be pinned after checking current official compatibility and package metadata.
+No production dependency is accepted solely from memory. Versions are pinned after checking current official compatibility and package metadata. Latest compatibility check: 2026-09-04.
 
 | Area | Candidate | Decision | Reason / gate |
 | --- | --- | --- | --- |
 | Package manager | pnpm 11 workspace | Accepted | Installed locally; deterministic workspace support; pin via `packageManager` and Corepack-compatible CI. |
 | Runtime | Node 24 LTS | Accepted | Expo recommends LTS and Node marks v24 LTS; local Node 26 is Current. |
-| Mobile | Installed: Expo 57.0.16, React Native 0.86.2, React 19.2.3, Expo Router 57.0.16 | Temporarily behind supported patches | The installed set and new `expo-dev-client` 57.0.16 build/launch on iPhone, but a 2026-08-28 recheck found eight supported patches. Doctor is 19/20 until the newest packages clear the strict age gate on 2026-08-29 10:49 UTC; do not bypass it. |
-| Camera | expo-camera 57.0.3 | Accepted | Official SDK camera/barcode and permission API; physical behavior remains a device gate. |
+| Mobile | Installed: Expo 57.0.19, React Native 0.86.3, React 19.2.3, Expo Router 57.0.18, expo-dev-client 57.0.18 | Compatibility/build/install accepted on 2026-09-04; app runtime externally blocked | Frozen install, peers, Expo install check and Doctor 1.20.1 20/20 pass without age/exclusion bypass. The fresh native build, strict signatures, install and client launcher pass, but phone-to-Mac Metro connection is refused; Home requires owner LAN/Local Network permission confirmation. The old Expo 57.0.16/RN 0.86.2 client's broader flow evidence remains historical. |
+| Camera | expo-camera 57.0.4 | Accepted | Official SDK camera/barcode and permission API; physical behavior remains a device gate. |
 | API | Fastify 5.11.x | Accepted | Small, schema-oriented TypeScript boundary; framework-independent domain/services. |
 | Validation | Zod 4.4.x | Accepted | Shared runtime schemas for external JSON, API contracts, and mobile; no `any` at provider boundary. |
 | Database | PostgreSQL migrations with repository interfaces | Accepted | Preserve production schema without requiring Docker for deterministic vertical-slice tests. |
 | Testing | Vitest 4.1.x; RN testing library after Expo-compatible configuration | Accepted | Domain/contract/integration coverage first; use template-compatible TypeScript rather than latest TS 7. |
 | OCR | on-device/native option | Deferred | Compare privacy, platform, and Expo compatibility before adding. |
 
-Package patch versions are locked by `pnpm-lock.yaml`. The workspace explicitly enforces `minimumReleaseAge: 1440` with strict mode for direct and transitive resolution. Expo-native versions are installed with `expo install`, then checked with frozen install, Expo dependency validation, Doctor and full validation; no broad age exclusion is configured. The next exact update/rebuild procedure is OWNER_ACTIONS OA-11 and `NEXT_ACTION.md`.
+Package patch versions are locked by `pnpm-lock.yaml`. The workspace explicitly enforces `minimumReleaseAge: 1440` with strict mode for direct and transitive resolution. Expo-native versions are installed with `expo install`, then checked with frozen install, Expo dependency validation, Doctor and full validation; no age exclusion is configured. The accepted September set also includes constants 57.0.17, font 57.0.3, haptics 57.0.2, linking 57.0.9 and system-ui 57.0.3. Every native dependency change requires a fresh native build/install and runtime smoke; OWNER_ACTIONS OA-11 describes the recurring gate.
+
+The September dependency refresh removes the old Metro `image-size` path (current Metro 0.84.5), so the two historical high-advisory exceptions are obsolete rather than extended. Newly detected `fast-uri` high advisories require the patched 3.1.7/4.1.4 lockfile resolutions and regression-tested security floors; no high/critical advisory is accepted by the current policy. See AUD-028/AUD-041 and `docs/security/DEPENDENCY_RISK_ACCEPTANCE.md` for dated evidence.
+
+September 4 full validation passes 167 tests (154 application, 13 policy), all source/build checks and the web export; coverage also passes. A captured post-update raw dependency audit reports zero high/critical records, six moderate and one low. The final live audit-policy rerun fails closed after 60 seconds because the external npm audit endpoint is unresponsive; this remains an explicit release-validation blocker until the dependency/security owner reruns `corepack pnpm security:audit` successfully. The snapshot is not a substitute for that final command.

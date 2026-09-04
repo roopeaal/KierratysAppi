@@ -41,12 +41,12 @@ Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally bl
 
 ## Phase 6 — Release engineering
 
-- [~] Source CI/EAS configuration, development-client dependency policy, icon assets, metadata/legal drafts and release procedures exist. Expo compatibility is temporarily 19/20 because three required patches published on 2026-08-28 remain blocked by the strict age gate until 2026-08-29 10:49 UTC; native release and store gates remain.
+- [~] Source CI/EAS configuration, development-client dependency policy, icon assets, metadata/legal drafts and release procedures exist. On 2026-09-04 the current Expo set passes Doctor 20/20 and 167-test validation; fresh Debug native compile/sign/install/launcher passes with a renewed profile. Current device-to-Mac connectivity blocks Home smoke, and the live registry audit endpoint times out. Native release and store gates remain.
 - [!] Produce signed-binary localized screenshots, Google feature graphic, hosted URLs and final store questionnaires.
 - [!] Generate signed Android/iOS production artifacts and submit without owner accounts, terms acceptance, credentials, and approval.
 
 ## Phase 7 — Release audit
 
 - [x] Run an adversarial 30-lane local production audit and repair every locally executable blocker/high finding discovered.
-- [~] Execute `docs/final/PHYSICAL_IOS_VALIDATION.md`; the local Xcode 26.6/Personal-Team development client passes core lifecycle, permission, EAN-13, OFF, offline/retry/cache, controlled backend-unavailable recovery, provenance, answer-first UI and a repaired partial VoiceOver path. Dependency revalidation after the age gate is next; broader accessibility and performance remain.
+- [~] Execute `docs/final/PHYSICAL_IOS_VALIDATION.md`; the historical client passes core lifecycle, permission, EAN-13, OFF, offline/retry/cache, controlled backend-unavailable recovery, provenance, answer-first UI and a repaired partial VoiceOver path. The 2026-09-04 rebuilt/signed/installed client opens its launcher but needs LAN recovery and current Home/manual/result smoke; broader accessibility and performance remain.
 - [!] Close the NO-GO gates in `docs/final/OWNER_ACTIONS.md`: physical accessibility/performance/camera, production backup/restore/monitoring, licence/legal/content, signed binaries and stores.

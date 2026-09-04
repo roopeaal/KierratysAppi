@@ -1,3 +1,3 @@
 # Next action
 
-After the strict release-age gate opens at 2026-08-29 10:49 UTC, install the eight Expo-supported patch versions without exclusions, then require frozen install, peer check, `expo install --check`, Expo Doctor 20/20, full validation and a rebuilt/reinstalled iOS development client before accepting the dependency update.
+After the owner confirms a shared non-isolated Wi-Fi network and KierrätysAppi's iOS Local Network permission, connect the already installed 2026-09-04 development client to the current Mac Metro origin and verify the Home → manual entry → known-product flow, recording actual device evidence without rebuilding or rerunning completed research.

@@ -1,22 +1,22 @@
 # Adversarial production-readiness audit
 
-Audit date: 2026-08-28
+Audit date: 2026-09-04 (dependency/startup continuation; broader physical and source-review evidence retains its recorded date)
 
-Follow-up physical-iOS runs: 2026-08-10, 2026-08-22, 2026-08-26 and a 2026-08-28 development-client/answer-first UI work unit on local `main`; audited commits remain unpushed to `origin/main`. See `PHYSICAL_IOS_VALIDATION.md`.
+Follow-up physical-iOS runs: 2026-08-10, 2026-08-22, 2026-08-26, the 2026-08-28 development-client/answer-first UI work unit and the 2026-09-04 signed-client refresh on local `main`; audited commits remain unpushed to `origin/main`. See `PHYSICAL_IOS_VALIDATION.md`.
 
 Decision: **NO-GO**
 
 Repository: `roopeaal/KierratysAppi`, private `main`
 
-Continuation baseline: local `a5705f1`, seven commits ahead of `origin/main` (`87404a0`); the 2026-08-28 repairs and evidence were uncommitted while this report was updated.
+Continuation baseline: local `21b7a3c` (`Repair dev client and prioritize sorting guidance`), eight commits ahead of `origin/main` (`87404a0`); the September dependency/startup work was uncommitted while this report was updated.
 
-This audit did not accept earlier readiness statements as evidence. It inspected source, generated native configuration, dependency resolution, build output, GitHub state, live API behavior, live Open Food Facts behavior, rendered web behavior, and official external requirements independently. Locally executable blocker/high findings were repaired and tested during the audit. Remaining blocker/high findings require devices, accounts, contracts, legal/content approval, production infrastructure, or an upstream advisory fix that does not yet exist.
+This audit did not accept earlier readiness statements as evidence. It inspected source, generated native configuration, dependency resolution, build output, GitHub state, live API behavior, live Open Food Facts behavior, rendered web behavior, and official external requirements independently. Remaining blocker/high release findings require device/matrix evidence, accounts, contracts, legal/content approval or production infrastructure. The historical Expo age gate and Metro advisory exceptions are no longer current blockers.
 
 ## Decision basis
 
-The repository is a strong, testable prototype but is not a releasable production system. A rebuilt short-lived iOS Personal-Team development client and a limited physical EAN-13/core-flow subset now pass, but there is no Android build, iOS archive/TestFlight build, complete physical matrix, deployed API, production database, backup drill, monitoring/on-call service, approved privacy/terms/licensing position, store submission package, or store account evidence. Expo compatibility is temporarily 19/20: eight newly supported patches are blocked by the strict 1,440-minute release-age policy until 2026-08-29 10:49 UTC; no bypass was added.
+The repository is a testable prototype but is not a releasable production system. The August short-lived iOS Personal-Team client and a limited physical EAN-13/core-flow subset passed, but there is no Android build, iOS archive/TestFlight build, complete physical matrix, deployed API, production database, backup drill, monitoring/on-call service, approved privacy/terms/licensing position, store submission package, or store account evidence. On 2026-09-04 the current Expo patch set passes frozen install, peer check, `expo install --check` and Doctor 1.20.1 20/20. The strict 1,440-minute release-age policy remains intact without exclusions.
 
-No locally executable source blocker, critical, or high finding identified so far remains open. The latest work repaired the missing development-client runtime and the high-risk answer hierarchy/provenance/localization defects, added regression policy, and physically rendered the resulting Home/manual/resolved-result subset. The asynchronous VoiceOver device retest, actual torch operation, broad camera/native automation, dark/largest-text/reduced-motion and valid native performance/battery evidence remain open. Android, release signing/stores, infrastructure, legal/licensing/content approval and upstream/time-based package gates remain external or time-gated. The decision remains NO-GO.
+The September refresh aligns the supported native dependency set, removes an obsolete Metro vulnerability path/exception and repairs newly detected high `fast-uri` advisories. The August development-client and answer-first UI repairs remain in place. The asynchronous VoiceOver device retest, actual torch operation, broad camera/native automation, dark/largest-text/reduced-motion and valid native performance/battery evidence remain open. Android, release signing/stores, infrastructure and legal/licensing/content approval also remain open. The decision remains NO-GO; dependency health alone does not close release or physical-device evidence gates.
 
 ## Evidence lanes
 
@@ -24,7 +24,7 @@ No locally executable source blocker, critical, or high finding identified so fa
 | ---: | --- | --- | --- |
 | 1 | Product requirements and acceptance criteria | P0 behavior is specified and automated at domain/API/state boundaries; release acceptance remains incomplete | AUD-027, AUD-035 |
 | 2 | Android functionality | Source configuration prebuilds; no APK/AAB, install, launch, or Android runtime evidence | AUD-006, AUD-015 |
-| 3 | iOS functionality and configuration | Rebuilt Personal-Team development-client compile/sign/install/launch and core permission/network flows pass on one iPhone; archive/TestFlight/release evidence remains absent | AUD-006, AUD-016, AUD-039 |
+| 3 | iOS functionality and configuration | September current-dependency Debug build, strict app/11-framework signatures, physical install and native-client launch pass; profile expires September 11. Phone-to-Mac Metro connection is refused despite Mac-side health checks; Home is not verified and awaits owner LAN/permission confirmation. Archive/TestFlight/release evidence remains absent | AUD-006, AUD-016, AUD-039 |
 | 4 | Physical-device-capable barcode flows | One real EAN-13 and permission/recovery path pass; EAN-8/UPC-A/unsupported/adverse/rapid/multiple-code reliability remains unverified | AUD-007, AUD-017 |
 | 5 | Product resolution and fallback | OFF-only production composition is conservative; provider fallback is tested but GS1 is unavailable | AUD-002, AUD-003, AUD-020 |
 | 6 | Open Food Facts licensing | Combined ODbL/DbCL disclosure and attribution now ship; legal/account/usage approval remains open | AUD-005, AUD-019 |
@@ -32,25 +32,25 @@ No locally executable source blocker, critical, or high finding identified so fa
 | 8 | Recycling accuracy/provenance | Effective-dated Rinki/Palpa rules and safe uncertainty exist; independent content approval does not | AUD-012, AUD-021 |
 | 9 | Unknown/ambiguous/offline | Distinct states are automated and use localized user-facing reasons with evidence; physical unknown, offline/no-request and restored retry/cache paths pass on one iPhone, and ambiguous web rendering was inspected | AUD-008, AUD-040 |
 | 10 | OCR and AI safety | Photo, OCR, upload, and cloud AI are disabled; threat-model gates exist | AUD-033 |
-| 11 | Security | Input/body/redirect/response limits, CORS, no-store, RLS, dependency and secret gates exist; deployment controls are absent | AUD-010, AUD-018, AUD-025, AUD-028 |
+| 11 | Security | Input/body/redirect/response limits, CORS, no-store, RLS, dependency and secret gates exist; new high `fast-uri` paths are patched and obsolete Metro exceptions are removed; deployment controls are absent | AUD-010, AUD-018, AUD-025, AUD-028, AUD-041 |
 | 12 | Privacy/GDPR | Collection is minimized and local deletion exists; controller notice, lawful basis, rights process, and approval are absent | AUD-009, AUD-022, AUD-032 |
 | 13 | Accessibility | Web semantics/focus/contrast and code-level reduced motion pass; stable critical IDs, uncapped font scaling and internal-button semantics are policy-tested. Partial iPhone VoiceOver testing found and verified a high text-field/manual-status repair, then found an async-result gap now repaired locally but awaiting device retest; remaining VoiceOver/TalkBack/largest-text evidence is open | AUD-014, AUD-026, AUD-038, AUD-040 |
-| 14 | Performance/bundle | API is small; privacy-safe physical observations included 162/249/343 ms live completions and 5/8 ms cache hits, but end-to-end native budgets remain unmeasured; web entry is 2,539,834 bytes / 575,888 gzip | AUD-026, AUD-030 |
+| 14 | Performance/bundle | API is small; historical privacy-safe physical observations included 162/249/343 ms live completions and 5/8 ms cache hits, but end-to-end native budgets remain unmeasured; September web entry is 2,540,918 bytes / 575,233 gzip | AUD-026, AUD-030 |
 | 15 | Database integrity/migration/recovery | Migration constraints and PGlite tests pass; no production repository or restore drill exists | AUD-011, AUD-024 |
 | 16 | API reliability/validation/rate limits | Strict validation, timeouts, body limits, local rate limits and production smoke pass; multi-instance behavior is unresolved | AUD-004, AUD-010, AUD-018 |
 | 17 | Observability/incident response | Privacy-safe aggregate hook/runbooks exist; no monitoring, alerting, on-call roster, or SLO evidence exists | AUD-025 |
-| 18 | Test layers | 154 application tests plus eight repository-policy regressions pass (162 total) with useful core coverage and a manual iPhone smoke subset; native automation/release E2E and production contract-environment evidence are absent | AUD-027 |
+| 18 | Test layers | September pinned-pnpm full validation passes 154 application tests plus 13 repository policies (167 total), API/package builds and 12-route web export. Unchanged database tests passed after the CPU-contention rerun. Native automation/release E2E and production contracts remain absent | AUD-027 |
 | 19 | Visual design | Answer-first Finnish/English Home, manual, resolved, ambiguous and offline flows were rendered at phone width; Home/result were also inspected at desktop width with zero measured horizontal overflow. The redesigned Home/manual/result subset passed on one iPhone, but signed-release store/device screenshots and broad visual QA are absent | AUD-031, AUD-040 |
 | 20 | Animation/reduced motion/battery | Root transitions honor reduced motion; native frame/battery impact is unmeasured | AUD-014, AUD-026 |
 | 21 | Localization | Finnish/English UI, native permission strings, all destination labels and all uncertainty reasons exist; physical truncation/assistive-tech and pseudo-localization checks remain | AUD-014, AUD-036, AUD-040 |
-| 22 | Dependency/supply chain | Frozen lock, explicit strict 1,440-minute release age, exact CI actions, peer and audit policy pass; Doctor is temporarily 19/20 behind the age gate and two high unpatched advisories remain | AUD-013, AUD-028, AUD-029 |
-| 23 | CI/CD/reproducibility | Frozen install and validation pass locally; Doctor is 19/20 until the dated patch-age gate opens. Remote latest pushed commit was green, but the audit work is not pushed | AUD-013, AUD-029 |
+| 22 | Dependency/supply chain | Current supported Expo patches pass frozen install, peers, install check and Doctor 20/20 with strict age/no exclusions; patched `fast-uri` yields a captured raw audit with zero high/critical. Final live policy fails closed after the external npm audit endpoint's 60-second timeout | AUD-013, AUD-028, AUD-029, AUD-041 |
+| 23 | CI/CD/reproducibility | Frozen install, peers, Doctor 20/20 and full validation pass locally on September 4 with nested pnpm pinned to 11.16.0. The audit work remains unpushed; historical remote green checks do not validate these changes | AUD-013, AUD-029 |
 | 24 | App Store/Play requirements | Identifiers/config and Personal-Team signing exist; no Xcode 26/iOS 26 archive/TestFlight, API 36 AAB or console validation exists | AUD-015, AUD-016, AUD-023 |
 | 25 | Store assets/descriptions/questionnaires | Source icons exist; screenshots, feature graphic, hosted URLs, forms and signed-binary answers are incomplete | AUD-031 |
 | 26 | Legal review markers | Drafts are visibly marked, but publication-grade documents and approval are absent | AUD-022 |
 | 27 | Deletion/export/retention | All app-prefixed local data can be deleted; export/controller rights and production retention procedure are unresolved | AUD-009, AUD-032 |
 | 28 | Credentials/accounts/manual actions | A local Apple account/Personal Team was used for device testing; required paid store/release, EAS, OFF, hosting, monitoring and GS1 authority remain absent | AUD-015, AUD-016, AUD-018, AUD-019, AUD-020, AUD-023 |
-| 29 | Documentation accuracy | Earlier 100/139-test and stale Doctor-20-of-20/local-done claims were false after independent verification and are replaced with dated 162-test/19-of-20 evidence | AUD-035 |
+| 29 | Documentation accuracy | Historical test/native evidence is distinguished from September compatibility evidence; the expired age gate and obsolete advisory exceptions are no longer presented as current blockers | AUD-035 |
 | 30 | Unsupported claims/placeholders/fake data | Production rejects placeholder contacts/URLs; barcode copy now discloses food/community-data scope; mock GS1 is not bundled, but drafts and test-only mock exports remain visible | AUD-008, AUD-019, AUD-022, AUD-034, AUD-037 |
 
 ## Findings
@@ -209,11 +209,11 @@ No locally executable source blocker, critical, or high finding identified so fa
 
 - Severity: **blocker**
 - Status: **open; local manual matrix in progress, release path externally blocked**
-- Evidence: Xcode 26.6/iOS 26.5 SDK now compiles the Debug app. All 11 embedded frameworks and the app pass strict recursive signature verification; `devicectl` installs/launches it on an iPhone 12 Pro Max/iOS 26.1, and core flows pass. The free Personal-Team profile expired after seven days and required owner renewal/reinstall/trust. No paid-program archive, final archive entitlement/privacy report, TestFlight processing, release-configuration install or representative Apple device matrix exists. Apple uploads require supported Xcode/iOS SDK tooling.
+- Evidence: on September 4, Xcode 26.6/iOS 26.5 SDK compiles the current-dependency Debug app from freshly generated `apps/mobile/ios` into `work/ios-dev-client-2026-09-04-derived/`. All 11 embedded frameworks and the app pass strict recursive signature verification. The renewed Personal-Team profile expires 2026-09-11 07:01:05 UTC. Physical installation and native development-client launch pass through onboarding/server selection. Opening the current Metro URL then reports `Error loading app` / server refused connection. Mac-side API/Metro loopback and LAN health checks pass with services bound to all interfaces; Node incoming access is allowed and firewall block-all is off. Home is not verified: the owner must confirm same reachable Wi-Fi and iOS Local Network permission before runtime acceptance. August broader core-flow results remain historical. No paid-program archive, final archive entitlement/privacy report, TestFlight processing, release-configuration install or representative Apple device matrix exists.
 - Affected files/flows: whole iOS app, entitlements, privacy manifest merge, localization, signing, App Store validation.
 - Reproduction: inspect `PHYSICAL_IOS_VALIDATION.md`; development rows are partial and archive/TestFlight/release rows have no artifact ID, hash or console output.
 - Required remediation: complete the remaining local matrix, then archive with owner-controlled paid-program credentials, inspect final entitlements/privacy report, install through TestFlight/internal distribution and run the release device matrix.
-- Execution boundary: remaining manual device work is executable with the owner present; archive/TestFlight still requires owner-controlled paid membership, signing and store authority.
+- Execution boundary: current development runtime is externally blocked on physical device-to-Mac LAN/permission confirmation, with the exact owner/engineer procedure in OA-09. No firewall or network setting was changed. Remaining matrix work needs the owner/device; archive/TestFlight still requires owner-controlled paid membership, signing and store authority.
 
 ### AUD-017 — Physical barcode reliability is unverified
 
@@ -279,7 +279,7 @@ No locally executable source blocker, critical, or high finding identified so fa
 
 - Severity: **blocker**
 - Status: **open, externally blocked**
-- Evidence: no Apple/Google developer account, signing identity, EAS project, archive/AAB, TestFlight/Play internal track, console validation, age/content rating, export answer, reviewer notes, DSA/trader status or staged rollout record exists. Google requires API 36 for new apps/updates from 2026-08-31; Apple already requires Xcode 26/iOS 26 SDK.
+- Evidence: a local owner-controlled Apple account/Personal-Team development identity exists, but paid Apple/Google store authority, an EAS project, archive/AAB, TestFlight/Play internal track, console validation, age/content rating, export answer, reviewer notes, DSA/trader status and staged rollout are not evidenced. The platform requirements last rechecked August 28 include Google's API 36 requirement effective August 31 and Apple's Xcode 26/iOS 26 SDK requirement; final console acceptance remains unverified.
 - Affected files/flows: native builds, `eas.json`, store consoles and release process.
 - Reproduction: there are no store artifact IDs or console exports in the repository.
 - Required remediation: execute OWNER_ACTIONS store procedures with the final binaries and retain console validation evidence.
@@ -319,37 +319,37 @@ No locally executable source blocker, critical, or high finding identified so fa
 
 - Severity: **high**
 - Status: **open, partially executable locally**
-- Evidence: 154 application unit/integration/contract/migration/mobile-state/accessibility/presentation tests plus eight repository-policy regressions pass (162 total), and a manual development-client smoke/VoiceOver subset runs on iPhone. Stable critical `testID` values now make a native harness practical, but no checked-in native UI automation boots the binary. Complete physical camera E2E, release-signed smoke, real database integration, deployed fault/load test and store-installed upgrade tests are still absent.
+- Evidence: on September 4, 154 application unit/integration/contract/migration/mobile-state/accessibility/presentation tests plus 13 repository-policy regressions pass (167 total), with all format/lint/type/build checks and the 12-route web export. The initial concurrent-native-build run timed out existing database tests; their unchanged narrow five-test and full-suite reruns passed after the native compile finished. No test timeout was relaxed. A historical manual development-client smoke/VoiceOver subset exists. Stable critical `testID` values make a native harness practical, but no checked-in native UI automation boots the binary. Complete physical camera E2E, release-signed smoke, real database integration, deployed fault/load test and store-installed upgrade tests are still absent.
 - Affected files/flows: cross-system release behavior.
 - Reproduction: enumerate automated tests; they do not boot a native binary or deployed environment. Compare the limited manual rows in `PHYSICAL_IOS_VALIDATION.md` with the unrun matrix.
 - Required remediation: add Maestro/Detox or equivalent for deterministic non-camera flows using the stable IDs, complete the physical camera checklist, add deployed provider/database contracts and outage/load/upgrade tests, and attach artifacts.
 - Execution boundary: a local iOS harness is now technically possible and remains locally executable work; production contracts, store upgrade and Android/release acceptance remain externally blocked.
 
-### AUD-028 — Two high transitive build-tool advisories are unpatched
+### AUD-028 — Two high transitive build-tool advisories required temporary acceptance
 
 - Severity: **high**
-- Status: **open, externally time-blocked**
-- Evidence: `pnpm security:audit` reports `GHSA-w3rx-r6r6-pgpr` and `GHSA-5p2g-fcmc-qvqq` in Metro's `image-size@1.2.1`; the advisory's fixed `2.0.3` is not published. Scope is build-time parsing of repository-controlled assets. Exceptions expire 2026-09-10; two additional moderate/low advisories were reviewed.
+- Status: **resolved locally on 2026-09-04; obsolete exceptions removed**
+- Evidence: the August lockfile exposed `GHSA-w3rx-r6r6-pgpr` and `GHSA-5p2g-fcmc-qvqq` through Metro's `image-size@1.2.1`, with exact temporary exceptions expiring September 10. The supported September refresh resolves Metro 0.84.5 without an `image-size` dependency path. Neither a forced incompatible override nor an exception extension is needed. Both old allowances are removed; a regression requires those IDs to fail like every other high/critical advisory if reintroduced.
 - Affected files/flows: developer/CI asset processing, dependency policy.
-- Reproduction: run `pnpm security:audit` or inspect the audit JSON/policy script.
-- Required remediation: upgrade to a compatible dependency containing `image-size>=2.0.3` immediately when published; otherwise stop at expiry and perform a new explicit risk decision.
-- Execution boundary: upstream package release is required; no safe patched version exists now.
+- Reproduction: compare the August lockfile/audit with the current `pnpm-lock.yaml`, run `pnpm why image-size`, and inspect/run `scripts/__tests__/dependency-policy.test.mjs`.
+- Required remediation: keep the unsupported path absent and enforce the no-high/critical-exception policy; investigate any future reintroduction as a new finding.
+- Execution boundary: local dependency and policy repair completed; no current upstream wait or owner risk acceptance is required for these two IDs.
 
 ### AUD-029 — Expo compatibility and supply-age enforcement
 
 - Severity: **high**
-- Status: **open, externally time-gated until 2026-08-29 10:49 UTC**
-- Evidence: the previously compatible Expo 57.0.16/React Native 0.86.2 set built and launched on-device. A fresh 2026-08-28 check independently found eight supported patch mismatches: Expo 57.0.18, constants 57.0.16, font 57.0.2, haptics 57.0.2, linking 57.0.8, router 57.0.17, system-ui 57.0.3 and React Native 0.86.3. Expo, constants and font were published at 10:47–10:48 UTC that day, so the strict 1,440-minute policy prevents a compliant lock update before 2026-08-29 10:49 UTC. `expo install --check` fails and Doctor 1.20.1 is 19/20; peer checking, frozen install, security policy and full validation still pass. No release-age exclusion or bypass was added.
+- Status: **dependency compatibility resolved locally on 2026-09-04; native refresh tracked separately**
+- Evidence: the August eight-package mismatch was legitimately age-gated until August 29. Revalidation on September 4 accepts Expo 57.0.19, constants 57.0.17, dev-client 57.0.18, font 57.0.3, haptics 57.0.2, linking 57.0.9, router 57.0.18, system-ui 57.0.3 and React Native 0.86.3. Frozen install, peer check, `expo install --check` and Expo Doctor 1.20.1 20/20 pass. Strict `minimumReleaseAge: 1440` and `minimumReleaseAgeStrict: true` remain configured; no age or Expo-check exclusion was added. These JavaScript checks do not establish native binary compatibility: the old installed client was Expo 57.0.16/RN 0.86.2 and its profile expired August 29.
 - Affected files/flows: mobile dependency resolution and CI's Expo health step.
 - Reproduction: run `expo install --check`, Expo Doctor 1.20.1 and `pnpm peers check`; inspect `pnpm-workspace.yaml` for strict age enforcement.
-- Required remediation: after the gate opens, install all eight supported patches without exclusions, perform frozen install/peer/install-check/Doctor/security/full validation, then re-prebuild, rebuild, sign, install and smoke-test the iOS development client because native versions changed.
-- Execution boundary: installation is locally executable only after the time-based supply-chain gate opens; exact procedure is OWNER_ACTIONS OA-11 and the single project next action.
+- Required remediation: preserve the complete supported set and strict age policy; require security/full validation and a fresh prebuild/pods/build/sign/install/runtime smoke after native dependency changes.
+- Execution boundary: the dated package gate is closed locally. The current signed-client refresh must be evidenced separately in `PHYSICAL_IOS_VALIDATION.md` and does not close AUD-016 release acceptance.
 
 ### AUD-030 — Web bundle exceeds its warning budget and lacks a supported-distribution decision
 
 - Severity: **medium**
 - Status: **open, locally executable after product decision**
-- Evidence: the current entry bundle is 2,539,834 bytes uncompressed and 575,888 bytes gzip, 10,242 bytes / 3,604 gzip larger than the preceding audit baseline and above the documented 2 MiB warning threshold. The primary product is native and web support has not been approved.
+- Evidence: the September 4 entry bundle is 2,540,918 bytes uncompressed and 575,233 bytes gzip: 1,084 raw bytes larger and 655 gzip bytes smaller than August 28, still above the documented 2 MiB warning threshold. The secondary chunk is 45,171 bytes / 14,789 gzip. The primary product is native and web support has not been approved.
 - Affected files/flows: Expo web initial load and performance docs.
 - Reproduction: export web and measure `_expo/static/js/web/entry-*.js`.
 - Required remediation: decide whether web is supported; if yes, set compressed budgets, inspect bundle composition, defer camera/native-only code, and measure deployed CWV; if no, remove web release claims.
@@ -399,7 +399,7 @@ No locally executable source blocker, critical, or high finding identified so fa
 
 - Severity: **high**
 - Status: **resolved locally by this audit**
-- Evidence: `CURRENT_STATE`, `RELEASE_READINESS`, performance and test evidence previously claimed locally complete, 100 tests, Expo Doctor 20/20, compatibility pass and about 1.7 MiB web entry. The first independent check found 133 application tests, Doctor 19/20, compatibility failure and a 2.53 MiB entry. Later documentation reached 139 tests/20-of-20 but became stale again when new supported patches were published. The current dated evidence records 154 application plus eight policy tests (162 total), Doctor 19/20 behind an exact age gate, and the measured 2,539,834-byte entry.
+- Evidence: `CURRENT_STATE`, `RELEASE_READINESS`, performance and test evidence previously claimed locally complete, 100 tests, Expo Doctor 20/20, compatibility pass and about 1.7 MiB web entry. Independent checks contradicted these claims. The August 28 baseline then recorded 162 tests, Doctor 19/20 behind an exact age gate and a measured 2,539,834-byte entry. September 4 revalidation records 167 tests, Doctor 20/20 and a 2,540,918-byte entry, removes obsolete dependency exceptions, and dates historical physical/visual evidence rather than promoting it to the current build.
 - Affected files/flows: project-control/final documentation and release decisions.
 - Reproduction: compare prior text with current commands/artifacts.
 - Required remediation: replace claims with dated command evidence and explicit failures/blockers; keep time-sensitive compatibility statements dated and never infer native/store results.
@@ -454,6 +454,16 @@ No locally executable source blocker, critical, or high finding identified so fa
 - Reproduction: compare the prior Home/result hierarchy and render an ambiguous component or a `missing_material` unknown result; the action/evidence was delayed and the raw reason could reach the user.
 - Required remediation: use semantic presentation mappings, answer-first hierarchy, localized uncertainty copy, complete provenance and stable accessibility/test identifiers; regression-test every destination/reason and answer-first announcement branch.
 - Execution boundary: locally executable source repair and current web/iPhone subset completed. Broad dark/largest-text/VoiceOver/reduced-motion/native-performance evidence remains AUD-026 rather than being overstated here.
+
+### AUD-041 — High URI-normalization advisories reached the API dependency graph
+
+- Severity: **high**
+- Status: **resolved locally on 2026-09-04**
+- Evidence: the independent September audit found eight high records: `GHSA-5jgf-p345-68v8`, `GHSA-f65p-4m7j-42xc`, `GHSA-fph4-wmhf-6fwf` and `GHSA-jqff-g426-hqxp`, each affecting `fast-uri@3.1.5` and `fast-uri@4.1.2`. Ajv/schema-resolution/serialization dependencies reached these versions. The advisories concern scheme-relative IDN host confusion, malformed IPv6 normalization, repeated hostname percent-decoding and percent-encoded scheme normalization. Existing parent ranges permit patched releases; the lockfile and frozen-installed graph now resolve only 3.1.7/4.1.4. Their September 2 publication dates satisfy the unchanged one-day release-age policy. A captured post-update raw audit has zero high/critical records, six moderate and one low. The final live policy command instead fails closed at its 60-second timeout while the npm audit endpoint is unresponsive; this is an external validation blocker, not a security-gate pass.
+- Affected files/flows: `pnpm-lock.yaml`, API schema-resolution/serialization dependencies, `scripts/audit-policy.mjs`, `scripts/__tests__/dependency-policy.test.mjs` and dependency release gates.
+- Reproduction: audit the pre-repair lockfile with `corepack pnpm audit --json` and run `corepack pnpm why fast-uri --recursive`; the two affected versions yield four high advisories each. After repair, repeat the graph/audit checks and run the dependency policy and API contract tests.
+- Required remediation: retain compatible patched versions and regression-check the 3.1.6/4.1.3 security floors. Reject every high/critical advisory, including formerly accepted IDs; malformed, incomplete, failed or inconsistent registry reports must also fail closed. Do not force cross-major overrides or hide lower-severity findings.
+- Execution boundary: locally executable dependency/policy repair completed without exclusions, overrides, direct dependency additions or an additional native-version change. Exact IDs, publication timestamps, parent ranges and reproduction commands are recorded in `docs/security/DEPENDENCY_RISK_ACCEPTANCE.md`.
 
 ## Authoritative current requirements checked
 

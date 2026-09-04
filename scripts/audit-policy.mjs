@@ -1,67 +1,103 @@
 import { spawnSync } from "node:child_process";
 
-const approvedTemporaryExceptions = new Map([
-  [
-    "GHSA-w3rx-r6r6-pgpr",
-    {
-      expires: "2026-09-10",
-      reason:
-        "Transitive Metro build-tool parser; repository-controlled assets only. Patched image-size 2.0.3 is not published yet.",
-    },
-  ],
-  [
-    "GHSA-5p2g-fcmc-qvqq",
-    {
-      expires: "2026-09-10",
-      reason:
-        "Transitive Metro build-tool parser; repository-controlled assets only. Patched image-size 2.0.3 is not published yet.",
-    },
-  ],
-]);
+const severities = ["info", "low", "moderate", "high", "critical"];
 
-const audit = spawnSync("pnpm", ["audit", "--json"], {
-  encoding: "utf8",
-  maxBuffer: 20 * 1024 * 1024,
-});
+export function parseAuditReport(stdout, status) {
+  if (status !== 0 && status !== 1) throw new Error("Dependency audit command failed.");
+  const report = JSON.parse(stdout);
+  if (
+    !report ||
+    typeof report !== "object" ||
+    Array.isArray(report) ||
+    report.error ||
+    !report.advisories ||
+    typeof report.advisories !== "object" ||
+    Array.isArray(report.advisories)
+  ) {
+    throw new Error("Dependency audit report is missing its advisory map.");
+  }
 
-let report;
-try {
-  report = JSON.parse(audit.stdout);
-} catch {
-  console.error("Dependency audit did not return valid JSON.");
-  if (audit.stderr) console.error(audit.stderr.trim());
-  process.exitCode = 1;
+  const counts = report.metadata?.vulnerabilities;
+  if (
+    !counts ||
+    severities.some((severity) => !Number.isInteger(counts[severity]) || counts[severity] < 0)
+  ) {
+    throw new Error("Dependency audit report is missing valid vulnerability counts.");
+  }
+
+  const advisories = Object.values(report.advisories);
+  if (
+    advisories.some(
+      (advisory) =>
+        !advisory ||
+        typeof advisory !== "object" ||
+        !severities.includes(advisory.severity) ||
+        typeof advisory.github_advisory_id !== "string" ||
+        !advisory.github_advisory_id ||
+        typeof advisory.title !== "string" ||
+        !advisory.title,
+    ) ||
+    severities.some(
+      (severity) =>
+        advisories.filter((advisory) => advisory.severity === severity).length !== counts[severity],
+    ) ||
+    (status === 1 && advisories.length === 0)
+  ) {
+    throw new Error("Dependency audit advisory details and counts are inconsistent.");
+  }
+
+  return advisories;
 }
 
-if (report) {
-  const rank = { low: 1, moderate: 2, high: 3, critical: 4 };
-  const advisories = Object.values(report.advisories ?? {});
+export function assessAdvisories(advisories) {
   const failures = [];
+  const monitored = [];
 
   for (const advisory of advisories) {
-    if ((rank[advisory.severity] ?? 0) < rank.high) continue;
-    const exception = approvedTemporaryExceptions.get(advisory.github_advisory_id);
-    if (!exception) {
-      failures.push(`${advisory.github_advisory_id}: ${advisory.title}`);
-      continue;
+    const finding = `${advisory.github_advisory_id}: ${advisory.title}`;
+    if (advisory.severity === "high" || advisory.severity === "critical") {
+      failures.push(finding);
+    } else {
+      monitored.push(`${advisory.severity}: ${finding}`);
     }
-    const expiresAt = new Date(`${exception.expires}T23:59:59.999Z`);
-    if (Date.now() > expiresAt.getTime()) {
-      failures.push(
-        `${advisory.github_advisory_id}: temporary exception expired ${exception.expires}`,
-      );
-      continue;
-    }
-    console.warn(
-      `Temporarily accepted ${advisory.github_advisory_id} until ${exception.expires}: ${exception.reason}`,
-    );
   }
 
+  return { failures, monitored };
+}
+
+function runAudit() {
+  const packageManagerPath = process.env.npm_execpath;
+  const audit = spawnSync(
+    packageManagerPath ? process.execPath : "pnpm",
+    packageManagerPath ? [packageManagerPath, "audit", "--json"] : ["audit", "--json"],
+    {
+      encoding: "utf8",
+      maxBuffer: 20 * 1024 * 1024,
+      timeout: 60_000,
+    },
+  );
+
+  let advisories;
+  try {
+    if (audit.error || audit.signal) throw new Error("Dependency audit command did not finish.");
+    advisories = parseAuditReport(audit.stdout, audit.status);
+  } catch {
+    console.error("Dependency audit failed or returned an invalid report.");
+    process.exitCode = 1;
+    return;
+  }
+
+  const { failures, monitored } = assessAdvisories(advisories);
+  for (const finding of monitored) console.warn(`Monitored ${finding}`);
+
   if (failures.length > 0) {
-    console.error("Unaccepted high/critical dependency advisories:");
+    console.error("High/critical dependency advisories (no exceptions):");
     for (const failure of failures) console.error(`- ${failure}`);
     process.exitCode = 1;
-  } else {
-    console.log(`Audit policy passed (${advisories.length} total advisories reviewed).`);
+    return;
   }
+
+  console.log(`Audit policy passed (${advisories.length} total advisories reviewed).`);
 }
+
+if (import.meta.main) runAudit();

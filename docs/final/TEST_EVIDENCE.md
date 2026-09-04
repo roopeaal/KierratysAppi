@@ -1,5 +1,26 @@
 # Test evidence
 
+## Final rebuild follow-up — 2026-09-04
+
+- Host: macOS Tahoe 26.7 (`25G220`), Xcode 26.6 (`17F113`), local Node 26.4.0. The owner freed disk space; no user data cleanup was performed by Codex.
+- Final frozen install, peer check, Expo install check and Doctor 1.20.1 **20/20** pass with the strict release-age policy intact. Expo 57.0.19 / RN 0.86.3 / dev-client 57.0.18 are installed. Isolated Corepack shims under ignored `work/pnpm-check-shims.cqbctz` verified nested pnpm **11.16.0**, avoiding the host's different global pnpm.
+- Final `corepack pnpm validate`: **pass, 167 tests** (154 Vitest tests in 22 files plus 13 Node policy tests), formatting, lint, strict types, package/API builds and 12 web routes. Narrow API 12/12 and database 5/5 pass. Earlier concurrent runs exceeded the unchanged 5-second database test timeout while Xcode was compiling; the narrow and complete reruns passed after compilation without relaxing the test.
+- Final coverage: **pass**, all 154 application tests. Core statement coverage is unchanged from the table below; mobile is 70.75% statements / 79.51% branches / 57.14% functions / 73.40% lines. SQL migration execution is tested; the JS coverage tool's 0/0 database output is not SQL coverage.
+- Final bundle: entry **2,540,918 bytes / 575,233 gzip**; secondary **45,171 / 14,789 gzip**. No device performance claim follows from these sizes.
+- Security: fast-uri 3.1.5/4.1.2 upgraded within their allowed major ranges to **3.1.7/4.1.4**. The post-update raw snapshot reports **0 high, 0 critical, 6 moderate, 1 low**. The final live `security:audit` retry **fails closed at 60 seconds**: the official audit POST endpoint also times out independently, while registry metadata GET returns 200. The live gate is externally blocked, not passed. No high/critical exceptions remain; five added regressions cover floors, severity enforcement and valid/invalid report handling.
+- Native: live-workspace `expo prebuild --platform ios --no-install` regenerated ignored native files; incidental package-script changes were reverted. `pod install` completed with 111 pods; manifest/lock and JS/native versions agree. Fresh Xcode Debug `iphoneos` build **passes**, recursive app signature and **11/11 framework signatures pass**. Artifact: `work/ios-dev-client-2026-09-04-derived/Build/Products/Debug-iphoneos/KierrtysAppi.app`; ignored build log is alongside it. Profile expiration: **2026-09-11 07:01:05 UTC**.
+- Physical install and development-launcher opening **pass**. Its first-run onboarding completes. Connecting to the explicit Metro origin instead shows `Error loading app` / connection refused. **Home/manual/result are not reverified on this binary.** Actual failure screenshot: `work/ui-qa/2026-09-04-ios-dev-client-connection-error.png`; no camera frame was captured.
+- API `/v1/health` and Metro `/status` respond correctly on localhost and the Mac LAN address, both bind all interfaces, and the macOS firewall permits the actual Node executable with block-all disabled. No network/firewall setting was changed. Owner confirmation of shared non-isolated Wi-Fi and iOS app Local Network permission is pending; services remain running.
+
+## Earlier startup-only attempt — 2026-09-04
+
+- `corepack pnpm install --frozen-lockfile`: pass with pnpm 11.16.0 after the interrupted eight-package Expo patch update. This is not full update acceptance.
+- Local API `GET /v1/health`: pass, `{"status":"ok","version":"0.1.0"}`. Metro `GET /status`: pass, `packager-status:running`. Services were left running.
+- Physical launch: **fail**, iOS refused the existing app with a signing/entitlement/trust security error. Extraction of only `ExpirationDate` from the last installed artifact's provisioning profile showed `2026-08-29T13:03:31Z`; `codesign --verify --deep --strict` still passed local artifact integrity. No device identifier, account identifier or signing secret is recorded here.
+- Native compatibility remains unverified: installed fixture Expo 57.0.16 / RN 0.86.2 versus current JS Expo 57.0.18 / RN 0.86.3. About 2.3 GiB free disk space was observed; no new native build/install, physical Home pass or complete test suite was run in this startup-only request. No commit was made.
+
+The remainder records the historical 2026-08-28 validation baseline, not a current pass for the updated dependencies.
+
 Evidence date: 2026-08-28. Host: macOS and local Node 26.4.0. The host-global pnpm is 11.19.0, while all final validation commands used `corepack pnpm` at the project pin 11.16.0; production/CI/EAS Node remains pinned to 24.19.0.
 
 ## Physical iOS preflight
