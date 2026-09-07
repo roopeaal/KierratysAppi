@@ -1,6 +1,6 @@
 # Owner actions
 
-These are the exact owner-controlled release actions and recurring engineering gates required to move the NO-GO decision. Latest dependency/startup review: 2026-09-04. “Owner” names an accountable role; the product owner must assign a real person before execution.
+These are the exact owner-controlled release actions and recurring engineering gates required to move the NO-GO decision. Latest dependency/startup review: 2026-09-07. “Owner” names an accountable role; the product owner must assign a real person before execution.
 
 ## OA-01 — Production infrastructure
 
@@ -90,10 +90,10 @@ These are the exact owner-controlled release actions and recurring engineering g
 ## OA-09 — iOS signed build and device acceptance
 
 - Owner: **iOS release engineer**; approver: **Product owner**
-- Current evidence: steps 1–2 are partially complete. September 4's fresh current-dependency Personal-Team Debug build, strict recursive signature verification (all 11 embedded frameworks), physical install and native development-client launch pass. Its renewed profile expires 2026-09-11 07:01:05 UTC. Onboarding/server selection works, but opening the current Metro URL produces `Error loading app` / server refused connection; Home is **not verified**. Mac-side API/Metro loopback and LAN health checks pass, services bind all interfaces, Node's incoming firewall rule is allowed and block-all is off. The owner must verify the physical phone-to-Mac LAN/permission prerequisite. Historical iPhone evidence covers broader core flows; the remaining matrix and all release steps stay open.
+- Current evidence: development startup steps 1–2 are complete for the current dependency set. September 4's fresh Personal-Team Debug build, strict recursive signature verification (all 11 embedded frameworks), physical install and native development-client launch pass. On September 7, current LAN/API/Metro health passed, the phone established Metro TCP connectivity, and Home, manual entry and a known-product result with uncertainty plus Rinki provenance rendered on the physical iPhone. The first product lookup correctly rendered offline because the running Metro bundle still contained the previous API LAN address; restarting Metro with the current `EXPO_PUBLIC_API_BASE_URL` restored lookup. The profile expires 2026-09-11 07:01:05 UTC. Historical iPhone evidence covers broader core flows; the remaining device matrix and every release step stay open.
 - Procedure:
   1. **Completed for development:** Xcode 26.6 and the iOS 26.5 SDK are installed; the host is now macOS Tahoe 26.7.
-  2. **External device action required:** the device owner confirms that iPhone and Mac use the same reachable Wi-Fi network and enables KierrätysAppi's Local Network access in iOS Settings. The iOS engineer then retries the current Metro URL printed by the running development server. If refused, record whether guest/client isolation or a VPN blocks device-to-Mac access; request owner/network-administrator approval for any network change rather than disabling the firewall. Once reachable, verify Home, manual entry and a known product result; continue the remaining `PHYSICAL_IOS_VALIDATION.md` rows. Renew/reinstall before September 11 profile expiry when needed.
+  2. **Completed for current development startup:** the device owner kept the iPhone and Mac on a reachable network; the iOS engineer verified LAN/API/Metro health, phone-to-Metro TCP, Home, manual entry and a known-product result after restarting Metro with the current API LAN address. For future runs, print and verify both current LAN origins before launching, and renew/reinstall before profile expiry when needed.
   3. After Expo Doctor is 20/20, archive with owner-controlled paid-program credentials and the supported iOS SDK.
   4. Inspect final entitlements, privacy manifest/reasons and localized Info.plist strings; verify no microphone or unused location declaration.
   5. Install on current/small iPhone and supported iPad; run physical barcode, VoiceOver, largest text, reduced motion, dark mode, offline/outage, performance/memory/battery and upgrade checks.

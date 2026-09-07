@@ -37,16 +37,16 @@ Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally bl
 ## Phase 5 — Polish
 
 - [~] The answer-first Home/result redesign, semantic token layer, scanner torch control, localized safe uncertainty, stable automation identifiers and FI/EN multi-viewport browser QA pass. Dark/native-large-text visual evidence and the web distribution/2.54 MiB bundle decision remain open.
-- [~] Physical iPhone QA now includes screenshots and semantic inspection of the redesigned Finnish Home, manual entry, resolved/unknown result content and scanner controls. Partial VoiceOver home/scanner/manual-invalid coverage passes; async-result VoiceOver, dark/largest-text/reduced-motion, valid performance/battery measurements and broader camera conditions remain open.
+- [~] Physical iPhone QA now includes 2026-09-07 screenshots and semantic inspection of the current Expo 57 client's redesigned Finnish Home, manual entry and answer-first known-product result with unknown/partial confidence and rule provenance. Historical scanner controls and partial VoiceOver home/scanner/manual-invalid coverage pass; async-result VoiceOver, dark/largest-text/reduced-motion, valid performance/battery measurements and broader camera conditions remain open.
 
 ## Phase 6 — Release engineering
 
-- [~] Source CI/EAS configuration, development-client dependency policy, icon assets, metadata/legal drafts and release procedures exist. On 2026-09-04 the current Expo set passes Doctor 20/20 and 167-test validation; fresh Debug native compile/sign/install/launcher passes with a renewed profile. Current device-to-Mac connectivity blocks Home smoke, and the live registry audit endpoint times out. Native release and store gates remain.
+- [~] Source CI/EAS configuration, development-client dependency policy, icon assets, metadata/legal drafts and release procedures exist. The current Expo set passes Doctor 20/20 and 167-test validation; fresh Debug native compile/sign/install passes, and the 2026-09-07 physical Home/manual/known-product smoke passes after refreshing the development API origin. The live registry audit endpoint still times out; native release and store gates remain.
 - [!] Produce signed-binary localized screenshots, Google feature graphic, hosted URLs and final store questionnaires.
 - [!] Generate signed Android/iOS production artifacts and submit without owner accounts, terms acceptance, credentials, and approval.
 
 ## Phase 7 — Release audit
 
 - [x] Run an adversarial 30-lane local production audit and repair every locally executable blocker/high finding discovered.
-- [~] Execute `docs/final/PHYSICAL_IOS_VALIDATION.md`; the historical client passes core lifecycle, permission, EAN-13, OFF, offline/retry/cache, controlled backend-unavailable recovery, provenance, answer-first UI and a repaired partial VoiceOver path. The 2026-09-04 rebuilt/signed/installed client opens its launcher but needs LAN recovery and current Home/manual/result smoke; broader accessibility and performance remain.
+- [~] Execute `docs/final/PHYSICAL_IOS_VALIDATION.md`; the 2026-09-04 rebuilt/signed/installed client now passes current Home/manual/known-product runtime on 2026-09-07, while historical evidence covers core lifecycle, permission, EAN-13, offline/retry/cache, controlled backend-unavailable recovery, scanner controls and a repaired partial VoiceOver path. Broader accessibility, camera conditions and performance remain.
 - [!] Close the NO-GO gates in `docs/final/OWNER_ACTIONS.md`: physical accessibility/performance/camera, production backup/restore/monitoring, licence/legal/content, signed binaries and stores.

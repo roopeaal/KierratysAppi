@@ -1,6 +1,19 @@
 # Test evidence
 
-## Final rebuild follow-up — 2026-09-04
+## Physical iPhone current-client smoke — 2026-09-07
+
+- Post-evidence repository validation: full `pnpm validate` passed through the isolated Corepack shim at the repository pin, pnpm 11.16.0. Format, lint and strict type checks passed; 13 repository-policy tests plus 154 application tests passed; all package/API builds and the 12-route web export passed.
+- Repository identity before this run: local `main` at `77ad397`, nine commits ahead of `origin/main`; no push or publication was performed.
+- Host/device identity: Apple M1 on macOS Tahoe 26.7 (`25G227`), Xcode 26.6 (`17F113`), and a connected iPhone 12 Pro Max on iOS 27.0 (`24A5424a`) as reported by `xcdevice`/XCTest.
+- Runtime connectivity: the Mac API and Metro health endpoints passed on localhost and LAN address `192.168.10.43`. The installed Expo 57 development client launched through that Metro origin, and the phone established multiple TCP connections to Metro.
+- Home: the Finnish Home interactive semantic tree and screenshot passed on the physical iPhone. Evidence: ignored `work/ui-qa/2026-09-07-home-fi-ios.png`.
+- Manual entry: the interactive semantic flow reached the manual product-code form and submitted the known valid product lookup. This is functional semantic evidence, not a VoiceOver reading-order or Dynamic Type pass.
+- The first known lookup correctly rendered the offline state because the client had loaded a stale 2026-09-04 Metro bundle containing that day's API address. Metro was safely restarted with the current `EXPO_PUBLIC_API_BASE_URL`, the client was relaunched, and the same manual flow then resolved normally.
+- Answer-first result: the current client preserved one unknown material at **0%** rather than guessing, and showed plastic collection at **55% partial confidence**. Evidence: ignored `work/ui-qa/2026-09-07-known-product-result-top-fi-ios.png`.
+- Provenance/result continuation: the lower page showed Rinki source, FI jurisdiction, checked date **2026-08-10**, rule version and verified status, plus Nutella identity. Evidence: ignored `work/ui-qa/2026-09-07-known-product-provenance-fi-ios.png`.
+- Scope: this run does **not** pass camera scanning, VoiceOver, release configuration, performance, battery, dark mode, reduced motion, broader barcode cases or other physical-device lanes.
+
+## Historical final rebuild and initial connection failure — 2026-09-04
 
 - Host: macOS Tahoe 26.7 (`25G220`), Xcode 26.6 (`17F113`), local Node 26.4.0. The owner freed disk space; no user data cleanup was performed by Codex.
 - Final frozen install, peer check, Expo install check and Doctor 1.20.1 **20/20** pass with the strict release-age policy intact. Expo 57.0.19 / RN 0.86.3 / dev-client 57.0.18 are installed. Isolated Corepack shims under ignored `work/pnpm-check-shims.cqbctz` verified nested pnpm **11.16.0**, avoiding the host's different global pnpm.
@@ -9,8 +22,8 @@
 - Final bundle: entry **2,540,918 bytes / 575,233 gzip**; secondary **45,171 / 14,789 gzip**. No device performance claim follows from these sizes.
 - Security: fast-uri 3.1.5/4.1.2 upgraded within their allowed major ranges to **3.1.7/4.1.4**. The post-update raw snapshot reports **0 high, 0 critical, 6 moderate, 1 low**. The final live `security:audit` retry **fails closed at 60 seconds**: the official audit POST endpoint also times out independently, while registry metadata GET returns 200. The live gate is externally blocked, not passed. No high/critical exceptions remain; five added regressions cover floors, severity enforcement and valid/invalid report handling.
 - Native: live-workspace `expo prebuild --platform ios --no-install` regenerated ignored native files; incidental package-script changes were reverted. `pod install` completed with 111 pods; manifest/lock and JS/native versions agree. Fresh Xcode Debug `iphoneos` build **passes**, recursive app signature and **11/11 framework signatures pass**. Artifact: `work/ios-dev-client-2026-09-04-derived/Build/Products/Debug-iphoneos/KierrtysAppi.app`; ignored build log is alongside it. Profile expiration: **2026-09-11 07:01:05 UTC**.
-- Physical install and development-launcher opening **pass**. Its first-run onboarding completes. Connecting to the explicit Metro origin instead shows `Error loading app` / connection refused. **Home/manual/result are not reverified on this binary.** Actual failure screenshot: `work/ui-qa/2026-09-04-ios-dev-client-connection-error.png`; no camera frame was captured.
-- API `/v1/health` and Metro `/status` respond correctly on localhost and the Mac LAN address, both bind all interfaces, and the macOS firewall permits the actual Node executable with block-all disabled. No network/firewall setting was changed. Owner confirmation of shared non-isolated Wi-Fi and iOS app Local Network permission is pending; services remain running.
+- At the time of this 2026-09-04 run, physical install and development-launcher opening **passed**, but the explicit Metro origin showed `Error loading app` / connection refused, so Home/manual/result were not then reverified. Actual historical failure screenshot: `work/ui-qa/2026-09-04-ios-dev-client-connection-error.png`; no camera frame was captured. The later 2026-09-07 section above records the successful current-client connection and smoke.
+- On 2026-09-04, API `/v1/health` and Metro `/status` responded correctly on localhost and that day's Mac LAN address, both bound all interfaces, and the macOS firewall permitted the actual Node executable with block-all disabled. No network/firewall setting was changed. The connectivity blocker documented that day was resolved for the 2026-09-07 current-client smoke.
 
 ## Earlier startup-only attempt — 2026-09-04
 
@@ -23,7 +36,7 @@ The remainder records the historical 2026-08-28 validation baseline, not a curre
 
 Evidence date: 2026-08-28. Host: macOS and local Node 26.4.0. The host-global pnpm is 11.19.0, while all final validation commands used `corepack pnpm` at the project pin 11.16.0; production/CI/EAS Node remains pinned to 24.19.0.
 
-## Physical iOS preflight
+## Physical iOS preflight — historical 2026-08-28 baseline
 
 | Command/evidence | Result |
 | --- | --- |
@@ -42,7 +55,7 @@ Evidence date: 2026-08-28. Host: macOS and local Node 26.4.0. The host-global pn
 
 Official Expo and Apple requirements were rechecked on 2026-08-28. Expo's current development-build guidance requires an SDK-compatible `expo-dev-client` for the launcher/tooling expected by this profile and requires a rebuild after native dependency changes. Apple requires Xcode 26/iOS 26 SDK uploads and permits local Personal-Team testing with seven-day provisioning limits. The observed profile did expire after seven days; a renewed build/install on 2026-08-22 restored the development run. This is not release/TestFlight evidence.
 
-## Passing evidence
+## Passing evidence — historical 2026-08-28 baseline
 
 | Command/evidence | Result |
 | --- | --- |
@@ -68,7 +81,7 @@ Official Expo and Apple requirements were rechecked on 2026-08-28. Expo's curren
 | Store asset source inspection | Pass dimensions/formats: icon/adaptive/splash 1024×1024 PNG; favicon 64×64 PNG |
 | GitHub read-only inspection | Private default `main`; latest pushed CI/Security at `87404a0` succeeded; branch protection returns plan-gated 403; no repo variables |
 
-## Coverage evidence
+## Coverage evidence — historical 2026-08-28 baseline
 
 Coverage is useful but not a release gate substitute. V8 summaries:
 
@@ -85,7 +98,7 @@ Coverage is useful but not a release gate substitute. V8 summaries:
 
 Mobile coverage excludes most rendered route/component code; it must not be interpreted as native UI acceptance.
 
-## Live and visual evidence
+## Live and visual evidence — historical through 2026-08-28
 
 - Real GTIN `3017620422003` resolved through local API → OFF to Nutella with four packaging components. Missing cap material remained unknown. Source, community status, combined ODbL/DbCL, attribution and retrieval date were visible.
 - A controlled provider-unavailable fixture produced `Tietolähde ei vastaa` without classifying the product as unknown. After restoring the real API, the same Retry action recovered to Nutella without code re-entry; the API observation remained free of raw GTIN.
@@ -101,14 +114,14 @@ Mobile coverage excludes most rendered route/component code; it must not be inte
 - Camera pre-permission explanation, allow, permission revocation while backgrounded, denied recovery UI, deep-link to app settings and permission restoration all worked on-device. Initial system-prompt denial remains unrun.
 - Manual `123` produced `Tarkista koodi`, generated no API request and, after repair, announced the complete validation instruction through VoiceOver without requiring focus on the error.
 
-## Bundle/performance evidence
+## Bundle/performance evidence — historical 2026-08-28 baseline
 
 - Expo export: 12 static routes.
 - Main web entry: 2,539,834 bytes uncompressed; 575,888 bytes gzip. This is 10,242 bytes / 3,604 gzip larger than the prior baseline and remains above budget.
 - Secondary web chunk: 45,171 bytes uncompressed; 14,831 bytes gzip.
 - The entry exceeds the documented 2 MiB warning threshold. An `agent-device perf frames` attempt returned no matched app process and zero captured frames, so it is invalid evidence; no native startup, memory, frame pacing, camera latency or battery claim is made.
 
-## Compatibility evidence
+## Compatibility evidence — historical 2026-08-28 baseline
 
 | Check | Result |
 | --- | --- |

@@ -1,12 +1,20 @@
 # Project changelog
 
+## 2026-09-07
+
+- Established physical iPhone-to-Metro TCP connectivity with the fresh Expo 57 development client and verified current LAN API/Metro health.
+- Passed Home, manual entry and a known-product result on the physical iPhone; the result retained uncertainty and Rinki rule provenance.
+- Confirmed safe failure behavior when the first lookup used a stale API LAN address embedded by the already-running Metro bundle: the app rendered offline rather than inventing a result. Restarting Metro with the current `EXPO_PUBLIC_API_BASE_URL` restored lookup.
+- Passed the post-evidence full validation with pinned pnpm 11.16.0: format, lint, strict type checks, 13 policy tests, 154 application tests, all package/API builds and 12 exported web routes.
+- Closed the temporary development-connectivity blocker without changing firewall or network settings. Retained NO-GO for the remaining physical camera/accessibility/performance matrix, Android, iOS archive/TestFlight, production operations, security-audit rerun, legal/licensing/content approvals and store release work.
+
 ## 2026-09-04
 
 - Completed the interrupted Expo patch installation and updated to the current compatible Expo 57.0.19 / React Native 0.86.3 / development-client 57.0.18 set without release-age exclusions; frozen install, peer check, Expo install check and Doctor 20/20 pass.
 - Confirmed that the old installed iPhone fixture's provisioning profile expired on 2026-08-29. After the owner upgraded the Mac to Tahoe 26.7 and freed disk space, regenerated native iOS files from the live workspace and installed matching pods instead of reusing stale copied dependencies.
 - Patched both fast-uri majors to 3.1.7/4.1.4, removed obsolete image-size exceptions, and added security-floor, all-high/critical rejection and fail-closed audit-report regressions.
 - Passed final 167-test validation and coverage with isolated Corepack shims verifying nested pnpm 11.16.0. Concurrent database timeout failures cleared on unchanged narrow/full reruns after native compilation; no test timeout was weakened.
-- Built, verified the app plus 11 framework signatures, installed and opened the fresh iPhone development client; its renewed profile expires 2026-09-11 07:01:05 UTC. Current Home smoke remains blocked by phone-to-Mac connectivity despite successful local/LAN server health and Node firewall allowance.
+- Built, verified the app plus 11 framework signatures, installed and opened the fresh iPhone development client; its renewed profile expires 2026-09-11 07:01:05 UTC. That run's Home smoke stopped at phone-to-Mac connectivity despite successful local/LAN server health and Node firewall allowance; the September 7 follow-up resolved it.
 - Retained NO-GO and recorded the final live registry-audit timeout separately from the earlier post-patch zero-high/critical snapshot. No account, network, firewall or production-publication setting was changed.
 
 ## 2026-08-28
