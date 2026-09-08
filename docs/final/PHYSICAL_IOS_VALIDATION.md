@@ -1,10 +1,18 @@
 # Physical iOS validation
 
-Status date: 2026-09-07
+Status date: 2026-09-08
 
 Status: **PARTIALLY RUN — the current Expo 57 client launches through Metro and its Home, manual-entry and known-product result/provenance smoke passes; camera, VoiceOver, release and the wider physical matrix remain unverified on this binary**
 
 This report is deliberately separate from simulator, web and generated-configuration evidence. No physical-device row may become Pass without observing the named build on the recorded iPhone.
+
+## Latest toolchain comparison — 2026-09-08
+
+Baseline source: `a6af06c`. Xcode 27 beta 6 (`27A5252f`)/iOS 27 SDK compiled, signed and installed successfully, but its app immediately failed with `SIGTRAP` in UIKit's missing-UIScene enforcement. The new SDK is **not accepted** for current app builds. See `XCODE_27_VALIDATION.md` for the crash report, source and reproduction.
+
+The existing Xcode 26.6 artifact was restored without deleting app data and tested again: Home, manual Nutella lookup, unknown/partial confidence, full Rinki provenance, OFF attribution and terminate/relaunch to Home all pass on September 8. The beta-built XCTest runner could inspect and operate this restored binary. Screenshots: ignored `work/ui-qa/2026-09-08-restored-{home,result,provenance}-ios.png`. Camera, VoiceOver and the broader matrix remain historical/unrun. Profile expiration is still September 11 at 07:01:05 UTC; Metro/API remain required.
+
+The following identity/preflight tables retain the September 7 comparison baseline; they do not certify the rejected beta artifact.
 
 ## Test identity
 

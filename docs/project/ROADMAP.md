@@ -41,6 +41,9 @@ Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally bl
 
 ## Phase 6 — Release engineering
 
+- [x] Evaluate Xcode 27 beta on the physical iOS 27 phone: compile/sign/install passed, runtime failed on mandatory UIScene adoption; restore and verify the working Xcode 26.6 artifact. Record the failed result rather than accepting the new SDK.
+- [ ] Migrate generated native startup to UIScene with reproducible prebuild, deep-link/lifecycle regression coverage and physical Xcode 27 startup/relaunch validation before changing the build toolchain.
+
 - [~] Source CI/EAS configuration, development-client dependency policy, icon assets, metadata/legal drafts and release procedures exist. The current Expo set passes Doctor 20/20 and 167-test validation; fresh Debug native compile/sign/install passes, and the 2026-09-07 physical Home/manual/known-product smoke passes after refreshing the development API origin. The live registry audit endpoint still times out; native release and store gates remain.
 - [!] Produce signed-binary localized screenshots, Google feature graphic, hosted URLs and final store questionnaires.
 - [!] Generate signed Android/iOS production artifacts and submit without owner accounts, terms acceptance, credentials, and approval.

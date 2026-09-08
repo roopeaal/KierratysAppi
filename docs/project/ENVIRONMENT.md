@@ -1,12 +1,12 @@
 # Environment and capability matrix
 
-Verified: 2026-08-22. Secret presence was checked without intentionally reading values.
+Host/Xcode/device reverified: 2026-09-08. Other tool/account entries retain their 2026-08-22 evidence date unless stated otherwise. Secret presence was checked without intentionally reading values.
 
 ## Local toolchain
 
 | Tool | Verified state |
 | --- | --- |
-| OS | macOS 26.5.2, Apple Silicon (`arm64`) |
+| OS | macOS Tahoe 26.7 (`25G227`), Apple Silicon (`arm64`); checked 2026-09-08 |
 | Node.js | 26.4.0 |
 | npm | 11.17.0 |
 | pnpm | 11.16.0 |
@@ -16,7 +16,7 @@ Verified: 2026-08-22. Secret presence was checked without intentionally reading 
 | Java/JDK | Missing |
 | Android SDK / ADB | Missing |
 | Docker | Missing |
-| Xcode | 26.6 (`17F113`) with iOS 26.5 SDK; system `xcode-select` remains on Command Line Tools, so native commands set `DEVELOPER_DIR` explicitly |
+| Xcode | App builds use 26.6 (`17F113`), iOS 26.5 SDK, at `/Applications/Xcode.app`. 27 beta 6 (`27A5252f`) is installed alongside: compile/sign/install and device tools pass, but its iOS 27 SDK app crashes without UIScene. Beta app build is rejected pending migration. System `xcode-select` remains on Command Line Tools; commands select the intended version with `DEVELOPER_DIR` |
 | Expo/EAS credentials | No `EXPO_TOKEN` or `EAS_TOKEN` present |
 | OpenAI/Supabase credentials | No corresponding environment token present |
 
@@ -29,7 +29,7 @@ Verified: 2026-08-22. Secret presence was checked without intentionally reading 
 | GitHub operations | Yes | Git, authenticated `gh`, GitHub skill | GitHub App/CLI | High | Private repo write | Use; no publish until coherent validation |
 | Browser/UI testing | Yes | In-app browser/computer-use skills available | Browser automation | High | Local page/app interaction | Use for web surfaces; cannot replace physical camera tests |
 | Android device testing | Yes | None | Android Studio/ADB or physical device | High | Device/camera | External blocker |
-| iOS/TestFlight | Yes | Xcode 26.6, paired iPhone 12 Pro Max, passing Personal-Team development build/install/core flow | Paid signing/TestFlight later | High | Device/signing/account | Continue local matrix; retain release archive/TestFlight as external blocker |
+| iOS/TestFlight | Yes | Xcode 27 beta and 26.6, paired iPhone 12 Pro Max on iOS 27.0 with Developer Mode and DDI services available; Personal-Team development builds | Paid signing/TestFlight later | High | Device/signing/account | Continue local matrix; retain release archive/TestFlight as external blocker |
 | Original image generation | Optional | Trusted image-generation skill/tool | OpenAI image generation | High | Prompt/reference images | Use only for justified original release assets |
 | Figma integration | Optional | Not installed | Figma plugin | Medium/high | External design files | Reject for now; no supplied Figma source |
 | Database management | Yes later | No Docker/token | PostgreSQL/Supabase | High | Infrastructure/data | Keep provider-neutral; defer account choice |

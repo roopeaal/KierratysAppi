@@ -20,6 +20,8 @@ These are release blockers or high-risk gates that cannot be completed without e
 
 Photo/OCR/cloud AI remains disabled and is not a launch blocker. Enabling it would create a new privacy, safety, moderation, device-evaluation and legal workstream requiring separate approval.
 
+The September 8 Xcode 27 startup failure is **not an external blocker**: UIScene migration is locally executable and tracked in `NEXT_ACTION.md`/D-021. Xcode 26.6's working development artifact has been restored; profile expiry remains September 11. No additional Apple account, payment or macOS upgrade is needed for this recovery. Existing release-account and physical-matrix gates remain unchanged.
+
 ## Local development recovery — 2026-09-04
 
 The old release-age, disk-space, expired-fixture and iPhone-to-Mac connectivity prerequisites are resolved. The owner updated the Mac to Tahoe 26.7 and freed space; Codex installed compatible patches, passed Doctor 20/20 and 167-test validation, rebuilt/signed all 11 frameworks plus app, and installed/launched the new client. On 2026-09-07 the phone connected to the current Metro origin and Home/manual/known-product runtime passed after the stale development API origin was refreshed. Its profile expires 2026-09-11 at 07:01:05 UTC. No user data was deleted. The old image-size dependency and exceptions are gone; newly found fast-uri highs were patched within the existing major ranges. See `NEXT_ACTION.md` and OA-09/OA-11 for the remaining named procedures.

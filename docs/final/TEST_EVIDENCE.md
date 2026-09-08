@@ -1,5 +1,14 @@
 # Test evidence
 
+## Xcode 27 evaluation and restored-app smoke — 2026-09-08
+
+- Source baseline `a6af06c`, clean before documentation changes. Xcode 27 beta 6 (`27A5252f`)/iOS 27 SDK fresh Debug compile passes; recursive app and 11 framework signatures pass; physical installation passes. **Runtime fails** immediately with `SIGTRAP` in UIKit's no-scene-lifecycle enforcement. An initial successful launch/PID return is not a startup pass.
+- The generated Expo AppDelegate still owns its window through the old app lifecycle. Apple requires UIScene when linking against iOS 27. Xcode 27 app compilation is therefore rejected for this configuration pending migration; see `XCODE_27_VALIDATION.md` for crash evidence, exact sanitized build procedure and official sources.
+- Restored the signed Xcode 26.6/iOS 26.5 artifact over the failing app without deleting app data. Finnish Home → manual known-product lookup → Nutella result, unknown 0%/partial 55% confidence, Rinki/FI/checked-date/version/verification and OFF licence/attribution passed through the beta-built automation runner. Terminate/relaunch returned interactive Home.
+- Privacy-safe screenshots: ignored `work/ui-qa/2026-09-08-restored-home-ios.png`, `2026-09-08-restored-result-ios.png`, `2026-09-08-restored-provenance-ios.png`. A capture of an unrelated foreground surface was removed immediately and is not evidence.
+- Full pinned `pnpm validate` passes: 13 policy + 154 application tests (167 total), format/lint/strict types, package/API builds and 12 web routes. Logs/artifacts: ignored `work/xcode27-device.2T1Y9A/`. No new dependency/live-security-audit pass is claimed.
+- Beta device tooling works; app builds continue with explicit Xcode 26.6. System default remains Command Line Tools. Profile expiration remains **2026-09-11 07:01:05 UTC** and the Debug client still needs Metro/API. Camera, VoiceOver, Release/TestFlight, performance and wider matrix were not tested in this run.
+
 ## Physical iPhone current-client smoke — 2026-09-07
 
 - Post-evidence repository validation: full `pnpm validate` passed through the isolated Corepack shim at the repository pin, pnpm 11.16.0. Format, lint and strict type checks passed; 13 repository-policy tests plus 154 application tests passed; all package/API builds and the 12-route web export passed.

@@ -1,6 +1,8 @@
 # Dependency decisions
 
-No production dependency is accepted solely from memory. Versions are pinned after checking current official compatibility and package metadata. Latest compatibility check: 2026-09-04. Latest physical startup check: 2026-09-07.
+No production dependency is accepted solely from memory. Versions are pinned after checking current official compatibility and package metadata. Latest package compatibility check: 2026-09-04. Latest toolchain/physical startup check: 2026-09-08.
+
+Toolchain follow-up 2026-09-08: Xcode 27 beta 6 compiled/signed/installed the unchanged Expo set, but the app immediately trapped because its generated AppDelegate has no UIScene lifecycle. Xcode 27 SDK application builds are **not accepted**. The restored Xcode 26.6 artifact passes Home/manual/Nutella/provenance and terminate/relaunch. Native dev-client and dev-menu are 57.0.18; dev-launcher is 57.0.19. No dependency change was made. See D-021 and `docs/final/XCODE_27_VALIDATION.md` for the required local migration and dated evidence.
 
 | Area | Candidate | Decision | Reason / gate |
 | --- | --- | --- | --- |

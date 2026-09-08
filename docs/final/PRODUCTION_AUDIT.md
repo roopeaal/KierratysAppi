@@ -1,10 +1,12 @@
 # Adversarial production-readiness audit
 
-Audit date: 2026-09-07 (physical startup continuation; broader physical and source-review evidence retains its recorded date)
+Audit date: 2026-09-08 (Xcode 27 startup evaluation and recovery; broader physical and source-review evidence retains its recorded date)
 
 Follow-up physical-iOS runs: 2026-08-10, 2026-08-22, 2026-08-26, the 2026-08-28 development-client/answer-first UI work unit, the 2026-09-04 signed-client refresh and the 2026-09-07 current-client runtime smoke on local `main`; audited commits remain unpushed to `origin/main`. See `PHYSICAL_IOS_VALIDATION.md`.
 
 Decision: **NO-GO**
+
+September 8 follow-up at source baseline `a6af06c`: Xcode 27 beta's Debug build/sign/install passed but physical startup failed on required UIScene adoption (AUD-042). The accepted Xcode 26.6 binary was restored; Home/manual/known-product/provenance and terminate/relaunch passed. Full pinned-pnpm validation passes 167 tests. No beta runtime acceptance or new live security-audit pass is claimed.
 
 Repository: `roopeaal/KierratysAppi`, private `main`
 
@@ -439,7 +441,7 @@ The September refresh aligns the supported native dependency set, removes an obs
 
 - Severity: **high**
 - Status: **resolved locally**
-- Evidence: `eas.json` declared `developmentClient: true`, but the mobile package did not depend on `expo-dev-client`. After Metro was unavailable, the physical app displayed `No script URL provided` with a null script URL and could not select/reconnect to a development server. The SDK-compatible dependency is now locked; the September fresh ignored iOS prebuild/pod install contains dev-client, dev-launcher and dev-menu 57.0.18. Xcode Debug `iphoneos` compilation passed, the app and all 11 embedded frameworks passed strict recursive signature verification, and the rebuilt client installed and launched. On September 7 it established Metro TCP and passed Home/manual/known-product runtime on the iPhone. A repository-policy test now requires profile/runtime parity.
+- Evidence: `eas.json` declared `developmentClient: true`, but the mobile package did not depend on `expo-dev-client`. After Metro was unavailable, the physical app displayed `No script URL provided` with a null script URL and could not select/reconnect to a development server. The SDK-compatible dependency is now locked; the September fresh ignored iOS prebuild/pod install contains dev-client 57.0.18, dev-launcher 57.0.19 and dev-menu 57.0.18. Xcode Debug `iphoneos` compilation passed, the app and all 11 embedded frameworks passed strict recursive signature verification, and the rebuilt client installed and launched. On September 7 it established Metro TCP and passed Home/manual/known-product runtime on the iPhone. A repository-policy test now requires profile/runtime parity.
 - Affected files/flows: `apps/mobile/package.json`, `pnpm-lock.yaml`, `apps/mobile/eas.json`, development build startup and physical-device QA.
 - Reproduction: build the prior `development` profile, stop or lose Metro, then relaunch; the binary has no development-client launcher and reports a null script URL.
 - Required remediation: keep `expo-dev-client` aligned with the Expo SDK whenever any EAS profile requests a development client; rebuild native binaries after changing it and retain the policy regression.
@@ -464,6 +466,16 @@ The September refresh aligns the supported native dependency set, removes an obs
 - Reproduction: audit the pre-repair lockfile with `corepack pnpm audit --json` and run `corepack pnpm why fast-uri --recursive`; the two affected versions yield four high advisories each. After repair, repeat the graph/audit checks and run the dependency policy and API contract tests.
 - Required remediation: retain compatible patched versions and regression-check the 3.1.6/4.1.3 security floors. Reject every high/critical advisory, including formerly accepted IDs; malformed, incomplete, failed or inconsistent registry reports must also fail closed. Do not force cross-major overrides or hide lower-severity findings.
 - Execution boundary: locally executable dependency/policy repair completed without exclusions, overrides, direct dependency additions or an additional native-version change. Exact IDs, publication timestamps, parent ranges and reproduction commands are recorded in `docs/security/DEPENDENCY_RISK_ACCEPTANCE.md`.
+
+### AUD-042 — Xcode 27 SDK build immediately crashes without UIScene
+
+- Severity: **high**
+- Status: **installed-app regression recovered by rollback; SDK adoption remains blocked on local migration**
+- Evidence: fresh Xcode 27 beta 6 (`27A5252f`) compilation, recursive signatures and installation pass, but the physical process terminates with `EXC_BREAKPOINT`/`SIGTRAP` in `UIApplicationEvaluateRuntimeIssueForNoSceneLifecycleAdoption`. Current generated `AppDelegate.swift` creates a window during app launch and has no scene configuration. Apple requires scene adoption for apps linked against iOS 27. The restored Xcode 26.6 artifact passes the same phone's Home/manual/Nutella/provenance and terminate/relaunch flow.
+- Affected files/flows: Expo-generated `apps/mobile/ios/KierrtysAppi/AppDelegate.swift`, generated Info.plist, future native prebuild configuration, cold start and development-client deep links when switching to iOS 27 SDK.
+- Reproduction: use the sanitized beta build command in `XCODE_27_VALIDATION.md`, verify/install, then launch on iOS 27; the native process traps before connecting to Metro. A successful PID response must not be treated as runtime success.
+- Required remediation: keep the restored, accepted Xcode 26.6 build for current testing; implement a reproducible scene-lifecycle migration covering launch URLs, continuing activities and background/foreground behavior, add regressions and verify the beta-built artifact physically before changing the application toolchain.
+- Execution boundary: local iOS engineering/Codex; no credential, account or OS-upgrade dependency. Recovery is complete; migration is the concrete next work unit. Severity is retained and production remains NO-GO.
 
 ## Authoritative current requirements checked
 

@@ -140,6 +140,13 @@
 - Decision: use compatible transitive fast-uri patches within the existing 3.x and 4.x parent ranges, with regression-tested security floors. Remove the old image-size advisory exceptions because the updated Metro graph no longer contains that dependency. Reject every high/critical finding and reject missing, malformed, inconsistent or failed registry responses; bound the audit subprocess to 60 seconds.
 - Reason: the new lockfile audit found four high advisories affecting both installed fast-uri majors. Eligible upstream patches existed, so no exception or compatibility-breaking override was justified. The previous audit parser could treat an error-shaped JSON response without advisories as an empty successful audit.
 
+## D-021 — Gate Xcode 27 adoption on actual scene-lifecycle compatibility
+
+- Date: 2026-09-08
+- Status: accepted for development recovery; UIScene migration pending
+- Decision: compile the current app with Xcode 26.6 through explicit `DEVELOPER_DIR`; retain Xcode 27 beta alongside for tested device tooling. Do not adopt the iOS 27 SDK until Expo prebuild reproducibly configures a complete scene lifecycle, deep links and startup/relaunch tests pass. No system Xcode default changed.
+- Reason: beta compilation, signatures and installation all passed, but the physical app immediately trapped in UIKit's no-scene-lifecycle enforcement before Metro connection. Reinstalling the older SDK artifact restored Home and known-product lookup. This is a locally reproducible compatibility defect, not signing expiry or a need to upgrade macOS. See `docs/final/XCODE_27_VALIDATION.md`.
+
 ## Pending decisions
 
 - OCR implementation and whether a cloud AI path is justified after the typed-code flow is evaluated.

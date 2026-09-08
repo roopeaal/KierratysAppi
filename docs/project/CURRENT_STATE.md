@@ -1,6 +1,13 @@
 # Current state
 
-Last updated: 2026-09-07 after restoring the fresh signed iPhone client's Metro/API connection and passing the current Home → manual entry → known-product smoke. Earlier broad validation remains dated 2026-09-04 unless explicitly stated otherwise.
+Last updated: 2026-09-08 after testing Xcode 27 beta, diagnosing its immediate UIScene startup crash and restoring the working Xcode 26.6 artifact. Full pinned-pnpm validation passes on September 8.
+
+## Xcode 27 evaluation and recovery — 2026-09-08
+
+- Xcode 27 beta 6 (`27A5252f`) is installed alongside Xcode 26.6 on Tahoe 26.7. A fresh iOS 27 SDK Debug build, app/11-framework signatures and physical installation pass, but the app **fails at startup** with UIKit's `UIApplicationEvaluateRuntimeIssueForNoSceneLifecycleAdoption` enforcement. The generated Expo AppDelegate still uses the legacy window lifecycle. This beta app build is rejected; compilation is not runtime acceptance.
+- Reinstalled the existing Xcode 26.6 (`17F113`)/iOS 26.5 artifact without deleting app data. Home, manual Nutella lookup, unknown/partial confidence, Rinki provenance and OFF attribution pass again. Beta device/automation tools work against this restored binary. Both API and Metro are running at the current LAN origin. Profile expiry remains September 11 at 07:01:05 UTC.
+- Continue application builds with explicit `DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer`. The system default remains Command Line Tools. UIScene adoption is a local migration required before switching SDKs, not an external account blocker or a reason to upgrade macOS.
+- `pnpm validate` passes with pnpm 11.16.0: 13 policy plus 154 application tests, format/lint/strict types and all package/API/web builds. No application dependency/source changes or new live security-audit claims. Detailed evidence and reproduction: `docs/final/XCODE_27_VALIDATION.md`.
 
 ## Latest iPhone recovery — 2026-09-07
 
