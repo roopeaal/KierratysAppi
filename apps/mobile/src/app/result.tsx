@@ -4,11 +4,12 @@ import type { MessageKey } from "@kierratysappi/localization";
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
 import { ActivityIndicator, Linking, StyleSheet, View } from "react-native";
+import { PackagingMark } from "@/components/packaging-mark";
+import { SortingResultCard } from "@/components/sorting-result";
 import {
   AppText,
   BrandLockup,
   Button,
-  Eyebrow,
   InlineLink,
   Paper,
   Rule,
@@ -17,7 +18,6 @@ import {
   StatusPill,
   sharedStyles,
 } from "@/components/ui";
-import { SortingResultCard } from "@/components/sorting-result";
 import { announceAccessibility } from "@/features/accessibility/announcements";
 import { lookupAnnouncement } from "@/features/accessibility/result-announcement";
 import { useScanSession } from "@/features/scan/session-context";
@@ -164,9 +164,12 @@ function ProductResult({
       </View>
 
       <View style={styles.answerIntro}>
-        <Eyebrow>{t("resultEyebrow")}</Eyebrow>
         <AppText variant="title" accessibilityRole="header">
           {t("resultTitle")}
+        </AppText>
+        <AppText variant="heading">{name}</AppText>
+        <AppText variant="small" muted>
+          {t("resultScope")}
         </AppText>
       </View>
 
@@ -202,16 +205,19 @@ function ProductResult({
         <View style={styles.resultStack}>
           <SectionHeader title={t("packagingParts")} />
           {result.components.map(({ observation, sorting }, index) => (
-            <View key={observation.id} style={styles.componentBlock}>
-              <View style={sharedStyles.tightStack}>
-                <AppText variant="mono" style={{ color: palette.cobalt }}>
-                  {String(index + 1).padStart(2, "0")} /{" "}
-                  {materialLabel(observation.materialFamily?.value, t).toUpperCase()}
-                </AppText>
-                <AppText variant="heading">{componentLabel(observation, t)}</AppText>
+            <Paper key={observation.id} style={styles.componentBlock}>
+              <View style={sharedStyles.row}>
+                <PackagingMark material={observation.materialFamily?.value} />
+                <View style={sharedStyles.grow}>
+                  <AppText variant="small" muted>
+                    {index + 1} / {result.components.length}
+                  </AppText>
+                  <AppText variant="heading">{componentLabel(observation, t)}</AppText>
+                </View>
               </View>
-              <SortingResultCard result={sorting} />
-            </View>
+              <Rule />
+              <SortingResultCard result={sorting} embedded />
+            </Paper>
           ))}
         </View>
       )}
@@ -378,7 +384,7 @@ const styles = StyleSheet.create({
   centerText: { textAlign: "center" },
   stateBody: { paddingTop: spacing.xxl, gap: spacing.lg },
   stateActions: { marginTop: spacing.md },
-  answerIntro: { paddingTop: spacing.xl, gap: spacing.sm },
+  answerIntro: { paddingTop: spacing.lg, gap: spacing.xs },
   sourceRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -386,9 +392,9 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
     marginTop: spacing.md,
   },
-  resultStack: { paddingTop: spacing.xl, gap: spacing.md },
+  resultStack: { paddingTop: spacing.lg, gap: spacing.md },
   nextActions: { paddingTop: spacing.xl, gap: spacing.md },
   productSummary: { paddingTop: spacing.xl, gap: spacing.md },
   disclosureRow: { flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: spacing.xs },
-  componentBlock: { gap: spacing.sm },
+  componentBlock: { gap: spacing.sm, borderWidth: 0 },
 });

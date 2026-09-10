@@ -81,11 +81,11 @@ export function BrandLockup({ compact = false }: { readonly compact?: boolean })
       accessibilityLabel={compact ? t("appName") : `${t("appName")}. ${t("tagline")}`}
     >
       <View style={[styles.brandMark, { borderColor: palette.ink }]} accessibilityElementsHidden>
-        <View style={[styles.brandMarkTop, { backgroundColor: palette.pine }]} />
-        <View style={[styles.brandMarkBottom, { backgroundColor: palette.cobalt }]} />
+        <View style={[styles.brandMarkTop, { backgroundColor: palette.pineSoft }]} />
+        <View style={[styles.brandMarkBottom, { backgroundColor: palette.actionPrimary }]} />
         <View style={[styles.brandSeam, { backgroundColor: palette.surface }]} />
       </View>
-      <View>
+      <View style={styles.sectionTitle}>
         <AppText variant={compact ? "heading" : "title"}>KierrätysAppi</AppText>
         {!compact && (
           <AppText variant="small" muted>
@@ -234,7 +234,10 @@ export function StatusPill({
   return (
     <View style={[styles.pill, { backgroundColor: colors[tone][0] }]}>
       <View style={[styles.pillDot, { backgroundColor: colors[tone][1] }]} />
-      <AppText variant="small" style={{ color: colors[tone][1], fontFamily: "Atkinson_700Bold" }}>
+      <AppText
+        variant="small"
+        style={{ color: colors[tone][1], fontFamily: "Atkinson_600SemiBold", flexShrink: 1 }}
+      >
         {label}
       </AppText>
     </View>
@@ -300,23 +303,22 @@ const styles = StyleSheet.create({
   scrollContent: { flexGrow: 1, alignItems: "center" },
   content: {
     width: "100%",
-    maxWidth: 680,
+    maxWidth: 560,
     flex: 1,
-    paddingHorizontal: spacing.lg,
+    paddingHorizontal: 20,
     paddingTop: spacing.md,
     paddingBottom: spacing.xxl,
   },
-  brand: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
-  brandMark: { width: 42, height: 42, borderRadius: radius.sm, borderWidth: 2, overflow: "hidden" },
+  brand: { flexDirection: "row", alignItems: "center", gap: 10, flexShrink: 1 },
+  brandMark: { width: 32, height: 36, borderRadius: 7, borderWidth: 1.5, overflow: "hidden" },
   brandMarkTop: { flex: 1 },
   brandMarkBottom: { flex: 1 },
   brandSeam: {
     position: "absolute",
-    width: 26,
-    height: 5,
-    left: 7,
-    top: 18,
-    transform: [{ rotate: "-12deg" }],
+    width: 3,
+    height: 32,
+    left: 19,
+    top: 0,
   },
   button: {
     minHeight: controls.buttonMinHeight,
@@ -327,7 +329,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  paper: { borderWidth: 1, borderRadius: radius.lg, padding: spacing.lg, gap: spacing.md },
+  paper: { borderWidth: 1, borderRadius: radius.lg, padding: 20, gap: spacing.md },
   sectionHeader: {
     flexDirection: "row",
     alignItems: "center",
@@ -338,12 +340,13 @@ const styles = StyleSheet.create({
   rule: { height: StyleSheet.hairlineWidth, width: "100%" },
   pill: {
     alignSelf: "flex-start",
+    flexShrink: 1,
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.xs,
     paddingHorizontal: spacing.sm,
-    paddingVertical: 7,
-    borderRadius: radius.pill,
+    paddingVertical: 5,
+    borderRadius: radius.sm,
   },
   pillDot: { width: 8, height: 8, borderRadius: 4 },
 });

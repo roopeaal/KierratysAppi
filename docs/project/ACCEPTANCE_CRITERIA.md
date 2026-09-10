@@ -22,6 +22,8 @@
 
 ## Release evidence
 
+The September visual refresh additionally requires scan/manual actions before secondary content, truthful empty-history status, native and web selected-radio semantics, and retention of every component's uncertainty and source evidence. Browser screenshots and source-policy/contrast checks do not satisfy the separate physical dark-mode, largest-text, camera or screen-reader acceptance below. Current results are recorded in `docs/final/design-refresh-evidence.md`.
+
 - `pnpm validate` succeeds from a clean install.
 - CI configuration mirrors local validation.
 - Expo Doctor and `expo install --check` pass without exclusions or release-age-policy bypasses.

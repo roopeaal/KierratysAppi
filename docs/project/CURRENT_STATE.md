@@ -1,6 +1,14 @@
 # Current state
 
-Last updated: 2026-09-08 after testing Xcode 27 beta, diagnosing its immediate UIScene startup crash and restoring the working Xcode 26.6 artifact. Full pinned-pnpm validation passes on September 8.
+Last updated: 2026-09-10 after implementing and browser-validating the owner's visual redesign priority. Full pinned-pnpm validation passes: 181 tests. Physical acceptance of this new UI remains open.
+
+## Visual refresh — 2026-09-08 to 2026-09-10
+
+- Implemented a neutral/forest visual system with semibold typography, original decorative packaging marks, a prominent scan control, compact guide/history rows, a focused manual form and simpler component-result surfaces. Unknown/partial data, preparation/explanation, rule provenance and OFF attribution remain present. No provider, sorting, retention or native dependency changes.
+- Compared published Yuka and Too Good To Go visuals and Bower/Scrapp workflows, with unavailable-image and marketing-evidence limits explicitly recorded in `docs/research/mobile-design-reference-study.md`. Corrected the stale design-system document to actual tokens and confidence behavior.
+- Browser QA passes for the recorded FI/EN Home/manual/result/guide, 320/390/1280-width layouts, controlled unreachable-API recovery-to-guide and local ambiguous-component presentation. Corrected web radio checked-state semantics in language/material/feedback controls. Full `pnpm validate`: 17 policy + 164 application tests, format/lint/strict types, API/package builds and 12 web routes.
+- The physical automation reopen attempt timed out at XCTest startup; it is not a new-UI phone pass or proof of a new app defect. Dark/largest-text/camera/VoiceOver/performance remain open. Use the working Xcode 26.6 binary, not the rejected Xcode 27 build. The previous profile expires September 11 07:01:05 UTC.
+- Exact screenshots, test procedures, sizes and limitations: `docs/final/design-refresh-evidence.md`. Release remains NO-GO; no push/publication occurred.
 
 ## Xcode 27 evaluation and recovery — 2026-09-08
 
@@ -33,13 +41,13 @@ Last updated: 2026-09-08 after testing Xcode 27 beta, diagnosing its immediate U
 ## Current validation truth
 
 - `corepack pnpm install --frozen-lockfile`: pass against the pnpm 11.16.0 project pin. Final validation used isolated Corepack shims so nested `pnpm` also resolves to 11.16.0; no global tool configuration changed.
-- `corepack pnpm validate`: pass; 154 application tests across 22 Vitest files plus 13 Node repository-policy regressions (167 automated tests total), all format/lint/strict-type checks, package/API builds and 12-route web export pass. Earlier parallel test attempts hit the unchanged database timeout under native-build load; the narrow database and complete rerun passed after compilation.
-- `corepack pnpm test:coverage`: pass. Core domain/provider/engine/application/API packages remain approximately 90%+ statement coverage; tested mobile modules are 70.75% and do not cover most rendered native UI.
+- `pnpm validate` on 2026-09-10: pass; 164 application tests across 22 Vitest files plus 17 Node repository-policy regressions (181 total), all format/lint/strict-type checks, package/API builds and 12-route web export pass with pinned pnpm 11.16.0. Earlier database-contention failures remain separately dated historical evidence.
+- Historical September 4 `corepack pnpm test:coverage`: pass. Core domain/provider/engine/application/API packages were approximately 90%+ statement coverage; tested mobile modules were 70.75% and did not cover most rendered native UI. Coverage was not remeasured for the visual refresh.
 - `corepack pnpm security:audit`: final live rerun **blocked/fails closed** at its 60-second timeout. Independent audit-endpoint POST also timed out while package metadata GET returned 200. Earlier post-patch raw snapshot: zero high, zero critical, six moderate, one low. Both fast-uri majors are patched to 3.1.7/4.1.4; Metro no longer includes image-size, and all high/critical exceptions have been removed. Report validation and security floors have regression tests.
 - `corepack pnpm peers check`: pass.
 - Expo Doctor 1.20.1 is **20/20** and `expo install --check` passes for the current supported set. The strict 1,440-minute supply-chain gate remains enforced; no exclusion or bypass was added.
 - API production smoke: pass locally; health/OpenAPI/strict validation verified. No deployed production service exists.
-- Web entry: 2,540,918 bytes uncompressed / 575,233 bytes gzip, above the 2 MiB warning budget. This is bundle evidence, not measured browser or device performance.
+- September 10 web entry: 2,548,461 bytes uncompressed / 576,705 bytes gzip, above the 2 MiB warning budget. This is bundle evidence, not measured browser or device performance.
 - Browser QA passed at 390×844 and 1280×720 in Finnish and English for Home, manual entry, resolved result, ambiguous result and offline recovery. The measured Home/result desktop views had zero horizontally overflowing DOM elements. Dark mode and true native Dynamic Type were not visually claimed.
 - The controlled backend-unavailable state showed provider failure without reclassifying the product; restoring the real API and pressing retry recovered to the known result without code re-entry. Privacy-safe API evidence contained no raw GTIN.
 - The EAS development profile previously declared `developmentClient:true` without `expo-dev-client`; this caused the observed `No script URL provided` failure. Adding the native dependency, rebuilding the ignored iOS project/pods, recursively verifying the app plus 11 frameworks, installing and launching the fresh client resolved startup. A repository policy now prevents recurrence.

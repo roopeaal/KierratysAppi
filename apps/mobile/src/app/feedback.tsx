@@ -59,6 +59,7 @@ export default function FeedbackScreen() {
               key={value}
               accessibilityRole="radio"
               accessibilityState={{ checked: selected }}
+              aria-checked={selected}
               onPress={() => {
                 setCategory(value);
                 setSaved(false);

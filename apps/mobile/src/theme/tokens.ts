@@ -23,9 +23,9 @@ export const radius = {
 export const typography = {
   display: {
     fontFamily: "Atkinson_700Bold",
-    fontSize: 40,
-    lineHeight: 43,
-    letterSpacing: -1.1,
+    fontSize: 34,
+    lineHeight: 38,
+    letterSpacing: -0.8,
   },
   title: {
     fontFamily: "Atkinson_700Bold",
@@ -34,9 +34,9 @@ export const typography = {
     letterSpacing: -0.4,
   },
   heading: {
-    fontFamily: "Atkinson_700Bold",
-    fontSize: 21,
-    lineHeight: 27,
+    fontFamily: "Atkinson_600SemiBold",
+    fontSize: 20,
+    lineHeight: 26,
   },
   body: {
     fontFamily: "Atkinson_400Regular",
@@ -49,7 +49,7 @@ export const typography = {
     lineHeight: 20,
   },
   label: {
-    fontFamily: "Atkinson_700Bold",
+    fontFamily: "Atkinson_600SemiBold",
     fontSize: 16,
     lineHeight: 20,
   },

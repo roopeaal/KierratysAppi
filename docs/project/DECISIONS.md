@@ -147,8 +147,15 @@
 - Decision: compile the current app with Xcode 26.6 through explicit `DEVELOPER_DIR`; retain Xcode 27 beta alongside for tested device tooling. Do not adopt the iOS 27 SDK until Expo prebuild reproducibly configures a complete scene lifecycle, deep links and startup/relaunch tests pass. No system Xcode default changed.
 - Reason: beta compilation, signatures and installation all passed, but the physical app immediately trapped in UIKit's no-scene-lifecycle enforcement before Metro connection. Reinstalling the older SDK artifact restored Home and known-product lookup. This is a locally reproducible compatibility defect, not signing expiry or a need to upgrade macOS. See `docs/final/XCODE_27_VALIDATION.md`.
 
+## D-022 — Prioritize a distinctive, evidence-preserving visual refresh
+
+- Date: 2026-09-10 (research/implementation started September 8)
+- Status: implemented and browser-validated; physical acceptance pending
+- Decision: follow the owner's explicit visual priority before the separate UIScene migration. Use neutral/forest semantic tokens, the existing Atkinson semibold asset, original native linework and compact task-first Home navigation. Keep every packaging part, textual confidence, explanation and source visible; no evidence accordion, fake imagery, scores, rewards or impact metrics. Add only compact product identity ahead of the component list; full provider/licence metadata still follows guidance, refining D-019 rather than reverting to a product-metadata hero.
+- Reason: direct 390-point inspection showed that a long 40-point headline, duplicate labels and nested boxes delayed the action. Yuka/Too Good To Go reference visuals informed hierarchy/restraint, while Bower/Scrapp workflows informed scan/component emphasis. No new library/plugin/account was needed. Browser inspection also justified explicit web checked-state attributes on all current radios. The 181-test pass is not native visual or release acceptance.
+
 ## Pending decisions
 
 - OCR implementation and whether a cloud AI path is justified after the typed-code flow is evaluated.
 - Production hosting/database/telemetry providers after owner cost/privacy-region approval.
-- Whether a distributable web build is in launch scope; if yes, the current 2.54 MiB entry requires optimization and deployed performance evidence.
+- Whether a distributable web build is in launch scope; if yes, the current 2.55 MB entry requires optimization and deployed performance evidence.

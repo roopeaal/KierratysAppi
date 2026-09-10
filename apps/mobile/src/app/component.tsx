@@ -173,6 +173,7 @@ function ChoiceGroup({
               key={choice.value}
               accessibilityRole="radio"
               accessibilityState={{ checked: selected }}
+              aria-checked={selected}
               onPress={() => onChange(choice.value)}
               style={({ pressed }) => [
                 styles.choice,

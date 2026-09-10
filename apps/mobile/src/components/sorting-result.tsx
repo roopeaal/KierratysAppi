@@ -1,12 +1,18 @@
+import { localizedText } from "@kierratysappi/localization";
 import type { SortingResult, SortingRuleReference } from "@kierratysappi/recycling-engine";
 import { Linking, StyleSheet, View } from "react-native";
-import { localizedText } from "@kierratysappi/localization";
 import { destinationMessageKey, unknownReasonMessageKey } from "@/features/sorting/presentation";
 import { useLanguage } from "@/i18n/language-context";
 import { radius, spacing, useAppTheme } from "@/theme/tokens";
 import { AppText, InlineLink, Paper, Rule, StatusPill, sharedStyles } from "./ui";
 
-export function SortingResultCard({ result }: { readonly result: SortingResult }) {
+export function SortingResultCard({
+  result,
+  embedded = false,
+}: {
+  readonly result: SortingResult;
+  readonly embedded?: boolean;
+}) {
   const { language, t } = useLanguage();
   const { palette } = useAppTheme();
   const confidenceKey = {
@@ -25,12 +31,12 @@ export function SortingResultCard({ result }: { readonly result: SortingResult }
 
   if (result.status === "resolved") {
     return (
-      <Paper testID="sorting-result-resolved">
-        <View style={[styles.destination, { backgroundColor: palette.pineSoft }]}>
-          <AppText variant="mono" style={{ color: palette.pine }}>
-            {t("destinationLabel").toUpperCase()}
+      <Paper style={embedded && styles.embedded} testID="sorting-result-resolved">
+        <View style={styles.destination}>
+          <AppText variant="small" muted>
+            {t("destinationLabel")}
           </AppText>
-          <AppText variant="title" accessibilityRole="header">
+          <AppText variant="heading" accessibilityRole="header">
             {localizedText(language, result.destination.label)}
           </AppText>
         </View>
@@ -62,7 +68,10 @@ export function SortingResultCard({ result }: { readonly result: SortingResult }
 
   if (result.status === "ambiguous") {
     return (
-      <Paper style={{ borderColor: palette.amber }} testID="sorting-result-ambiguous">
+      <Paper
+        style={[{ borderColor: palette.amber }, embedded && styles.embedded]}
+        testID="sorting-result-ambiguous"
+      >
         <ConfidenceRow
           label={t("needsCheckLabel")}
           score={result.confidence.score}
@@ -73,8 +82,8 @@ export function SortingResultCard({ result }: { readonly result: SortingResult }
           {localizedText(language, result.question)}
         </AppText>
         <View style={sharedStyles.tightStack}>
-          <AppText variant="mono" muted>
-            {t("possibleDestinations").toUpperCase()}
+          <AppText variant="small" muted>
+            {t("possibleDestinations")}
           </AppText>
           {result.candidateDestinations.map((destination) => (
             <AppText key={destination}>• {t(destinationMessageKey(destination))}</AppText>
@@ -87,17 +96,20 @@ export function SortingResultCard({ result }: { readonly result: SortingResult }
   }
 
   return (
-    <Paper style={{ borderColor: palette.brick }} testID="sorting-result-unknown">
+    <Paper
+      style={[{ borderColor: palette.brick }, embedded && styles.embedded]}
+      testID="sorting-result-unknown"
+    >
       <ConfidenceRow
         label={t("confidenceUnknown")}
         score={result.confidence.score}
         tone="brick"
         accessibilityLabel={t("confidenceLabel")}
       />
-      <AppText variant="heading" accessibilityRole="header">
-        {localizedText(language, result.nextAction)}
+      <AppText accessibilityRole="header">{localizedText(language, result.nextAction)}</AppText>
+      <AppText variant="small" muted>
+        {t(unknownReasonMessageKey(result.reason))}
       </AppText>
-      <AppText muted>{t(unknownReasonMessageKey(result.reason))}</AppText>
       <Rule />
       {result.sources.length > 0 ? (
         <RuleReferences sources={result.sources} />
@@ -139,9 +151,9 @@ function ConfidenceRow({
 function RuleReferences({ sources }: { readonly sources: readonly SortingRuleReference[] }) {
   const { t } = useLanguage();
   return (
-    <View style={sharedStyles.stack}>
-      <AppText variant="mono" muted>
-        {t("ruleSourceLabel").toUpperCase()}
+    <View style={sharedStyles.tightStack}>
+      <AppText variant="small" muted>
+        {t("ruleSourceLabel")}
       </AppText>
       {sources.map((source) => (
         <View key={source.id} style={sharedStyles.tightStack}>
@@ -166,21 +178,27 @@ function RuleReferences({ sources }: { readonly sources: readonly SortingRuleRef
 function GuidanceBlock({ label, body }: { readonly label: string; readonly body: string }) {
   return (
     <View style={sharedStyles.tightStack}>
-      <AppText variant="mono" muted>
-        {label.toUpperCase()}
-      </AppText>
+      <AppText variant="label">{label}</AppText>
       <AppText>{body}</AppText>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  destination: { gap: spacing.xs, padding: spacing.md, borderRadius: radius.md },
+  destination: { gap: spacing.xxs },
+  embedded: {
+    borderWidth: 0,
+    padding: 0,
+    borderRadius: 0,
+    backgroundColor: "transparent",
+    gap: spacing.sm,
+  },
   statusRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     gap: spacing.md,
+    flexWrap: "wrap",
   },
   exception: { padding: spacing.md, borderRadius: radius.md },
 });

@@ -99,6 +99,7 @@ These are the exact owner-controlled release actions and recurring engineering g
   4. Inspect final entitlements, privacy manifest/reasons and localized Info.plist strings; verify no microphone or unused location declaration.
   5. Install on current/small iPhone and supported iPad; run physical barcode, VoiceOver, largest text, reduced motion, dark mode, offline/outage, performance/memory/battery and upgrade checks.
   6. Upload to TestFlight and retain App Store processing/privacy warnings.
+- September 10 visual acceptance, separate from release: **Codex** owns recovery of the existing XCTest session, verification of the current LAN API/Metro origins and screenshots of the refreshed Home → manual → known-product flow in FI/EN, light/dark and largest Dynamic Type. **Roope** opens the app and leaves the phone unlocked if requested, and supplies owner-controlled trust/signing approval only if actually required. Use the restored Xcode 26.6 client; verify its profile date before installing anything. Record pass/fail rows and repair defects in `design-refresh-evidence.md`; do not substitute older screenshots. The September 8 attempt timed out at runner startup, so it is not a pass.
 - Success evidence: archive/TestFlight build IDs and hashes, inspection output, device matrix and processing report.
 
 ## OA-10 — Store package and submission readiness

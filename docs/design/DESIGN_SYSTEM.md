@@ -1,53 +1,48 @@
-# Design system — Material Ledger
+# Design system — Packaging utility
 
-## Color tokens
+Updated 2026-09-10. The implementation in `apps/mobile/src/theme/` is authoritative; this replaces the stale Material Ledger token description.
 
-| Role | Light | Dark | Use |
-| --- | --- | --- | --- |
-| Canvas / `frost` | `#F2F6F5` | `#071E23` | Screen background |
-| Surface | `#FFFFFF` | `#102B31` | Camera/result surfaces |
-| Ink | `#102E34` | `#F4FAF8` | Primary text |
-| Muted ink | `#496268` | `#B8C9C6` | Secondary text; verify AA by size |
-| Action cobalt | `#2456D3` | `#7FA2FF` | Primary controls/focus |
-| Verified pine | `#176B55` | `#65D0AB` | Verified state with text/icon |
-| Uncertain amber | `#9A6200` | `#F2BF58` | Partial/ambiguous state with text/icon |
-| Error brick | `#A52F35` | `#FF8E92` | Error state with text/icon |
-| Divider | `#CAD8D5` | `#315057` | Structure |
+## Color
 
-Contrast must be checked in implementation; status is never color-only.
+| Role | Light | Dark |
+| --- | --- | --- |
+| Canvas | #F5F7F2 | #14221B |
+| Reading surface | #FFFFFF | #1D2E24 |
+| Primary text | #20352D | #F1F5ED |
+| Secondary text | #59665E | #C3CDC5 |
+| Primary action | #244D3C | #63D1A2 |
+| Action label | #FFFFFF | #101713 |
+| Link | #244D3C | #A8D8B5 |
+| Quiet package illustration surface | #E5EDE2 | #2A4433 |
+| Divider | #DCE2DA | #465149 |
+| Strong input boundary | #6E756F | #AFA799 |
 
-## Typography
+Green/amber/brick/blue status pairs remain separate semantic tokens, tested for normal-text contrast in both palettes. A green button means an action, not a verified recycling answer. Unknown and partial data use explicit words and confidence.
 
-- Display/heading/body: Atkinson Hyperlegible Next, regular/bold, system font fallback. Dynamic text is never disabled.
-- Utility/provenance: IBM Plex Mono, medium; GTINs use tabular presentation and may wrap/copy.
-- Scale (base): 32/38 hero, 24/30 title, 20/26 section, 17/24 body, 15/21 support, 13/18 utility. Layout must reflow at platform accessibility sizes rather than clipping.
+## Type and layout
 
-## Spacing and shape
+Atkinson Hyperlegible Next: regular 400 for body, semibold 600 for controls/section headings, bold 700 for display/titles. IBM Plex Mono 600 is reserved for identifiers and confidence values.
 
-- 4-point grid: `4, 8, 12, 16, 24, 32, 48`.
-- Primary touch targets: minimum 48×48 dp, separated by at least 8 dp.
-- Surface radius: 18 for camera/wide surfaces, 12 for controls, 999 only for compact status tags. Component results use dividers/seams, not a stack of floating cards.
-- Edge-to-edge background; all controls respect safe/gesture insets.
+Base scale: display 34/38, title 28/34, heading 20/26, body 17/24, small 14/20, label 16/20, mono 12/17. No font-scaling cap. Do not add fixed text heights or line-count clipping.
 
-## Component hierarchy
+The reading column is at most 560 points with 20-point side gutters. Main spacing is 4/8/12/16/24/32/48; reading surfaces use 20-point inset. Surface radius 22, controls 14, small status labels 8. Minimum targets 44, normal buttons 56 high and manual-entry row 60 high. Safe areas remain native.
 
-1. Answer/destination.
-2. Component identity and preparation.
-3. Status/confidence in plain language.
-4. Source, checked date, and explanation.
-5. Correction/inspect-next action.
+## Hierarchy
 
-## Motion and haptics
+Home: compact brand/language → task introduction → prominent scan → manual entry → privacy → guide/history → legal/jurisdiction.
 
-- Barcode decoded: one short success haptic; no continuous scan vibration.
-- Result: 160–220 ms opacity/8 px translation; immediate content and fade-only under reduced motion.
-- Sorting seam may draw once as result appears, never loop.
-- Skeletons preserve final geometry. No animation delays the answer or blocks input.
+Result: task title and compact product name/community qualification → part identity → destination or safe recovery → confidence → preparation/explanation/exceptions → complete source, jurisdiction, checked date, rule version and verification. No part is hidden or dropped. Provider identity, retrieved date, OFF attribution and licence links follow.
 
-## Accessibility behaviors
+General material drawings are decorative. Unknown material uses a question mark, not an invented material. They are hidden from native and web accessibility trees via platform-appropriate properties.
 
-- Result update uses native announcement/live-region behavior without stealing focus unexpectedly.
-- Component row reads as: component, destination, status, preparation, source/date.
-- Camera controls have visible text in addition to icons; torch state is exposed.
-- Permission denial includes “Avaa asetukset” and equally prominent manual entry.
-- Confidence labels: `Tarkistettu sääntö`, `Osittaiset pakkaustiedot`, `Tarkista pakkauksesta`, `Ei tietoa`; no percentages in consumer UI until calibrated.
+## Interaction and accessibility
+
+Immediate pressed opacity; visible input focus and error boundaries. Native navigation keeps the tested reduced-motion branch. No new decorative animation, continuous camera sweep, timer, blur or looping artwork. No claim of measured frame rate or battery improvement.
+
+Language radios expose both native checked state and aria-checked. Internal routes are buttons; external sources are links. Manual inputs retain explicit labels, numeric keyboard, validation and high-priority iOS error announcements.
+
+Existing numerical engine confidence remains visible alongside its textual tier; it is not a calibrated probability. The earlier document's claim that percentages were absent did not match code and is corrected here. A confidence-policy change is outside this visual work unit.
+
+## Visual QA
+
+Browser evidence spans Finnish/English and 320/390/1280-wide viewports, with exact flow/date limitations recorded in `docs/final/design-refresh-evidence.md`. Dark-palette contrast is automated; native dark/large-text and camera appearance are not yet visually accepted. Follow that evidence file rather than inferring native readiness from a web screenshot.

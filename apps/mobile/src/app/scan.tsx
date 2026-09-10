@@ -3,6 +3,7 @@ import { useRouter } from "expo-router";
 import { useRef, useState } from "react";
 import { Linking, Pressable, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { BarcodeMark } from "@/components/packaging-mark";
 import { AppText, Button, InlineLink, Screen, sharedStyles } from "@/components/ui";
 import { SUPPORTED_BARCODE_TYPES } from "@/features/scan/barcode-formats";
 import { useScanSession } from "@/features/scan/session-context";
@@ -53,9 +54,7 @@ export default function ScannerScreen() {
               { borderColor: palette.pine, backgroundColor: palette.pineSoft },
             ]}
           >
-            <AppText variant="display" style={{ color: palette.pine }}>
-              ⌗
-            </AppText>
+            <BarcodeMark color={palette.actionPrimary} />
           </View>
           <AppText variant="title" accessibilityRole="header">
             {t("cameraPermissionTitle")}
@@ -112,7 +111,7 @@ export default function ScannerScreen() {
           role="button"
           testID="scanner-close-action"
         />
-        <AppText variant="label" style={{ color: "#FFFFFF" }}>
+        <AppText variant="label" style={{ color: "#FFFFFF", flex: 1, textAlign: "center" }}>
           {t("cameraTitle")}
         </AppText>
         <Pressable
@@ -122,9 +121,13 @@ export default function ScannerScreen() {
           hitSlop={8}
           onPress={() => setTorchEnabled((enabled) => !enabled)}
           testID="scanner-torch-action"
-          style={({ pressed }) => [styles.torchAction, pressed && styles.pressed]}
+          style={({ pressed }) => [
+            styles.torchAction,
+            torchEnabled && { backgroundColor: "#FFFFFF" },
+            pressed && styles.pressed,
+          ]}
         >
-          <AppText variant="mono" style={styles.torchLabel}>
+          <AppText variant="small" style={{ color: torchEnabled ? "#14221B" : "#FFFFFF" }}>
             {t("torchShort")}
           </AppText>
         </Pressable>
@@ -136,7 +139,7 @@ export default function ScannerScreen() {
           style={[styles.scanFrame, { borderColor: "#FFFFFF" }]}
           testID="scanner-frame"
         >
-          <View style={[styles.scanLine, { backgroundColor: palette.pine }]} />
+          <View style={styles.frameCenter} />
         </View>
       </View>
       <View
@@ -167,6 +170,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    gap: spacing.sm,
   },
   torchAction: {
     minWidth: 52,
@@ -178,7 +182,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  torchLabel: { color: "#FFFFFF" },
   pressed: { opacity: interaction.pressedOpacity },
   targetArea: { flex: 1, alignItems: "center", justifyContent: "center" },
   scanFrame: {
@@ -190,18 +193,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     overflow: "hidden",
   },
-  scanLine: { height: 3, width: "100%" },
+  frameCenter: {
+    height: 1,
+    width: 24,
+    alignSelf: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.7)",
+  },
   bottomOverlay: {
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.lg,
     gap: spacing.lg,
   },
   permissionHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
-  permissionBody: { paddingTop: spacing.xxl, gap: spacing.lg },
+  permissionBody: { paddingTop: spacing.xl, gap: spacing.lg },
   permissionGlyph: {
     width: 86,
     height: 86,
-    borderWidth: 2,
     borderRadius: radius.lg,
     alignItems: "center",
     justifyContent: "center",

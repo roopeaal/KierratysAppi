@@ -1,5 +1,11 @@
 # Test evidence
 
+## Visual refresh — 2026-09-10
+
+- Full pinned `pnpm validate` passes: **181 tests** (17 policy + 164 application), format/lint/strict types, package/API builds and 12 exported web routes. No dependency or native-build change.
+- Actual browser evidence covers scoped FI/EN Home/manual/result/guide, 320/390/1280 widths, invalid input, real OFF product resolution, controlled unreachable-API offline → local guide and ambiguous local-component guidance. Source/date/version/verification/confidence and OFF attribution remain present. Explicit web radio checked-state regressions were repaired and inspected.
+- Screenshots, exact sizes, reproduction and limits: `design-refresh-evidence.md`. The new UI is **not physically accepted**: September 8 XCTest reopen timed out. Dark/largest native text/camera/VoiceOver/performance remain pending. Prior iPhone screenshots below describe the earlier design.
+
 ## Xcode 27 evaluation and restored-app smoke — 2026-09-08
 
 - Source baseline `a6af06c`, clean before documentation changes. Xcode 27 beta 6 (`27A5252f`)/iOS 27 SDK fresh Debug compile passes; recursive app and 11 framework signatures pass; physical installation passes. **Runtime fails** immediately with `SIGTRAP` in UIKit's no-scene-lifecycle enforcement. An initial successful launch/PID return is not a startup pass.

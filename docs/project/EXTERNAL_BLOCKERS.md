@@ -20,7 +20,9 @@ These are release blockers or high-risk gates that cannot be completed without e
 
 Photo/OCR/cloud AI remains disabled and is not a launch blocker. Enabling it would create a new privacy, safety, moderation, device-evaluation and legal workstream requiring separate approval.
 
-The September 8 Xcode 27 startup failure is **not an external blocker**: UIScene migration is locally executable and tracked in `NEXT_ACTION.md`/D-021. Xcode 26.6's working development artifact has been restored; profile expiry remains September 11. No additional Apple account, payment or macOS upgrade is needed for this recovery. Existing release-account and physical-matrix gates remain unchanged.
+The September 8 Xcode 27 startup failure is **not an external blocker**: UIScene migration is locally executable and tracked in `ROADMAP.md`/D-021. Xcode 26.6's working development artifact has been restored; profile expiry remains September 11. No additional Apple account, payment or macOS upgrade is needed for this recovery. Existing release-account and physical-matrix gates remain unchanged.
+
+September 10 design update: no new account/tool/paid-action blocker was introduced. Physical acceptance of the refreshed UI is pending after an XCTest-session timeout, not passed by historical phone evidence. Codex owns runner recovery and UI repairs; Roope owns any required unlock/trust/profile authorization under OA-09. Browser dark-scheme emulation was unavailable, so only automated dark contrast is recorded. Do not mislabel those evidence gaps as app failures or newly proven external defects.
 
 ## Local development recovery — 2026-09-04
 

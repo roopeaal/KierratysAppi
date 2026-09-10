@@ -1,3 +1,3 @@
 # Next action
 
-Implement a reproducible Expo prebuild UIScene migration, preserving development-client deep links and lifecycle callbacks, and validate an Xcode 27-built app's startup, relaunch and manual product lookup on the iPhone before accepting the new SDK; use `docs/final/XCODE_27_VALIDATION.md` as the failure baseline.
+Complete the refreshed UI's physical-iPhone visual acceptance pass on the working Xcode 26.6 client: recover the existing automation session, inspect Home → manual entry → known-product result in FI/EN, light/dark and largest Dynamic Type, repair any clipping or interaction defects and record evidence in `docs/final/design-refresh-evidence.md`; request owner unlock/trust or profile renewal only if actually required.

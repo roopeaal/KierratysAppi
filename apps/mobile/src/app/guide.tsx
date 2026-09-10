@@ -1,5 +1,6 @@
 import { useRouter } from "expo-router";
 import { Linking, StyleSheet, View } from "react-native";
+import { PackagingMark } from "@/components/packaging-mark";
 import {
   AppText,
   BrandLockup,
@@ -13,10 +14,10 @@ import { useLanguage } from "@/i18n/language-context";
 import { spacing, useAppTheme } from "@/theme/tokens";
 
 const GUIDE = [
-  ["materialPlastic", "guidePlastic"],
-  ["materialCarton", "guideCarton"],
-  ["materialGlass", "guideGlass"],
-  ["materialMetal", "guideMetal"],
+  ["materialPlastic", "guidePlastic", "plastic"],
+  ["materialCarton", "guideCarton", "carton"],
+  ["materialGlass", "guideGlass", "glass"],
+  ["materialMetal", "guideMetal", "metal"],
 ] as const;
 
 export default function GuideScreen() {
@@ -37,25 +38,22 @@ export default function GuideScreen() {
         <AppText muted>{t("materialGuideBody")}</AppText>
       </View>
       <View style={styles.grid}>
-        {GUIDE.map(([title, body], index) => (
+        {GUIDE.map(([title, body, material]) => (
           <Paper key={title} style={styles.guideCard}>
-            <View style={styles.cardNumber}>
-              <AppText
-                variant="mono"
-                style={{ color: index % 2 === 0 ? palette.pine : palette.cobalt }}
-              >
-                {String(index + 1).padStart(2, "0")} / {t(title).toUpperCase()}
+            <View style={sharedStyles.row}>
+              <PackagingMark material={material} />
+              <AppText variant="heading" style={sharedStyles.grow}>
+                {t(title)}
               </AppText>
             </View>
-            <AppText variant="heading">{t(title)}</AppText>
             <AppText>{t(body)}</AppText>
           </Paper>
         ))}
       </View>
-      <Paper style={{ backgroundColor: palette.amberSoft, borderColor: palette.amber }}>
-        <AppText variant="heading" style={{ color: palette.amber }}>
-          {t("depositCaution")}
-        </AppText>
+      <Paper
+        style={{ backgroundColor: palette.amberSoft, borderWidth: 0, marginBottom: spacing.lg }}
+      >
+        <AppText style={{ color: palette.amber }}>{t("depositCaution")}</AppText>
       </Paper>
       <View style={sharedStyles.tightStack}>
         <AppText variant="mono" muted>
@@ -82,8 +80,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     gap: spacing.md,
   },
-  intro: { paddingTop: spacing.xxl, paddingBottom: spacing.lg, gap: spacing.sm },
+  intro: { paddingTop: spacing.xl, paddingBottom: spacing.lg, gap: spacing.sm },
   grid: { gap: spacing.md, paddingBottom: spacing.md },
-  guideCard: { minHeight: 164 },
-  cardNumber: { marginBottom: spacing.xs },
+  guideCard: { borderWidth: 0 },
 });

@@ -30,6 +30,14 @@ describe("theme contrast", () => {
     ["dark semantic primary text", darkPalette.textPrimary, darkPalette.bgCanvas],
     ["dark semantic secondary text", darkPalette.textSecondary, darkPalette.bgCanvas],
     ["dark semantic link", darkPalette.actionLink, darkPalette.bgCanvas],
+    ["light scan tile and primary button", lightPalette.onStrong, lightPalette.actionPrimary],
+    ["dark scan tile and primary button", darkPalette.onStrong, darkPalette.actionPrimary],
+    ["light white-surface body", lightPalette.textPrimary, lightPalette.bgSurface],
+    ["dark white-surface body", darkPalette.textPrimary, darkPalette.bgSurface],
+    ["light white-surface provenance", lightPalette.textSecondary, lightPalette.bgSurface],
+    ["dark white-surface provenance", darkPalette.textSecondary, darkPalette.bgSurface],
+    ["light material pictograms", lightPalette.textPrimary, lightPalette.pineSoft],
+    ["dark material pictograms", darkPalette.textPrimary, darkPalette.pineSoft],
   ])("keeps %s at WCAG AA", (_name, foreground, background) => {
     expect(contrastRatio(foreground, background)).toBeGreaterThanOrEqual(4.5);
   });
@@ -37,6 +45,8 @@ describe("theme contrast", () => {
   it.each([
     ["light strong border", lightPalette.borderStrong, lightPalette.bgCanvas],
     ["dark strong border", darkPalette.borderStrong, darkPalette.bgCanvas],
+    ["light input boundary", lightPalette.borderStrong, lightPalette.bgElevated],
+    ["dark input boundary", darkPalette.borderStrong, darkPalette.bgElevated],
   ])("keeps %s distinguishable", (_name, foreground, background) => {
     expect(contrastRatio(foreground, background)).toBeGreaterThanOrEqual(3);
   });

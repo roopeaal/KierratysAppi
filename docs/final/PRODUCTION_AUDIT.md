@@ -6,6 +6,8 @@ Follow-up physical-iOS runs: 2026-08-10, 2026-08-22, 2026-08-26, the 2026-08-28 
 
 Decision: **NO-GO**
 
+September 10 visual-work-unit update (not a new 30-lane audit): the refreshed Home/manual/result/guide and scanner chrome are implemented, 181 tests plus API/web builds pass, and scoped FI/EN multi-width/invalid/offline/ambiguous browser evidence is in `design-refresh-evidence.md`. Web checked-state semantics found during inspection were fixed. The new UI has no physical acceptance yet; no finding severity or release gate is lowered. Earlier device screenshots describe the previous design.
+
 September 8 follow-up at source baseline `a6af06c`: Xcode 27 beta's Debug build/sign/install passed but physical startup failed on required UIScene adoption (AUD-042). The accepted Xcode 26.6 binary was restored; Home/manual/known-product/provenance and terminate/relaunch passed. Full pinned-pnpm validation passes 167 tests. No beta runtime acceptance or new live security-audit pass is claimed.
 
 Repository: `roopeaal/KierratysAppi`, private `main`
