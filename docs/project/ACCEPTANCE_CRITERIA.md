@@ -22,6 +22,8 @@
 
 ## Release evidence
 
+The owner-selected display name is KeepItGreen in FI/EN visual and accessible UI, default/native locale configuration and current store drafts. The existing technical app identity and local data must survive the update. Source/browser checks do not establish installed launcher naming, renewed signing or cable-disconnected runtime; these need a rebuilt native artifact and device evidence.
+
 The September visual refresh additionally requires scan/manual actions before secondary content, truthful empty-history status, native and web selected-radio semantics, and retention of every component's uncertainty and source evidence. Browser screenshots and source-policy/contrast checks do not satisfy the separate physical dark-mode, largest-text, camera or screen-reader acceptance below. Current results are recorded in `docs/final/design-refresh-evidence.md`.
 
 - `pnpm validate` succeeds from a clean install.

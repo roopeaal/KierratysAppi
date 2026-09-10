@@ -1,6 +1,6 @@
 # Security policy
 
-KierrätysAppi is pre-release. Do not report sensitive vulnerabilities in a public issue.
+KeepItGreen is pre-release. Do not report sensitive vulnerabilities in a public issue.
 
 ## Reporting
 

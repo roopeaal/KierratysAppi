@@ -1,7 +1,7 @@
 import type { Language, LocalizedText } from "@kierratysappi/domain";
 
 const fi = {
-  appName: "KierrätysAppi",
+  appName: "KeepItGreen",
   tagline: "Pakkauksesta oikeaan paikkaan",
   introEyebrow: "SUOMEN LAJITTELUAPURI",
   introTitle: "Pakkaus kädessä?",
@@ -194,16 +194,16 @@ const fi = {
   termsTitle: "Käyttöehdot",
   legalReview: "LUONNOS — ODOTTAA JURIDISTA TARKISTUSTA",
   privacyDraft:
-    "Perushaku ei vaadi tiliä. Viivakoodi lähetetään KierrätysAppin palvelimelle ja edelleen Open Food Factsille tuotetietojen hakua varten. Palvelin voi säilyttää viivakoodiin liittyvää hakutulosta prosessimuistissa enintään kuusi tuntia ja IP-osoitetta väärinkäytön estoon enintään minuutin; rutiinipyyntöjä ei lokiteta. Mainos- tai käyttöanalytiikkaa ei ole. Historia ja palauteluonnokset ovat paikallisia, mutta käyttöjärjestelmän varmuuskopio voi sisältää ne; kaikki paikalliset tiedot voi poistaa alta.",
+    "Perushaku ei vaadi tiliä. Viivakoodi lähetetään KeepItGreenin palvelimelle ja edelleen Open Food Factsille tuotetietojen hakua varten. Palvelin voi säilyttää viivakoodiin liittyvää hakutulosta prosessimuistissa enintään kuusi tuntia ja IP-osoitetta väärinkäytön estoon enintään minuutin; rutiinipyyntöjä ei lokiteta. Mainos- tai käyttöanalytiikkaa ei ole. Historia ja palauteluonnokset ovat paikallisia, mutta käyttöjärjestelmän varmuuskopio voi sisältää ne; kaikki paikalliset tiedot voi poistaa alta.",
   termsDraft:
     "Lajitteluohje perustuu ilmoitettuihin lähteisiin ja voi vaatia pakkauksen tarkistamista. Paikallinen jätehuolto ja pakkauksen vaarallisuusohjeet ovat etusijalla.",
   deleteLocalData: "Poista kaikki paikalliset tiedot",
   deleteLocalDataBody:
-    "Poistaa historian, odottavat haut, palauteluonnokset, kielivalinnan ja muut KierrätysAppin asetukset tältä laitteelta.",
+    "Poistaa historian, odottavat haut, palauteluonnokset, kielivalinnan ja muut KeepItGreenin asetukset tältä laitteelta.",
   deleteLocalDataConfirmTitle: "Poistetaanko kaikki paikalliset tiedot?",
   deleteLocalDataConfirmBody: "Toimintoa ei voi perua.",
   deleteLocalDataConfirmAction: "Poista tiedot",
-  localDataDeleted: "Kaikki KierrätysAppin paikalliset tiedot poistettiin.",
+  localDataDeleted: "Kaikki KeepItGreenin paikalliset tiedot poistettiin.",
   rulesetVersion: "SÄÄNNÖSTÖ FI · 2026.08",
   cancel: "Peruuta",
   back: "Takaisin",
@@ -211,7 +211,7 @@ const fi = {
 } as const;
 
 const en: Record<keyof typeof fi, string> = {
-  appName: "KierrätysAppi",
+  appName: "KeepItGreen",
   tagline: "From package to the right place",
   introEyebrow: "FINLAND'S SORTING COMPANION",
   introTitle: "Package in hand?",
@@ -402,16 +402,16 @@ const en: Record<keyof typeof fi, string> = {
   termsTitle: "Terms of use",
   legalReview: "DRAFT — REQUIRES LEGAL REVIEW",
   privacyDraft:
-    "Basic lookup needs no account. The barcode is sent to the KierrätysAppi server and then to Open Food Facts to find product data. The server may retain a barcode-linked lookup result in process memory for up to six hours and an IP address for abuse prevention for up to one minute; routine requests are not logged. There is no advertising or usage analytics. History and feedback drafts are local, but an operating-system backup may include them; all local data can be deleted below.",
+    "Basic lookup needs no account. The barcode is sent to the KeepItGreen server and then to Open Food Facts to find product data. The server may retain a barcode-linked lookup result in process memory for up to six hours and an IP address for abuse prevention for up to one minute; routine requests are not logged. There is no advertising or usage analytics. History and feedback drafts are local, but an operating-system backup may include them; all local data can be deleted below.",
   termsDraft:
     "Guidance is based on the cited sources and may require checking the package. Local waste-service and hazardous-product instructions take precedence.",
   deleteLocalData: "Delete all local data",
   deleteLocalDataBody:
-    "Removes history, pending lookups, feedback drafts, the language choice, and other KierrätysAppi settings from this device.",
+    "Removes history, pending lookups, feedback drafts, the language choice, and other KeepItGreen settings from this device.",
   deleteLocalDataConfirmTitle: "Delete all local data?",
   deleteLocalDataConfirmBody: "This action cannot be undone.",
   deleteLocalDataConfirmAction: "Delete data",
-  localDataDeleted: "All KierrätysAppi local data was deleted.",
+  localDataDeleted: "All KeepItGreen local data was deleted.",
   rulesetVersion: "RULESET FI · 2026.08",
   cancel: "Cancel",
   back: "Back",

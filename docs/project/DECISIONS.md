@@ -154,6 +154,13 @@
 - Decision: follow the owner's explicit visual priority before the separate UIScene migration. Use neutral/forest semantic tokens, the existing Atkinson semibold asset, original native linework and compact task-first Home navigation. Keep every packaging part, textual confidence, explanation and source visible; no evidence accordion, fake imagery, scores, rewards or impact metrics. Add only compact product identity ahead of the component list; full provider/licence metadata still follows guidance, refining D-019 rather than reverting to a product-metadata hero.
 - Reason: direct 390-point inspection showed that a long 40-point headline, duplicate labels and nested boxes delayed the action. Yuka/Too Good To Go reference visuals informed hierarchy/restraint, while Bower/Scrapp workflows informed scan/component emphasis. No new library/plugin/account was needed. Browser inspection also justified explicit web checked-state attributes on all current radios. The 181-test pass is not native visual or release acceptance.
 
+## D-023 — Rename the product without changing installation identity
+
+- Date: 2026-09-10
+- Status: owner-requested; source/browser complete, native launcher acceptance pending
+- Decision: use KeepItGreen for default/localized display names, accessible and visual wordmarks, current privacy copy and store drafts. Retain the repository slug, technical package/bundle IDs, URL scheme and local-storage namespace. Historical evidence is not retroactively renamed. Brand availability/rights remain a separate OA-10 approval.
+- Reason: this fulfills the owner's name choice while avoiding a second app identity or stranded local data. Launcher labels require a fresh native build; a JS update is not sufficient. Free Personal-Team seven-day renewal and the current Mac-hosted Metro/API dependencies remain explicit; no year-end unattended-runtime claim or paid/public action is implied.
+
 ## Pending decisions
 
 - OCR implementation and whether a cloud AI path is justified after the typed-code flow is evaluated.

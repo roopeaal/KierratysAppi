@@ -1,5 +1,15 @@
 # Test evidence
 
+## KeepItGreen display-name change — 2026-09-10
+
+- Baseline: clean `44ca955`. Changed display/localized names and current brand copy only; application identifiers, provider/sorting behavior, storage keys and dependency graph are unchanged.
+- Narrow regressions: `node --test scripts/__tests__/app-brand-policy.test.mjs` **3/3** and `corepack pnpm --filter @kierratysappi/localization test` **4/4** pass. The first test draft used two nonexistent localization keys; corrected to the actual `privacyDraft`/`deleteLocalDataBody` keys, then narrow and strict-type/full runs passed.
+- Full `PATH="$PWD/work/pnpm-check-shims.cqbctz:$PATH" pnpm validate` with pinned pnpm 11.16.0: **pass**, 20 Node policy + 165 application tests in 22 Vitest files (**185 total**), formatting/lint/strict types, package/API builds and 12 static web routes. No new dependency or live security-audit pass is claimed.
+- Browser reproduction: open local Metro web Home, set 390×844 viewport, inspect FI, select English, inspect again, restore FI and open Privacy and terms. Both Home wordmarks and accessible labels read KeepItGreen without clipping; the Finnish page has no document horizontal overflow. Privacy/deletion copy reads KeepItGreenin and the legal-review marker remains visible. No data-deletion action was triggered. Restore Home/FI and reset viewport after QA.
+- Ignored local screenshots: `work/ui-qa/2026-09-10-design/keepitgreen-home-fi-390.png` and `keepitgreen-home-en-390.png`. This is browser evidence, not native launcher/VoiceOver/dark-mode acceptance.
+- Export entry `entry-653e028d04f09527ac6625cb6a5be84d.js`: **2,548,479 bytes / 576,724 gzip**. The existing bundle warning remains; no performance improvement is claimed.
+- Not run: native regeneration/build/install, signing renewal, cable-disconnected device flow or embedded-JS standalone runtime. The previous phone binary/profile is unchanged. Free/wireless procedure and current official sources: `docs/research/ios-free-wireless-development.md`. Release remains **NO-GO**; name rights/store availability need OA-10 approval.
+
 ## Visual refresh — 2026-09-10
 
 - Full pinned `pnpm validate` passes: **181 tests** (17 policy + 164 application), format/lint/strict types, package/API builds and 12 exported web routes. No dependency or native-build change.

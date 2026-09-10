@@ -36,6 +36,8 @@ Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally bl
 
 ## Phase 5 — Polish
 
+- [x] Apply the owner's KeepItGreen display-name change across native configuration, FI/EN UI/privacy copy and current store drafts; preserve technical installation/storage identity. 185-test full validation and scoped browser name checks pass.
+- [ ] Rebuild/install the renamed Xcode 26.6 client and verify launcher naming, profile expiry and wireless runtime; a source rename does not update an already installed binary.
 - [x] Implement the owner's September visual-refresh work unit: current reference study, neutral/forest tokens, original linework, concise Home, form focus, lighter result/guide composition, explicit web radio state, 181-test validation and scoped multi-width FI/EN/error/ambiguous browser evidence.
 - [~] Accept this refreshed UI on the physical iPhone, including dark mode/largest Dynamic Type and camera/torch. The September 8 automation reopen timed out; prior phone screenshots are not evidence for the new visual design. See `docs/final/design-refresh-evidence.md`.
 

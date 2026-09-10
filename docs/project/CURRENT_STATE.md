@@ -1,6 +1,14 @@
 # Current state
 
-Last updated: 2026-09-10 after implementing and browser-validating the owner's visual redesign priority. Full pinned-pnpm validation passes: 181 tests. Physical acceptance of this new UI remains open.
+Last updated: 2026-09-10 after the owner-requested KeepItGreen rename. Full pinned-pnpm validation passes: 185 tests. Native launcher relabeling and physical acceptance of the new UI remain open.
+
+## KeepItGreen rename — 2026-09-10
+
+- Updated Expo/default and FI/EN native display names, localized wordmark and privacy/deletion copy, API documentation title, source-asset titles and store draft. The visible and accessible wordmark now use the same localization key.
+- Preserved bundle/package ID, scheme, slug, package names and storage namespace. Historical evidence and native artifact paths retain the old name. No native rebuild/install or profile renewal occurred: the existing phone launcher may still say KierrätysAppi.
+- Full `pnpm validate` passes: 20 policy + 165 application tests (185 total), format/lint/strict types, package/API builds and 12 web routes. Added name/localization/technical-identity regressions. FI/EN Home at 390×844 and Finnish privacy text were inspected in the browser; details in `docs/final/TEST_EVIDENCE.md`.
+- Apple's current free Personal Team limit remains seven days per profile. Wireless pairing does not extend it; the current Debug app also relies on Mac-hosted Metro/API. Practical prerequisites, owners and renewal procedure: `docs/research/ios-free-wireless-development.md`. No unattended year-end runtime is claimed.
+- Store-name availability/brand rights still require OA-10 owner/legal/store review. Existing NO-GO gates are unchanged; no payment, new account, deployment, push or publication occurred.
 
 ## Visual refresh — 2026-09-08 to 2026-09-10
 
@@ -41,13 +49,13 @@ Last updated: 2026-09-10 after implementing and browser-validating the owner's v
 ## Current validation truth
 
 - `corepack pnpm install --frozen-lockfile`: pass against the pnpm 11.16.0 project pin. Final validation used isolated Corepack shims so nested `pnpm` also resolves to 11.16.0; no global tool configuration changed.
-- `pnpm validate` on 2026-09-10: pass; 164 application tests across 22 Vitest files plus 17 Node repository-policy regressions (181 total), all format/lint/strict-type checks, package/API builds and 12-route web export pass with pinned pnpm 11.16.0. Earlier database-contention failures remain separately dated historical evidence.
+- `pnpm validate` on 2026-09-10 after renaming: pass; 165 application tests across 22 Vitest files plus 20 Node repository-policy regressions (185 total), all format/lint/strict-type checks, package/API builds and 12-route web export pass with pinned pnpm 11.16.0. Earlier database-contention failures remain separately dated historical evidence.
 - Historical September 4 `corepack pnpm test:coverage`: pass. Core domain/provider/engine/application/API packages were approximately 90%+ statement coverage; tested mobile modules were 70.75% and did not cover most rendered native UI. Coverage was not remeasured for the visual refresh.
 - `corepack pnpm security:audit`: final live rerun **blocked/fails closed** at its 60-second timeout. Independent audit-endpoint POST also timed out while package metadata GET returned 200. Earlier post-patch raw snapshot: zero high, zero critical, six moderate, one low. Both fast-uri majors are patched to 3.1.7/4.1.4; Metro no longer includes image-size, and all high/critical exceptions have been removed. Report validation and security floors have regression tests.
 - `corepack pnpm peers check`: pass.
 - Expo Doctor 1.20.1 is **20/20** and `expo install --check` passes for the current supported set. The strict 1,440-minute supply-chain gate remains enforced; no exclusion or bypass was added.
 - API production smoke: pass locally; health/OpenAPI/strict validation verified. No deployed production service exists.
-- September 10 web entry: 2,548,461 bytes uncompressed / 576,705 bytes gzip, above the 2 MiB warning budget. This is bundle evidence, not measured browser or device performance.
+- September 10 post-rename web entry: 2,548,479 bytes uncompressed / 576,724 bytes gzip, above the 2 MiB warning budget. This is bundle evidence, not measured browser or device performance.
 - Browser QA passed at 390×844 and 1280×720 in Finnish and English for Home, manual entry, resolved result, ambiguous result and offline recovery. The measured Home/result desktop views had zero horizontally overflowing DOM elements. Dark mode and true native Dynamic Type were not visually claimed.
 - The controlled backend-unavailable state showed provider failure without reclassifying the product; restoring the real API and pressing retry recovered to the known result without code re-entry. Privacy-safe API evidence contained no raw GTIN.
 - The EAS development profile previously declared `developmentClient:true` without `expo-dev-client`; this caused the observed `No script URL provided` failure. Adding the native dependency, rebuilding the ignored iOS project/pods, recursively verifying the app plus 11 frameworks, installing and launching the fresh client resolved startup. A repository policy now prevents recurrence.

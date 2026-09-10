@@ -28,7 +28,7 @@ export class MockGs1DataProvider implements ProductDataProvider {
       license: {
         id: "synthetic-demo-only",
         name: "Synthetic demo data — not licensed GS1 data",
-        attributionText: "KierrätysAppi synthetic fixture",
+        attributionText: "KeepItGreen synthetic fixture",
         shareAlike: false,
       },
     };

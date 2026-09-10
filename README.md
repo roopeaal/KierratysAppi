@@ -1,6 +1,8 @@
-# KierrätysAppi
+# KeepItGreen
 
-KierrätysAppi is a Finnish-first, source-backed packaging sorting app. A user scans or enters an EAN/GTIN; the private backend looks up Open Food Facts food-product data, and a versioned rule engine explains available packaging components. Missing and ambiguous data stay explicit—material, shape, and deposit status are never silently guessed. Non-food barcode lookup is not currently supported; manual material/code fallbacks remain available.
+KeepItGreen is a Finnish-first, source-backed packaging sorting app. A user scans or enters an EAN/GTIN; the private backend looks up Open Food Facts food-product data, and a versioned rule engine explains available packaging components. Missing and ambiguous data stay explicit—material, shape, and deposit status are never silently guessed. Non-food barcode lookup is not currently supported; manual material/code fallbacks remain available.
+
+Previously named KierrätysAppi. The repository name, `@kierratysappi/*` packages, bundle/package identifier, URL scheme and local-storage namespace remain unchanged to preserve development and installed-app continuity. Native launcher names update only after rebuilding and reinstalling; changing the JavaScript UI alone does not relabel an installed binary.
 
 ## What works
 

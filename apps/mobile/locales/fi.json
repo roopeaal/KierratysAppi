@@ -1,9 +1,9 @@
 {
   "ios": {
-    "CFBundleDisplayName": "KierrätysAppi",
+    "CFBundleDisplayName": "KeepItGreen",
     "NSCameraUsageDescription": "Kameraa käytetään vain viivakoodin lukemiseen. Kamerakuvaa ei lähetetä."
   },
   "android": {
-    "app_name": "KierrätysAppi"
+    "app_name": "KeepItGreen"
   }
 }

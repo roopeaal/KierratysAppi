@@ -84,7 +84,7 @@ export async function buildApp(options: BuildAppOptions): Promise<FastifyInstanc
   await app.register(swagger, {
     openapi: {
       info: {
-        title: "KierrätysAppi API",
+        title: "KeepItGreen API",
         version: "0.1.0",
         description: "Privacy-conscious product and Finnish packaging-sorting resolution.",
       },

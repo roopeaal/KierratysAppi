@@ -6,7 +6,7 @@ Final answers must be regenerated from the accepted signed Android/iOS binaries,
 
 ## Identity
 
-- App name: KierrätysAppi
+- App name: KeepItGreen (owner-requested rename; name availability and brand rights remain OWNER/LEGAL/STORE REVIEW REQUIRED)
 - Finnish subtitle/short description candidate: `Pakkauksesta oikeaan paikkaan`
 - English subtitle/short description candidate: `Source-backed sorting guidance`
 - Android package / iOS bundle ID: `fi.roopeaaltonen.kierratysappi`
@@ -16,7 +16,7 @@ Final answers must be regenerated from the accepted signed Android/iOS binaries,
 
 ## Finnish description candidate
 
-KierrätysAppi hakee elintarvikkeen pakkaustietoa viivakoodilla ja näyttää saatavilla oleville pakkauksen osille lähteisiin perustuvat lajitteluohjeet. Näet minne osa kuuluu, miten se valmistellaan, mihin sääntöön ohje perustuu ja kuinka varmaa tuotetieto on.
+KeepItGreen hakee elintarvikkeen pakkaustietoa viivakoodilla ja näyttää saatavilla oleville pakkauksen osille lähteisiin perustuvat lajitteluohjeet. Näet minne osa kuuluu, miten se valmistellaan, mihin sääntöön ohje perustuu ja kuinka varmaa tuotetieto on.
 
 Jos tuotetta tai pakkaustietoa ei löydy, sovellus ei arvaa. Voit tarkistaa koodin, tunnistaa materiaalimerkinnän käsin tai käyttää tarkistettua yleisohjetta. Pantillinen juomapakkaus käsitellään erikseen.
 
@@ -24,7 +24,7 @@ Perushaku ei vaadi käyttäjätiliä. Paikallinen hakuhistoria on vapaaehtoinen.
 
 ## English description candidate
 
-KierrätysAppi looks up food-product packaging by barcode and gives source-backed Finnish sorting guidance for available packaging components. It shows the destination, preparation, rule source, and confidence of the underlying product data.
+KeepItGreen looks up food-product packaging by barcode and gives source-backed Finnish sorting guidance for available packaging components. It shows the destination, preparation, rule source, and confidence of the underlying product data.
 
 When product or packaging data is missing, the app does not guess. Users can check the code, confirm a visible material marking manually, or open reviewed general guidance. Deposit containers are handled separately.
 
@@ -62,7 +62,7 @@ Text in screenshots must have locale-specific sets. Screenshots may not show sim
 
 Reconfirm in App Store Connect from the final binary:
 
-- App Privacy: barcode/GTIN is transmitted to KierrätysAppi API and OFF for app functionality; IP is necessarily processed by network/rate-limiting infrastructure. Exact Apple data-type/linkability/collection treatment requires controller/legal assessment and final vendor configuration.
+- App Privacy: barcode/GTIN is transmitted to KeepItGreen API and OFF for app functionality; IP is necessarily processed by network/rate-limiting infrastructure. Exact Apple data-type/linkability/collection treatment requires controller/legal assessment and final vendor configuration.
 - Tracking/advertising: source implements none; verify all final SDKs and manifests.
 - Camera: barcode decoding only; frames not uploaded; verify signed behavior.
 - Accounts: none in current scope.

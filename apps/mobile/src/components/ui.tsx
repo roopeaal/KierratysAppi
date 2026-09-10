@@ -86,7 +86,7 @@ export function BrandLockup({ compact = false }: { readonly compact?: boolean })
         <View style={[styles.brandSeam, { backgroundColor: palette.surface }]} />
       </View>
       <View style={styles.sectionTitle}>
-        <AppText variant={compact ? "heading" : "title"}>KierrätysAppi</AppText>
+        <AppText variant={compact ? "heading" : "title"}>{t("appName")}</AppText>
         {!compact && (
           <AppText variant="small" muted>
             {t("tagline")}

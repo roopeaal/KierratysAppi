@@ -108,7 +108,7 @@ These are the exact owner-controlled release actions and recurring engineering g
 - Procedure:
   1. Capture real Finnish/English phone and tablet screenshots from the accepted signed builds; no simulated camera/product claims.
   2. Produce Google Play's 1024×500 JPEG/24-bit PNG feature graphic and validate icon/monochrome assets in console tooling.
-  3. Finalize names, descriptions, category/keywords, support/privacy URLs, reviewer notes, content/age rating, encryption/export, DSA/trader and data-deletion answers.
+  3. Verify the owner-selected KeepItGreen name's availability in both store consoles and obtain documented brand/legal rights approval; then finalize descriptions, category/keywords, support/privacy URLs, reviewer notes, content/age rating, encryption/export, DSA/trader and data-deletion answers. The source rename is not name reservation or rights clearance.
   4. Complete Apple privacy and Google Data Safety from the final SDK/runtime data flow.
   5. Obtain written final approval, configure staged rollout/rollback/support monitoring, and stop before publication unless separately authorized.
 - Success evidence: console exports/screenshots, asset inventory, approvals and staged rollout plan.
