@@ -1,6 +1,13 @@
 # Current state
 
-Last updated: 2026-09-10 after the owner-requested KeepItGreen rename. Full pinned-pnpm validation passes: 185 tests. Native launcher relabeling and physical acceptance of the new UI remain open.
+Last updated: 2026-09-10 after the owner-authorized GitHub synchronization. Full pinned-pnpm validation passes again: 185 tests. Native launcher relabeling and physical acceptance of the new UI remain open.
+
+## GitHub synchronization — 2026-09-10
+
+- The owner explicitly requested updating the KierratysAppi repository. Fetched `origin`, verified no divergence (0 remote-only / 13 local-only commits), then fast-forward pushed `87404a0..dd48a62` to the existing private `roopeaal/KierratysAppi` `main`. `git ls-remote` confirmed the exact implementation HEAD `dd48a626f19dcd9cc53fea597df678159aa9e67a` on GitHub.
+- Re-ran full pinned `pnpm validate`: 185 tests, formatting/lint/strict types, package/API builds and 12 web routes pass. Only `.env.example` files occur among the changed environment/credential-artifact filename patterns; ignored native builds, local screenshots and work directories were not pushed. This filename check is not a secret-scanner pass.
+- GitHub CI and Security started for this push; their results are tracked separately from local validation in `docs/final/TEST_EVIDENCE.md`. This follow-up control-file commit records the synchronization; repository visibility/name, settings and Dependabot branches were not changed.
+- The authorization covers source synchronization only, not production deployment, store submission, account creation, payments or release readiness. The app remains KeepItGreen; the repository remains KierratysAppi. Existing NO-GO gates and the next native/wireless validation task remain.
 
 ## KeepItGreen rename — 2026-09-10
 
@@ -62,7 +69,7 @@ Last updated: 2026-09-10 after the owner-requested KeepItGreen rename. Full pinn
 - Physical iPhone JS verification now includes the current Expo 57 client on 2026-09-07: Finnish Home, manual entry and the known-product answer-first result pass through semantic inspection and screenshots. The result preserved unknown/partial confidence and complete sorting-rule provenance. Historical 2026-08-28 scanner and result evidence remains separately dated; no live camera frame was captured and the automation toolbar's scanner overlap means the torch toggle is still not claimed.
 - Latest privacy-safe local provider observations included a 249 ms live lookup and 5 ms cache hit. A physical xctrace frame attempt matched no app process and produced zero frames; it is recorded as unavailable, not as a performance pass.
 - Earlier partial physical iOS evidence still passes lifecycle, camera allow/revoke/settings recovery, one real EAN-13 `not_found`, known OFF resolution, offline/no-request behavior, restored retry/cache, invalid-manual rejection, provenance and the repaired partial VoiceOver path. Remaining VoiceOver, largest text, dark/reduced-motion, broader barcode conditions and valid performance/battery measurements are open.
-- Local `main` contains audited implementation and evidence beyond `origin/main`/`87404a0`. No push occurred because authorization is absent.
+- The owner-authorized September 10 push synchronized implementation through `dd48a62` to private `origin/main`, replacing the former unpushed state. Remote CI is separate from the passing local check; see the synchronization evidence above.
 
 ## Release state
 
@@ -70,4 +77,4 @@ Last updated: 2026-09-10 after the owner-requested KeepItGreen rename. Full pinn
 
 Open blockers include the timed-out live registry audit, signed Android and iOS release/TestFlight builds, the remaining physical camera/accessibility/performance matrix, production API/database/monitoring and restore drill, OFF owner account/licence approval, GS1 Data contract decision, independent Finnish content approval, privacy/terms/GDPR approval, hosted support/privacy URLs and final store assets/forms/console validation.
 
-No production deployment, paid build, contract acceptance, submission, push or public publication occurred. Owner-controlled Apple account and free Personal-Team signing were used only for the local development device run. See `docs/final/PHYSICAL_IOS_VALIDATION.md` for exact passed and pending rows.
+No production deployment, paid build, contract acceptance, store submission or public publication occurred. The owner authorized the private GitHub source push on September 10. Owner-controlled Apple account and free Personal-Team signing were used only for the local development device run. See `docs/final/PHYSICAL_IOS_VALIDATION.md` for exact passed and pending rows.

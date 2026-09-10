@@ -1,5 +1,12 @@
 # Test evidence
 
+## Owner-authorized GitHub synchronization — 2026-09-10
+
+- Fresh fetch: no remote-only changes, 13 local-only commits, clean worktree. Default branch `main`, private `roopeaal/KierratysAppi`; no name/visibility/settings changes. Normal fast-forward push succeeded for `87404a0..dd48a62`; `git ls-remote origin refs/heads/main` exactly matched local implementation HEAD `dd48a626f19dcd9cc53fea597df678159aa9e67a`.
+- Full pinned `PATH="$PWD/work/pnpm-check-shims.cqbctz:$PATH" pnpm validate` rerun passed: 20 repository policy + 165 application tests (**185 total**), formatting/lint/strict types, package/API builds and 12-route web export. `git diff --check origin/main..HEAD` passed before the push.
+- Changed-path inspection found only `.env.example` among environment/credential-artifact filename patterns. Native projects/builds, local work/screenshots and dependency folders remain ignored. No local Gitleaks executable was available; this path check is not a substitute for GitHub's actual secret scan.
+- For implementation HEAD `dd48a62`, [Security](https://github.com/roopeaal/KierratysAppi/actions/runs/34455323825) completed successfully: the Gitleaks secrets job passed; CodeQL was explicitly skipped by the existing private-repository gate, not passed. [CI](https://github.com/roopeaal/KierratysAppi/actions/runs/34455323779) was still running `pnpm validate` after checkout/tool setup/frozen installation passed. The follow-up documentation push starts its own checks; inspect the workflow for the exact final HEAD before claiming remote acceptance. No new live dependency-audit, physical/native-build, legal or store pass is implied.
+
 ## KeepItGreen display-name change — 2026-09-10
 
 - Baseline: clean `44ca955`. Changed display/localized names and current brand copy only; application identifiers, provider/sorting behavior, storage keys and dependency graph are unchanged.
@@ -166,6 +173,6 @@ Mobile coverage excludes most rendered route/component code; it must not be inte
 | Production API/database/monitoring | Does not exist | External infrastructure blocker |
 | Backup/restore/load/failover | Not run | External infrastructure blocker |
 | Store console/binary validation | Not run | External account/signing blocker |
-| Audit-commit remote CI | Not run; audit was not pushed | Publication not authorized |
+| Audit-commit remote CI | September 10 `dd48a62` Gitleaks job passes, CodeQL skips; CI is running and final workflow outcome must be checked for the exact HEAD | Remote validation pending, not blocked by missing push authorization |
 
 No unavailable test is recorded as passed by simulation or documentation.

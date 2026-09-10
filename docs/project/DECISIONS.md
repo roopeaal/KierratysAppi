@@ -161,6 +161,13 @@
 - Decision: use KeepItGreen for default/localized display names, accessible and visual wordmarks, current privacy copy and store drafts. Retain the repository slug, technical package/bundle IDs, URL scheme and local-storage namespace. Historical evidence is not retroactively renamed. Brand availability/rights remain a separate OA-10 approval.
 - Reason: this fulfills the owner's name choice while avoiding a second app identity or stranded local data. Launcher labels require a fresh native build; a JS update is not sufficient. Free Personal-Team seven-day renewal and the current Mac-hosted Metro/API dependencies remain explicit; no year-end unattended-runtime claim or paid/public action is implied.
 
+## D-024 — Synchronize the existing private repository on owner request
+
+- Date: 2026-09-10
+- Status: implementation push verified
+- Decision: interpret the explicit request to bring the KierratysAppi repository up to date as authorization to fast-forward the existing private GitHub `main` with the validated local commits and current control files. Preserve the repository name/visibility, history and technical app identity; do not merge unrelated dependency branches, force-push or deploy the app.
+- Reason: fresh fetch showed 13 local commits and no remote-only commits. Local validation passed again and the normal push was verified against GitHub's branch SHA. Source synchronization does not close native, legal, infrastructure, security or store release gates.
+
 ## Pending decisions
 
 - OCR implementation and whether a cloud AI path is justified after the typed-code flow is evaluated.
