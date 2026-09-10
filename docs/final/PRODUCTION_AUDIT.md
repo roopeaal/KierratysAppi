@@ -1,10 +1,12 @@
 # Adversarial production-readiness audit
 
-Audit date: 2026-09-08 (Xcode 27 startup evaluation and recovery; broader physical and source-review evidence retains its recorded date)
+Audit follow-up date: 2026-09-10 (GitHub synchronization and live dependency/compatibility gates; broader physical and source-review evidence retains its recorded date)
 
-Follow-up physical-iOS runs: 2026-08-10, 2026-08-22, 2026-08-26, the 2026-08-28 development-client/answer-first UI work unit, the 2026-09-04 signed-client refresh and the 2026-09-07 current-client runtime smoke on local `main`; audited commits remain unpushed to `origin/main`. See `PHYSICAL_IOS_VALIDATION.md`.
+Follow-up physical-iOS runs: 2026-08-10, 2026-08-22, 2026-08-26, the 2026-08-28 development-client/answer-first UI work unit, the 2026-09-04 signed-client refresh and the 2026-09-07 current-client runtime smoke. The owner authorized synchronizing the private GitHub `main` on September 10. See `PHYSICAL_IOS_VALIDATION.md`.
 
 Decision: **NO-GO**
+
+September 10 post-push repair: GitHub passed local-equivalent validation but failed Doctor on newly required Expo 57.0.21/Router 57.0.20. Those age-eligible SDK 57 patches now pass Doctor 20/20. The recovered registry audit exposed 20 high XML/YAML records (AUD-043); compatible patches and regression floors close them. Full 188-test validation and a real live security-policy pass (zero high/critical, six moderate/one low) now exist. This is not a new 30-lane audit, native rebuild or acceptance of the new dependency set on the phone.
 
 September 10 visual-work-unit update (not a new 30-lane audit): the refreshed Home/manual/result/guide and scanner chrome are implemented, 181 tests plus API/web builds pass, and scoped FI/EN multi-width/invalid/offline/ambiguous browser evidence is in `design-refresh-evidence.md`. Web checked-state semantics found during inspection were fixed. The new UI has no physical acceptance yet; no finding severity or release gate is lowered. Earlier device screenshots describe the previous design.
 
@@ -478,6 +480,17 @@ The September refresh aligns the supported native dependency set, removes an obs
 - Reproduction: use the sanitized beta build command in `XCODE_27_VALIDATION.md`, verify/install, then launch on iOS 27; the native process traps before connecting to Metro. A successful PID response must not be treated as runtime success.
 - Required remediation: keep the restored, accepted Xcode 26.6 build for current testing; implement a reproducible scene-lifecycle migration covering launch URLs, continuing activities and background/foreground behavior, add regressions and verify the beta-built artifact physically before changing the application toolchain.
 - Execution boundary: local iOS engineering/Codex; no credential, account or OS-upgrade dependency. Recovery is complete; migration is the concrete next work unit. Severity is retained and production remains NO-GO.
+
+### AUD-043 — High XML/YAML parser advisories in native build tooling
+
+- Severity: **high**
+- Status: **resolved locally on 2026-09-10**
+- Evidence: the recovered live npm audit returned 20 high records: 19 affect xmldom 0.8.13/0.9.10 and one affects js-yaml 4.3.1 (`GHSA-2883-xcg3-v3hh`). They include XML injection/serialization validation bypasses and parsing memory/CPU denial of service, plus ineffective YAML merge CPU limits. Expo config/plist and xcpretty reach these packages. They are build-tool dependencies; no public app XML/YAML endpoint is inferred.
+- Affected files/flows: `pnpm-lock.yaml`, Expo config/plist/native build tooling, `scripts/__tests__/dependency-policy.test.mjs` and CI dependency-security gate.
+- Reproduction: audit the `370426e` lockfile or the initial Expo-only patch graph with `pnpm audit --json`; inspect the advisory version ranges. Apply `pnpm -r update @xmldom/xmldom js-yaml --depth Infinity`, frozen-install, and rerun the dependency policy and live audit.
+- Required remediation: resolve compatible xmldom 0.8.15/0.9.12 and js-yaml 4.3.2, retain strict publication-age enforcement, parser regression floors and failure on every high/critical advisory. All selected parser patches were published in August and satisfy the 24-hour gate. No override, major switch or exception was needed.
+- Validation: frozen install, peers, Doctor 20/20, full 188-test validation/API/web builds and live security policy pass; final audit has zero high/critical, six moderate/one low. Sources and remaining records are in `docs/research/dependency-security-2026-09-10.md` and `docs/security/DEPENDENCY_RISK_ACCEPTANCE.md`.
+- Execution boundary: locally executable and completed. Native regeneration/build/install and runtime smoke remain required for the accompanying Expo patch change; historical physical evidence is not reused as that pass.
 
 ## Authoritative current requirements checked
 

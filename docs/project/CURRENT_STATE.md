@@ -1,6 +1,13 @@
 # Current state
 
-Last updated: 2026-09-10 after the owner-authorized GitHub synchronization. Full pinned-pnpm validation passes again: 185 tests. Native launcher relabeling and physical acceptance of the new UI remain open.
+Last updated: 2026-09-10 after owner-authorized GitHub synchronization and repairing its Expo/security gates. Full pinned-pnpm validation passes: 188 tests; Expo Doctor 20/20 and the live high/critical audit gate pass. Native rebuild, launcher relabeling and physical acceptance remain open.
+
+## Post-push CI repairs — 2026-09-10
+
+- GitHub's initial `dd48a62` run passed `pnpm validate` but failed Expo Doctor 19/20: upstream now requires Expo 57.0.21 / Router 57.0.20. Updated only those direct packages within SDK 57; both were over 42 hours old. Added a regression preventing removal/bypass of the Expo CI check.
+- The live npm audit service recovered and found 20 high records in the XML/YAML toolchain. Narrow compatible transitive updates resolve `@xmldom/xmldom` 0.8.15 / 0.9.12 and `js-yaml` 4.3.2; all exceed the unchanged 24-hour age gate. Security-floor regressions cover both parsers. No override, exclusion, cross-major upgrade or high-severity exception was added.
+- Frozen install, peers, Expo install check, Doctor 20/20, all 188 tests (23 policy + 165 application), strict types/lint/format, API/package builds and 12 web routes pass. **Live `pnpm security:audit` passes** with zero high/critical, six moderate and one low records retained for follow-up. See AUD-043 and `docs/security/DEPENDENCY_RISK_ACCEPTANCE.md`.
+- The restored phone binary still uses the September 4 native set; this dependency update has **not** been prebuilt, signed or physically installed. The next action must regenerate native files/pods before building. No new camera, wireless, visual, performance or store acceptance is claimed.
 
 ## GitHub synchronization — 2026-09-10
 
@@ -56,9 +63,9 @@ Last updated: 2026-09-10 after the owner-authorized GitHub synchronization. Full
 ## Current validation truth
 
 - `corepack pnpm install --frozen-lockfile`: pass against the pnpm 11.16.0 project pin. Final validation used isolated Corepack shims so nested `pnpm` also resolves to 11.16.0; no global tool configuration changed.
-- `pnpm validate` on 2026-09-10 after renaming: pass; 165 application tests across 22 Vitest files plus 20 Node repository-policy regressions (185 total), all format/lint/strict-type checks, package/API builds and 12-route web export pass with pinned pnpm 11.16.0. Earlier database-contention failures remain separately dated historical evidence.
+- `pnpm validate` on 2026-09-10 after CI repair: pass; 165 application tests across 22 Vitest files plus 23 Node repository-policy regressions (188 total), all format/lint/strict-type checks, package/API builds and 12-route web export pass with pinned pnpm 11.16.0. Earlier database-contention failures remain separately dated historical evidence.
 - Historical September 4 `corepack pnpm test:coverage`: pass. Core domain/provider/engine/application/API packages were approximately 90%+ statement coverage; tested mobile modules were 70.75% and did not cover most rendered native UI. Coverage was not remeasured for the visual refresh.
-- `corepack pnpm security:audit`: final live rerun **blocked/fails closed** at its 60-second timeout. Independent audit-endpoint POST also timed out while package metadata GET returned 200. Earlier post-patch raw snapshot: zero high, zero critical, six moderate, one low. Both fast-uri majors are patched to 3.1.7/4.1.4; Metro no longer includes image-size, and all high/critical exceptions have been removed. Report validation and security floors have regression tests.
+- `pnpm security:audit` on 2026-09-10: **live pass**, zero high/critical, six moderate and one low records. The former endpoint-timeout blocker is resolved for this run. XML/YAML toolchain patches close 20 newly observed high records; fast-uri floors and no-exception/fail-closed policy remain enforced. Lower-severity risks are listed in `docs/security/DEPENDENCY_RISK_ACCEPTANCE.md`.
 - `corepack pnpm peers check`: pass.
 - Expo Doctor 1.20.1 is **20/20** and `expo install --check` passes for the current supported set. The strict 1,440-minute supply-chain gate remains enforced; no exclusion or bypass was added.
 - API production smoke: pass locally; health/OpenAPI/strict validation verified. No deployed production service exists.
@@ -75,6 +82,6 @@ Last updated: 2026-09-10 after the owner-authorized GitHub synchronization. Full
 
 **NO-GO.** See `docs/final/PRODUCTION_AUDIT.md`, `RELEASE_GO_NO_GO.md`, `OWNER_ACTIONS.md` and `TEST_EVIDENCE.md`.
 
-Open blockers include the timed-out live registry audit, signed Android and iOS release/TestFlight builds, the remaining physical camera/accessibility/performance matrix, production API/database/monitoring and restore drill, OFF owner account/licence approval, GS1 Data contract decision, independent Finnish content approval, privacy/terms/GDPR approval, hosted support/privacy URLs and final store assets/forms/console validation.
+Open blockers include signed Android and iOS release/TestFlight builds, the remaining physical camera/accessibility/performance matrix, production API/database/monitoring and restore drill, OFF owner account/licence approval, GS1 Data contract decision, independent Finnish content approval, privacy/terms/GDPR approval, hosted support/privacy URLs and final store assets/forms/console validation. The latest SDK patch set also requires local native regeneration/build/install and smoke testing; historical phone evidence does not cover it.
 
 No production deployment, paid build, contract acceptance, store submission or public publication occurred. The owner authorized the private GitHub source push on September 10. Owner-controlled Apple account and free Personal-Team signing were used only for the local development device run. See `docs/final/PHYSICAL_IOS_VALIDATION.md` for exact passed and pending rows.

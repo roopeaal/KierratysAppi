@@ -1,5 +1,14 @@
 # Test evidence
 
+## Post-push Expo/security repair — 2026-09-10
+
+- Initial GitHub implementation run `34455323779` passed `pnpm validate` but **failed** Expo Doctor 19/20: required Expo ~57.0.21 and Router ~57.0.20, installed 57.0.19/57.0.18. Security run `34455323825` passed Gitleaks; CodeQL skipped. The first synchronized docs snapshot preceded that CI failure; it is not a claim of a green run.
+- Updated only those direct Expo packages within SDK 57. Publication-age check from npm package metadata: both older than 42 hours. No Expo exclusions or age bypass. Added a policy regression retaining mandatory Doctor and preventing suppression.
+- The recovered live registry audit returned **20 high / 0 critical / 10 moderate / 1 low** records, including 19 high xmldom records and one high js-yaml record. Narrow compatible transitive update selected xmldom 0.8.15/0.9.12 and js-yaml 4.3.2, all older than 24 hours. Two security-floor regressions plus existing fail-closed/high-advisory fixtures pass (**9/9 dependency-policy tests**).
+- Final frozen install, peer check, `expo install --check` and `expo-doctor@1.20.1` **20/20** pass. The initial attempted filtered `pnpm dlx` invocation was invalid; reran from `apps/mobile` using the same command as CI.
+- Final full pinned `pnpm validate`: **188 tests** (23 policy + 165 application in 22 Vitest files), formatting/lint/strict types, package/API builds and 12 web routes pass. Final live `pnpm security:audit` **passes**, reporting **0 high, 0 critical, 6 moderate, 1 low**. This closes the old external audit-timeout gate for this run; lower-severity records are retained in `docs/security/DEPENDENCY_RISK_ACCEPTANCE.md`.
+- Native regeneration, signing/install, physical/wireless/camera/UI/performance and coverage were not rerun for this patch set. Do not use the old Xcode 26.6 binary or prior UI screenshots as acceptance of updated native dependencies. Remote results must be read for the final patch commit in GitHub Actions.
+
 ## Owner-authorized GitHub synchronization — 2026-09-10
 
 - Fresh fetch: no remote-only changes, 13 local-only commits, clean worktree. Default branch `main`, private `roopeaal/KierratysAppi`; no name/visibility/settings changes. Normal fast-forward push succeeded for `87404a0..dd48a62`; `git ls-remote origin refs/heads/main` exactly matched local implementation HEAD `dd48a626f19dcd9cc53fea597df678159aa9e67a`.

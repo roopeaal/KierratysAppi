@@ -46,11 +46,12 @@ Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally bl
 
 ## Phase 6 — Release engineering
 
+- [x] Repair September 10 remote Expo compatibility failure with 57.0.21/Router 57.0.20; close 20 XML/YAML high advisory records through range-compatible patches and new policy regressions. Local 188-test validation, Doctor 20/20 and live high/critical audit pass without bypasses.
 - [x] Synchronize the validated local implementation through `dd48a62` to private GitHub `main` on the owner's September 10 request; verify the remote SHA and re-run 185-test local validation. Remote workflow outcomes are separate evidence, not inferred from push success.
 - [x] Evaluate Xcode 27 beta on the physical iOS 27 phone: compile/sign/install passed, runtime failed on mandatory UIScene adoption; restore and verify the working Xcode 26.6 artifact. Record the failed result rather than accepting the new SDK.
 - [ ] Migrate generated native startup to UIScene with reproducible prebuild, deep-link/lifecycle regression coverage and physical Xcode 27 startup/relaunch validation before changing the build toolchain.
 
-- [~] Source CI/EAS configuration, development-client dependency policy, icon assets, metadata/legal drafts and release procedures exist. The unchanged Expo set has the recorded Doctor 20/20 pass and now passes 185-test validation; fresh Debug native compile/sign/install passes, and the 2026-09-07 physical Home/manual/known-product smoke passes after refreshing the development API origin. The live registry audit endpoint still times out; native release and store gates remain.
+- [~] Source CI/EAS configuration, development-client dependency policy, icon assets, metadata/legal drafts and release procedures exist. The September 10 Expo 57.0.21/Router 57.0.20 set passes Doctor 20/20, 188-test validation and the live security policy. The accepted physical binary predates these patches: native regeneration/rebuild/install/runtime smoke remains pending, alongside native release and store gates.
 - [!] Produce signed-binary localized screenshots, Google feature graphic, hosted URLs and final store questionnaires.
 - [!] Generate signed Android/iOS production artifacts and submit without owner accounts, terms acceptance, credentials, and approval.
 

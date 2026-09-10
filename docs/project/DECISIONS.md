@@ -168,6 +168,13 @@
 - Decision: interpret the explicit request to bring the KierratysAppi repository up to date as authorization to fast-forward the existing private GitHub `main` with the validated local commits and current control files. Preserve the repository name/visibility, history and technical app identity; do not merge unrelated dependency branches, force-push or deploy the app.
 - Reason: fresh fetch showed 13 local commits and no remote-only commits. Local validation passed again and the normal push was verified against GitHub's branch SHA. Source synchronization does not close native, legal, infrastructure, security or store release gates.
 
+## D-025 — Repair live CI with compatible patches, not diagnostic exclusions
+
+- Date: 2026-09-10
+- Status: locally validated; native rebuild pending
+- Decision: follow the actual GitHub Doctor result by updating Expo to 57.0.21 and Router to 57.0.20. Resolve newly returned high XML/YAML advisories with compatible transitive patches (xmldom 0.8.15/0.9.12, js-yaml 4.3.2). Preserve the 1,440-minute strict release age, all diagnostic gates and fail-closed/no-high-exception policy. Add regression floors and a guard against disabling Expo checks.
+- Reason: the upstream compatibility response changed and the previously unavailable npm audit service resumed. All five selected releases are older than 24 hours; no major/SDK migration or new dependency capability is needed. Full 188-test validation, Doctor 20/20 and a real live security-policy pass replace the stale local evidence, but do not establish native runtime or release readiness.
+
 ## Pending decisions
 
 - OCR implementation and whether a cloud AI path is justified after the typed-code flow is evaluated.

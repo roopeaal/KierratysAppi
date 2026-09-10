@@ -15,10 +15,11 @@ These are release blockers or high-risk gates that cannot be completed without e
 | Privacy/GDPR/terms/hosted URLs | blocker | Controller/legal decisions and publication required | OA-06 |
 | Monitoring, alerts, contacts and incident drills | high | Vendor/account/privacy/on-call decisions absent | OA-07 |
 | Store screenshots/feature graphic/forms/validation | blocker/high | Depends on signed builds, accounts and approvals | OA-10 |
-| Live npm audit endpoint availability | high validation gate | Final 2026-09-04 audit-policy run fails closed after 60 seconds; independent official audit POST also times out while package metadata GET succeeds. Earlier post-patch snapshot has zero high/critical findings, but is not a fresh live-policy pass | OA-11: dependency/security owner reruns the bounded audit on an approved functioning network and attaches the result; no exception or bypass |
 | Private branch protection/CodeQL | high governance | GitHub plan/Code Security approval; API currently returns 403 and no variable exists | OA-12 |
 
 Photo/OCR/cloud AI remains disabled and is not a launch blocker. Enabling it would create a new privacy, safety, moderation, device-evaluation and legal workstream requiring separate approval.
+
+Resolved 2026-09-10: the npm audit endpoint responds again. It exposed 20 high XML/YAML records, repaired locally through compatible patches; the final live `pnpm security:audit` passes with zero high/critical and six moderate/one low. OA-11 remains a recurring dependency-review gate, not an active external timeout blocker. The new Expo/Router patch set requires a local native rebuild and physical smoke; no new account or paid service is needed merely for these source repairs.
 
 The September 8 Xcode 27 startup failure is **not an external blocker**: UIScene migration is locally executable and tracked in `ROADMAP.md`/D-021. Xcode 26.6's working development artifact has been restored; profile expiry remains September 11. No additional Apple account, payment or macOS upgrade is needed for this recovery. Existing release-account and physical-matrix gates remain unchanged.
 

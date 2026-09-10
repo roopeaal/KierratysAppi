@@ -13,6 +13,24 @@ test("dependency resolution enforces the release-age gate without exclusions", a
   assert.doesNotMatch(workspace, /^minimumReleaseAgeExclude:/m);
 });
 
+test("Expo compatibility remains a mandatory CI gate without package exclusions", async () => {
+  const mobile = JSON.parse(
+    await readFile(new URL("../../apps/mobile/package.json", import.meta.url), "utf8"),
+  );
+  const workflow = await readFile(
+    new URL("../../.github/workflows/ci.yml", import.meta.url),
+    "utf8",
+  );
+
+  assert.deepEqual(mobile.expo?.install?.exclude ?? [], []);
+  assert.notEqual(mobile.expo?.doctor?.appConfigFieldsNotSyncedCheck?.enabled, false);
+  assert.match(workflow, /run: pnpm dlx expo-doctor@1\.20\.1/);
+  assert.doesNotMatch(
+    workflow,
+    /continue-on-error: true|EXPO_DOCTOR_SKIP_DEPENDENCY_VERSION_CHECK/,
+  );
+});
+
 test("locked fast-uri versions retain their patched security floors", async () => {
   const lockfile = await readFile(new URL("../../pnpm-lock.yaml", import.meta.url), "utf8");
   const versions = [...lockfile.matchAll(/^ {2}fast-uri@(\d+)\.(\d+)\.(\d+):/gm)];
@@ -25,6 +43,32 @@ test("locked fast-uri versions retain their patched security floors", async () =
       (major === 4 && (minor > 1 || (minor === 1 && patch >= 3))) ||
       (major === 3 && (minor > 1 || (minor === 1 && patch >= 6)));
     assert.ok(patched, `fast-uri ${major}.${minor}.${patch} is below the patched floor`);
+  }
+});
+
+test("locked XML parser patches stay above both supported security floors", async () => {
+  const lockfile = await readFile(new URL("../../pnpm-lock.yaml", import.meta.url), "utf8");
+  const versions = [...lockfile.matchAll(/^ {2}'@xmldom\/xmldom@(\d+)\.(\d+)\.(\d+)':/gm)];
+  assert.ok(versions.length > 0, "expected XML parser in Expo build tooling");
+  for (const [, majorText, minorText, patchText] of versions) {
+    const [major, minor, patch] = [majorText, minorText, patchText].map(Number);
+    assert.ok(
+      major > 0 || minor > 9 || (minor === 9 && patch >= 12) || (minor === 8 && patch >= 15),
+      `xmldom ${major}.${minor}.${patch} is below its security floor`,
+    );
+  }
+});
+
+test("locked YAML parser retains the bounded-merge security patch", async () => {
+  const lockfile = await readFile(new URL("../../pnpm-lock.yaml", import.meta.url), "utf8");
+  const versions = [...lockfile.matchAll(/^ {2}js-yaml@(\d+)\.(\d+)\.(\d+):/gm)];
+  assert.ok(versions.length > 0, "expected YAML parser in Xcode tooling");
+  for (const [, majorText, minorText, patchText] of versions) {
+    const [major, minor, patch] = [majorText, minorText, patchText].map(Number);
+    assert.ok(
+      major > 4 || (major === 4 && (minor > 3 || (minor === 3 && patch >= 2))),
+      `js-yaml ${major}.${minor}.${patch} is below the security floor`,
+    );
   }
 });
 
