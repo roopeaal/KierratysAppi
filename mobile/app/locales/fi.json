@@ -2,7 +2,7 @@
   "ios": {
     "CFBundleDisplayName": "KeepItGreen",
     "NSLocationWhenInUseUsageDescription": "Sijaintia käytetään lähimmän kierrätyspisteen etäisyyden laskemiseen vain laitteellasi. Sijaintia ei tallenneta tai lähetetä.",
-    "NSCameraUsageDescription": "Kameraa käytetään vain viivakoodin lukemiseen. Kamerakuvaa ei lähetetä."
+    "NSCameraUsageDescription": "Kameraa käytetään viivakoodin lukemiseen ja tuotteen kuvaamiseen. Kuva lähetetään tunnistukseen vain erillisellä hyväksynnälläsi."
   },
   "android": {
     "app_name": "KeepItGreen"

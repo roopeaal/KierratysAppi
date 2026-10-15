@@ -1,3 +1,3 @@
 # Next action
 
-Verify the remaining latest Lähimmät pisteet → five-point/material/map flow and factual Privacy contents on the existing renewed iPhone client served from mobile/app through Metro 8093, including native permission recovery, background clearing and light/dark/large-text layout; repair any observed failures and record only non-location-derived pass/fail evidence, without a further GitHub push unless separately authorized.
+Generate and build the iOS development client 2 from mobile/app with the updated FI/EN camera-purpose text, preserving the existing bundle ID, locked native dependencies and user data; validate its embedded permission text/signature and record build evidence, without a GitHub push or further live AI request while API credit is exhausted.

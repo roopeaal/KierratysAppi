@@ -1,0 +1,78 @@
+import {
+  canConfirmPhotoPart,
+  type PhotoEstimate,
+  type PhotoPart,
+} from "@kierratysappi/contracts/photo-recognition";
+import type { FieldProvenance, Language } from "@kierratysappi/domain";
+import { type SortingResult, sortPackagingComponent } from "@kierratysappi/recycling-engine";
+
+/** No sorting from raw model output. The caller must obtain an explicit local confirmation. */
+export function sortConfirmedPhotoPart(
+  estimate: PhotoEstimate,
+  part: PhotoPart,
+  confirmed: boolean,
+  language: Language,
+  now: string,
+): SortingResult | undefined {
+  if (
+    !confirmed ||
+    !estimate.observation.parts.includes(part) ||
+    !canConfirmPhotoPart(estimate, part)
+  )
+    return undefined;
+  const provenance: FieldProvenance = {
+    sourceId: "photo-user-confirmation",
+    sourceName: "User-confirmed packaging after an AI estimate",
+    sourceRecordId: "transient-photo-part",
+    sourceUrl: "https://kierratysappi.local/photo-confirmation",
+    retrievedAt: now,
+    lastConfirmedAt: now,
+    confidence: 0.65,
+    verificationStatus: "user_confirmed",
+    license: {
+      id: "private-local-observation",
+      name: "Private local observation",
+      attributionText: "User confirmation on this device; not verified product data",
+      shareAlike: false,
+    },
+  };
+  const observed = <T>(value: T) => ({ value, provenance });
+  return sortPackagingComponent({
+    component: {
+      id: "confirmed-photo-part",
+      packagingStatus: observed("packaging"),
+      materialFamily: observed(part.material),
+      shape: observed(part.shape),
+      depositReturnStatus: observed(
+        part.shape === "bottle" || part.shape === "can" ? "unknown" : "not_applicable",
+      ),
+      conditions: { hazardousResidue: "no", pressurized: "no", emptied: "yes" },
+    },
+    context: { country: "FI", language, evaluatedAt: now },
+  });
+}
+
+export function choosePhotoSize(sizes: readonly string[]): string | undefined {
+  return sizes
+    .map((value) => ({
+      value,
+      pixels: /^\d+x\d+$/u.test(value)
+        ? Number(value.split("x")[0]) * Number(value.split("x")[1])
+        : 0,
+    }))
+    .filter((size) => size.pixels >= 300_000 && size.pixels <= 2_000_000)
+    .sort((a, b) => b.pixels - a.pixels)[0]?.value;
+}
+
+export function canUsePhotoCapture(
+  platform: string,
+  nativeBuild: string | null,
+  executionEnvironment: string,
+): boolean {
+  if (platform === "web") return true;
+  return (
+    executionEnvironment !== "storeClient" &&
+    /^\d+$/u.test(nativeBuild ?? "") &&
+    Number(nativeBuild) >= 2
+  );
+}

@@ -106,6 +106,12 @@ export default function HomeScreen() {
       <AppText variant="small" muted style={styles.scope}>
         {t("scanScope")}
       </AppText>
+      <ActionRow
+        label={t("photoTitle")}
+        detail={t("photoHome")}
+        onPress={() => router.push("/photo")}
+        testID="home-photo-action"
+      />
 
       <View style={styles.utilities}>
         <NavigationTile

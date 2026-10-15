@@ -1,5 +1,15 @@
 # Release decision
 
+October 15 photo recognition is locally implemented with consent, strict
+observation-only contracts, metadata removal, safe confirmation and 340 tests.
+Public production remains **NO-GO**; photo processing is deliberately disabled
+in production. The actual API is blocked by exhausted credit, with no successful
+real estimate. Native permission disclosure/build numbers advance to 2, but no
+fresh native build/install or physical acceptance is claimed; old build 1/Expo
+Go are gated. A secure key and passing fixtures do not establish a usable camera
+feature on the installed phone. No automatic payment, GitHub push, public photo
+service, store declaration or readiness approval. See `PHOTO_RECOGNITION_EVIDENCE.md`.
+
 October 12 source partition: mobile/backend/shared organization, mandatory
 boundaries, 307 tests, all scoped checks, browser journeys and existing-client
 Home reload pass locally. Source separation does not establish remote CI/branch

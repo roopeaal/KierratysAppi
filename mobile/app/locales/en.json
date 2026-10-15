@@ -2,7 +2,7 @@
   "ios": {
     "CFBundleDisplayName": "KeepItGreen",
     "NSLocationWhenInUseUsageDescription": "Your location is used only on your device to calculate distance to the nearest recycling point. It is not saved or uploaded.",
-    "NSCameraUsageDescription": "The camera is used only to read barcodes. Camera frames are not uploaded."
+    "NSCameraUsageDescription": "The camera is used to read barcodes and photograph products. An image is sent for identification only after your separate approval."
   },
   "android": {
     "app_name": "KeepItGreen"

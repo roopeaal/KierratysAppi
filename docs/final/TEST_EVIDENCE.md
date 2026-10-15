@@ -1,5 +1,31 @@
 # Test evidence
 
+## Development-only photo recognition — 2026-10-15
+
+- Full pinned `pnpm validate` passes **340 tests (61 policy + 279 application)**,
+  boundaries/format/lint/strict types, package/API builds and 14-route web export.
+  All three scoped commands pass: mobile 203 / backend 159 / shared 83 overlapping
+  tests. Added 33 unique tests since the prior 307. Ignored logs:
+  `work/photo-validate-final.log`, `photo-mobile.log`, `photo-backend.log`,
+  `photo-shared.log`. No skipped/downgraded gates or external dependency updates.
+- Actual-Metro photo browser runner passes synthetic camera/isolated API flows:
+  explicit preview/send/confirmation, metadata, hazard/uncertainty blocking,
+  cancel/late-result/visibility/offline/disabled/quota, FI/EN, light/dark and web
+  width checks. Both existing app and nearby runners still pass their previous
+  source/error/local-state/material/keyboard/offline/dark/synthetic-text flows.
+  Photo screenshots inspected; not physical-camera or native text-scale proof.
+- Actual API: model access 200; provider diagnostics first exposed schema
+  compatibility, then 429 `credit_balance_exhausted`, type `insufficient_quota`.
+  Conservative wire schema plus full runtime checking and distinct credit error
+  handling/regressions implemented. No successful real model estimate or product
+  accuracy is established. Stop real inference retries until credit is resolved.
+- Approved key stored only in ignored backend env file (0600), never printed or
+  committed. No funds purchased, native prebuild/build/install/signing, physical
+  camera attempt, production enablement or GitHub push. Native config/locales
+  now require build 2; old build 1/Expo Go are gated for truthful permission use.
+- Full source references, commands, actual failure scope and next native task:
+  `PHOTO_RECOGNITION_EVIDENCE.md`, `../research/photo-ai-boundary-2026-10-15.md`.
+
 ## Explicit KierratysAppi main publication — 2026-10-12
 
 - Verified actual `origin` fetch/push URL, default `main` and unchanged public

@@ -1,5 +1,14 @@
 # Acceptance criteria
 
+## Consented photo recognition
+
+1. Capture/preview never uploads automatically; recipient/retention/purpose are disclosed in FI/EN, followed by an explicit send action with versioned server-validated consent.
+2. Only bounded JPEG data is accepted. Strip APP/COM metadata before device upload and again before the provider; remove the native camera's own temporary file. No remote URLs, arbitrary prompts, photo/estimate history, analytics, server persistence or offline upload queue.
+3. AI identity is tentative; output contains observations only, bounded runtime schemas and inferred source/model/version/time. No model-supplied bins, source claims or verified status. Risky/non-packaging/uncertain cases cannot get ordinary packaging instructions.
+4. User confirms each ordinary empty/non-hazardous packaging part before the existing rule engine supplies sourced/explained guidance. Deposit remains unknown for bottles/cans; rule provenance/confidence are preserved.
+5. Server-only credential and explicit development opt-in; production disabled. Enforce payload/response/token/deadline/IP/concurrency/process limits, safe cancellation/late-result/credit errors, no automatic retry or raw provider/request logging.
+6. Purpose-matched native build 2 is required; old build 1/Expo Go cannot capture. Source/browser tests do not prove native capture, metadata/file cleanup, permissions/background recovery, accessibility, battery or real-product accuracy. Current live AI is blocked by API credit; neither a key nor local green tests establishes a working physical feature.
+
 ## Three-part source ownership
 
 1. Tracked implementation has exactly three ownership roots: mobile, backend and shared; public entry points, responsibilities and commands are documented. Root integration tooling/docs remain common.

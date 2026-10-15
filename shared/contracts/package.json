@@ -8,7 +8,9 @@
   "exports": {
     ".": "./src/index.ts",
     "./lookup-schema": "./src/lookup-schema.ts",
-    "./collection-points": "./src/collection-points.ts"
+    "./collection-points": "./src/collection-points.ts",
+    "./photo-recognition": "./src/photo-recognition.ts",
+    "./photo-image": "./src/photo-image.ts"
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts --clean",

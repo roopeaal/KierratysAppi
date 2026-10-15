@@ -15,6 +15,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@kierratysappi/contracts": "workspace:*",
     "@kierratysappi/domain": "workspace:*",
     "zod": "4.4.3"
   }

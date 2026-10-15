@@ -1,7 +1,9 @@
 import type { Language, LocalizedText } from "@kierratysappi/domain";
 import { nearbyEn, nearbyFi } from "./nearby";
+import { photoEn, photoFi } from "./photo";
 
 const fi = {
+  ...photoFi,
   ...nearbyFi,
   appName: "KeepItGreen",
   tagline: "Pakkauksesta oikeaan paikkaan",
@@ -210,6 +212,7 @@ const fi = {
 } as const;
 
 const en: Record<keyof typeof fi, string> = {
+  ...photoEn,
   ...nearbyEn,
   appName: "KeepItGreen",
   tagline: "From package to the right place",

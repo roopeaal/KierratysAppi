@@ -2,6 +2,15 @@ import { describe, expect, it } from "vitest";
 import { localizedText, messages, translate } from "../index";
 
 describe("localization", () => {
+  it("makes photo recipients, retention, inference and exhausted-credit recovery explicit in both languages", () => {
+    for (const language of ["fi", "en"] as const) {
+      expect(translate(language, "photoPrivacy")).toContain("OpenAI");
+      expect(translate(language, "photoPrivacy")).toContain("30");
+      expect(translate(language, "photoEstimate")).toBeTruthy();
+      expect(translate(language, "photoQuota")).toBeTruthy();
+      expect(translate(language, "photoConfirmBody")).toBeTruthy();
+    }
+  });
   it("keeps Finnish and English key sets in parity", () => {
     expect(Object.keys(messages.en).sort()).toEqual(Object.keys(messages.fi).sort());
   });

@@ -4,6 +4,18 @@ KeepItGreen is a Finnish-first, source-backed packaging sorting app. A user scan
 
 Previously named KierrätysAppi. The repository name, `@kierratysappi/*` packages, bundle/package identifier, URL scheme and local-storage namespace remain unchanged to preserve development and installed-app continuity. Native launcher names update only after rebuilding and reinstalling; changing the JavaScript UI alone does not relabel an installed binary.
 
+## Kuvasta tunnistaminen
+
+Kehityskäyttöön on lisäksi toteutettu **Tunnista kuvasta**: kamera → esikatselu →
+erillinen lupa lähettää kuva OpenAI:lle → tekoälyn arvio → pakkausosan vahvistus →
+lähteistetty lajitteluohje. Epävarmasta kuvasta ei päätellä keräystä. Avain kuuluu
+vain palvelimen ignored `.env.local`-tiedostoon; `PHOTO_AI_ENABLED=true` sallii
+toiminnon vain kehitysympäristössä. Tuotannossa se pysyy pois käytöstä. Vanha
+puhelinasennus tarvitsee uuden natiivin build 2:n kameran lupatekstin takia.
+Oikean AI-vastauksen testaus odottaa tällä hetkellä API-krediittejä; paikalliset
+testit eivät todista tunnistuksen tarkkuutta. Katso
+[`PHOTO_RECOGNITION_EVIDENCE.md`](docs/final/PHOTO_RECOGNITION_EVIDENCE.md).
+
 ## Kolme selkeää osaa
 
 | Kansio | Vastuu | Oma tarkistus |
@@ -80,7 +92,7 @@ The generated API contract is available at `GET /v1/openapi.json`; product looku
 
 ## Release boundary
 
-The release decision is NO-GO. No paid EAS build, store submission, database deployment, analytics/crash vendor, map provider, GS1 data feed, or photo upload is activated. Those require the accounts, credentials, contracts, legal decisions, and approvals tracked in `docs/final/OWNER_ACTIONS.md` and `docs/project/RELEASE_READINESS.md`.
+The release decision is NO-GO. No paid EAS build, store submission, database deployment, analytics/crash vendor, hosted map provider, GS1 data feed or production photo upload is activated. The separately consented development photo implementation is credit/native-acceptance blocked, not a production launch. Public release gates remain in `docs/final/OWNER_ACTIONS.md` and `docs/project/RELEASE_READINESS.md`.
 
 The current school-project UI shows factual data-use/deletion information, not
 draft terms or a legal-review banner. Future public/store publication has separate

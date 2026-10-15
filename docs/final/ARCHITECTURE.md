@@ -1,5 +1,19 @@
 # Architecture
 
+October 15 adds a separate development-only photo boundary:
+mobile camera → metadata-stripped local preview → explicit upload consent →
+`POST /v1/recycling/photo` → bounded server-side OpenAI visual observations →
+tentative client estimate → local per-part user confirmation → existing sorting
+engine. Shared contracts/portable JPEG helpers contain no HTTP/key/device code;
+mobile never imports the provider. No bin/rule/product verification comes from
+the model. Production/default photo use stays disabled; the key is only in the
+ignored server env file, not in the API environment's logged/validated payload.
+Existing lookup 2 KiB limit remains; photo route alone has its own 2,001,024-byte
+body cap. No image/result cache or persistence; temporary native capture files
+are removed before upload and pending/results clear on cancellation/background.
+See `PHOTO_RECOGNITION_EVIDENCE.md` for cost limits, retention and current credit/
+native acceptance blockers. Development process quotas are not production auth.
+
 Current three-part source organization (October 12): `mobile/` contains app and
 localization; `backend/` contains API, resolution/providers and database;
 `shared/` contains pure domain/contracts/sorting engine. Mobile consumes

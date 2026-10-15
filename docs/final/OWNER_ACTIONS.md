@@ -1,5 +1,30 @@
 # Owner actions
 
+## October 15 — AI credit and native acceptance
+
+- **OA-AI-01 / API account owner:** live Responses returned 429
+  `credit_balance_exhausted`, type `insufficient_quota`; model/key access returned
+  200. If you choose to fund this feature, open
+  [API billing](https://platform.openai.com/settings/organization/billing), select
+  the intended organization/project, review credit and any funding terms, and
+  add only the amount you explicitly choose. Review
+  [usage limits](https://platform.openai.com/settings/organization/limits) as
+  appropriate, then confirm credit is available. No agent purchase, recurring
+  funding, key rotation or model substitution is authorized. No secrets belong
+  in chat/Git. A starter model such as `gpt-6-luna` can be separately evaluated
+  for simple experiments; changing a model cannot cure exhausted credit.
+- **Engineering:** next generate/build client 2 from `mobile/app` with the new
+  FI/EN camera purpose, same app ID and locked pods. Verify permissions/signature,
+  then install/accept on the physical device without deleting app data when it
+  is available. Native build 1/Expo Go are intentionally blocked from photo
+  capture, not silently treated as updated by Metro. Existing October 19 profile
+  expiry remains; it has not been renewed in this feature unit.
+- **Device user:** handle actual unlock/trust/OS camera prompts only when needed;
+  later choose one non-personal test package and explicitly approve its image
+  upload. Do not send faces, personal details or precise location. Native file
+  deletion/background/denial/large-text/VoiceOver and a real estimate remain
+  unaccepted. No new physical action is requested until the native build exists.
+
 October 12 development renewal is complete under Roope's explicit request.
 Current profile expires **October 19 at 12:49:04 Helsinki**, not October 13.
 Build/signatures/install/physical launch/latest Home pass. **Roope** requests

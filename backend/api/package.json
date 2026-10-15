@@ -6,8 +6,8 @@
   "main": "src/server.ts",
   "scripts": {
     "build": "tsup --config tsup.config.ts",
-    "dev": "tsx watch src/server.ts",
-    "start": "node dist/server.js",
+    "dev": "node --env-file-if-exists=.env.local --import tsx --watch src/server.ts",
+    "start": "node --env-file-if-exists=.env.local dist/server.js",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit"

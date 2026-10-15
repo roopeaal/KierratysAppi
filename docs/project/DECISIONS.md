@@ -263,6 +263,15 @@
 - Decision: the owner's new push request authorizes this branch's current independent KierratysAppi history and outcome documentation to the verified existing `origin` main. Fresh fetch has zero remote-only commits; non-force fast-forward preserves existing history. Keep local feature branch and KeepItGreen untouched; do not mirror, alter authors/history, create remote experiment branches, change settings or publish a production release.
 - Evidence: fresh 307-test full local validation; source push `b9c3ac7..7e6d5bd` and matching remote `7e6d5bd919e7a0cb0cf2095797575e751c3a1ac5`. Remote runs are only an in-progress snapshot, not a green claim. Future publication needs separate explicit authorization; native acceptance and production gates remain unchanged.
 
+## D-038 — Consented AI observations never replace sorting policy
+
+- Date: 2026-10-15
+- Status: locally implemented/tested; real AI credit and native acceptance pending
+- Decision: a separate photo route obtains purpose/recipient/retention consent, strips JPEG metadata before upload, previews locally and sends only through a server-side OpenAI adapter. Use the documented GPT-4.1 mini snapshot and a conservative supported structured-output wire schema; full runtime contracts retain strict bounds/Unicode validation. No tool execution, remote image URLs, arbitrary prompts, verified identity or model-supplied collection destination.
+- Sorting: only clear ordinary packaging parts can be explicitly user-confirmed; then the existing engine supplies source/jurisdiction/date/version/confidence/explanation. Deposit is never visually asserted. Risky/non-packaging/uncertain cases require manual/local guidance rather than fabricated waste advice. No photo/estimate persistence or analytics.
+- Deployment/privacy: server default/production stay disabled. Local dev opt-in has three/client/minute, two concurrent and twenty/process caps, not durable production billing protection. `store:false` is not zero retention or EU-only processing. API credit is exhausted; do not purchase funds or silently switch models. A key name is not evidence of account funding.
+- Native continuity: purpose text/localizations and build numbers move to 2; old installed build 1/Expo Go cannot capture for this feature. A future correct native build/install is required before physical acceptance. Preserve actual prior evidence, storage identity, unchanged rules/migration/OSM and repository-sharing boundary; no push in this feature unit.
+
 ## Remaining pending decisions (historical / production, continued)
 
 - October 8 publication outcome: explicit non-force push succeeds to existing public KierratysAppi main, verified remotely. Do not change visibility/settings or KeepItGreen; source sharing does not publish a running production service or certify stores/native pending flows.
