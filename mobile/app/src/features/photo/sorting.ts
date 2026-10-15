@@ -6,23 +6,45 @@ import {
 import type { FieldProvenance, Language } from "@kierratysappi/domain";
 import { type SortingResult, sortPackagingComponent } from "@kierratysappi/recycling-engine";
 
-/** No sorting from raw model output. The caller must obtain an explicit local confirmation. */
+export const photoMaterialChoices = [
+  "plastic",
+  "carton",
+  "paper",
+  "glass",
+  "metal",
+  "unknown",
+] as const;
+export type PhotoMaterialChoice = (typeof photoMaterialChoices)[number];
+
+export function isSortingPhotoMaterial(
+  material: unknown,
+): material is Exclude<PhotoMaterialChoice, "unknown"> {
+  return photoMaterialChoices.some((choice) => choice !== "unknown" && choice === material);
+}
+
+export type PhotoPartConfirmation = {
+  readonly material: PhotoMaterialChoice | undefined;
+  readonly conditionsConfirmed: boolean;
+};
+
+/** The selected material is a separate local observation, never a mutation of the AI estimate. */
 export function sortConfirmedPhotoPart(
   estimate: PhotoEstimate,
   part: PhotoPart,
-  confirmed: boolean,
+  confirmation: PhotoPartConfirmation,
   language: Language,
   now: string,
 ): SortingResult | undefined {
   if (
-    !confirmed ||
+    confirmation?.conditionsConfirmed !== true ||
+    !isSortingPhotoMaterial(confirmation.material) ||
     !estimate.observation.parts.includes(part) ||
     !canConfirmPhotoPart(estimate, part)
   )
     return undefined;
   const provenance: FieldProvenance = {
     sourceId: "photo-user-confirmation",
-    sourceName: "User-confirmed packaging after an AI estimate",
+    sourceName: "User-selected material and confirmed packaging after an AI estimate",
     sourceRecordId: "transient-photo-part",
     sourceUrl: "https://kierratysappi.local/photo-confirmation",
     retrievedAt: now,
@@ -41,7 +63,7 @@ export function sortConfirmedPhotoPart(
     component: {
       id: "confirmed-photo-part",
       packagingStatus: observed("packaging"),
-      materialFamily: observed(part.material),
+      materialFamily: observed(confirmation.material),
       shape: observed(part.shape),
       depositReturnStatus: observed(
         part.shape === "bottle" || part.shape === "can" ? "unknown" : "not_applicable",

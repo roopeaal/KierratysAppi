@@ -95,6 +95,34 @@ const get = (page, id) => page.getByTestId(id);
           release = resolve;
         });
       const payload = structuredClone(estimate);
+      if (mode === "nutella") {
+        // Recorded public-fixture error, not a new inference. PHOTO_PRODUCT_EVALUATION.md.
+        payload.observation.label = {
+          fi: "Nutella-hasselpähkinälevite",
+          en: "Nutella hazelnut spread",
+        };
+        payload.observation.parts = [
+          {
+            label: { fi: "muovipurkki", en: "plastic jar" },
+            material: "plastic",
+            shape: "jar",
+            packagingStatus: "packaging",
+          },
+          {
+            label: { fi: "muovikorkki", en: "plastic lid" },
+            material: "plastic",
+            shape: "lid",
+            packagingStatus: "packaging",
+          },
+          {
+            label: { fi: "etiketti", en: "label" },
+            material: "paper",
+            shape: "other",
+            packagingStatus: "packaging",
+          },
+        ];
+        payload.source.observedAt = "2026-10-15T15:19:46.428Z";
+      }
       if (mode === "paper" || mode === "non-packaging-paper") {
         payload.observation.parts[0] = {
           label: { fi: "QA-paperipakkaus", en: "QA paper packaging" },
@@ -104,6 +132,7 @@ const get = (page, id) => page.getByTestId(id);
         };
       }
       if (mode === "special") payload.observation.risk = "special_waste";
+      if (mode === "unknown-material") payload.observation.parts[0].material = "unknown";
       if (mode === "uncertain") {
         payload.observation.status = "uncertain";
         payload.observation.confidence = "low";
@@ -148,6 +177,26 @@ const get = (page, id) => page.getByTestId(id);
       await get(page, "photo-capture").click();
       await get(page, "photo-send").waitFor();
     };
+    const confirmPart = async (index, material) => {
+      assert.equal(await get(page, `photo-confirm-${index}`).getAttribute("aria-disabled"), "true");
+      await get(page, `photo-material-${index}-${material}`).click();
+      assert.equal(
+        await get(page, `photo-material-${index}-${material}`).getAttribute("aria-checked"),
+        "true",
+      );
+      assert.equal(
+        await get(page, `photo-conditions-${index}`).getAttribute("aria-checked"),
+        "false",
+      );
+      assert.equal(await get(page, `photo-confirm-${index}`).getAttribute("aria-disabled"), "true");
+      await get(page, `photo-conditions-${index}`).click();
+      assert.equal(
+        await get(page, `photo-conditions-${index}`).getAttribute("aria-checked"),
+        "true",
+      );
+      assert.equal(await get(page, `photo-confirm-${index}`).isEnabled(), true);
+      await get(page, `photo-confirm-${index}`).click();
+    };
     await capture();
     assert.equal(posts, 0, "taking a photo must not upload it");
     await page.screenshot({ path: path.join(evidence, "fi-preview.png"), fullPage: true });
@@ -155,16 +204,55 @@ const get = (page, id) => page.getByTestId(id);
     await get(page, "photo-product").waitFor();
     assert.equal(posts, 1);
     assert.equal(await get(page, "sorting-result-resolved").count(), 0);
-    await get(page, "photo-confirm-0").click();
+    assert.equal(
+      await page.locator('[data-testid^="photo-material-0-"][aria-checked="true"]').count(),
+      0,
+      "AI material must not be preselected",
+    );
+    await page.screenshot({
+      path: path.join(evidence, "fi-material-unselected.png"),
+      fullPage: true,
+    });
+    await confirmPart(0, "glass");
     await get(page, "sorting-result-resolved").waitFor();
     assert.ok((await get(page, "sorting-result-resolved").innerText()).includes("Lasipakkausten"));
     assert.ok((await page.locator("body").innerText()).includes("photo-observation-v1"));
+    const beforeLocalChanges = posts;
+    await get(page, "photo-material-0-glass").click();
+    assert.equal(
+      await get(page, "sorting-result-resolved").count(),
+      1,
+      "reselecting the same radio must not revoke review",
+    );
+    await get(page, "photo-material-0-plastic").click();
+    assert.equal(
+      await get(page, "sorting-result-resolved").count(),
+      0,
+      "a different known material must clear old guidance",
+    );
+    assert.equal(await get(page, "photo-conditions-0").getAttribute("aria-checked"), "false");
+    await confirmPart(0, "glass");
+    await get(page, "photo-conditions-0").click();
+    assert.equal(
+      await get(page, "sorting-result-resolved").count(),
+      0,
+      "unchecking safety must clear old guidance",
+    );
+    await get(page, "photo-material-0-unknown").focus();
+    await page.keyboard.press("Enter");
+    await get(page, "photo-material-unknown-0").waitFor();
+    assert.equal(await get(page, "photo-confirm-0").count(), 0);
+    assert.equal(await get(page, "photo-conditions-0").count(), 0);
+    await get(page, "photo-check-marking-0").waitFor();
+    assert.equal(posts, beforeLocalChanges, "review choices must not upload anything");
+    await page.screenshot({ path: path.join(evidence, "fi-material-unknown.png"), fullPage: true });
+    await get(page, "photo-material-0-glass").click();
+    await confirmPart(0, "glass");
     await page.screenshot({ path: path.join(evidence, "fi-confirmed.png"), fullPage: true });
     await page.emulateMedia({ colorScheme: "dark" });
     await page.screenshot({ path: path.join(evidence, "fi-confirmed-dark.png"), fullPage: true });
     await get(page, "sorting-result-resolved").scrollIntoViewIfNeeded();
     await page.screenshot({ path: path.join(evidence, "fi-rule-dark.png"), fullPage: true });
-    await page.addStyleTag({ content: "[data-testid=photo-screen] { font-size:130%; }" });
     assert.ok(
       await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1),
     );
@@ -179,7 +267,71 @@ const get = (page, id) => page.getByTestId(id);
     await get(page, "photo-open-camera").waitFor();
     assert.equal(await get(page, "photo-product").count(), 0);
 
-    for (const nextMode of ["paper", "non-packaging-paper", "special", "uncertain"]) {
+    mode = "nutella";
+    await capture();
+    await get(page, "photo-send").click();
+    await get(page, "photo-product").waitFor();
+    assert.equal(await page.getByRole("radiogroup").count(), 3);
+    assert.equal(
+      await page
+        .locator('[data-testid^="photo-material-"][role="radio"][aria-checked="true"]')
+        .count(),
+      0,
+    );
+    await confirmPart(0, "glass");
+    await get(page, "sorting-result-resolved").waitFor();
+    assert.ok((await get(page, "sorting-result-resolved").innerText()).includes("Lasipakkausten"));
+    assert.ok((await get(page, "photo-part-0").innerText()).includes("Arvio: Muovi"));
+    assert.ok((await page.locator("body").innerText()).includes("ei varmistettu tuote"));
+    assert.equal(await get(page, "photo-confirm-1").getAttribute("aria-disabled"), "true");
+    await confirmPart(1, "plastic");
+    assert.equal(await get(page, "sorting-result-resolved").count(), 2);
+    assert.ok((await get(page, "photo-part-1").innerText()).includes("Muovipakkausten"));
+    await get(page, "photo-material-0-unknown").click();
+    assert.equal(await get(page, "photo-part-0").getByTestId("sorting-result-resolved").count(), 0);
+    assert.equal(await get(page, "photo-part-1").getByTestId("sorting-result-resolved").count(), 1);
+    await get(page, "photo-material-0-glass").click();
+    assert.equal(await get(page, "photo-conditions-0").getAttribute("aria-checked"), "false");
+    await confirmPart(0, "glass");
+    await page.emulateMedia({ colorScheme: "light", reducedMotion: "reduce" });
+    await get(page, "photo-part-0").scrollIntoViewIfNeeded();
+    await page.screenshot({
+      path: path.join(evidence, "fi-nutella-corrected.png"),
+      fullPage: true,
+    });
+    await page.setViewportSize({ width: 320, height: 844 });
+    await page.evaluate(() => {
+      // Snapshot all computed sizes first: relative percentages compound in nested RN Web text.
+      const text = [...document.querySelectorAll('[data-testid="photo-screen"] [dir="auto"]')].map(
+        (element) => ({
+          element,
+          size: Number.parseFloat(getComputedStyle(element).fontSize),
+          line: Number.parseFloat(getComputedStyle(element).lineHeight),
+        }),
+      );
+      for (const { element, size, line } of text) {
+        element.style.setProperty("font-size", `${size * 1.3}px`, "important");
+        element.style.setProperty("line-height", `${line * 1.3}px`, "important");
+      }
+    });
+    assert.ok(
+      await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1),
+    );
+    await get(page, "photo-part-0").scrollIntoViewIfNeeded();
+    await page.screenshot({
+      path: path.join(evidence, "fi-material-320-large.png"),
+      fullPage: true,
+    });
+    await page.setViewportSize({ width: 390, height: 844 });
+    await get(page, "photo-reset").click();
+
+    for (const nextMode of [
+      "paper",
+      "non-packaging-paper",
+      "special",
+      "uncertain",
+      "unknown-material",
+    ]) {
       mode = nextMode;
       await capture();
       await get(page, "photo-send").click();
@@ -187,7 +339,7 @@ const get = (page, id) => page.getByTestId(id);
       assert.equal(await get(page, "sorting-result-resolved").count(), 0);
       if (nextMode === "paper") {
         await get(page, "photo-confirm-0").waitFor();
-        await get(page, "photo-confirm-0").click();
+        await confirmPart(0, "paper");
         await get(page, "sorting-result-resolved").waitFor();
         const text = await get(page, "sorting-result-resolved").innerText();
         assert.ok(text.includes("Kartonkipakkausten keräys"));
@@ -198,7 +350,10 @@ const get = (page, id) => page.getByTestId(id);
         });
         await get(page, "sorting-result-resolved").scrollIntoViewIfNeeded();
         await page.screenshot({ path: path.join(evidence, "fi-paper-rule.png"), fullPage: true });
-      } else assert.equal(await get(page, "photo-confirm-0").count(), 0);
+      } else {
+        assert.equal(await get(page, "photo-confirm-0").count(), 0);
+        assert.equal(await page.getByRole("radiogroup").count(), 0);
+      }
       await get(page, "photo-reset").click();
     }
     mode = "pending";
@@ -229,9 +384,35 @@ const get = (page, id) => page.getByTestId(id);
     await get(page, "home-photo-action").click();
     assert.ok((await page.locator("body").innerText()).includes("OpenAI may retain data"));
     await page.screenshot({ path: path.join(evidence, "en-intro.png"), fullPage: true });
+    mode = "nutella";
+    await capture();
+    await get(page, "photo-send").click();
+    await get(page, "photo-product").waitFor();
+    await get(page, "photo-material-0-unknown").click();
+    assert.ok(
+      (await get(page, "photo-material-unknown-0").innerText()).includes("no sorting guidance"),
+    );
+    await get(page, "photo-material-unknown-0").scrollIntoViewIfNeeded();
+    await page.screenshot({ path: path.join(evidence, "en-material-unknown.png"), fullPage: true });
+    await get(page, "photo-material-0-glass").click();
+    await confirmPart(0, "glass");
+    assert.ok((await get(page, "photo-part-0").innerText()).includes("Glass packaging collection"));
+    await get(page, "photo-part-0").getByTestId("sorting-result-resolved").scrollIntoViewIfNeeded();
+    await page.screenshot({
+      path: path.join(evidence, "en-material-corrected.png"),
+      fullPage: true,
+    });
+    await get(page, "photo-material-0-unknown").click();
+    await get(page, "photo-check-marking-0").click();
+    await page.getByRole("textbox").waitFor();
+    assert.equal(
+      await get(page, "photo-product").count(),
+      0,
+      "leaving for markings must clear the estimate",
+    );
     await context.close();
     console.log(
-      "PASS: actual photo UI, isolated camera/API fixtures; opening feedback, explicit upload and confirmation, sourced paper-packaging guidance, loose-paper/unsafe/uncertain refusal, metadata, cancellation, hidden/offline/disabled/quota, FI/EN and layout.",
+      "PASS: actual photo UI, isolated camera/API fixtures; independent unselected materials, explicit safety, Nutella plastic-to-glass correction, per-part isolation, stale-guidance clearing, unknown-to-marking recovery, sourced paper guidance, unsafe/uncertain refusal, consent, cancellation, hidden/offline/disabled/quota, FI/EN/dark/320-large/reduced-motion layout. No live provider requests.",
     );
   } finally {
     await browser.close();

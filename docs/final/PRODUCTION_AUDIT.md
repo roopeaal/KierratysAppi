@@ -1,5 +1,17 @@
 # Adversarial production-readiness audit
 
+## Material-review mitigation — 2026-10-15
+
+Scoped follow-up, not a repeated 30-lane audit. PHOTO-003's locally executable
+correction/unknown recovery is implemented: no preselected material, separate
+conditions checkbox, per-part isolation, change/uncheck removes stale guidance,
+unknown opens local markings and original inferred observations remain unchanged.
+Recorded Nutella error→glass-choice regression, 354 unique full tests, 209 scoped
+mobile tests and three actual-Metro fixture browser runners pass. Screenshots
+inspected. The model still made the recorded wrong material inference; **severity
+stays high and the empirical accuracy finding stays open**, with latest native
+acceptance pending. No new paid call, model/prompt/rule change or GitHub push.
+
 ## Eight real product images — 2026-10-15
 
 Evaluation-only follow-up, not a new 30-lane audit. Same app/model/prompt, one
@@ -9,7 +21,7 @@ NO-GO and prior findings remain. Evidence: `PHOTO_PRODUCT_EVALUATION.md`.
 
 | ID | Severity | Evidence and affected flow/files | Reproduction | Required remediation / executability / status |
 | --- | --- | --- | --- | --- |
-| PHOTO-003 | high | Nutella case image hash `56d48570...cc47f28e`: real result names Nutella but labels jar plastic, `clear`/`medium`; image's product reference and manufacturer classic-jar description say glass. Affected: provider observations and per-part confirmation → sorting input (`backend/data-providers/src/photo-recognition.ts`, `mobile/app/src/app/photo.tsx`, photo sorting feature). Existing inferred status/human confirmation prevent this being a verified identity/material claim, not the material error itself | Inspect recorded `result-nutella.json` from the eight-call campaign. Replay its public-fixture observation locally; do not silently spend another live call. Incorrect suggested material can be accepted by the generic confirmation | **Open. Locally executable mitigation:** independent per-part material correction/unknown recovery, explicit physical/code check and tests ensuring identity success cannot certify material. Do not hardcode all brand formats or change Finnish rules. Any later empirical model/prompt accuracy experiment needs separately approved paid calls; no more within this test cap |
+| PHOTO-003 | high | Nutella case image hash `56d48570...cc47f28e`: real result names Nutella but labels jar plastic, `clear`/`medium`; image's product reference and manufacturer classic-jar description say glass. Affected: provider observations and per-part review → sorting input (`backend/data-providers/src/photo-recognition.ts`, `mobile/app/src/app/photo.tsx`, photo sorting feature). Inferred status and explicit review do not establish accurate material | Inspect recorded `result-nutella.json` and replay the wrong observation via focused tests/photo browser runner without another paid call. Pre-fix generic confirmation used plastic. Now no material is preselected: choose glass + confirm conditions for sourced glass guidance; choose unknown or change/uncheck to remove it | **High/open for model accuracy; local mitigation implemented and tested:** independent choice/unknown recovery, physical/code-check wording and regression prevent raw AI material alone authorizing guidance. No brand hardcoding or Finnish rule change. Latest native review acceptance remains; engineering owns improvements/validation, Roope any actual device action and new capped paid-call approval. Future empirical accuracy comparison requires that approval; no more within the consumed cap |
 | PHOTO-004 | medium | Four answers omit visible product brands (Barilla/Heinz/Badoit/Quaker); Quaker FI label says porridge packaging while EN says cereal. Coarse keyword check alone would overstate quality. Affected recognizer labels/localized result display | Inspect case report and public-fixture response labels; all were accepted by the schema, so schema-only tests do not expose semantic imprecision | **Open. Local naming/wording/prompt work**, then a held-out, source-reviewed bilingual evaluation with fresh paid-call authorization if live testing is needed. Preserve tentative identity, no SKU/GTIN verification or grade leakage. No silent model switch/tuning during this baseline |
 
 ## Physical photo-result inspection — 2026-10-15

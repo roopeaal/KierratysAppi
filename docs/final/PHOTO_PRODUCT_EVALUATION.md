@@ -129,6 +129,10 @@ Seitsemän uutta maksutonta testityökalun regressiota läpäistiin. Koko
 muotoilu-, lint-, tyyppi-, koodiraja- ja build-tarkistukset, 14 web-reittiä.
 Vihreät ohjelmistotestit eivät poista yllä havaittuja tunnistusvirheitä.
 
-Seuraava paikallinen työ: materiaalin erillinen tarkistus/korjaus ja “en tiedä”
--palautuminen ennen lajitteluohjetta. Uuden mallin tai kehotteen kokeilu tarvitsee
+Testin jälkeen toteutettu paikallinen parannus: materiaalin erillinen valinta,
+ehtojen vahvistus ja “en tiedä” -palautuminen ennen lajitteluohjetta. Tallennettu
+muovipurkkiarvio voidaan nyt korjata lasiksi muuttamatta alkuperäistä arviota;
+354 ohjelmistotestiä ja erilliset selainkokeet läpäisty (TEST_EVIDENCE.md).
+Tämä ei muuta yllä olevan tunnistustestin tuloksia eikä korjaa mallin
+materiaalitarkkuutta. Uuden mallin tai kehotteen kokeilu tarvitsee
 myöhemmin oman ennalta sovitun vertailun ja uudet hyväksytyt palvelupyynnöt.

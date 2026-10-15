@@ -1,11 +1,25 @@
 # Release decision
 
-Latest October 15 real-product baseline: eight owner-approved app requests complete,
+Latest October 15 material-review change: the locally executable PHOTO-003
+correction/unknown mitigation is implemented. Eligible parts require independent,
+initially unselected material and separate empty/non-hazardous/non-pressurized/
+shape confirmation. Changing inputs clears stale guidance; unknown offers local
+markings instead of a destination. Original AI identity/material/risk, deposit
+uncertainty and rule provenance remain separate. Recorded Nutella regression,
+354-test full validation, 209-test mobile scope and three actual-Metro fixture
+browser runners pass; FI/EN/dark/narrow/large-text screenshots inspected.
+**PHOTO-003 remains high/open for empirical material accuracy and physical
+acceptance, PHOTO-004 naming remains open, production remains NO-GO.**
+This is not a model/prompt accuracy fix, latest native pass or permission for
+more paid calls. No API/contract/rule/dependency/signing/install/account change
+or GitHub push. Detailed evidence: `TEST_EVIDENCE.md`.
+
+Earlier October 15 real-product baseline: eight owner-approved app requests complete,
 but only four name the product family, Quaker's FI label is imprecise and the Nutella
 jar is wrongly inferred plastic against its glass reference. **PHOTO-003 remains
 high and open**, not downgraded by transport success or 351 green software tests.
-The existing inferred/confirmation boundary remains; local independent material
-correction/unknown recovery is next. No runtime/prompt/model/rule/native change
+At that checkpoint the inferred/confirmation boundary remains and local independent
+material correction/unknown recovery is next (implemented above). No runtime/prompt/model/rule/native change
 or new extra call beyond the approved eight. Full case report/attribution/hashes:
 `PHOTO_PRODUCT_EVALUATION.md`. Production **NO-GO** unchanged; no GitHub push,
 store/public-service readiness or representative recognition accuracy is claimed.

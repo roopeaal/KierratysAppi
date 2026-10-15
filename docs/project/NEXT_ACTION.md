@@ -1,3 +1,3 @@
 # Next action
 
-Implement independent per-part material correction and “unknown” recovery before photo-derived sorting, with a regression for the recorded Nutella glass-as-plastic error; preserve inferred identity, explicit empty/non-hazardous confirmation and existing rule provenance, without another live API request or GitHub push.
+Add FI/EN provider-label regressions and refine the photo observation prompt to retain legible brand/product names without guessing; preserve the pinned model and observation-only contract, and make no live API request or GitHub push.

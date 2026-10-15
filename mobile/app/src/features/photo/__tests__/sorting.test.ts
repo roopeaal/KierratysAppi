@@ -2,6 +2,11 @@ import { PhotoEstimateSchema, photoModel } from "@kierratysappi/contracts/photo-
 import { describe, expect, it } from "vitest";
 import { canUsePhotoCapture, choosePhotoSize, sortConfirmedPhotoPart } from "../sorting";
 
+const confirmation = (material: "glass" | "paper" = "glass", conditionsConfirmed = true) => ({
+  material,
+  conditionsConfirmed,
+});
+
 function example(shape = "jar", material = "glass") {
   return PhotoEstimateSchema.parse({
     status: "estimated",
@@ -88,17 +93,35 @@ describe("photo confirmation", () => {
     const part = estimate.observation.parts[0];
     if (!part) throw new Error("fixture");
     expect(
-      sortConfirmedPhotoPart(estimate, part, false, "fi", estimate.source.observedAt),
+      sortConfirmedPhotoPart(
+        estimate,
+        part,
+        confirmation("glass", false),
+        "fi",
+        estimate.source.observedAt,
+      ),
     ).toBeUndefined();
     expect(
-      sortConfirmedPhotoPart(estimate, { ...part }, true, "fi", estimate.source.observedAt),
+      sortConfirmedPhotoPart(
+        estimate,
+        { ...part },
+        confirmation(),
+        "fi",
+        estimate.source.observedAt,
+      ),
     ).toBeUndefined();
   });
   it("uses the versioned rule engine after an explicit local confirmation and retains provenance", () => {
     const estimate = example();
     const part = estimate.observation.parts[0];
     if (!part) throw new Error("fixture");
-    const result = sortConfirmedPhotoPart(estimate, part, true, "fi", estimate.source.observedAt);
+    const result = sortConfirmedPhotoPart(
+      estimate,
+      part,
+      confirmation(),
+      "fi",
+      estimate.source.observedAt,
+    );
     expect(result?.status).toBe("resolved");
     if (result?.status === "resolved") {
       expect(result.destination.id).toBe("glass_packaging");
@@ -113,7 +136,8 @@ describe("photo confirmation", () => {
     const part = estimate.observation.parts[0];
     if (!part) throw new Error("fixture");
     expect(
-      sortConfirmedPhotoPart(estimate, part, true, "en", estimate.source.observedAt)?.status,
+      sortConfirmedPhotoPart(estimate, part, confirmation(), "en", estimate.source.observedAt)
+        ?.status,
     ).toBe("ambiguous");
   });
   it("uses the existing carton rule for paper packaging only after explicit confirmation", () => {
@@ -121,9 +145,21 @@ describe("photo confirmation", () => {
     const part = estimate.observation.parts[0];
     if (!part) throw new Error("fixture");
     expect(
-      sortConfirmedPhotoPart(estimate, part, false, "fi", estimate.source.observedAt),
+      sortConfirmedPhotoPart(
+        estimate,
+        part,
+        confirmation("paper", false),
+        "fi",
+        estimate.source.observedAt,
+      ),
     ).toBeUndefined();
-    const result = sortConfirmedPhotoPart(estimate, part, true, "fi", estimate.source.observedAt);
+    const result = sortConfirmedPhotoPart(
+      estimate,
+      part,
+      confirmation("paper"),
+      "fi",
+      estimate.source.observedAt,
+    );
     expect(result?.status).toBe("resolved");
     if (result?.status === "resolved") {
       expect(result.destination.id).toBe("carton_packaging");
@@ -153,11 +189,77 @@ describe("photo confirmation", () => {
         sortConfirmedPhotoPart(
           { ...estimate, observation: { ...estimate.observation, ...changes } },
           part,
-          true,
+          confirmation(),
           "fi",
           estimate.source.observedAt,
         ),
       ).toBeUndefined();
+  });
+  it("corrects the recorded Nutella plastic-jar error independently of the inferred identity", () => {
+    // Replay the observed wrong material, not a fresh model response or a brand-specific rule.
+    const estimate = example("jar", "plastic");
+    estimate.observation.label = {
+      fi: "Nutella-hasselpähkinälevite",
+      en: "Nutella hazelnut spread",
+    };
+    const part = estimate.observation.parts[0];
+    if (!part) throw new Error("fixture");
+    part.label = { fi: "muovipurkki", en: "plastic jar" };
+    const original = structuredClone(estimate);
+    const result = sortConfirmedPhotoPart(
+      estimate,
+      part,
+      confirmation("glass"),
+      "fi",
+      estimate.source.observedAt,
+    );
+    expect(result?.status).toBe("resolved");
+    if (result?.status === "resolved") {
+      expect(result.destination.id).toBe("glass_packaging");
+      expect(result.rule).toMatchObject({
+        id: "fi.packaging.glass",
+        jurisdiction: "FI",
+        checkedAt: "2026-08-10",
+        verificationStatus: "verified",
+      });
+      expect(result.confidence.tier).not.toBe("verified");
+    }
+    expect(estimate).toEqual(original);
+    expect(estimate.source.verificationStatus).toBe("inferred");
+  });
+  it("gives no guidance for an absent, unknown or unsupported independent material choice", () => {
+    const estimate = example("jar", "plastic");
+    const part = estimate.observation.parts[0];
+    if (!part) throw new Error("fixture");
+    for (const material of [undefined, "unknown", "wood", "composite", "other", "invalid"])
+      expect(
+        sortConfirmedPhotoPart(
+          estimate,
+          part,
+          { material, conditionsConfirmed: true } as Parameters<typeof sortConfirmedPhotoPart>[2],
+          "fi",
+          estimate.source.observedAt,
+        ),
+      ).toBeUndefined();
+  });
+  it("a manual material choice cannot bypass unsafe, unknown, low-confidence or non-packaging input", () => {
+    for (const material of ["unknown", "composite", "wood", "other"]) {
+      const estimate = example("jar", material);
+      const part = estimate.observation.parts[0];
+      if (!part) throw new Error("fixture");
+      expect(
+        sortConfirmedPhotoPart(estimate, part, confirmation(), "fi", estimate.source.observedAt),
+      ).toBeUndefined();
+    }
+    for (const packagingStatus of ["non_packaging", "unknown"] as const) {
+      const estimate = example();
+      const part = estimate.observation.parts[0];
+      if (!part) throw new Error("fixture");
+      part.packagingStatus = packagingStatus;
+      expect(
+        sortConfirmedPhotoPart(estimate, part, confirmation(), "fi", estimate.source.observedAt),
+      ).toBeUndefined();
+    }
   });
   it("chooses a bounded camera size and ignores malformed or excessive sizes", () => {
     expect(choosePhotoSize(["invalid", "4000x3000", "1920x1080", "1280x960", "640x480"])).toBe(

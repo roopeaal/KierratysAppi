@@ -4,6 +4,26 @@ Status: locally implemented and validated; **live adapter and actual native esti
 rendering observed, post-fix native guidance acceptance incomplete**. This is not production/store readiness
 or a finished physical-device feature claim. No GitHub push in this work unit.
 
+## Independent local material review
+
+October 15 follow-up implements PHOTO-003's local mitigation: each eligible part
+starts with no material selected. The user checks the physical package/marking,
+chooses a material and separately confirms matching shape, empty/non-hazardous/
+non-pressurized packaging. Guidance uses that local material, never mutates the
+model observation or upgrades the identity. Changing choice/revoking confirmation
+clears the old result; unknown gives no bin and navigates to local markings.
+Original eligibility/deposit/rule-source/confidence guards are unchanged.
+
+Recorded Nutella plastic-jar→glass-choice regression plus absent/unknown/invalid
+and unsafe/non-packaging cases pass; focused photo 11/11, mobile 209 overlapping,
+full 354 unique tests and three actual-Metro browser runners pass. FI/EN, part
+isolation, source, no preselection, state reset, keyboard checked states and
+dark/narrow/computed-130%-text screenshots inspected. Evidence in TEST_EVIDENCE.
+No new live request/model/prompt/API/contract/rule/native/signing change. **This
+does not fix or remeasure model accuracy: PHOTO-003 remains high/open, PHOTO-004
+unchanged and latest native review/VoiceOver/file cleanup acceptance pending.**
+The eight-call allowance remains exhausted; no push/publication.
+
 ## Real-image baseline: transport passes, material accuracy does not
 
 Owner-approved current-key evaluation uses eight pinned public product photos,
@@ -17,7 +37,8 @@ green transport, schemas, keyword checks or 351 passing software tests.
 
 Full results, protocol, attribution and hashes:
 `docs/final/PHOTO_PRODUCT_EVALUATION.md`. PHOTO-003 high and PHOTO-004 medium remain
-open; independent material correction/unknown recovery is the next local task.
+open; independent material correction/unknown recovery was the next local task
+at this baseline and is now implemented as the separately validated mitigation above.
 Current inferred status and explicit confirmation are retained, not bypassed.
 No product behavior/model/prompt/rule/dependency/native change, private image,
 other-app capture or GitHub push. The approved eight live calls are used up;

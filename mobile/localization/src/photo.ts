@@ -25,10 +25,21 @@ export const photoFi = {
   photoEstimate: "Tekoälyn arvio — ei varmistettu tuote",
   photoEstimateBody:
     "Tarkka tuote ja pakkauksen tiedot eivät varmistu pelkästä kuvasta. Vahvista jokainen osa erikseen; myös näkymättömiä osia voi olla.",
-  photoPart: "Kuvassa näkyvä pakkausosa",
-  photoConfirmBody:
-    "Tarkista, että osan materiaali ja muoto vastaavat pakkausta. Vahvista vain tyhjä, vaarattoman aineen pakkausosa. Painepakkaukset eivät kuulu tähän ohjeeseen. Pantti tarkistetaan erikseen.",
-  photoConfirm: "Tiedot täsmäävät — näytä ohje",
+  photoPart: "Tekoälyn ehdottama pakkausosa",
+  photoSuggestedMaterial: "Arvio",
+  photoSelectMaterial: "Valitse osan materiaali",
+  photoCheckMaterial:
+    "Tarkista materiaali pakkauksesta tai sen merkinnästä. Kuvan arvio voi olla väärä.",
+  photoMaterialUnknownChoice: "En tiedä",
+  photoMaterialPaperChoice: "Paperi",
+  photoUnknownMaterial:
+    "Materiaalista ei ole varmuutta, joten lajitteluohjetta ei anneta. Tarkista pakkauksen materiaalimerkintä tai paikallisen jätehuollon ohje.",
+  photoCheckMarking: "Tarkista materiaalimerkintä",
+  photoDepositReminder:
+    "Pantti tarkistetaan erikseen. Jos muoto ei täsmää tai pakkaus ei ole vaaraton, älä vahvista tietoja.",
+  photoLocalSelection: "Ohje perustuu omaan materiaalivalintaasi, ei varmennettuun tuotetietoon.",
+  photoConfirmBody: "Muoto täsmää. Osa on tyhjä, vaarattoman aineen pakkaus eikä painepakkaus.",
+  photoConfirm: "Näytä valitsemani materiaalin ohje",
   photoUncertain:
     "Tunnistus jäi epävarmaksi. Älä valitse keräystä kuvan perusteella. Tarkista merkinnät tai käytä paikallista jäteopasta.",
   photoSpecial:
@@ -70,10 +81,22 @@ export const photoEn: Record<keyof typeof photoFi, string> = {
   photoEstimate: "AI estimate — not a verified product",
   photoEstimateBody:
     "A photo does not verify the exact product or packaging. Confirm each part separately; there may also be parts that are not visible.",
-  photoPart: "Visible packaging part",
+  photoPart: "AI-suggested packaging part",
+  photoSuggestedMaterial: "Estimate",
+  photoSelectMaterial: "Select this part's material",
+  photoCheckMaterial:
+    "Check the packaging or its material marking. The image estimate may be wrong.",
+  photoMaterialUnknownChoice: "I don't know",
+  photoMaterialPaperChoice: "Paper",
+  photoUnknownMaterial:
+    "The material is uncertain, so no sorting guidance is given. Check the packaging's material marking or your local waste service's guidance.",
+  photoCheckMarking: "Check the material marking",
+  photoDepositReminder:
+    "Deposit status is checked separately. Do not confirm if the shape is wrong or the packaging held a hazardous substance.",
+  photoLocalSelection: "This guidance uses your material choice, not verified product data.",
   photoConfirmBody:
-    "Check that the material and shape match the packaging. Only confirm an empty packaging part that held a non-hazardous substance. This guidance is not for pressurized containers. Deposit status is checked separately.",
-  photoConfirm: "Details match — show guidance",
+    "The shape matches. This is empty packaging that held a non-hazardous substance, and is not pressurized.",
+  photoConfirm: "Show guidance for my material choice",
   photoUncertain:
     "Identification is uncertain. Do not choose a collection stream from the image. Check the markings or your local waste guide.",
   photoSpecial:

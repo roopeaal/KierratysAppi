@@ -5,17 +5,26 @@ import {
   type PhotoPart,
 } from "@kierratysappi/contracts/photo-recognition";
 import { localizedText, type MessageKey } from "@kierratysappi/localization";
-import type { SortingResult } from "@kierratysappi/recycling-engine";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import Constants from "expo-constants";
 import { File, Paths } from "expo-file-system";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useRef, useState } from "react";
-import { AppState, Image, Linking, Platform, StyleSheet, View } from "react-native";
+import {
+  AppState,
+  Image,
+  Linking,
+  Platform,
+  Pressable,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import { SortingResultCard } from "@/components/sorting-result";
 import {
   AppText,
   Button,
+  ChoiceIndicator,
   InlineLink,
   PageHeader,
   PageIntro,
@@ -29,9 +38,13 @@ import { photoAvailable, requestPhoto } from "@/features/photo/api";
 import {
   canUsePhotoCapture,
   choosePhotoSize,
+  isSortingPhotoMaterial,
+  photoMaterialChoices,
+  type PhotoMaterialChoice,
   sortConfirmedPhotoPart,
 } from "@/features/photo/sorting";
 import { useLanguage } from "@/i18n/language-context";
+import { controls, interaction, radius, spacing, useAppTheme } from "@/theme/tokens";
 
 function removeCapture(uri: string): void {
   if (Platform.OS === "web") return;
@@ -400,7 +413,17 @@ function PhotoPartResult({
   index: number;
 }) {
   const { language, t } = useLanguage();
-  const [sorting, setSorting] = useState<SortingResult>();
+  const router = useRouter();
+  const { palette } = useAppTheme();
+  const { fontScale } = useWindowDimensions();
+  const [material, setMaterial] = useState<PhotoMaterialChoice>();
+  const [conditionsConfirmed, setConditionsConfirmed] = useState(false);
+  const [confirmedAt, setConfirmedAt] = useState<string>();
+  const [focusedChoice, setFocusedChoice] = useState<string>();
+  const confirmation = { material, conditionsConfirmed };
+  const sorting = confirmedAt
+    ? sortConfirmedPhotoPart(estimate, part, confirmation, language, confirmedAt)
+    : undefined;
   const materials = {
     plastic: "materialPlastic",
     carton: "materialCarton",
@@ -411,6 +434,14 @@ function PhotoPartResult({
     composite: "materialComposite",
     other: "materialOther",
     unknown: "materialUnknown",
+  } as const;
+  const materialChoiceLabels = {
+    plastic: "materialPlasticChoice",
+    carton: "materialCartonChoice",
+    paper: "photoMaterialPaperChoice",
+    glass: "materialGlassChoice",
+    metal: "materialMetalChoice",
+    unknown: "photoMaterialUnknownChoice",
   } as const;
   const shapes = { bottle: "shapeBottle", can: "shapeCan", jar: "shapeJar" } as const;
   const shapeKey =
@@ -423,36 +454,181 @@ function PhotoPartResult({
         {t("photoPart")}
       </AppText>
       <AppText variant="heading">{localizedText(language, part.label)}</AppText>
-      <AppText>
-        {t(materials[part.material])} · {t(shapeKey)}
+      <AppText muted>
+        {t("photoSuggestedMaterial")}: {t(materials[part.material])} · {t(shapeKey)}
       </AppText>
       {canConfirmPhotoPart(estimate, part) ? (
         <>
-          <AppText>{t("photoConfirmBody")}</AppText>
-          <Button
-            label={t("photoConfirm")}
-            testID={`photo-confirm-${index}`}
-            onPress={() => {
-              const result = sortConfirmedPhotoPart(
-                estimate,
-                part,
-                true,
-                language,
-                new Date().toISOString(),
-              );
-              setSorting(result);
-              if (result) announceAccessibility(t("sortingResultReady"));
-            }}
-          />
+          <View style={sharedStyles.tightStack}>
+            <AppText variant="label">{t("photoSelectMaterial")}</AppText>
+            <AppText variant="small" muted>
+              {t("photoCheckMaterial")}
+            </AppText>
+            <View
+              accessibilityRole="radiogroup"
+              accessibilityLabel={t("photoSelectMaterial")}
+              style={styles.materialChoices}
+            >
+              {photoMaterialChoices.map((choice) => (
+                <Pressable
+                  key={choice}
+                  accessibilityRole="radio"
+                  accessibilityLabel={t(materialChoiceLabels[choice])}
+                  accessibilityState={{ checked: material === choice }}
+                  aria-checked={material === choice}
+                  testID={`photo-material-${index}-${choice}`}
+                  onFocus={() => setFocusedChoice(choice)}
+                  onBlur={() => setFocusedChoice(undefined)}
+                  onPress={() => {
+                    if (choice === material) return;
+                    setMaterial(choice);
+                    setConditionsConfirmed(false);
+                    setConfirmedAt(undefined);
+                    if (choice === "unknown") announceAccessibility(t("photoUnknownMaterial"));
+                  }}
+                  style={({ pressed }) => [
+                    styles.materialChoice,
+                    fontScale > 1.2 && { flexBasis: "100%" },
+                    {
+                      backgroundColor: material === choice ? palette.pineSoft : palette.surface,
+                      borderColor:
+                        focusedChoice === choice
+                          ? palette.actionLink
+                          : material === choice
+                            ? palette.pine
+                            : palette.line,
+                      opacity: pressed ? interaction.pressedOpacity : 1,
+                    },
+                  ]}
+                >
+                  <ChoiceIndicator selected={material === choice} />
+                  <AppText variant="label" style={sharedStyles.grow}>
+                    {t(materialChoiceLabels[choice])}
+                  </AppText>
+                </Pressable>
+              ))}
+            </View>
+          </View>
+          {material === "unknown" ? (
+            <View style={sharedStyles.tightStack} testID={`photo-material-unknown-${index}`}>
+              <AppText>{t("photoUnknownMaterial")}</AppText>
+              <Button
+                label={t("photoCheckMarking")}
+                variant="secondary"
+                testID={`photo-check-marking-${index}`}
+                onPress={() => router.replace("/material-code")}
+              />
+            </View>
+          ) : (
+            <>
+              {isSortingPhotoMaterial(material) && (
+                <>
+                  <Pressable
+                    accessibilityRole="checkbox"
+                    accessibilityLabel={t("photoConfirmBody")}
+                    accessibilityState={{ checked: conditionsConfirmed }}
+                    aria-checked={conditionsConfirmed}
+                    testID={`photo-conditions-${index}`}
+                    onFocus={() => setFocusedChoice("conditions")}
+                    onBlur={() => setFocusedChoice(undefined)}
+                    onPress={() => {
+                      setConditionsConfirmed(!conditionsConfirmed);
+                      setConfirmedAt(undefined);
+                    }}
+                    style={({ pressed }) => [
+                      styles.conditions,
+                      {
+                        borderColor:
+                          focusedChoice === "conditions" ? palette.actionLink : palette.line,
+                        opacity: pressed ? interaction.pressedOpacity : 1,
+                      },
+                    ]}
+                  >
+                    <View
+                      style={[styles.checkbox, { borderColor: palette.actionLink }]}
+                      accessible={false}
+                      accessibilityElementsHidden
+                      importantForAccessibility="no-hide-descendants"
+                      aria-hidden
+                    >
+                      {conditionsConfirmed && (
+                        <View style={[styles.checkmark, { borderColor: palette.actionLink }]} />
+                      )}
+                    </View>
+                    <AppText style={sharedStyles.grow}>{t("photoConfirmBody")}</AppText>
+                  </Pressable>
+                  <AppText variant="small" muted>
+                    {t("photoDepositReminder")}
+                  </AppText>
+                </>
+              )}
+              <Button
+                label={t("photoConfirm")}
+                testID={`photo-confirm-${index}`}
+                disabled={!isSortingPhotoMaterial(material) || !conditionsConfirmed}
+                onPress={() => {
+                  const now = new Date().toISOString();
+                  if (!sortConfirmedPhotoPart(estimate, part, confirmation, language, now)) return;
+                  setConfirmedAt(now);
+                  announceAccessibility(t("sortingResultReady"));
+                }}
+              />
+            </>
+          )}
         </>
       ) : (
         <AppText>{t("photoUncertain")}</AppText>
       )}
-      {sorting && <SortingResultCard result={sorting} />}
+      {sorting && (
+        <View style={sharedStyles.stack}>
+          <AppText variant="small" muted>
+            {t("photoLocalSelection")}
+          </AppText>
+          <SortingResultCard result={sorting} embedded />
+        </View>
+      )}
     </Paper>
   );
 }
 
 const styles = StyleSheet.create({
   camera: { width: "100%", height: 300, backgroundColor: "#111111", borderRadius: 12 },
+  materialChoices: { flexDirection: "row", flexWrap: "wrap", gap: spacing.xs },
+  materialChoice: {
+    minHeight: controls.minimumTouchTarget,
+    flexBasis: "45%",
+    minWidth: 128,
+    flexGrow: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.xs,
+    padding: spacing.sm,
+    borderWidth: 1,
+    borderRadius: radius.sm,
+  },
+  conditions: {
+    minHeight: controls.minimumTouchTarget,
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: spacing.sm,
+    padding: spacing.sm,
+    borderWidth: 1,
+    borderRadius: radius.sm,
+  },
+  checkbox: {
+    width: 20,
+    height: 20,
+    marginTop: 3,
+    borderWidth: 1.5,
+    borderRadius: 3,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  checkmark: {
+    width: 10,
+    height: 6,
+    borderLeftWidth: 2,
+    borderBottomWidth: 2,
+    transform: [{ rotate: "-45deg" }],
+  },
 });

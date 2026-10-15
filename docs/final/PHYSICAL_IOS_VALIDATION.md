@@ -2,6 +2,19 @@
 
 Status date: 2026-10-15
 
+## Latest material-choice controls — native acceptance pending
+
+JS-only follow-up adds independent unselected per-part material, separate
+conditions confirmation and unknown-to-local-markings recovery. Focused/unit,
+354-test full validation and three browser runners pass, not a new native UI
+pass. No new screenshot, capture/upload, paid inference, native build/signing/
+installation or profile renewal in this unit. Existing build 2/October 19 expiry
+remains. Material-choice/unknown/safety-reset/source-guidance, native large text,
+VoiceOver and file cleanup still need actual device evidence. Roope operates
+physical-package confirmation; engineering may inspect only stable in-scope app
+screens. A new assistant inference needs separate capped approval; do not replay
+synthetic product responses into the phone or claim inferred material verified.
+
 ## Existing native estimate screen inspected — 2026-10-15
 
 Beta CoreDevice help exposes the supported `device capture screenshot` command.
