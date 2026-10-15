@@ -2,6 +2,32 @@
 
 Status date: 2026-10-15
 
+## Existing native estimate screen inspected — 2026-10-15
+
+Beta CoreDevice help exposes the supported `device capture screenshot` command.
+It succeeds without the expired XCTest helper. The actual result screenshot
+shows an OpenAI-inferred estimate, indicative confidence, expected pinned model/
+photo version/time and two paper-packaging parts. Combined with the owner's
+earlier capture/send report, this observes response rendering on the real device;
+original-photo accuracy, native file cleanup and full native guidance are not
+verified. No assistant photograph/upload/inference or new native installation.
+
+The screen reveals a local paper-confirmation omission; existing carton policy
+already covers paper packaging. Repaired with two red-before/green-after tests
+and browser explicit-confirmation/source/non-packaging/unsafe checks. Native
+post-fix confirmation remains pending: subsequent captures were another-app/
+OS-transition views, not stable app evidence. Removed only those two generated
+copies after exact file validation. Activation succeeds with the same PID, but
+transition imagery is not proof of background clearing or updated native layout.
+No further captures while the owner uses other apps. No original phone data
+changed; in-scope screenshot stays ignored in
+`work/photo-native-test-2026-10-15.W1gGnB/current-screen.png`.
+
+EB-IOS-UI-01 remains for XCTest interactions/semantic trees only, not all screen
+reading. Native signing/profile/build are unchanged; no credential/account action,
+security bypass, new source date or GitHub push. Repository/browser test evidence
+is recorded in `TEST_EVIDENCE.md`, separately from this physical observation.
+
 ## Camera-opening guard repair and owner-reported retry — 2026-10-15
 
 Owner reports **Ota tuotekuva** fails before capture. Source inspection finds

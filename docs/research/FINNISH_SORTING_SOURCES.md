@@ -55,4 +55,6 @@ Source: https://www.palpa.fi/for-consumers/faq/
 
 ## Seed-rule scope
 
-The P0 verified seed set covers only common household plastic, carton, glass packaging, metal packaging/small metal, and known deposit containers in Finland. Composite packaging, biowaste, paper, electrical items, batteries, hazardous waste, textiles, medicines, and municipality-specific residual/energy waste are safe-unknown until separately sourced.
+The P0 verified seed set covers only common household plastic, carton/paper packaging, glass packaging, metal packaging/small metal, and known deposit containers in Finland. Composite packaging, biowaste, non-packaging paper, electrical items, batteries, hazardous waste, textiles, medicines, and municipality-specific residual/energy waste are safe-unknown until separately sourced.
+
+Scope wording clarified on 2026-10-15 against the unchanged `fi.packaging.carton` rule, which already includes paper packaging; this is not a fresh external-source review or an extension to loose paper.

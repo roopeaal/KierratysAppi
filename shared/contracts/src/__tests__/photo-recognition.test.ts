@@ -173,4 +173,29 @@ describe("photo contracts and metadata removal", () => {
     expect(canConfirmPhotoPart(item, { ...part, packagingStatus: "non_packaging" })).toBe(false);
     expect(canConfirmPhotoPart(item, { ...part, material: "unknown" })).toBe(false);
   });
+  it("allows paper packaging confirmation without treating loose paper or uncertain material as packaging", () => {
+    const item = estimate();
+    const part = { ...item.observation.parts[0], material: "paper", shape: "other" };
+    const paper = PhotoEstimateSchema.parse({
+      ...item,
+      observation: { ...item.observation, parts: [part] },
+    });
+    const paperPart = paper.observation.parts[0];
+    if (!paperPart) throw new Error("fixture");
+    expect(canConfirmPhotoPart(paper, paperPart)).toBe(true);
+    for (const packagingStatus of ["non_packaging", "unknown"] as const)
+      expect(canConfirmPhotoPart(paper, { ...paperPart, packagingStatus })).toBe(false);
+    for (const changes of [
+      { status: "uncertain" as const },
+      { confidence: "low" as const },
+      { risk: "special_waste" as const },
+      { risk: "unknown" as const },
+    ])
+      expect(
+        canConfirmPhotoPart(
+          { ...paper, observation: { ...paper.observation, ...changes } },
+          paperPart,
+        ),
+      ).toBe(false);
+  });
 });

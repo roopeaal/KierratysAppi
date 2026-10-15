@@ -1,5 +1,16 @@
 # Adversarial production-readiness audit
 
+## Physical photo-result inspection — 2026-10-15
+
+Not a new 30-lane audit. Beta CoreDevice screenshot support now independently
+shows the owner's existing native estimate; no original-photo accuracy or full
+native-guidance pass. XCTest helper credentials remain needed for interaction/
+semantic automation, not direct screen reading. Production NO-GO unchanged.
+
+| ID | Severity | Evidence and affected flow/files | Reproduction | Required remediation / executability / status |
+| --- | --- | --- | --- | --- |
+| PHOTO-002 | high | Physical estimate shows paper-packaging parts but no confirmation; shared `canConfirmPhotoPart` omits paper while existing `fi.packaging.carton` accepts paper packaging | Supply a clear/medium/ordinary paper-packaging estimate. Before repair confirmation returns false and confirmed sorting returns undefined; both new regressions fail | Locally repaired by adding paper to the allowlist, not inventing a rule or removing user confirmation. Focused contract 9/9 and mobile 8/8, shared/mobile scopes and expanded browser sourced-guidance/non-packaging/unsafe cases pass. Native post-fix human confirmation is still pending; original image never inspected or resent |
+
 ## Native photo-entry follow-up — 2026-10-15
 
 Not a new 30-lane audit; production NO-GO and earlier findings remain.

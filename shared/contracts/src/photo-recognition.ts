@@ -95,6 +95,6 @@ export function canConfirmPhotoPart(estimate: PhotoEstimate, part: PhotoPart): b
     estimate.observation.confidence === "medium" &&
     estimate.observation.risk === "ordinary_packaging" &&
     part.packagingStatus === "packaging" &&
-    ["plastic", "carton", "glass", "metal"].includes(part.material)
+    ["plastic", "carton", "paper", "glass", "metal"].includes(part.material)
   );
 }

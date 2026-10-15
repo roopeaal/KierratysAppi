@@ -95,6 +95,14 @@ const get = (page, id) => page.getByTestId(id);
           release = resolve;
         });
       const payload = structuredClone(estimate);
+      if (mode === "paper" || mode === "non-packaging-paper") {
+        payload.observation.parts[0] = {
+          label: { fi: "QA-paperipakkaus", en: "QA paper packaging" },
+          material: "paper",
+          shape: "other",
+          packagingStatus: mode === "paper" ? "packaging" : "non_packaging",
+        };
+      }
       if (mode === "special") payload.observation.risk = "special_waste";
       if (mode === "uncertain") {
         payload.observation.status = "uncertain";
@@ -171,13 +179,26 @@ const get = (page, id) => page.getByTestId(id);
     await get(page, "photo-open-camera").waitFor();
     assert.equal(await get(page, "photo-product").count(), 0);
 
-    for (const nextMode of ["special", "uncertain"]) {
+    for (const nextMode of ["paper", "non-packaging-paper", "special", "uncertain"]) {
       mode = nextMode;
       await capture();
       await get(page, "photo-send").click();
       await get(page, "photo-product").waitFor();
-      assert.equal(await get(page, "photo-confirm-0").count(), 0);
       assert.equal(await get(page, "sorting-result-resolved").count(), 0);
+      if (nextMode === "paper") {
+        await get(page, "photo-confirm-0").waitFor();
+        await get(page, "photo-confirm-0").click();
+        await get(page, "sorting-result-resolved").waitFor();
+        const text = await get(page, "sorting-result-resolved").innerText();
+        assert.ok(text.includes("Kartonkipakkausten keräys"));
+        assert.ok(text.includes("RINKI"));
+        await page.screenshot({
+          path: path.join(evidence, "fi-paper-confirmed.png"),
+          fullPage: true,
+        });
+        await get(page, "sorting-result-resolved").scrollIntoViewIfNeeded();
+        await page.screenshot({ path: path.join(evidence, "fi-paper-rule.png"), fullPage: true });
+      } else assert.equal(await get(page, "photo-confirm-0").count(), 0);
       await get(page, "photo-reset").click();
     }
     mode = "pending";
@@ -210,7 +231,7 @@ const get = (page, id) => page.getByTestId(id);
     await page.screenshot({ path: path.join(evidence, "en-intro.png"), fullPage: true });
     await context.close();
     console.log(
-      "PASS: actual photo UI, isolated camera/API fixtures; opening feedback, explicit upload and confirmation, metadata, unsafe/uncertain refusal, cancellation, hidden/offline/disabled/quota, FI/EN and layout.",
+      "PASS: actual photo UI, isolated camera/API fixtures; opening feedback, explicit upload and confirmation, sourced paper-packaging guidance, loose-paper/unsafe/uncertain refusal, metadata, cancellation, hidden/offline/disabled/quota, FI/EN and layout.",
     );
   } finally {
     await browser.close();

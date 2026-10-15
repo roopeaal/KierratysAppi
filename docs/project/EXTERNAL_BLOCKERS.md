@@ -2,17 +2,19 @@
 
 ## October 15 photo-recognition delta
 
-- **Camera-entry defect was locally executable, not a credit/signing blocker:** repaired the removed Expo Constants build-field access and passed 342-test full/204-test scoped validation plus expanded browser QA. Owner now confirms opening/capture/send on reloaded iOS build 2; the already-submitted image's result/error is pending. No further payment, renewal, reinstall or upload requested for that outcome. EB-IOS-UI-01 still limits independent native inspection. Android's missing native version metadata remains an engineering follow-up with capture disabled, not a new external credential/payment blocker.
-- **EB-IOS-UI-01 — Automated native inspection (Apple Account owner):** the
+- **Native result reading resolved without credentials:** beta CoreDevice's supported screenshot command reads the already-existing inferred result. Owner outcome text is no longer required for that observation. Paper confirmation was independently blocked by a local allowlist omission despite an existing paper-packaging rule; repaired with failing-before/passing-after tests and browser guidance/safety checks. No new assistant photo/upload/inference, payment, renewal or reinstall. Native post-fix human part confirmation remains acceptance work; Android's missing native version metadata is still a local engineering follow-up, not a payment blocker.
+- **EB-IOS-UI-01 — XCTest interaction/semantic inspection (Apple Account owner):** the
   separate test helper cannot be renewed non-interactively: default helper IDs
   lack profiles/account; the observed owner-specific cached runner profile is
   expired, and explicit existing-ID rebuilding reports No Accounts/missing
   profiles. Product build-2 signing/install/launch pass independently. For
-  automated UI capture, Roope reauthorizes the existing Apple Account under
+  automated XCTest interactions and semantic inspection, Roope reauthorizes the existing Apple Account under
   Xcode Settings → Accounts and handles actual authentication/keychain prompts;
   engineering rebuilds/verifies only the existing owner helper IDs, then runs
   native UI checks. No password/key in chat, new account, payment or security
-  bypass. Owner-operated camera/UI testing is an available alternative now.
+  bypass. Owner-operated controls and supported beta CoreDevice screenshot
+  reading are available independently; a current native result screenshot now
+  passes. This blocker no longer means the phone screen cannot be read at all.
 - **EB-IOS-DEVICE-01 — resolved for this installation:** initial CoreDevice
   4000/reset was followed by an observed restored connected/DDI-ready state.
   A second bounded replacement install succeeds, inventory confirms build 2,

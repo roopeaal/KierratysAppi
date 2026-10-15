@@ -1,8 +1,37 @@
 # Photo recognition — 2026-10-15
 
-Status: locally implemented and validated; **one live adapter estimate passes,
-physical acceptance remains incomplete**. This is not production/store readiness
+Status: locally implemented and validated; **live adapter and actual native estimate
+rendering observed, post-fix native guidance acceptance incomplete**. This is not production/store readiness
 or a finished physical-device feature claim. No GitHub push in this work unit.
+
+## Direct native inspection and paper confirmation
+
+On the owner's request to test directly, the beta CoreDevice CLI's supported
+screenshot command reads the existing app result without the expired XCTest
+helper. An inferred result, indicative confidence, pinned model/version/time and
+paper-packaging parts are visible. No new photograph or provider request; this
+completes result-screen observation, not original-image accuracy or full native
+capture/cleanup/confirmation acceptance.
+
+The photo allowlist accidentally excluded paper even though the existing carton
+rule already includes paper packaging. Two new shared/mobile tests fail before
+and pass after adding paper to the allowlist. Explicit ordinary/empty/non-hazardous
+part confirmation remains mandatory. Non-packaging paper, unknown/uncertain and
+hazardous outputs remain blocked. No new rule, source review date, model/prompt,
+wire fields, dependency or native build. Shared/mobile scopes and the expanded
+browser paper-to-sourced-guidance flow pass; native post-fix confirmation remains
+pending. The original estimate was not saved or injected as fixture/runtime data.
+Full pinned validation passes **344 unique tests (62 policy + 282 application)**
+and all checks/builds/14-route export; shared 84/mobile 206 overlap that count.
+The browser paper-rule screenshot shows the original Rinki source, August 10
+checked date, rule version, jurisdiction, explanation and non-verified 65%
+observation confidence, not an AI-verified material or fresh source review.
+
+Only the in-scope initial result screenshot remains ignored. Two later unrelated
+app/OS-transition generated screenshots were removed after exact-file checks;
+no phone contents changed. Do not capture more while other apps are in use.
+Screenshot reading is now available; XCTest control/semantic inspection still
+requires the separate helper credentials. No assistant paid request or push.
 
 ## Camera-opening defect and owner retry
 

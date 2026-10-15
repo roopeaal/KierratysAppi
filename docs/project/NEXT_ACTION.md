@@ -1,3 +1,3 @@
 # Next action
 
-Record the owner's result or exact error from the image already submitted after the iOS camera-entry repair, and verify source-backed guidance only after explicit part confirmation if an estimate is present; do not request another image/upload, expose photographs, bypass native inspection authentication or push to GitHub.
+Complete one owner-operated native paper-packaging confirmation smoke after the allowlist repair: the owner checks an ordinary empty/non-hazardous part, explicitly approves any needed new capture/upload and confirms its material, then engineering inspects the resulting source-backed guidance with the app stably foregrounded; no automatic photo/send/confirmation, other-app capture, authentication bypass or GitHub push.

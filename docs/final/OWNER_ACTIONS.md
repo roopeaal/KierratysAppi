@@ -2,7 +2,7 @@
 
 ## October 15 — AI credit and native acceptance
 
-- **OA-PHOTO-01 update / Roope + engineering:** camera-opening failure was a local removed-Expo-field defect, now repaired and validated (342 unique tests). Existing build 2 was relaunched without reinstall/renewal. Roope confirms camera opening, capture and send. Report the result's product name/uncertainty or exact error **from that existing attempt**, without another upload or photograph in chat. Then confirm a matching ordinary packaging part before source-backed guidance, if an estimate exists. Successful recognition/cleanup is not yet certified; no new payment is requested.
+- **OA-PHOTO-01 update / Roope + engineering:** camera entry is repaired; owner confirms capture/send, and engineering now reads the actual inferred result through beta CoreDevice screenshots. No result-text question is pending. Testing exposed/repaired the paper-confirmation omission against the unchanged carton/paper rule, with red/green and browser guidance/safety regressions. Remaining native acceptance: Roope opens photo identification, checks an ordinary empty/non-hazardous paper-package part, explicitly approves any needed new image/upload and personally confirms its material; engineering inspects the sourced guidance only with the app stably foregrounded. No assistant photo/send/confirmation, original photograph in chat, new funding or silent retry. Accuracy/native cleanup remain unverified.
 - **OA-HOST-01 / computer owner, completed for this build:** explicit approval
   received; engineering revalidated and removed only the ten enumerated newly
   created cache-copy directories, without following symlinks/force/retries.
@@ -14,9 +14,10 @@
   installation and targeted build-2 inventory pass. Explicit current dev-client
   launch and later PID-specific query pass; no uninstall/reset. No further
   reconnect request is pending for this completed install.
-- **OA-UI-01 / Apple Account owner, automated inspection pending:** reauthorize
+- **OA-UI-01 / Apple Account owner, XCTest interaction/semantic inspection pending:** reauthorize
   the existing account in Xcode Settings → Accounts if automated native UI tests
-  are desired; handle actual login/keychain prompts yourself. Existing-ID helper
+  through XCTest are desired; handle actual login/keychain prompts yourself.
+  Direct beta CoreDevice screenshots already work without this action. Existing-ID helper
   renewal currently fails No Accounts/missing profiles, with cached helper
   profiles expired. Engineering rebuilds/verifies only the existing helper IDs
   and reruns inspection after authorization; no new account/payment required.
@@ -41,8 +42,8 @@
   Handle further trust/camera prompts only when needed;
   later choose one non-personal test package and explicitly approve its image
   upload. Do not send faces, personal details or precise location. Native file
-  deletion/background/denial/large-text/VoiceOver and a real estimate remain
-  unaccepted. The installed native build now exists; only the explicitly
+  deletion/background/denial/large-text/VoiceOver and post-fix confirmed guidance remain
+  unaccepted. A native estimate screen is now inspected. Only the explicitly
   requested owner-operated test may capture/upload after separate approval.
 
 October 12 development renewal is complete under Roope's explicit request.

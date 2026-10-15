@@ -2,7 +2,7 @@ import { PhotoEstimateSchema, photoModel } from "@kierratysappi/contracts/photo-
 import { describe, expect, it } from "vitest";
 import { canUsePhotoCapture, choosePhotoSize, sortConfirmedPhotoPart } from "../sorting";
 
-function example(shape = "jar") {
+function example(shape = "jar", material = "glass") {
   return PhotoEstimateSchema.parse({
     status: "estimated",
     observation: {
@@ -14,7 +14,7 @@ function example(shape = "jar") {
         {
           label: { fi: "Purkki", en: "Jar" },
           packagingStatus: "packaging",
-          material: "glass",
+          material,
           shape,
         },
       ],
@@ -115,6 +115,29 @@ describe("photo confirmation", () => {
     expect(
       sortConfirmedPhotoPart(estimate, part, true, "en", estimate.source.observedAt)?.status,
     ).toBe("ambiguous");
+  });
+  it("uses the existing carton rule for paper packaging only after explicit confirmation", () => {
+    const estimate = example("other", "paper");
+    const part = estimate.observation.parts[0];
+    if (!part) throw new Error("fixture");
+    expect(
+      sortConfirmedPhotoPart(estimate, part, false, "fi", estimate.source.observedAt),
+    ).toBeUndefined();
+    const result = sortConfirmedPhotoPart(estimate, part, true, "fi", estimate.source.observedAt);
+    expect(result?.status).toBe("resolved");
+    if (result?.status === "resolved") {
+      expect(result.destination.id).toBe("carton_packaging");
+      expect(result.rule).toMatchObject({
+        id: "fi.packaging.carton",
+        jurisdiction: "FI",
+        verificationStatus: "verified",
+        checkedAt: "2026-08-10",
+      });
+      expect(result.rule.sourceUrl).toContain("rinkiin.fi/");
+      expect(result.rule.version).toBeTruthy();
+      expect(result.confidence.tier).not.toBe("verified");
+      expect(result.explanation.fi).toContain("paperipakkaus");
+    }
   });
   it("does not provide ordinary collection guidance for risky or uncertain estimates", () => {
     const estimate = example();

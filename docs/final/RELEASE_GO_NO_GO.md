@@ -1,6 +1,19 @@
 # Release decision
 
-Latest October 15 camera retry: fixed the removed Expo Constants build-field
+Latest October 15 direct test: beta CoreDevice screenshots independently show
+the existing native inferred response. No new capture/upload/inference or helper
+renewal. This exposed paper's accidental exclusion from photo confirmation,
+although the unchanged carton rule already covers paper packaging. Repaired
+with two failing-before/passing-after tests, scoped validation and browser
+source-guidance/non-packaging/unsafe checks; full pinned validation passes 344
+unique tests and all format/lint/types/boundaries/build gates. Native post-fix part confirmation,
+accuracy and cleanup remain unverified. Only the in-scope result screenshot
+retained ignored; unrelated/transition generated copies removed and not used as
+evidence. Screenshot reading works; XCTest control/semantics and Android native
+version-source limitations remain. Production **NO-GO**, no signing/install,
+account/payment/model/rule-source change or GitHub push.
+
+Earlier October 15 camera retry: fixed the removed Expo Constants build-field
 access that incorrectly blocked the installed native client. Narrow native-shape
 and wiring regressions, 342 unique full tests, 204 scoped mobile tests and expanded
 browser QA pass; existing signed build 2 relaunched. Owner reports camera opening,
