@@ -3,8 +3,10 @@
 October 15 photo recognition is locally implemented with consent, strict
 observation-only contracts, metadata removal, safe confirmation and 340 tests.
 Public production remains **NO-GO**; photo processing is deliberately disabled
-in production. The actual API is blocked by exhausted credit, with no successful
-real estimate. Native permission disclosure/build numbers advance to 2, but no
+in production. After owner-confirmed funding, one real synthetic-image provider
+request returns HTTP 200 and a runtime-validated estimate; this supersedes the
+initial credit blocker, not product-accuracy or app/device acceptance. Native
+permission disclosure/build numbers advance to 2, but no
 fresh native build/install or physical acceptance is claimed; old build 1/Expo
 Go are gated. A secure key and passing fixtures do not establish a usable camera
 feature on the installed phone. No automatic payment, GitHub push, public photo

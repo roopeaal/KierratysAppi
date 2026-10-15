@@ -27,9 +27,13 @@ uncertain cases do not get ordinary collection instructions from the photo.
 Real diagnostics: model metadata access returned 200. A Responses attempt
 returned 400 `invalid_json_schema`; the adapter now sends a conservative wire
 schema while retaining the full runtime checks. The later provider diagnostic
-reached 429 `credit_balance_exhausted`, type `insufficient_quota`. No successful
-real model estimate, real-product accuracy, OCR quality or physical camera pass
-has been established. Do not keep retrying without resolving the credit limit.
+reached 429 `credit_balance_exhausted`, type `insufficient_quota`. Those initial
+attempts produced no real estimate. Later on October 15, after the owner reported
+funding, exactly one authorized synthetic-image recheck returned HTTP 200 and a
+runtime-validated `estimated` from the same adapter/model. This establishes one
+live schema/adapter success, not remaining balance, real-product accuracy, OCR
+quality, the application HTTP/mobile flow or a physical camera pass. No automatic
+retry or further live request in the next build-only unit.
 
 The account owner can review [billing](https://platform.openai.com/settings/organization/billing)
 and [limits](https://platform.openai.com/settings/organization/limits). Funds are

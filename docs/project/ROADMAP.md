@@ -7,7 +7,7 @@ Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally bl
 - [x] Add separate consented camera/preview/upload/AI-estimate flow with explicit per-part confirmation before source-backed sorting; keep barcode/manual/nearby/history unchanged.
 - [x] Provision the explicitly approved server-only key securely; implement metadata removal, strict input/output, development-only opt-in, deadlines/size/IP/concurrency/process budgets, no retries/storage and safe unsafe/unknown/quota recovery.
 - [x] Pass 340-test full validation, all three scoped commands and three browser runners; inspect FI/EN/light/dark layout. No live/product-accuracy or physical-camera pass is inferred.
-- [!] Real AI validation: model access returns 200 but Responses returns exhausted credit (`credit_balance_exhausted` / `insufficient_quota`); account owner controls billing/limits, no automatic payment or retry.
+- [x] One live schema/adapter check after owner-confirmed funding: exactly one synthetic-image Responses request returns HTTP 200 and a runtime-validated `estimated` result. Earlier credit exhaustion is resolved for this check; no real-product accuracy, app HTTP-route or physical-camera acceptance is inferred. No agent payment or automatic retry.
 - [ ] Generate/build/install native client 2 for the updated permission disclosure, then verify physical capture, permission recovery, file cleanup, background cancellation and accessibility. Build 1/Expo Go are gated from photo capture. Local native build is next; no GitHub push authorized.
 
 ## Current authorized team publication — October 12

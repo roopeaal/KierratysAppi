@@ -1,5 +1,25 @@
 # Test evidence
 
+## Owner-funded live adapter recheck — 2026-10-15
+
+- Owner reported completing the billing step and authorized the offered single
+  test. Existing approved key, pinned model and code-drawn 512×512 JPEG only.
+  Direct real adapter request: HTTP 200, calls 1, result `estimated` after full
+  runtime schemas. Safe summary: `work/photo-credit-restored-2026-10-15.json`.
+- Supersedes the initial exhausted-credit outcome below for this observation.
+  No user photo/estimate text/raw provider body/key/payment history exposed, no
+  agent purchase/billing change/key rotation/model switch/automatic retry.
+  Remaining balance and real-product accuracy are not established.
+- This is provider-adapter evidence, not a fresh app HTTP/browser/native test.
+  Native client 2 build/install and physical camera/permission/file-deletion/
+  background/accessibility acceptance remain pending. No production enablement,
+  signing renewal or GitHub push.
+- Fresh pinned `pnpm validate` exits 0 after the status updates: **340 tests
+  (61 policy + 279 application)**, boundaries/format/lint/strict types, all
+  package/API builds and 14-route web export. Documentation/evidence only;
+  no runtime/dependency changes or added tests. Ignored full log:
+  `work/photo-credit-restored-validate.log`.
+
 ## Development-only photo recognition — 2026-10-15
 
 - Full pinned `pnpm validate` passes **340 tests (61 policy + 279 application)**,
@@ -17,11 +37,12 @@
 - Actual API: model access 200; provider diagnostics first exposed schema
   compatibility, then 429 `credit_balance_exhausted`, type `insufficient_quota`.
   Conservative wire schema plus full runtime checking and distinct credit error
-  handling/regressions implemented. No successful real model estimate or product
-  accuracy is established. Stop real inference retries until credit is resolved.
+  handling/regressions implemented. At this initial stage no successful real
+  model estimate was obtained; the later funded recheck above supersedes this
+  credit blocker, not the unverified product-accuracy/device scope.
 - Approved key stored only in ignored backend env file (0600), never printed or
-  committed. No funds purchased, native prebuild/build/install/signing, physical
-  camera attempt, production enablement or GitHub push. Native config/locales
+  committed. No agent funds purchased, native prebuild/build/install/signing,
+  physical camera attempt, production enablement or GitHub push. Native config/locales
   now require build 2; old build 1/Expo Go are gated for truthful permission use.
 - Full source references, commands, actual failure scope and next native task:
   `PHOTO_RECOGNITION_EVIDENCE.md`, `../research/photo-ai-boundary-2026-10-15.md`.

@@ -2,17 +2,15 @@
 
 ## October 15 — AI credit and native acceptance
 
-- **OA-AI-01 / API account owner:** live Responses returned 429
-  `credit_balance_exhausted`, type `insufficient_quota`; model/key access returned
-  200. If you choose to fund this feature, open
-  [API billing](https://platform.openai.com/settings/organization/billing), select
-  the intended organization/project, review credit and any funding terms, and
-  add only the amount you explicitly choose. Review
-  [usage limits](https://platform.openai.com/settings/organization/limits) as
-  appropriate, then confirm credit is available. No agent purchase, recurring
-  funding, key rotation or model substitution is authorized. No secrets belong
-  in chat/Git. A starter model such as `gpt-6-luna` can be separately evaluated
-  for simple experiments; changing a model cannot cure exhausted credit.
+- **OA-AI-01 / API account owner, completed for the recheck:** the owner reported
+  completing the billing step; one explicitly authorized real synthetic-image
+  Responses request returned HTTP 200 and runtime-validated `estimated`.
+  Initial `credit_balance_exhausted` is superseded for this check. No additional
+  funding is requested now; remaining balance/payment history were not inspected.
+  The owner retains control of [billing](https://platform.openai.com/settings/organization/billing)
+  and [usage limits](https://platform.openai.com/settings/organization/limits).
+  No agent purchase, billing/recharge change, key rotation, model substitution
+  or automatic retry. Never put secrets/payment details in chat/Git.
 - **Engineering:** next generate/build client 2 from `mobile/app` with the new
   FI/EN camera purpose, same app ID and locked pods. Verify permissions/signature,
   then install/accept on the physical device without deleting app data when it

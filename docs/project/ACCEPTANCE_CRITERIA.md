@@ -7,7 +7,7 @@
 3. AI identity is tentative; output contains observations only, bounded runtime schemas and inferred source/model/version/time. No model-supplied bins, source claims or verified status. Risky/non-packaging/uncertain cases cannot get ordinary packaging instructions.
 4. User confirms each ordinary empty/non-hazardous packaging part before the existing rule engine supplies sourced/explained guidance. Deposit remains unknown for bottles/cans; rule provenance/confidence are preserved.
 5. Server-only credential and explicit development opt-in; production disabled. Enforce payload/response/token/deadline/IP/concurrency/process limits, safe cancellation/late-result/credit errors, no automatic retry or raw provider/request logging.
-6. Purpose-matched native build 2 is required; old build 1/Expo Go cannot capture. Source/browser tests do not prove native capture, metadata/file cleanup, permissions/background recovery, accessibility, battery or real-product accuracy. Current live AI is blocked by API credit; neither a key nor local green tests establishes a working physical feature.
+6. Purpose-matched native build 2 is required; old build 1/Expo Go cannot capture. Source/browser tests do not prove native capture, metadata/file cleanup, permissions/background recovery, accessibility, battery or real-product accuracy. One owner-authorized real adapter estimate now passes after funding; neither this synthetic-image request, a key nor local green tests establishes a working physical feature.
 
 ## Three-part source ownership
 

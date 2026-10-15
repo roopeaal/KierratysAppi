@@ -1,8 +1,8 @@
 # Photo recognition — 2026-10-15
 
-Status: locally implemented and validated; **live AI and physical acceptance
-remain incomplete**. This is not production/store readiness or a finished
-physical-device feature claim. No GitHub push in this work unit.
+Status: locally implemented and validated; **one live adapter estimate passes,
+physical acceptance remains incomplete**. This is not production/store readiness
+or a finished physical-device feature claim. No GitHub push in this work unit.
 
 ## Flow and separation
 
@@ -23,7 +23,8 @@ the app. Isolated QA estimates never enter runtime/provider data.
   obtained after the destination widget did not appear. The helper wrote only
   the ignored `backend/api/.env.local`, permission 0600. No key value is printed,
   committed or used in mobile; no account IDs appear in these docs. The selected
-  non-expiring lifetime was not silently changed. Funds were not purchased.
+  non-expiring lifetime was not silently changed. Funds were not purchased by
+  the agent; the owner later reported completing the billing step.
 - JPEG only, 1,500,000 decoded bytes / 2,000,000 base64 characters maximum;
   frame dimensions ≤4096 per side and ≤16 million pixels. Client strips all
   APP/COM metadata, including EXIF/GPS, before upload; backend strips again.
@@ -86,6 +87,10 @@ application assertions. Incidental import-only formatting was removed.
 Ignored logs: `work/photo-validate-final.log`, `photo-mobile.log`,
 `photo-backend.log`, `photo-shared.log`, `photo-browser-final.log`,
 `photo-existing-app-browser.log`, `photo-existing-nearby-browser.log`.
+The later owner-funded recheck also reran full pinned `pnpm validate`: exit 0,
+same 340 tests/all validation and build gates; no runtime changes or extra
+test cases. Ignored log: `work/photo-credit-restored-validate.log`. The browser
+runners were not repeated for these documentation-only status updates.
 
 The final web entry is `entry-a96e6704245fcc177fcaa35efaa0f5a6.js`, 3,850,138 bytes /
 733,358 gzip; it remains above the existing warning budget, not a performance
@@ -101,11 +106,25 @@ never a user photo. Two app-level smoke attempts returned 503; isolated provider
 diagnostics identified schema rejection then exhausted API credit. A separate
 non-billable model-access request returned 200. The live schema was simplified;
 the later actual failure is 429 `credit_balance_exhausted` /
-`insufficient_quota`. Full live schema/output revalidation still awaits credit.
-That code/type is now a distinct safe client result and
-has adapter/browser regression coverage. There is **no successful live model
-estimate** and no claim of product-recognition accuracy. Do not retry until the
-account owner has resolved credit/limits. No automatic charge or model change.
+`insufficient_quota`. That code/type is now a distinct safe client result and
+has adapter/browser regression coverage. These are the initial failed attempts,
+not the latest result.
+
+After the owner reported completing funding, the explicitly authorized recheck
+ran `node --env-file=.env.local --import tsx ../../work/photo-diagnostic.mts`
+from `backend/api`. Exactly **one** real request returned **HTTP 200**; the
+unchanged adapter parsed the provider envelope, observation and full result
+schemas and returned **`estimated`**. Same pinned model and approved server key;
+input was a code-drawn 512×512 JPEG, not a user's photograph. Safe output was
+only HTTP status, request count and result status. No estimate text, key,
+provider raw body or payment details were logged. Safe summary is in ignored
+`work/photo-credit-restored-2026-10-15.json`.
+
+This establishes one live wire-schema/runtime-adapter success and resolves the
+observed credit blocker. It does **not** prove the remaining balance, historic
+payments, product-recognition accuracy, app HTTP-handler/browser/native flow,
+camera quality or a safe sorting answer. No second live request, automatic
+retry, agent purchase, billing/recharge change or model substitution occurred.
 
 New camera-purpose text covers barcode/photo and separate upload approval in
 app config plus native FI/EN localizations. iOS buildNumber / Android versionCode
@@ -115,8 +134,9 @@ Barcode/manual paths remain available. No native prebuild/build/sign/install or
 new physical-camera experiment was run here; the existing profile's October 19,
 12:49:04 Helsinki expiry is unchanged and not newly renewed.
 
-Next local task: generate/build the purpose-matched native client 2. Then obtain
-device acceptance and a bounded real estimate only after credit is available.
+Next local task: generate/build the purpose-matched native client 2 without more
+live requests during that build-only unit. Then obtain device acceptance with
+the device user's explicit image-upload approval and bounded test scope.
 Public photo release additionally needs durable authenticated billing limits,
 hosting/processor/store declarations and adversarial/device evaluation; no new
 lawyer-review requirement is imposed on the school-scope development task.

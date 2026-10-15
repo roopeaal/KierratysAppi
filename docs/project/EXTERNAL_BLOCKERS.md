@@ -2,12 +2,13 @@
 
 ## October 15 photo-recognition delta
 
-- **EB-AI-01 — API credit (account owner):** secure key creation and model access
-  (200) succeed, but the actual Responses diagnostic returns 429
-  `credit_balance_exhausted`, type `insufficient_quota`. Review billing and limits
-  using the procedure in `docs/final/OWNER_ACTIONS.md`; no credit purchase,
-  automatic retry or project/account change is authorized. Unit/browser quota
-  recovery passes; a successful real model estimate remains unverified.
+- **EB-AI-01 — API credit (account owner), resolved for the October 15 recheck:**
+  initial Responses returned 429 `credit_balance_exhausted` /
+  `insufficient_quota`. After the owner reported completing funding, exactly one
+  authorized synthetic-image request returned HTTP 200 and runtime-validated
+  `estimated`. No balance/payment-history inspection, agent purchase, billing
+  change, model change or automatic retry. Real-product and native acceptance
+  remain unverified; see `docs/final/PHOTO_RECOGNITION_EVIDENCE.md`.
 - **Engineering, not an external blocker:** generate/build native client 2 with
   the updated camera-purpose disclosure; old build 1/Expo Go are gated. Native
   capture/deletion/permissions/VoiceOver/large-text and full product accuracy
@@ -125,7 +126,7 @@ automation cannot read the screen. Distance/permission acceptance is still open.
 | Store screenshots/feature graphic/forms/validation | blocker/high | Depends on signed builds, accounts and approvals | OA-10 |
 | Private branch protection/CodeQL | high governance | GitHub plan/Code Security approval; API currently returns 403 and no variable exists | OA-12 |
 
-Historical launch scope excluded photo/OCR/cloud AI. October 15 supersedes that for explicitly approved development-only photo recognition: source implementation and local tests exist, while credit/native acceptance remain pending as above. Production photo use and on-device OCR are still disabled/unimplemented.
+Historical launch scope excluded photo/OCR/cloud AI. October 15 supersedes that for explicitly approved development-only photo recognition: source implementation, local tests and one real adapter estimate pass; native acceptance remains pending as above. Production photo use and on-device OCR are still disabled/unimplemented.
 
 Resolved 2026-09-10: the npm audit endpoint responds again. It exposed 20 high XML/YAML records, repaired locally through compatible patches; the final live `pnpm security:audit` passes with zero high/critical and six moderate/one low. OA-11 remains a recurring dependency-review gate, not an active external timeout blocker. The new Expo/Router patch set requires a local native rebuild and physical smoke; no new account or paid service is needed merely for these source repairs.
 

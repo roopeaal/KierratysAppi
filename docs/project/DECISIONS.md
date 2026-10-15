@@ -266,11 +266,17 @@
 ## D-038 — Consented AI observations never replace sorting policy
 
 - Date: 2026-10-15
-- Status: locally implemented/tested; real AI credit and native acceptance pending
+- Status: locally implemented/tested; one real adapter estimate passes after owner funding; native acceptance pending
 - Decision: a separate photo route obtains purpose/recipient/retention consent, strips JPEG metadata before upload, previews locally and sends only through a server-side OpenAI adapter. Use the documented GPT-4.1 mini snapshot and a conservative supported structured-output wire schema; full runtime contracts retain strict bounds/Unicode validation. No tool execution, remote image URLs, arbitrary prompts, verified identity or model-supplied collection destination.
 - Sorting: only clear ordinary packaging parts can be explicitly user-confirmed; then the existing engine supplies source/jurisdiction/date/version/confidence/explanation. Deposit is never visually asserted. Risky/non-packaging/uncertain cases require manual/local guidance rather than fabricated waste advice. No photo/estimate persistence or analytics.
-- Deployment/privacy: server default/production stay disabled. Local dev opt-in has three/client/minute, two concurrent and twenty/process caps, not durable production billing protection. `store:false` is not zero retention or EU-only processing. API credit is exhausted; do not purchase funds or silently switch models. A key name is not evidence of account funding.
+- Deployment/privacy: server default/production stay disabled. Local dev opt-in has three/client/minute, two concurrent and twenty/process caps, not durable production billing protection. `store:false` is not zero retention or EU-only processing. API credit initially blocked validation; the owner later reported funding and one authorized request succeeded. Do not purchase funds or silently switch models. A key name is not evidence of account funding.
 - Native continuity: purpose text/localizations and build numbers move to 2; old installed build 1/Expo Go cannot capture for this feature. A future correct native build/install is required before physical acceptance. Preserve actual prior evidence, storage identity, unchanged rules/migration/OSM and repository-sharing boundary; no push in this feature unit.
+
+## D-039 — Funded recheck is one bounded request, not device acceptance
+
+- Date: 2026-10-15
+- Decision: reuse the previously approved server key and pinned vision model for exactly one synthetic-image request after the owner reports completing funding. Do not purchase credit, change billing/recharge, rotate keys, switch models, send personal photos or make automatic retries.
+- Evidence: HTTP 200 and runtime-validated `estimated` from the real adapter. This resolves EB-AI-01 for the observed check only; it does not reveal balance/payment history, prove real-product accuracy, exercise the app's HTTP/mobile flow or replace native client 2 acceptance. Continue with the native build without another live request in that work unit; no push.
 
 ## Remaining pending decisions (historical / production, continued)
 
