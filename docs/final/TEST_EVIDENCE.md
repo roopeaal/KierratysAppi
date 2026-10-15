@@ -1,5 +1,37 @@
 # Test evidence
 
+## Approved cache cleanup and native build 2 — 2026-10-15
+
+- Explicit owner approval followed by fresh exact-target/type/child/creation/
+  link validation. Removed ten download-cache-copy directories, 8,826 files and
+  nine symlinks without traversing links, force/retries or touching installed
+  pods/source/phone data. Measured available bytes 1,035,653,120 → 2,064,412,672;
+  installed native locks unchanged. Receipt: `cache-cleanup.jsonl`.
+- Preserved signature-verified APFS build-1 clone. Fresh Xcode 26.6/iOS 26.5
+  Debug build exits 0 / BUILD SUCCEEDED. Version 0.1.0/build 2, same ID, strict
+  app/all 12 framework signatures, compiled default/FI/EN camera purpose and
+  foreground-only location, app/profile/team/device bindings pass. Existing
+  profile expires October 19 at 12:49:04 Helsinki; not renewed.
+- First bounded install fails at CoreDevice 4000/reset. Later fresh metadata
+  confirms connected/DDI-ready state; second bounded replacement install passes.
+  Targeted inventory confirms version 0.1.0/build 2, current dev-client launch
+  and later PID-specific query pass. Final relaunch/process check also passes.
+  No uninstall/reset or native UI/camera/private-content-retention inference.
+- Native inspection helper fails separately: default signing configuration,
+  expired observed owner-specific cached profile, then explicit existing-ID
+  rebuild reports No Accounts/missing profiles. No native tree/screenshot
+  obtained; failed tool sessions closed, product relaunched. Manual owner photo
+  smoke requested with explicit upload approval; no assistant capture/upload.
+- LAN API/capabilities/Metro/iOS manifest/exact 11,734,094-byte JS asset return
+  200; expected current origin/photo contract. These are host checks only.
+  No new AI inference request, public service or GitHub push.
+- Fresh scoped mobile command passes 203 overlapping dependency tests. Full
+  pinned `pnpm validate` exits 0 with **340 unique tests (61 + 279)** and all
+  format/lint/types/boundaries/package/API/web build gates; 14 routes. No new
+  application source/dependency/test changes or browser/device visual claims.
+  Logs/verification summaries remain under ignored
+  `work/ios-photo-2026-10-15.CmF8TO/`; exact procedure in physical evidence.
+
 ## Native client 2 preflight — 2026-10-15
 
 - Generated ignored iOS project from `mobile/app`: Info.plist build 2, same

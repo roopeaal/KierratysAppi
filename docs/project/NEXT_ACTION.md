@@ -1,3 +1,3 @@
 # Next action
 
-Resolve the pending owner approval for deleting only the ten newly created CocoaPods cache-copy directories listed in docs/final/PHYSICAL_IOS_VALIDATION.md; after explicit approval, revalidate those exact targets and remove them without following symlinks, then record freed space, stopping on any validation/deletion failure and performing no broader cleanup, GitHub push or live AI request.
+Complete one owner-operated native photo-to-guidance smoke on installed build 2 using an empty ordinary package and explicit one-image upload approval; record the actual inferred/uncertain/error outcome and any source-backed guidance only after the owner's part confirmation, without personal images, silent retries, additional unapproved paid calls or a GitHub push.

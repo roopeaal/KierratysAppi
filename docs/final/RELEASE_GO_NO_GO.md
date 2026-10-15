@@ -1,20 +1,33 @@
 # Release decision
 
-October 15 native preflight generates client 2's ignored project and restores
-locked pods after a recovered ENOSPC extraction. No native compilation was
-started with about 977 MiB free; exact cache-cleanup approval is pending under
-OA-HOST-01/EB-IOS-SPACE-01. Current phone remains build 1. Scoped mobile and full
+Latest October 15: explicitly approved exact download-cache cleanup resolves
+storage for this run. Native Debug build 2, app/all 12 framework signatures,
+embedded default/FI/EN camera purpose and profile/team/device binding pass with
+the existing October 19 expiry. Initial transport failure is resolved after an
+observed restored connection: replacement install, actual build-2 inventory,
+launch and later PID checks pass. Native camera/visual acceptance remains open;
+the separate UI helper cannot renew without an available Xcode Apple Account.
+Owner-operated native photo smoke is pending. Fresh scoped mobile
+and full 340-test validation pass. Public production **NO-GO** is unchanged;
+compile/signing and host runtime checks do not certify a working phone feature.
+
+Earlier October 15 native preflight generated client 2's ignored project and
+restored locked pods after a recovered ENOSPC extraction. At that stage no
+native compilation was started with about 977 MiB free; cache-cleanup approval
+was pending and the phone remained build 1. The latest update above supersedes
+those storage/installation statuses. Scoped mobile and full
 340-test validation pass; generation/settings/connected-device metadata are not
 build/sign/install/camera acceptance. Public production **NO-GO** is unchanged.
 
-October 15 photo recognition is locally implemented with consent, strict
+Initial October 15 photo recognition was locally implemented with consent, strict
 observation-only contracts, metadata removal, safe confirmation and 340 tests.
 Public production remains **NO-GO**; photo processing is deliberately disabled
 in production. After owner-confirmed funding, one real synthetic-image provider
 request returns HTTP 200 and a runtime-validated estimate; this supersedes the
 initial credit blocker, not product-accuracy or app/device acceptance. Native
-permission disclosure/build numbers advance to 2, but no
-fresh native build/install or physical acceptance is claimed; old build 1/Expo
+permission disclosure/build numbers advanced to 2; at that stage no
+fresh native build/install or physical acceptance was claimed. The latest
+update above supersedes build/install status, not camera/visual acceptance; old build 1/Expo
 Go are gated. A secure key and passing fixtures do not establish a usable camera
 feature on the installed phone. No automatic payment, GitHub push, public photo
 service, store declaration or readiness approval. See `PHOTO_RECOGNITION_EVIDENCE.md`.

@@ -131,15 +131,20 @@ app config plus native FI/EN localizations. iOS buildNumber / Android versionCod
 advance to 2. Native build 1 and Expo Go are blocked from this new capture flow,
 because JavaScript cannot update the old installed permission disclosure.
 Barcode/manual paths remain available. The later native preflight generated the
-ignored iOS project and restored locked pods, but native compilation/sign/install
-is paused for host storage/owner cleanup approval. No new physical-camera
-experiment was run; the existing profile's October 19,
+ignored iOS project and restored locked pods. After explicitly approved scoped
+cache cleanup, native Debug build 2, app/12-framework signatures, embedded
+default/FI/EN camera purpose and profile/device binding pass. Initial install
+fails at CoreDevice transport; after an observed restored connection, a second
+bounded attempt, actual build-2 inventory and launch/later PID checks pass.
+No new physical-camera experiment or native visual inspection passes; the
+separate helper needs owner account/provisioning renewal. The existing profile's October 19,
 12:49:04 Helsinki expiry is unchanged and not newly renewed.
 
-Next local task: resolve the exact cache-cleanup approval/capacity in
-`PHYSICAL_IOS_VALIDATION.md`, then build the purpose-matched client 2 without
-more live requests during that build-only unit. Then obtain device acceptance with
-the device user's explicit image-upload approval and bounded test scope.
+Next local task: complete the requested owner-operated native photo smoke on
+installed build 2, per `PHYSICAL_IOS_VALIDATION.md`, with explicit one-image
+upload approval and bounded scope. No automatic capture/request or photograph
+in chat. Broader native visual/permission/background/accessibility evidence
+remains pending; automation helper renewal is a separate account action.
 Public photo release additionally needs durable authenticated billing limits,
 hosting/processor/store declarations and adversarial/device evaluation; no new
 lawyer-review requirement is imposed on the school-scope development task.

@@ -2,7 +2,60 @@
 
 Status date: 2026-10-15
 
-## Client 2 generation and storage preflight — 2026-10-15
+## Client 2 build/signatures/install/launch pass; photo acceptance pending — 2026-10-15
+
+Source `6b855f6`, unchanged application source/dependencies and independent team
+branch. Owner explicitly approved the exact cache-copy cleanup and had already
+authorized the updated installation. **Build/signatures, installed build 2 and
+launch are verified; rendered UI/camera and local-data retention are not.**
+
+| Check | Observed result |
+| --- | --- |
+| Scoped cleanup | Fresh exact path/type/child/creation-date inventory: ten previously listed cache directories, 8,826 files, nine internal symlinks not followed, 1,000,746,369 logical bytes. Foreground postorder unlink/rmdir without force/retries succeeds; installed pod lock and manifest unchanged. No program/source/app-product/phone data removal |
+| Immediate space measurement | Available bytes 1,035,653,120 → 2,064,412,672. Later free-space readings vary and are not all credited to this cleanup. Removed cache copies can be downloaded again, not recovered from Trash |
+| Rollback preservation | APFS-cloned current cached build 1 to ignored `rollback-build-1.app`; strict recursive signature and expected team/app entitlements pass before compiling |
+| Native build | Xcode 26.6 `17F113`, iOS 26.5 SDK, same app/team, matched locked pods, Debug generic iOS destination, cached DerivedData, `-jobs 2`, `COMPILER_INDEX_STORE_ENABLE=NO`, automatic existing-team signing: exit 0 and `BUILD SUCCEEDED` |
+| Built identity/purpose | Actual Info.plist version 0.1.0/build 2, unchanged bundle ID. Default and compiled FI/EN camera-purpose resources match source. Foreground location purpose retained; no Always purpose/background location |
+| Signing/binding | Strict recursive app plus all 12 embedded frameworks pass. Embedded profile and app team/application entitlements match; intended physical device is included |
+| Profile lifetime | Existing profile reused: created 2026-10-12 09:49:04 UTC; expires **2026-10-19 09:49:04 UTC / 12:49:04 Helsinki**. Not a renewal/distribution or year-end profile |
+| Replacement install | Initial bounded beta CoreDevice attempt fails: 4000 → invalidated connection → network 54/reset. A later fresh query observes connected/DDI-ready state; second bounded attempt succeeds. Targeted app inventory confirms version 0.1.0/build 2. No uninstall/reset; private contents/retention not inspected |
+| Physical launch/process | Explicit current Metro dev-client launch succeeds; later exact-PID query finds the app. Failed helper sessions were closed and the installed app relaunched; final launch/another PID-specific query pass. This is not rendered Home/camera proof |
+| Host runtime | LAN API health/photo capabilities/Metro status, iOS manifest and exact 11,734,094-byte launch asset return 200; current API origin/photo contract present. No photo inference request; host checks are not physical startup |
+| Repository checks | Fresh scoped mobile validation passes 203 overlapping tests; full pinned validation passes **340 unique tests (61 policy + 279 application)**, format/lint/types/boundaries, API/package builds, 14 web routes |
+
+Cleanup helper/dry run/receipt, native build log, native verification summary,
+profile/rollback metadata, both install attempts, targeted build-2 inventory,
+launch/process and post-build validation logs remain ignored under
+`work/ios-photo-2026-10-15.CmF8TO/`. The build-only verification receipt retains
+`physicalInstallVerified:false`; the separate `install-verification.json` proves
+installation/launch/process, with UI/camera flags still false. No raw secret, device ID/profile/binary,
+photo or private app contents are committed. No extra billable AI request,
+billing/account change, global Xcode switch, GitHub push or production release.
+
+### Native inspection limitation and next acceptance
+
+The first current agent-device session fails on default helper provisioning
+(`No Accounts`/missing profiles). The owner-specific helper ID was discovered
+from existing installed/cache metadata, not invented. A scoped session reuses
+an expired September 4 helper profile and cannot install the runner. Other
+cached owner profiles are also expired, including the newer October 14 fixture.
+An explicit stable-Xcode build-for-testing with existing team/helper IDs fails
+`No Accounts`/missing profiles; log: `helper-rebuild.log`. No tool source/global
+Xcode setting/account was changed, no authentication bypass or broader cache
+removal. This is separate from the verified product app and its October 19
+profile. Failed automation sessions were closed; no actual native screenshot
+or readable semantic tree was obtained, so no visual/VoiceOver/camera pass.
+
+Roope can reauthorize the existing Apple Account in Xcode Settings → Accounts
+for helper renewal if automated inspection is needed. Manual native testing
+does not depend on that helper. One owner-operated test was requested: open
+photo identification, capture an empty ordinary carton without people/personal
+details, explicitly approve one upload, and report the actual estimate/error.
+Do not send photos into chat or upload automatically. Source-backed guidance
+still needs per-part confirmation. Background/file deletion/permission recovery,
+accessibility, real-product accuracy and broader matrix remain separate.
+
+## Earlier client 2 generation and storage preflight — 2026-10-15
 
 Source `93d3149`, independent team branch; owner authorized the new installation.
 **No new native compile/sign/install or camera/visual acceptance yet.** Existing
@@ -36,7 +89,8 @@ phone and cached app remain version 0.1.0/build 1. Nothing pushed to GitHub.
 
 ### Pending cleanup approval and exact limits
 
-Owner approval was requested asynchronously and **has not been received**.
+At this earlier preflight, owner approval was pending. It was later explicitly
+received and the scoped cleanup completed, as recorded above.
 Only the following ten newly created directory targets were enumerated under
 `/Users/roopeaaltonen/Library/Caches/CocoaPods/Pods/External/`:
 
@@ -56,7 +110,7 @@ source, installed applications or cached signed app products. Creation metadata
 matches this run. Dry run: ten directory targets, 8,826 regular files, about
 1,000,746,369 logical bytes; nine internal framework symlinks were detected and
 not traversed. All nine lexical link destinations remain within this cache
-root. No cleanup has occurred. Metadata can change: revalidate exact paths,
+root. At that initial preflight no cleanup had occurred. Metadata can change: revalidate exact paths,
 types, count, children and links in the same foreground process after approval;
 do not follow symlinks. Stop on any mismatch/locked-file/deletion failure, with
 no stronger or broader retry. Cache contents can be downloaded again using the

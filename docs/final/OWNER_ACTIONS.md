@@ -2,14 +2,29 @@
 
 ## October 15 — AI credit and native acceptance
 
-- **OA-HOST-01 / computer owner, pending:** approve only the ten newly created
-  reloadable CocoaPods cache-copy directories enumerated in
-  `PHYSICAL_IOS_VALIDATION.md`, or free disk space independently. About 977 MiB
-  remains after locked pod recovery. No deletion is authorized yet; the request
-  does not cover programs, personal files, installed pods or signed app products.
-  Engineering revalidates exact targets/links and measures capacity before any
-  cleanup/build; stop on validation/deletion failure. Extra capacity may still
-  be needed after the approximately 1 GB cache cleanup.
+- **OA-HOST-01 / computer owner, completed for this build:** explicit approval
+  received; engineering revalidated and removed only the ten enumerated newly
+  created cache-copy directories, without following symlinks/force/retries.
+  About 1 GB freed immediately; installed locks unchanged. No program/personal/
+  installed-pod/app-product/phone-data removal or broader cleanup. Cache copies
+  can be downloaded again. Native build 2 subsequently succeeds.
+- **OA-DEVICE-02 / Roope + engineering, installation completed:** after the
+  initial transport reset, connected/DDI-ready state was observed, replacement
+  installation and targeted build-2 inventory pass. Explicit current dev-client
+  launch and later PID-specific query pass; no uninstall/reset. No further
+  reconnect request is pending for this completed install.
+- **OA-UI-01 / Apple Account owner, automated inspection pending:** reauthorize
+  the existing account in Xcode Settings → Accounts if automated native UI tests
+  are desired; handle actual login/keychain prompts yourself. Existing-ID helper
+  renewal currently fails No Accounts/missing profiles, with cached helper
+  profiles expired. Engineering rebuilds/verifies only the existing helper IDs
+  and reruns inspection after authorization; no new account/payment required.
+  Product signing/install/launch is independent and already passes.
+- **OA-PHOTO-01 / Roope, physical test pending:** on installed build 2 open
+  photo identification, photograph one empty ordinary carton without people or
+  personal details, and approve one upload only after reviewing the preview/
+  disclosure. Report estimate/error text, not the photograph in chat; confirm
+  packaging parts before any sourced guidance. No silent retry/capture/upload.
 - **OA-AI-01 / API account owner, completed for the recheck:** the owner reported
   completing the billing step; one explicitly authorized real synthetic-image
   Responses request returned HTTP 200 and runtime-validated `estimated`.
@@ -19,19 +34,20 @@
   and [usage limits](https://platform.openai.com/settings/organization/limits).
   No agent purchase, billing/recharge change, key rotation, model substitution
   or automatic retry. Never put secrets/payment details in chat/Git.
-- **Engineering:** client 2's ignored native project and locked pods are now
-  generated/restored. After host storage approval/capacity, build it from
-  `mobile/app` with the new FI/EN camera purpose and same app ID. Verify permissions/signature,
-  then install/accept on the physical device without deleting app data when it
-  is available. Native build 1/Expo Go are intentionally blocked from photo
+- **Engineering:** client 2 now passes native build, embedded default/FI/EN
+  camera purpose, app/12-framework signatures and profile/device binding checks.
+  Installed build 2 and launch/process checks now pass. Complete physical
+  photo/visual acceptance without deleting app data. Native build 1/Expo Go
+  are intentionally blocked from photo
   capture, not silently treated as updated by Metro. Existing October 19 profile
   expiry remains; it has not been renewed in this feature unit.
-- **Device user:** connection/unlock was completed and wired CoreDevice access
-  confirmed; installed app remains build 1. Handle further trust/camera prompts only when needed;
+- **Device user:** connection was restored and installed build 2 confirmed.
+  Handle further trust/camera prompts only when needed;
   later choose one non-personal test package and explicitly approve its image
   upload. Do not send faces, personal details or precise location. Native file
   deletion/background/denial/large-text/VoiceOver and a real estimate remain
-  unaccepted. No photo capture/upload is requested until the native build exists.
+  unaccepted. The installed native build now exists; only the explicitly
+  requested owner-operated test may capture/upload after separate approval.
 
 October 12 development renewal is complete under Roope's explicit request.
 Current profile expires **October 19 at 12:49:04 Helsinki**, not October 13.

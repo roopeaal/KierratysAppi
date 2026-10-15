@@ -285,6 +285,19 @@
 - Boundary: with about 977 MiB free, do not start the native compile or claim build/sign/install success. Request permission before deleting ten newly created CocoaPods cache-copy directories, individually enumerated in physical evidence. No broad caches, programs, existing app products, source, personal files or phone data are included. Validate exact targets and symlinks afresh after approval; never follow links or retry a failed deletion with a stronger/broader operation.
 - Evidence: connected/paired iPhone still has build 1, purpose-matched generated Info.plist has build 2, scoped mobile and full 340-test validation pass. Native compilation, install and physical photo acceptance remain pending. No extra paid inference, account change, signing renewal, SDK switch or push.
 
+## D-041 — Scoped cache removal enables verified build, not assumed installation
+
+- Date: 2026-10-15
+- Authority/action: owner explicitly approved the ten named newly created CocoaPods cache-copy directories. Fresh validation matched the exact paths, children, creation dates, 8,826 files/9 internal symlinks/1,000,746,369 bytes. A foreground postorder operation unlinked links without following them and stopped on errors, with no force/retries. Only cache copies were removed; installed native locks stayed identical. Future recovery is a locked download, not a claim of recoverable deleted bytes from Trash.
+- Native decision: preserve a strictly verified APFS clone of build 1, build against Xcode 26.6/iOS 26.5 with existing team/ID and matched pods, two jobs and no index store. Build 2/app/12-framework signatures/default+FI/EN camera purpose and profile/device binding pass; existing profile expires October 19 at 12:49:04 Helsinki and was not renewed.
+- Acceptance: first install fails with CoreDevice transport 4000/reset. Only after a fresh query confirms connected/DDI-ready state, a second bounded install succeeds; actual inventory has build 2 and launch/later PID check pass. These still do not prove rendered UI, camera or retained private contents. No other cleanup, billable inference, account/SDK change or GitHub publication.
+
+## D-042 — Separate UI-helper credentials from product acceptance
+
+- Date: 2026-10-15
+- Evidence: the product's build-2 signatures/profile/install/launch pass. Native UI automation independently fails: default helper IDs lack profiles/account, the observed owner-specific cached runner profile is expired, and an explicit existing-ID Xcode rebuild reports No Accounts/missing profiles. Do not reclassify that as a product startup failure or claim a visual/camera pass.
+- Decision: close failed tool sessions and restore the installed app in the foreground. Offer one owner-operated empty ordinary-package photo test with explicit image-upload approval; do not capture/send silently or request photos in chat. Automated inspection may resume only after the account owner reauthorizes the existing Xcode Apple Account and engineering rebuilds/verifies the existing helper IDs. No new account/payment, main-app ID change, broad cleanup or security bypass.
+
 ## Remaining pending decisions (historical / production, continued)
 
 - October 8 publication outcome: explicit non-force push succeeds to existing public KierratysAppi main, verified remotely. Do not change visibility/settings or KeepItGreen; source sharing does not publish a running production service or certify stores/native pending flows.
