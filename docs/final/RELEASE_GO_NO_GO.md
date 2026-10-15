@@ -1,5 +1,12 @@
 # Release decision
 
+October 15 native preflight generates client 2's ignored project and restores
+locked pods after a recovered ENOSPC extraction. No native compilation was
+started with about 977 MiB free; exact cache-cleanup approval is pending under
+OA-HOST-01/EB-IOS-SPACE-01. Current phone remains build 1. Scoped mobile and full
+340-test validation pass; generation/settings/connected-device metadata are not
+build/sign/install/camera acceptance. Public production **NO-GO** is unchanged.
+
 October 15 photo recognition is locally implemented with consent, strict
 observation-only contracts, metadata removal, safe confirmation and 340 tests.
 Public production remains **NO-GO**; photo processing is deliberately disabled

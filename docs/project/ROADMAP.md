@@ -8,7 +8,9 @@ Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally bl
 - [x] Provision the explicitly approved server-only key securely; implement metadata removal, strict input/output, development-only opt-in, deadlines/size/IP/concurrency/process budgets, no retries/storage and safe unsafe/unknown/quota recovery.
 - [x] Pass 340-test full validation, all three scoped commands and three browser runners; inspect FI/EN/light/dark layout. No live/product-accuracy or physical-camera pass is inferred.
 - [x] One live schema/adapter check after owner-confirmed funding: exactly one synthetic-image Responses request returns HTTP 200 and a runtime-validated `estimated` result. Earlier credit exhaustion is resolved for this check; no real-product accuracy, app HTTP-route or physical-camera acceptance is inferred. No agent payment or automatic retry.
-- [ ] Generate/build/install native client 2 for the updated permission disclosure, then verify physical capture, permission recovery, file cleanup, background cancellation and accessibility. Build 1/Expo Go are gated from photo capture. Local native build is next; no GitHub push authorized.
+- [x] Generate client 2's ignored iOS project with updated FI/EN purpose; restore the saved native lock and pass deployment pod install without version changes. Confirm stable SDK/build settings, current connected iPhone/build 1 and API/Metro health; pass scoped mobile and full 340-test validation.
+- [!] Native compilation paused before starting: about 977 MiB free after one recovered ENOSPC pod extraction. Owner approval is pending for only ten newly created, reloadable CocoaPods cache-copy directories (about 1 GB); no cleanup is implied. See EB-IOS-SPACE-01.
+- [ ] After storage is available, build/sign/install native client 2 with the unchanged ID; then verify physical capture, permission recovery, file cleanup, background cancellation and accessibility with explicit upload approval. Build 1/Expo Go remain gated. No GitHub push or further live AI request in the build-only unit.
 
 ## Current authorized team publication — October 12
 

@@ -130,12 +130,15 @@ New camera-purpose text covers barcode/photo and separate upload approval in
 app config plus native FI/EN localizations. iOS buildNumber / Android versionCode
 advance to 2. Native build 1 and Expo Go are blocked from this new capture flow,
 because JavaScript cannot update the old installed permission disclosure.
-Barcode/manual paths remain available. No native prebuild/build/sign/install or
-new physical-camera experiment was run here; the existing profile's October 19,
+Barcode/manual paths remain available. The later native preflight generated the
+ignored iOS project and restored locked pods, but native compilation/sign/install
+is paused for host storage/owner cleanup approval. No new physical-camera
+experiment was run; the existing profile's October 19,
 12:49:04 Helsinki expiry is unchanged and not newly renewed.
 
-Next local task: generate/build the purpose-matched native client 2 without more
-live requests during that build-only unit. Then obtain device acceptance with
+Next local task: resolve the exact cache-cleanup approval/capacity in
+`PHYSICAL_IOS_VALIDATION.md`, then build the purpose-matched client 2 without
+more live requests during that build-only unit. Then obtain device acceptance with
 the device user's explicit image-upload approval and bounded test scope.
 Public photo release additionally needs durable authenticated billing limits,
 hosting/processor/store declarations and adversarial/device evaluation; no new

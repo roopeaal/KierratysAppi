@@ -2,6 +2,17 @@
 
 ## October 15 photo-recognition delta
 
+- **EB-IOS-SPACE-01 — Mac storage / cleanup approval (computer owner):** native
+  pod extraction initially hit ENOSPC; locked recovery then succeeded, leaving
+  about 977 MiB free. Native compilation was not started. A dry run enumerates
+  ten newly created CocoaPods cache-copy directories (about 1 GB) under the
+  exact cache root in `docs/final/PHYSICAL_IOS_VALIDATION.md`. The owner has not
+  yet approved their deletion. Approve that specific cleanup or independently
+  free disk space, then engineering rechecks capacity before compiling; 1 GB
+  cleanup alone is not a guarantee that the build will fit. No program/personal
+  data/old app-product deletion or broader cache purge is authorized. The phone
+  is connected and remains on build 1. This is host storage/authority, not an
+  API-credit, native-source, signing-account or new paid-service failure.
 - **EB-AI-01 — API credit (account owner), resolved for the October 15 recheck:**
   initial Responses returned 429 `credit_balance_exhausted` /
   `insufficient_quota`. After the owner reported completing funding, exactly one
@@ -9,8 +20,9 @@
   `estimated`. No balance/payment-history inspection, agent purchase, billing
   change, model change or automatic retry. Real-product and native acceptance
   remain unverified; see `docs/final/PHOTO_RECOGNITION_EVIDENCE.md`.
-- **Engineering, not an external blocker:** generate/build native client 2 with
-  the updated camera-purpose disclosure; old build 1/Expo Go are gated. Native
+- **Engineering after host capacity is available:** client 2's ignored native
+  project is generated and locked pods restored; compile/sign/install it with
+  the updated camera-purpose disclosure. Old build 1/Expo Go are gated. Native
   capture/deletion/permissions/VoiceOver/large-text and full product accuracy
   remain acceptance tasks. Existing October 19 profile expiry is unchanged.
 - No public photo service is enabled. Production requires durable authenticated

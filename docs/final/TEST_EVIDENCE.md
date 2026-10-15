@@ -1,5 +1,26 @@
 # Test evidence
 
+## Native client 2 preflight — 2026-10-15
+
+- Generated ignored iOS project from `mobile/app`: Info.plist build 2, same
+  version/ID, FI/EN purpose text. Reverted incidental tracked script edits.
+  Saved native lock restored; first pod extraction failed ENOSPC, one retry
+  after temporary-file release passed deployment/no-repo-update installation.
+  Native lock byte-identical and equal to installed manifest.
+- Stable Xcode 26.6/iOS 26.5 build-settings query passes, not native compilation.
+  Targeted CoreDevice inventory confirms connected/paired Developer Mode and
+  actual installed build 1. Existing cached app/older rollback signatures pass;
+  no new signature/profile/installation/launch/camera/visual acceptance.
+- Scoped mobile validation passes 203 overlapping dependency tests; fresh full
+  pinned `pnpm validate` exits 0: **340 unique tests (61 + 279)**, all boundaries,
+  format/lint/strict types, package/API builds and 14-route web export. No new
+  runtime/dependency/test changes or browser QA rerun. Logs and metadata under
+  ignored `work/ios-photo-2026-10-15.CmF8TO/`.
+- About 977 MiB free; build deferred before compilation. Exact ten newly created
+  reloadable cache-copy targets and dry-run symlink checks are recorded in
+  `PHYSICAL_IOS_VALIDATION.md`; owner cleanup approval is pending. No deletion,
+  broader cleanup, additional paid AI request, source publication or push.
+
 ## Owner-funded live adapter recheck — 2026-10-15
 
 - Owner reported completing the billing step and authorized the offered single

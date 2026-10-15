@@ -1,6 +1,73 @@
 # Physical iOS validation
 
-Status date: 2026-10-12
+Status date: 2026-10-15
+
+## Client 2 generation and storage preflight — 2026-10-15
+
+Source `93d3149`, independent team branch; owner authorized the new installation.
+**No new native compile/sign/install or camera/visual acceptance yet.** Existing
+phone and cached app remain version 0.1.0/build 1. Nothing pushed to GitHub.
+
+- Xcode 26.6 `17F113`, iOS 26.5 SDK; no global Xcode selection change. Beta
+  CoreDevice confirms the owner's paired wired iPhone with Developer Mode and
+  DDI available after the owner connected/unlocked it. A targeted app inventory
+  confirms the unchanged bundle ID and build 1; no app data was read or deleted.
+- `pnpm exec expo prebuild --platform ios --no-install` from `mobile/app`
+  regenerated the ignored iOS tree, clearing its old generated pods even without
+  explicit `--clean`. No source/phone contents were removed. Reverted its two
+  incidental tracked package-script edits. Generated Info.plist has version
+  0.1.0/build 2 and the new camera purpose; generated FI/EN InfoPlist.strings
+  match the explicitly approved upload purpose. SDK/build-settings inspection
+  resolves the same app target/ID and cached product directory, not a build pass.
+- Saved Podfile.lock was restored. First `pod install --deployment
+  --no-repo-update` failed with `No space left on device` while extracting
+  Hermes. After installer temporary files were released, one retry succeeded:
+  113 declared dependencies/112 installed pods, native lock byte-identical to
+  the saved file and equal to Pods/Manifest.lock. No version/repository update.
+  The existing app and older rollback artifact still pass strict recursive
+  signature checks; this does not establish an unexpired rollback profile.
+- Host free space remained about **977 MiB**. Do not start a large native build
+  or claim signing/install passed. API health/photo capabilities and Metro
+  status return 200; no photo request was made in this build-preflight unit.
+- Fresh scoped `pnpm validate:mobile` passes 203 overlapping dependency tests;
+  full pinned `pnpm validate` exits 0 with 340 unique tests (61 policy + 279
+  application), boundaries/format/lint/strict types, package/API builds and 14
+  web routes. No new runtime changes/test cases/browser/native visual claims.
+
+### Pending cleanup approval and exact limits
+
+Owner approval was requested asynchronously and **has not been received**.
+Only the following ten newly created directory targets were enumerated under
+`/Users/roopeaaltonen/Library/Caches/CocoaPods/Pods/External/`:
+
+- `ExpoCamera`
+- `ExpoCameraBarcodeScanning`
+- `ExpoFileSystem`
+- `ExpoFont`
+- `ExpoLocation`
+- `ExpoModulesCore`
+- `ExpoModulesWorklets`
+- `React-Core-prebuilt`
+- `ReactNativeDependencies`
+- `hermes-engine`
+
+These are this attempt's reloadable cache copies, not `mobile/app/ios/Pods`,
+source, installed applications or cached signed app products. Creation metadata
+matches this run. Dry run: ten directory targets, 8,826 regular files, about
+1,000,746,369 logical bytes; nine internal framework symlinks were detected and
+not traversed. All nine lexical link destinations remain within this cache
+root. No cleanup has occurred. Metadata can change: revalidate exact paths,
+types, count, children and links in the same foreground process after approval;
+do not follow symlinks. Stop on any mismatch/locked-file/deletion failure, with
+no stronger or broader retry. Cache contents can be downloaded again using the
+locked dependencies. Free-space gain must be measured; it may not alone cover
+the eventual native build. The owner can instead free space independently.
+
+Ignored evidence: `work/ios-photo-2026-10-15.CmF8TO/` contains prebuild, failed and
+successful pod logs; saved original lock/project/plist; filtered device/app
+metadata; build settings; and scoped/full validation logs. Device identifiers,
+profiles, binaries and local metadata are not committed. No production release,
+signing renewal, physical photo upload or extra billable request is inferred.
 
 ## Source partition smoke — 2026-10-12
 

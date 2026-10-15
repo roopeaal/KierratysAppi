@@ -278,6 +278,13 @@
 - Decision: reuse the previously approved server key and pinned vision model for exactly one synthetic-image request after the owner reports completing funding. Do not purchase credit, change billing/recharge, rotate keys, switch models, send personal photos or make automatic retries.
 - Evidence: HTTP 200 and runtime-validated `estimated` from the real adapter. This resolves EB-AI-01 for the observed check only; it does not reveal balance/payment history, prove real-product accuracy, exercise the app's HTTP/mobile flow or replace native client 2 acceptance. Continue with the native build without another live request in that work unit; no push.
 
+## D-040 — Preserve locked native recovery and require scoped cache-cleanup approval
+
+- Date: 2026-10-15
+- Decision: regenerate client 2 from `mobile/app` with stable Xcode 26.6, preserve the saved Podfile.lock and restore pods in deployment/no-repo-update mode. The first ENOSPC extraction recovered on one retry after temporary files were released; native lock bytes and installed manifest match. Revert Expo's incidental tracked package-script edits, not the intended generated permission/build metadata.
+- Boundary: with about 977 MiB free, do not start the native compile or claim build/sign/install success. Request permission before deleting ten newly created CocoaPods cache-copy directories, individually enumerated in physical evidence. No broad caches, programs, existing app products, source, personal files or phone data are included. Validate exact targets and symlinks afresh after approval; never follow links or retry a failed deletion with a stronger/broader operation.
+- Evidence: connected/paired iPhone still has build 1, purpose-matched generated Info.plist has build 2, scoped mobile and full 340-test validation pass. Native compilation, install and physical photo acceptance remain pending. No extra paid inference, account change, signing renewal, SDK switch or push.
+
 ## Remaining pending decisions (historical / production, continued)
 
 - October 8 publication outcome: explicit non-force push succeeds to existing public KierratysAppi main, verified remotely. Do not change visibility/settings or KeepItGreen; source sharing does not publish a running production service or certify stores/native pending flows.
