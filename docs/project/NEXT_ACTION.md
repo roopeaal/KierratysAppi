@@ -1,3 +1,3 @@
 # Next action
 
-Complete one owner-operated native paper-packaging confirmation smoke after the allowlist repair: the owner checks an ordinary empty/non-hazardous part, explicitly approves any needed new capture/upload and confirms its material, then engineering inspects the resulting source-backed guidance with the app stably foregrounded; no automatic photo/send/confirmation, other-app capture, authentication bypass or GitHub push.
+Implement independent per-part material correction and “unknown” recovery before photo-derived sorting, with a regression for the recorded Nutella glass-as-plastic error; preserve inferred identity, explicit empty/non-hazardous confirmation and existing rule provenance, without another live API request or GitHub push.

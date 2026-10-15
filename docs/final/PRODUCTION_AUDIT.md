@@ -1,5 +1,17 @@
 # Adversarial production-readiness audit
 
+## Eight real product images — 2026-10-15
+
+Evaluation-only follow-up, not a new 30-lane audit. Same app/model/prompt, one
+owner-approved call per pinned public image. 8/8 transport completion is not an
+accuracy pass; only 4/8 responses name the brand/product family. Public-production
+NO-GO and prior findings remain. Evidence: `PHOTO_PRODUCT_EVALUATION.md`.
+
+| ID | Severity | Evidence and affected flow/files | Reproduction | Required remediation / executability / status |
+| --- | --- | --- | --- | --- |
+| PHOTO-003 | high | Nutella case image hash `56d48570...cc47f28e`: real result names Nutella but labels jar plastic, `clear`/`medium`; image's product reference and manufacturer classic-jar description say glass. Affected: provider observations and per-part confirmation → sorting input (`backend/data-providers/src/photo-recognition.ts`, `mobile/app/src/app/photo.tsx`, photo sorting feature). Existing inferred status/human confirmation prevent this being a verified identity/material claim, not the material error itself | Inspect recorded `result-nutella.json` from the eight-call campaign. Replay its public-fixture observation locally; do not silently spend another live call. Incorrect suggested material can be accepted by the generic confirmation | **Open. Locally executable mitigation:** independent per-part material correction/unknown recovery, explicit physical/code check and tests ensuring identity success cannot certify material. Do not hardcode all brand formats or change Finnish rules. Any later empirical model/prompt accuracy experiment needs separately approved paid calls; no more within this test cap |
+| PHOTO-004 | medium | Four answers omit visible product brands (Barilla/Heinz/Badoit/Quaker); Quaker FI label says porridge packaging while EN says cereal. Coarse keyword check alone would overstate quality. Affected recognizer labels/localized result display | Inspect case report and public-fixture response labels; all were accepted by the schema, so schema-only tests do not expose semantic imprecision | **Open. Local naming/wording/prompt work**, then a held-out, source-reviewed bilingual evaluation with fresh paid-call authorization if live testing is needed. Preserve tentative identity, no SKU/GTIN verification or grade leakage. No silent model switch/tuning during this baseline |
+
 ## Physical photo-result inspection — 2026-10-15
 
 Not a new 30-lane audit. Beta CoreDevice screenshot support now independently

@@ -4,6 +4,9 @@ Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally bl
 
 ## Current photo recognition — October 15
 
+- [x] Owner-approved eight-real-image baseline through the existing app endpoint, with fixed model/prompt, pre-recorded references, public image attribution/hashes and no retries/answer leakage. 8/8 transport success, 4/8 named families, one bilingual imprecision and a material contradiction; not a production-accuracy pass.
+- [x] Add explicit-opt-in reusable QA tooling and seven free guard/rubric regressions; full 351-test validation passes. Exact results and limits in PHOTO_PRODUCT_EVALUATION.
+- [ ] Mitigate PHOTO-003 with independent per-part material correction and unknown recovery before guidance; keep the failing public reference visible. No further paid calls within the exhausted eight-call approval. PHOTO-004 name/translation quality remains follow-up, not silently fixed or greened.
 - [x] Repair the physical-test-discovered camera-entry guard: removed Expo Constants property replaced by validated native platform build metadata, without trusting the updateable JS manifest. Add native-shape/old-build/wiring regressions, visible opening feedback, 342-test full validation, 204-test scoped mobile validation and expanded photo browser QA.
 - [x] Relaunch unchanged signed iOS build 2 from current Metro; owner confirms the camera opens, a photo was taken and send was pressed. This is owner-reported progress, not an independently observed result/cleanup/provider/sorting pass.
 - [x] Inspect the already-submitted image's native estimate screen using beta CoreDevice screenshot support, without a helper renewal, new capture/upload or paid request. Inferred source/confidence/model/version/time and paper-part results observed; original-photo accuracy and full native acceptance are not established.

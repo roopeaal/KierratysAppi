@@ -4,6 +4,25 @@ Status: locally implemented and validated; **live adapter and actual native esti
 rendering observed, post-fix native guidance acceptance incomplete**. This is not production/store readiness
 or a finished physical-device feature claim. No GitHub push in this work unit.
 
+## Real-image baseline: transport passes, material accuracy does not
+
+Owner-approved current-key evaluation uses eight pinned public product photos,
+the unchanged model/prompt and the real app endpoint, once each without retries.
+All eight HTTP requests complete, but only four include the named product family;
+generic responses omit four visible brands. Quaker's FI porridge wording is
+imprecise compared with its EN cereal label. Nutella is named correctly but its
+jar is inferred plastic, contradicting the glass reference and manufacturer
+material description. No accuracy remediation or success claim is inferred from
+green transport, schemas, keyword checks or 351 passing software tests.
+
+Full results, protocol, attribution and hashes:
+`docs/final/PHOTO_PRODUCT_EVALUATION.md`. PHOTO-003 high and PHOTO-004 medium remain
+open; independent material correction/unknown recovery is the next local task.
+Current inferred status and explicit confirmation are retained, not bypassed.
+No product behavior/model/prompt/rule/dependency/native change, private image,
+other-app capture or GitHub push. The approved eight live calls are used up;
+another capped empirical experiment needs fresh owner approval.
+
 ## Direct native inspection and paper confirmation
 
 On the owner's request to test directly, the beta CoreDevice CLI's supported

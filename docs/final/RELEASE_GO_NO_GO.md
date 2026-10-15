@@ -1,6 +1,16 @@
 # Release decision
 
-Latest October 15 direct test: beta CoreDevice screenshots independently show
+Latest October 15 real-product baseline: eight owner-approved app requests complete,
+but only four name the product family, Quaker's FI label is imprecise and the Nutella
+jar is wrongly inferred plastic against its glass reference. **PHOTO-003 remains
+high and open**, not downgraded by transport success or 351 green software tests.
+The existing inferred/confirmation boundary remains; local independent material
+correction/unknown recovery is next. No runtime/prompt/model/rule/native change
+or new extra call beyond the approved eight. Full case report/attribution/hashes:
+`PHOTO_PRODUCT_EVALUATION.md`. Production **NO-GO** unchanged; no GitHub push,
+store/public-service readiness or representative recognition accuracy is claimed.
+
+Earlier October 15 direct test: beta CoreDevice screenshots independently show
 the existing native inferred response. No new capture/upload/inference or helper
 renewal. This exposed paper's accidental exclusion from photo confirmation,
 although the unchanged carton rule already covers paper packaging. Repaired

@@ -2,6 +2,7 @@
 
 ## October 15 photo-recognition delta
 
+- **Eight-image evaluation completed, no new credential/data blocker:** Roope approved reusing the existing key; eight real app calls pass transport, but PHOTO-003 material accuracy and PHOTO-004 naming remain open. These are not solved by more balance, a database install or renewed signing. Engineering owns the locally executable material-correction/unknown mitigation. The eight-call approval is exhausted; Roope must separately authorize a new capped paid recheck for any later model/prompt experiment. No new funding/account action is requested and no further call is scheduled. Detailed evidence/attribution: `docs/final/PHOTO_PRODUCT_EVALUATION.md`.
 - **Native result reading resolved without credentials:** beta CoreDevice's supported screenshot command reads the already-existing inferred result. Owner outcome text is no longer required for that observation. Paper confirmation was independently blocked by a local allowlist omission despite an existing paper-packaging rule; repaired with failing-before/passing-after tests and browser guidance/safety checks. No new assistant photo/upload/inference, payment, renewal or reinstall. Native post-fix human part confirmation remains acceptance work; Android's missing native version metadata is still a local engineering follow-up, not a payment blocker.
 - **EB-IOS-UI-01 — XCTest interaction/semantic inspection (Apple Account owner):** the
   separate test helper cannot be renewed non-interactively: default helper IDs
