@@ -4,6 +4,9 @@ Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally bl
 
 ## Current photo recognition — October 15
 
+- [x] Repair the physical-test-discovered camera-entry guard: removed Expo Constants property replaced by validated native platform build metadata, without trusting the updateable JS manifest. Add native-shape/old-build/wiring regressions, visible opening feedback, 342-test full validation, 204-test scoped mobile validation and expanded photo browser QA.
+- [x] Relaunch unchanged signed iOS build 2 from current Metro; owner confirms the camera opens, a photo was taken and send was pressed. This is owner-reported progress, not an independently observed result/cleanup/provider/sorting pass.
+- [~] Record the actual outcome of the already-submitted image and then explicitly confirmed source-backed guidance if applicable; no additional upload is needed to answer what happened. Automated native UI remains gated by EB-IOS-UI-01. Android lacks trustworthy installed-build metadata in the current constants adapter and remains disabled pending a native-version-source/build follow-up; no Android feature pass.
 - [x] Add separate consented camera/preview/upload/AI-estimate flow with explicit per-part confirmation before source-backed sorting; keep barcode/manual/nearby/history unchanged.
 - [x] Provision the explicitly approved server-only key securely; implement metadata removal, strict input/output, development-only opt-in, deadlines/size/IP/concurrency/process budgets, no retries/storage and safe unsafe/unknown/quota recovery.
 - [x] Pass 340-test full validation, all three scoped commands and three browser runners; inspect FI/EN/light/dark layout. No live/product-accuracy or physical-camera pass is inferred.

@@ -2,6 +2,7 @@
 
 ## October 15 photo-recognition delta
 
+- **Camera-entry defect was locally executable, not a credit/signing blocker:** repaired the removed Expo Constants build-field access and passed 342-test full/204-test scoped validation plus expanded browser QA. Owner now confirms opening/capture/send on reloaded iOS build 2; the already-submitted image's result/error is pending. No further payment, renewal, reinstall or upload requested for that outcome. EB-IOS-UI-01 still limits independent native inspection. Android's missing native version metadata remains an engineering follow-up with capture disabled, not a new external credential/payment blocker.
 - **EB-IOS-UI-01 — Automated native inspection (Apple Account owner):** the
   separate test helper cannot be renewed non-interactively: default helper IDs
   lack profiles/account; the observed owner-specific cached runner profile is

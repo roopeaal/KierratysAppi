@@ -1,6 +1,17 @@
 # Release decision
 
-Latest October 15: explicitly approved exact download-cache cleanup resolves
+Latest October 15 camera retry: fixed the removed Expo Constants build-field
+access that incorrectly blocked the installed native client. Narrow native-shape
+and wiring regressions, 342 unique full tests, 204 scoped mobile tests and expanded
+browser QA pass; existing signed build 2 relaunched. Owner reports camera opening,
+capture and pressing send, but no actual recognition result/error or confirmed
+guidance observed yet. Native UI automation remains unavailable and Android has
+no supported installed-build metadata in the current adapter, so capture there
+remains disabled pending engineering follow-up. No new paid assistant request,
+native rebuild/install, signing/account change or push. Production **NO-GO**
+unchanged; the original green checks did not prove native camera entry.
+
+Earlier October 15: explicitly approved exact download-cache cleanup resolves
 storage for this run. Native Debug build 2, app/all 12 framework signatures,
 embedded default/FI/EN camera purpose and profile/team/device binding pass with
 the existing October 19 expiry. Initial transport failure is resolved after an

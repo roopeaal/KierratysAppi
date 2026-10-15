@@ -1,3 +1,3 @@
 # Next action
 
-Complete one owner-operated native photo-to-guidance smoke on installed build 2 using an empty ordinary package and explicit one-image upload approval; record the actual inferred/uncertain/error outcome and any source-backed guidance only after the owner's part confirmation, without personal images, silent retries, additional unapproved paid calls or a GitHub push.
+Record the owner's result or exact error from the image already submitted after the iOS camera-entry repair, and verify source-backed guidance only after explicit part confirmation if an estimate is present; do not request another image/upload, expose photographs, bypass native inspection authentication or push to GitHub.

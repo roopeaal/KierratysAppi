@@ -30,12 +30,58 @@ function example(shape = "jar") {
 }
 describe("photo confirmation", () => {
   it("requires a new purpose-matched native build but not a web/native simulator claim", () => {
-    expect(canUsePhotoCapture("web", null, "storeClient")).toBe(true);
-    expect(canUsePhotoCapture("ios", "1", "bare")).toBe(false);
-    expect(canUsePhotoCapture("ios", null, "bare")).toBe(false);
-    expect(canUsePhotoCapture("ios", "2", "bare")).toBe(true);
-    expect(canUsePhotoCapture("android", "2", "bare")).toBe(true);
-    expect(canUsePhotoCapture("ios", "200", "storeClient")).toBe(false);
+    expect(canUsePhotoCapture("web", {})).toBe(true);
+    for (const buildNumber of ["1", null, undefined, "2.0", "invalid", "9007199254740992"])
+      expect(
+        canUsePhotoCapture("ios", {
+          executionEnvironment: "bare",
+          platform: { ios: { buildNumber } },
+        }),
+      ).toBe(false);
+    expect(canUsePhotoCapture("ios", { executionEnvironment: "bare" })).toBe(false);
+    for (const executionEnvironment of ["bare", "standalone"])
+      expect(
+        canUsePhotoCapture("ios", {
+          executionEnvironment,
+          platform: { ios: { buildNumber: "2" } },
+        }),
+      ).toBe(true);
+    expect(
+      canUsePhotoCapture("android", {
+        executionEnvironment: "bare",
+        platform: { android: { versionCode: 2 } },
+      }),
+    ).toBe(true);
+    for (const executionEnvironment of ["storeClient", undefined, "unknown"])
+      expect(
+        canUsePhotoCapture("ios", {
+          executionEnvironment,
+          platform: { ios: { buildNumber: "200" } },
+        }),
+      ).toBe(false);
+  });
+  it("uses the current native constants shape, not removed or mutable manifest build fields", () => {
+    // Current iOS EXConstantsService exports only platform.ios.buildNumber.
+    const runtime = {
+      executionEnvironment: "bare",
+      platform: { ios: { buildNumber: "2" } },
+      expoConfig: { ios: { buildNumber: "1" } },
+    };
+    expect(canUsePhotoCapture("ios", runtime)).toBe(true);
+    const staleBinary = {
+      ...runtime,
+      platform: { ios: { buildNumber: "1" } },
+      expoConfig: { ios: { buildNumber: "2" } },
+    };
+    expect(canUsePhotoCapture("ios", staleBinary)).toBe(false);
+    // The installed Android constants adapter currently exports no versionCode.
+    // Do not trust a JS manifest version as evidence of updated native purpose.
+    expect(
+      canUsePhotoCapture("android", {
+        executionEnvironment: "bare",
+        platform: { android: {} },
+      }),
+    ).toBe(false);
   });
   it("does not issue guidance from an unconfirmed or unrelated part", () => {
     const estimate = example();

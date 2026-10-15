@@ -298,6 +298,13 @@
 - Evidence: the product's build-2 signatures/profile/install/launch pass. Native UI automation independently fails: default helper IDs lack profiles/account, the observed owner-specific cached runner profile is expired, and an explicit existing-ID Xcode rebuild reports No Accounts/missing profiles. Do not reclassify that as a product startup failure or claim a visual/camera pass.
 - Decision: close failed tool sessions and restore the installed app in the foreground. Offer one owner-operated empty ordinary-package photo test with explicit image-upload approval; do not capture/send silently or request photos in chat. Automated inspection may resume only after the account owner reauthorizes the existing Xcode Apple Account and engineering rebuilds/verifies the existing helper IDs. No new account/payment, main-app ID change, broad cleanup or security bypass.
 
+## D-043 — Verify native compatibility wiring against installed SDK exports
+
+- Date: 2026-10-15
+- Evidence: owner reports the photo-opening button fails. Installed Expo Constants source/changelog confirms top-level `nativeBuildVersion` was removed; iOS exports the installed binary's build under `platform.ios.buildNumber`. Upstream catch-all types let the invalid access compile, and pure string-input tests did not exercise the screen's actual wiring.
+- Decision: pass the real constants object to the tested runtime guard, validate native platform metadata and accepted execution environments, and never fall back to remotely updateable `expoConfig`. Keep old/unknown/Expo Go builds blocked. Android exports an empty native platform map in the current dependency, so unknown Android builds remain disabled rather than falsely certified; obtaining a supported native Android version source/build is follow-up work, not an external payment gate.
+- Validation: installed-shape/old-build plus route-wiring regressions, localized busy feedback, 204 scoped/342 unique full tests and expanded fixture browser QA pass. Relaunch existing signed build 2 without native regeneration/reinstallation; owner confirms opening/capture/send, but result/error and native cleanup remain unverified. No assistant paid inference, photo in chat, auth bypass, additional account action or GitHub push.
+
 ## Remaining pending decisions (historical / production, continued)
 
 - October 8 publication outcome: explicit non-force push succeeds to existing public KierratysAppi main, verified remotely. Do not change visibility/settings or KeepItGreen; source sharing does not publish a running production service or certify stores/native pending flows.

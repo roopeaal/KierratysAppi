@@ -66,13 +66,28 @@ export function choosePhotoSize(sizes: readonly string[]): string | undefined {
 
 export function canUsePhotoCapture(
   platform: string,
-  nativeBuild: string | null,
-  executionEnvironment: string,
+  runtime: {
+    readonly executionEnvironment?: unknown;
+    readonly platform?: {
+      readonly ios?: { readonly buildNumber?: unknown };
+      readonly android?: { readonly versionCode?: unknown };
+    };
+  },
 ): boolean {
   if (platform === "web") return true;
+  // Read the installed binary, never the remotely replaceable expoConfig.
+  // expo-constants removed its top-level nativeBuildVersion property.
+  const build =
+    platform === "ios"
+      ? runtime.platform?.ios?.buildNumber
+      : platform === "android"
+        ? runtime.platform?.android?.versionCode
+        : undefined;
   return (
-    executionEnvironment !== "storeClient" &&
-    /^\d+$/u.test(nativeBuild ?? "") &&
-    Number(nativeBuild) >= 2
+    (runtime.executionEnvironment === "bare" || runtime.executionEnvironment === "standalone") &&
+    (typeof build === "string" || typeof build === "number") &&
+    /^\d+$/u.test(String(build)) &&
+    Number.isSafeInteger(Number(build)) &&
+    Number(build) >= 2
   );
 }

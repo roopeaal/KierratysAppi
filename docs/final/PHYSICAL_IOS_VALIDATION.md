@@ -2,6 +2,28 @@
 
 Status date: 2026-10-15
 
+## Camera-opening guard repair and owner-reported retry — 2026-10-15
+
+Owner reports **Ota tuotekuva** fails before capture. Source inspection finds
+removed `Constants.nativeBuildVersion` access falsely blocking installed build 2;
+the current iOS service provides immutable `platform.ios.buildNumber` instead.
+Repaired the JS guard, retaining old/unknown/Expo Go denial and avoiding mutable
+manifest fallback. No native rebuild, reinstall, signing renewal or permission
+change; current profile still expires October 19 at 12:49:04 Helsinki.
+
+Full 342-test validation, 204-test mobile scope and expanded synthetic photo
+browser runner pass. CoreDevice relaunch of the existing app with the current
+Metro URL succeeds. **Owner confirms camera opens, photo taken and send pressed.**
+This is reported physical progress, not an independently observed recognition
+result, native image cleanup or sorting-guidance pass. Actual result/error is
+awaiting the owner's text; no additional image/upload requested. Native helper
+remains unavailable as below; a read-only Metro debugger connection also rejects
+with HTTP 401 and was not bypassed. No native screen/semantic tree obtained,
+photo in chat, assistant billable request or GitHub push.
+
+Ignored evidence: `work/photo-camera-entry-native-launch.{json,log}`, validation
+and browser logs referenced in `TEST_EVIDENCE.md`.
+
 ## Client 2 build/signatures/install/launch pass; photo acceptance pending — 2026-10-15
 
 Source `6b855f6`, unchanged application source/dependencies and independent team

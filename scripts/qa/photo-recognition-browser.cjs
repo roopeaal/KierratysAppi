@@ -49,18 +49,28 @@ const get = (page, id) => page.getByTestId(id);
     const page = await context.newPage();
     let posts = 0,
       mode = "clear",
-      release;
+      release,
+      releaseOpening,
+      openingRequested;
+    const openingRequest = new Promise((resolve) => {
+      openingRequested = resolve;
+    });
     const cors = {
       "access-control-allow-origin": "*",
       "access-control-allow-methods": "GET,POST,OPTIONS",
       "access-control-allow-headers": "content-type",
     };
-    await page.route("**/v1/recycling/photo-capabilities", (route) =>
-      route.fulfill({
+    await page.route("**/v1/recycling/photo-capabilities", async (route) => {
+      if (mode === "opening")
+        await new Promise((resolve) => {
+          releaseOpening = resolve;
+          openingRequested();
+        });
+      return route.fulfill({
         headers: cors,
         json: { enabled: mode !== "disabled", consentVersion: "photo-ai-v1" },
-      }),
-    );
+      });
+    });
     await page.route("**/v1/recycling/photo", async (route) => {
       if (route.request().method() === "OPTIONS")
         return route.fulfill({ status: 204, headers: cors });
@@ -101,6 +111,23 @@ const get = (page, id) => page.getByTestId(id);
     await get(page, "photo-open-camera").waitFor();
     assert.equal(posts, 0);
     await page.screenshot({ path: path.join(evidence, "fi-intro.png"), fullPage: true });
+
+    // The local availability check must not look like an unresponsive button.
+    mode = "opening";
+    await get(page, "photo-open-camera").click();
+    await openingRequest;
+    assert.equal(await get(page, "photo-open-camera").getAttribute("aria-busy"), "true");
+    assert.equal(await get(page, "photo-open-camera").getAttribute("aria-disabled"), "true");
+    assert.equal(
+      await get(page, "photo-open-camera").getAttribute("aria-label"),
+      "Avataan kameraa…",
+    );
+    assert.equal(posts, 0);
+    await page.screenshot({ path: path.join(evidence, "fi-opening.png"), fullPage: true });
+    mode = "clear";
+    releaseOpening();
+    await get(page, "photo-capture").waitFor();
+    await get(page, "photo-cancel").click();
 
     const capture = async () => {
       await get(page, "photo-open-camera").click();
@@ -183,7 +210,7 @@ const get = (page, id) => page.getByTestId(id);
     await page.screenshot({ path: path.join(evidence, "en-intro.png"), fullPage: true });
     await context.close();
     console.log(
-      "PASS: actual photo UI, isolated camera/API fixtures; explicit upload and confirmation, metadata, unsafe/uncertain refusal, cancellation, hidden/offline/disabled/quota, FI/EN and layout.",
+      "PASS: actual photo UI, isolated camera/API fixtures; opening feedback, explicit upload and confirmation, metadata, unsafe/uncertain refusal, cancellation, hidden/offline/disabled/quota, FI/EN and layout.",
     );
   } finally {
     await browser.close();

@@ -4,6 +4,27 @@ Status: locally implemented and validated; **one live adapter estimate passes,
 physical acceptance remains incomplete**. This is not production/store readiness
 or a finished physical-device feature claim. No GitHub push in this work unit.
 
+## Camera-opening defect and owner retry
+
+The owner reported **Ota tuotekuva** did not work. The screen was reading a
+removed `Constants.nativeBuildVersion` property; installed Expo Constants instead
+exports native iOS `platform.ios.buildNumber`. Its permissive upstream types hid
+the invalid property, and prior string-only compatibility tests missed the
+actual wiring. Repaired without trusting mutable `expoConfig`, changing native
+permissions/signing, installing a package or making an inference request.
+Old/unknown builds and Expo Go still fail closed. Current Android native
+constants expose no version code, so Android capture remains unavailable until
+a trustworthy native version source/build is provided; not verified by iOS work.
+
+New native-shape/wiring regressions and localized busy feedback pass **342 unique
+full tests**, 204 overlapping mobile-scope tests and the expanded synthetic
+browser flow, including pending-opening status. Opening screenshot inspected.
+CoreDevice successfully relaunched existing signed build 2 from current Metro.
+The owner then confirmed camera opening, capture and pressing send. The actual
+estimate/error and confirmed guidance are still unobserved; no second upload is
+needed just to report that outcome. Native file cleanup and broader acceptance
+remain pending. No photo in chat, assistant paid call or GitHub push.
+
 ## Flow and separation
 
 Home → Tunnista kuvasta → recipient/purpose/retention disclosure → user opens

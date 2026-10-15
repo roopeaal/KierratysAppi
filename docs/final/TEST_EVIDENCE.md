@@ -1,5 +1,15 @@
 # Test evidence
 
+## Photo camera-entry regression repair — 2026-10-15
+
+- User-reported failure occurs at **Ota tuotekuva**, not a demonstrated provider failure. Installed `expo-constants` source/changelog independently shows removed top-level `nativeBuildVersion`; current iOS native service exports `platform.ios.buildNumber` directly from Info.plist. Former guard received undefined and rejected installed build 2 despite earlier green checks.
+- Replaced string-only compatibility wiring with a narrow native-runtime object guard. Actual native-shape, old/unknown/malformed build, Expo Go, mutable-manifest disagreement and screen-to-guard wiring regressions pass. Android's empty native platform map fails closed; no Android camera readiness claim.
+- Focused photo suite **7/7** and policy suite **4/4** pass. Scoped mobile validation **204 overlapping tests** passes; pinned full `pnpm validate` exits 0 with **342 unique tests (62 policy + 280 application)**, format/lint/strict types/boundaries, package/API builds and 14 web routes. Initial typecheck caught excess fixture fields; fixed the fixture without weakening runtime or compiler checks.
+- Expanded actual-Metro photo browser runner passes pending-opening busy/disabled/localized-label checks, no pre-consent POST, synthetic capture/metadata/preview/send/confirmation, hazardous/uncertain blocking, cancellation/late output, visibility/offline/disabled/quota, FI/EN/dark/layout. Inspected `work/photo-qa/fi-opening.png`; fixtures are not native camera/provider evidence.
+- Existing build 2 relaunched successfully using the current Metro URL, no rebuild/reinstall/signing change. Owner subsequently reports camera opens, a photo was taken and send pressed. **No actual result/error text or successful provider/sorting outcome observed yet.** Native deletion, metadata, permission/background and accessibility acceptance remain separate. No user image in chat or assistant billable call.
+- Native helper remains blocked as documented. Read-only Metro inspector WebSocket rejects with HTTP 401; no runtime values/UI/photo were read and no authentication bypass attempted. Host API/capabilities/Metro remain healthy. No GitHub push or new external account/payment action.
+- Ignored logs: `work/photo-camera-entry-{mobile,validate,final-validate,browser}.log`, native relaunch JSON/log. Final full validation after the documentation/QA changes also exits 0 with the same 342 tests and all gates. Existing native signatures/profile/build evidence retains its earlier scope and October 19 expiry.
+
 ## Approved cache cleanup and native build 2 — 2026-10-15
 
 - Explicit owner approval followed by fresh exact-target/type/child/creation/

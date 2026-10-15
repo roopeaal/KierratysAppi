@@ -1,5 +1,13 @@
 # Adversarial production-readiness audit
 
+## Native photo-entry follow-up — 2026-10-15
+
+Not a new 30-lane audit; production NO-GO and earlier findings remain.
+
+| ID | Severity | Evidence and affected flow/files | Reproduction | Required remediation / executability / status |
+| --- | --- | --- | --- | --- |
+| PHOTO-001 | high | Owner reports Ota tuotekuva does not open camera. `mobile/app/src/app/photo.tsx` reads removed `Constants.nativeBuildVersion`; installed Expo Constants exports iOS `platform.ios.buildNumber`. Guard rejects new build 2; earlier string-only tests and upstream catch-all type missed the wiring defect | Pre-fix iOS build 2 + current JS: Home → Tunnista kuvasta → Ota tuotekuva; guard reports update required instead of mounting camera | Locally repaired using validated immutable native platform metadata, no mutable manifest fallback; added installed-shape/old-build and wiring regressions plus busy feedback. 342-test full/204-test mobile validation and expanded photo browser runner pass. Owner confirms camera/capture/send after relaunch; actual recognition result/error, native cleanup and guidance remain unverified. Android metadata is absent and fails closed, requiring a supported native version source/build before Android capture can be accepted |
+
 ## Scoped UX findings repaired — 2026-10-08
 
 Not a new 30-lane audit; production NO-GO unchanged.

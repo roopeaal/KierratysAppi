@@ -4,6 +4,13 @@ import test from "node:test";
 
 const read = (path) => readFileSync(new URL(`../../${path}`, import.meta.url), "utf8");
 
+test("photo entry passes the real native constants to the tested compatibility guard", () => {
+  const screen = read("mobile/app/src/app/photo.tsx");
+  assert.match(screen, /canUsePhotoCapture\(Platform\.OS, Constants\)/u);
+  assert.doesNotMatch(screen, /Constants\.nativeBuildVersion|Constants\.expoConfig/u);
+  assert.match(screen, /photoOpening/u);
+});
+
 test("photo upload is a separate explicit preview action, with metadata removal and cancellation", () => {
   const screen = read("mobile/app/src/app/photo.tsx");
   assert.match(screen, /phase !== "preview"/u);

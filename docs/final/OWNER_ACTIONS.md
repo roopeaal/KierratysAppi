@@ -2,6 +2,7 @@
 
 ## October 15 — AI credit and native acceptance
 
+- **OA-PHOTO-01 update / Roope + engineering:** camera-opening failure was a local removed-Expo-field defect, now repaired and validated (342 unique tests). Existing build 2 was relaunched without reinstall/renewal. Roope confirms camera opening, capture and send. Report the result's product name/uncertainty or exact error **from that existing attempt**, without another upload or photograph in chat. Then confirm a matching ordinary packaging part before source-backed guidance, if an estimate exists. Successful recognition/cleanup is not yet certified; no new payment is requested.
 - **OA-HOST-01 / computer owner, completed for this build:** explicit approval
   received; engineering revalidated and removed only the ten enumerated newly
   created cache-copy directories, without following symlinks/force/retries.
@@ -20,11 +21,6 @@
   profiles expired. Engineering rebuilds/verifies only the existing helper IDs
   and reruns inspection after authorization; no new account/payment required.
   Product signing/install/launch is independent and already passes.
-- **OA-PHOTO-01 / Roope, physical test pending:** on installed build 2 open
-  photo identification, photograph one empty ordinary carton without people or
-  personal details, and approve one upload only after reviewing the preview/
-  disclosure. Report estimate/error text, not the photograph in chat; confirm
-  packaging parts before any sourced guidance. No silent retry/capture/upload.
 - **OA-AI-01 / API account owner, completed for the recheck:** the owner reported
   completing the billing step; one explicitly authorized real synthetic-image
   Responses request returned HTTP 200 and runtime-validated `estimated`.

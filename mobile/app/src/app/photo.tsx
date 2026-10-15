@@ -91,9 +91,7 @@ export default function PhotoScreen() {
 
   const open = async () => {
     if (locked.current) return;
-    if (
-      !canUsePhotoCapture(Platform.OS, Constants.nativeBuildVersion, Constants.executionEnvironment)
-    ) {
+    if (!canUsePhotoCapture(Platform.OS, Constants)) {
       setError("photoUpdateRequired");
       return;
     }
@@ -251,9 +249,10 @@ export default function PhotoScreen() {
               </>
             ) : (
               <Button
-                label={t("photoOpenCamera")}
+                label={t(busy ? "photoOpening" : "photoOpenCamera")}
                 onPress={() => void open()}
                 disabled={busy}
+                busy={busy}
                 testID="photo-open-camera"
               />
             )}
