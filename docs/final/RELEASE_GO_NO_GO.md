@@ -1,6 +1,16 @@
 # Release decision
 
-October 20 maintenance: requested same-app renewal is **not complete**. Old
+Latest October 20 renewal: approved exact three-root cleanup succeeds, about
+18 GiB free; post-cleanup mobile 209/full 354 tests pass. Same-app/team stable
+physical-device build, actual new profile/app+12-framework/device/purpose
+verification and replacement installation succeed. New expiry **October 27 at
+17:27:13 Helsinki**. First launch nevertheless fails FBS Security; actual owner
+Trust/Verify and fresh launch/Home evidence remain pending under EB-IOS-TRUST-01.
+Do not infer phone startup, data retention, broader native/product accuracy or
+release readiness from local signatures/install/tests. No uninstall/reset,
+paid inference, SDK/source/dependency change or push. Public **NO-GO** unchanged.
+
+Earlier October 20 pre-cleanup checkpoint: requested renewal was **not complete**. Old
 profile expired October 19 at 12:49:04 Helsinki; old app signature/recovery copy
 pass. Stable build fails No Accounts/no profile before compile/sign. Existing
 account/Personal Team and connected iPhone later observed; fresh provisioning

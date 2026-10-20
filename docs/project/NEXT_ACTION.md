@@ -1,3 +1,3 @@
 # Next action
 
-Complete the owner-requested same-app iOS signing renewal and replacement installation after sufficient disk space is available; verify the actual new profile, signatures, connected device and launch without uninstalling, paid AI calls or GitHub push.
+After Roope completes the actual iPhone Trust/Verify check for the newly installed app, verify same-app launch through current Metro and rendered Home without reinstalling, collecting photos/location, making paid AI calls or pushing to GitHub.

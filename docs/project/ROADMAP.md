@@ -4,11 +4,14 @@ Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally bl
 
 ## Current owner-requested signing/install renewal — October 20
 
+- [x] Receive exact cleanup approval, freshly validate and remove only the three obsolete DeviceSupport roots (26,302 objects, no links/force/retry); preserve current 24A5430a support and measure about 18 GiB free. No source/app/simulator/phone-data removal.
+- [x] Resolve generic no-device provisioning by selecting the same verified physical phone with documented registration flag; stable-Xcode Debug build succeeds. Actual new profile expires October 27 at 17:27:13 Helsinki; app/all 12 frameworks/entitlements/device/default+FI+EN purpose checks pass.
+- [x] Replace-install existing ID/version/build 2 and confirm targeted phone inventory, without uninstall/reset. Post-cleanup mobile 209/full 354 tests and current host manifest/bundle/API checks pass; no new paid inference or push.
+- [!] First launch rejected with CoreDevice/FBS Security despite local integrity checks. Roope inspects Trust/Verify and opens the app; engineering verifies launch/rendered Home afterwards. No runtime/UI/retention pass yet; EB-IOS-TRUST-01.
 - [x] Verify existing build-2 identity/expired October 19 profile, matched pods/stable SDK, strict app signature and APFS recovery copy. No native regeneration/dependency/private-code change.
 - [x] Attempt one automatic provisioning build; exit 65, No Accounts/no profile before compile/sign. GUI sign-in sheet handed to owner; later existing account/Personal Team and connected iPhone observed. Fresh build must establish renewed credential usability.
 - [x] Locate three obsolete iOS DeviceSupport symbol-cache directories, about 17.8 GiB; exclude current phone's 24A5430a support, simulators, source, app and recovery artifacts. No deletion is authorized by the inventory request; exact-target approval requested.
-- [!] Host space exhausted: later mobile validation fails ENOSPC, although the earlier fresh full 354-test validation passes. EB-IOS-RENEW-01 / owner cleanup approval; stop further builds until space is sufficient.
-- [ ] After approved cleanup and sufficient space, retry the same stable-Xcode build, verify actual new profile/app+framework signatures/device binding, replace-install without uninstall/reset, launch via current Metro and record evidence. No extra AI call or GitHub push; earlier prompt/naming work remains queued.
+- [x] Resolve EB-IOS-RENEW-01 space/cleanup/provisioning/install prerequisites; earlier ENOSPC and No Accounts/no-device failures are retained as historical evidence, not current blockers. Launch/Trust is separate above; naming work remains queued.
 
 ## Current photo recognition — October 15
 

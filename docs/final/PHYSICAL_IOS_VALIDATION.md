@@ -2,6 +2,32 @@
 
 Status date: 2026-10-20
 
+## New profile and installation verified; first launch rejected — 2026-10-20
+
+Source `f31c476` (application source unchanged since `fc433bc`), same app ID/
+version 0.1.0/build 2/Personal Team, unchanged generated native permissions/locks.
+
+| Check | Actual result |
+| --- | --- |
+| Approved cleanup | Exactly the three obsolete DeviceSupport roots, 13,744 files/12,558 directories/zero links, removed after fresh path/type/open-file checks. No traversal/force/retry. Current 24A5430a support/source/app/live build/rollback/simulator/phone data excluded. Receipt has 26,302 removed objects; immediate available bytes 213,450,752 → 19,452,891,136. Removed copies are not in Trash; old debug support may need reacquisition |
+| Account/device | Existing Apple Account now available; same previously provisioned phone connected/DDI-ready/Developer Mode enabled. Generic build reaches Apple but reports no device. Stable-Xcode destinations independently lists this phone as eligible |
+| Actual native build | Same stable Xcode 26.6/iOS 26.5, verified physical destination, allowProvisioningUpdates + documented allowProvisioningDeviceRegistration, same ID/team/locked pods/two jobs. Exit 0 / BUILD SUCCEEDED |
+| Actual profile | Created **2026-10-20 15:27:13 UTC**, expires **2026-10-27 15:27:13 UTC / 17:27:13 Europe/Helsinki**. Expiry is UTC+2 after DST change; no year-end/distribution or recurring-renewal claim |
+| Signature/binding/purpose | Strict recursive app and all 12 frameworks pass. App/profile team and application entitlements match; expected phone is included; version/build/SDK match; default and compiled FI/EN camera purpose match config. Foreground location only, no Always/background location |
+| Replacement install/inventory | CoreDevice outcome success; targeted exact bundle ID shows KeepItGreen 0.1.0/build 2, developer-built. No uninstall/reset/private-data inspection or retention guarantee |
+| First launch | **Rejected**: CoreDevice 10002 → FBS Security names signature/entitlement/profile-not-trusted alternatives. Local integrity/binding pass does not establish the exact phone-side cause. Owner Trust/Verify check requested; no unchanged retry or bypass |
+| Host runtime | Correct-worktree API/Metro listener working directories; localhost/LAN health/capabilities/iOS manifest and its exact 11,744,969-byte asset pass. Expected API origin/current material-review keys present. This is not phone startup or performance evidence |
+| Repository | After cleanup scoped mobile 209 overlapping/full 354 unique tests and all gates/builds/14 web routes pass. Earlier ENOSPC and generic/No Accounts failures remain separately recorded |
+| Not established | Rendered Home/retained history/current camera/material-review/VoiceOver/dark/large-text/performance/untethered or Mac-independent use. No new photo/GPS/paid inference, helper renewal or GitHub push |
+
+Ignored evidence under `work/ios-renewal-2026-10-20.xwM2qA/`:
+`device-support-{inventory,cleanup}.json`, `build-device{.log,-result.json}`,
+`renewed-native-verification.json`, `renewed-profile.plist`, `install.json`,
+`installed-app.json`, `launch.{json,log}`, `runtime-verification.json`,
+`mobile-after-cleanup.log`, `validate-after-cleanup.log` and old signed recovery.
+No raw profile/device ID/app binary enters Git. EB-IOS-TRUST-01 and OWNER_ACTIONS
+define the exact owner and engineering resume steps.
+
 ## Renewal requested — not yet signed or installed, 2026-10-20
 
 Source `fc433bc`, unchanged ID/version 0.1.0/build 2, matched Podfile.lock/Pods

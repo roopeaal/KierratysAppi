@@ -1,6 +1,13 @@
 # External blockers
 
-## EB-IOS-RENEW-01 — host space / bounded cleanup approval, 2026-10-20
+## EB-IOS-TRUST-01 — actual phone trust/launch acceptance, 2026-10-20
+
+- Cleanup, account/provisioning, native build/new profile and replacement installation now pass. Profile expires **October 27 at 17:27:13 Helsinki**, not October 19. Local app/all 12 framework signatures and expected app/team/device binding pass. The first launch nevertheless fails CoreDevice 10002 → FBS Security (invalid signature/inadequate entitlements/profile-not-trusted alternatives); local checks do not prove the precise phone-side cause or successful startup.
+- **Roope / device owner:** Settings → General → VPN & Device Management → own developer/Apple account → Trust or Verify if offered; personally complete the actual device security action, then open KeepItGreen and report outcome/error without private data. If no option appears, report that fact rather than toggling protections, deleting the app or making another account. No password/code in chat.
+- **Engineering:** after changed phone state, launch the same installed app against current correct-worktree Metro, verify process/rendered Home and record outcome. If Security persists, diagnose in scope without uninstalling/bypassing trust or declaring success from Mac signatures. No camera/GPS acquisition or paid inference; separate wider native/production acceptance remains.
+- **EB-IOS-RENEW-01 resolved for storage/account/signing/install:** exact three-root approval/removal succeeds, current support preserved, about 18 GiB free. Actual-device provisioning yields a new valid profile; targeted install inventory passes; post-cleanup mobile 209/full 354 checks pass. No new funding/tool/account blocker. Prior helper/Trust evidence stays separately dated; no renewed XCTest helper or physical UI pass is inferred.
+
+## EB-IOS-RENEW-01 — historical pre-cleanup checkpoint, resolved above
 
 - Current same-app renewal has not succeeded. Actual old profile expired October 19 at 12:49:04 Helsinki. One stable build fails exit 65 with No Accounts/no matching profile before compile/sign. GUI later shows the existing account/Personal Team, and the owner-connected iPhone is now observed connected; credential resolution still needs a fresh provisioning result, not repeated blind login requests.
 - **Roope / owner approval:** authorize or decline removal of only the three individually enumerated obsolete iOS DeviceSupport directories in OWNER_ACTIONS (roughly 17.8 GiB measured). Inventory request alone is not deletion permission. Preserve current iOS 27/24A5430a support, Xcode, simulators, app/source/rollback, credentials and phone data. Removed old support may need reacquiring for old-version debugging; do not promise old beta availability or exact reclaimed bytes.
