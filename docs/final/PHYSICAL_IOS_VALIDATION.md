@@ -1,6 +1,31 @@
 # Physical iOS validation
 
-Status date: 2026-10-15
+Status date: 2026-10-20
+
+## Renewal requested — not yet signed or installed, 2026-10-20
+
+Source `fc433bc`, unchanged ID/version 0.1.0/build 2, matched Podfile.lock/Pods
+manifest. Actual old profile confirms October 19 09:49:04 UTC / 12:49:04 Helsinki
+expiry. Strict old-app signature and APFS recovery copy pass; embedded profile
+stays byte-identical after the failed build. Expired recovery is not a launch pass.
+
+Stable Xcode 26.6/iOS 26.5, generic iOS destination, current team, two jobs and
+automatic provisioning fail exit 65: No Accounts/no matching development profile,
+zero compile/sign steps. GUI independently initially has no account; its existing
+Apple login sheet is opened, with credentials/verification left to Roope. Follow-up
+GUI now shows the existing account and Personal Team; CoreDevice observes the
+owner-connected iPhone, iOS 27.0/24A5430a. This is changed prerequisite evidence,
+not proof that provisioning succeeds; no new build retry until storage is sufficient.
+
+Full pinned 354-test validation passes first. Later mobile-scope validation fails
+ENOSPC creating Vitest temp output; available space is only about 140–202 MiB.
+Owner asks for a storage inventory, not deletion. Three obsolete DeviceSupport
+versions total about 17.8 GiB measured; exact-target removal approval is pending.
+Current 24A5430a support, source/live build, rollback, simulators and phone data
+are excluded. No profile/cache deletion or new profile/expiry/install/launch/UI/
+retention pass; no additional paid inference, SDK/account purchase or GitHub push.
+Logs/backup/inspection helper: ignored `work/ios-renewal-2026-10-20.xwM2qA/`.
+Resume procedure/owners: EB-IOS-RENEW-01 and OWNER_ACTIONS.
 
 ## Latest material-choice controls — native acceptance pending
 

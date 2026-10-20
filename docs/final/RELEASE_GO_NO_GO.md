@@ -1,5 +1,16 @@
 # Release decision
 
+October 20 maintenance: requested same-app renewal is **not complete**. Old
+profile expired October 19 at 12:49:04 Helsinki; old app signature/recovery copy
+pass. Stable build fails No Accounts/no profile before compile/sign. Existing
+account/Personal Team and connected iPhone later observed; fresh provisioning
+still needed. Host ENOSPC blocks further builds: full 354-test validation passed
+before a later scoped failure. Three obsolete DeviceSupport roots (about 17.8 GiB)
+identified for exact owner approval, not yet removed; current phone support/source/
+app/recovery/simulator data preserved. No new profile/install/launch/native pass,
+paid inference or push. EB-IOS-RENEW-01/OWNER_ACTIONS govern the next maintenance
+step; public production **NO-GO** and photo-accuracy findings remain unchanged.
+
 Latest October 15 material-review change: the locally executable PHOTO-003
 correction/unknown mitigation is implemented. Eligible parts require independent,
 initially unselected material and separate empty/non-hazardous/non-pressurized/

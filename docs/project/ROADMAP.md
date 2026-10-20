@@ -2,6 +2,14 @@
 
 Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally blocked.
 
+## Current owner-requested signing/install renewal — October 20
+
+- [x] Verify existing build-2 identity/expired October 19 profile, matched pods/stable SDK, strict app signature and APFS recovery copy. No native regeneration/dependency/private-code change.
+- [x] Attempt one automatic provisioning build; exit 65, No Accounts/no profile before compile/sign. GUI sign-in sheet handed to owner; later existing account/Personal Team and connected iPhone observed. Fresh build must establish renewed credential usability.
+- [x] Locate three obsolete iOS DeviceSupport symbol-cache directories, about 17.8 GiB; exclude current phone's 24A5430a support, simulators, source, app and recovery artifacts. No deletion is authorized by the inventory request; exact-target approval requested.
+- [!] Host space exhausted: later mobile validation fails ENOSPC, although the earlier fresh full 354-test validation passes. EB-IOS-RENEW-01 / owner cleanup approval; stop further builds until space is sufficient.
+- [ ] After approved cleanup and sufficient space, retry the same stable-Xcode build, verify actual new profile/app+framework signatures/device binding, replace-install without uninstall/reset, launch via current Metro and record evidence. No extra AI call or GitHub push; earlier prompt/naming work remains queued.
+
 ## Current photo recognition — October 15
 
 - [x] Owner-approved eight-real-image baseline through the existing app endpoint, with fixed model/prompt, pre-recorded references, public image attribution/hashes and no retries/answer leakage. 8/8 transport success, 4/8 named families, one bilingual imprecision and a material contradiction; not a production-accuracy pass.
