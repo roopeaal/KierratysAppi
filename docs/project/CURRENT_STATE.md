@@ -1,5 +1,11 @@
 # Current state
 
+## Team-main source push verified — 2026-10-20
+
+- Explicit non-force push succeeds **`44cc1b2..7ff234e`** to `https://github.com/roopeaal/KierratysAppi.git`, `HEAD:refs/heads/main`; independent `git ls-remote` confirms **`7ff234e9b3801ed2dca482297d241d154d48fc84`**. Merge parents are prior local `3233a3a` and team `44cc1b2`, both verified ancestors. No teammate history lost, private KeepItGreen touched, tag/other branch mirrored, settings changed or app-store/production release made.
+- Final pre-push full validation passes **364 unique tests**, all mandatory checks/builds/14 routes. Mobile 218/shared 85 overlap; all three browser runners pass, broader app recheck after final Privacy wording also passes. Reviewed 65-file published delta plus eleven local commit patches: no prohibited private environment/native/build/signing path or limited secret-pattern candidates; not a full security audit. Exact ignored logs are in TEST_EVIDENCE.
+- GitHub source-push runs **CI 39461165652 / Security 39461165262** were queued/in progress when first inspected, not yet certified passed. This outcome documentation is part of the same authorized sharing step, not standing permission for future pushes. Native address acceptance and public production NO-GO/photo findings remain unchanged; one executable next action remains in NEXT_ACTION.
+
 ## Authorized team-main integration — 2026-10-20
 
 - Roope explicitly confirms **KierratysAppi/main** as this publication's destination. Actual origin URL/default/public visibility verified. Fresh main is `44cc1b2`: nine remote-only commits, eleven local-only commits at `3233a3a`. Normal merge preserves both histories; no force, rebase, private KeepItGreen import/synchronization, settings or production publication. Actual push outcome is recorded separately, not inferred from local preparation.

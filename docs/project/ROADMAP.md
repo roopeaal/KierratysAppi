@@ -8,7 +8,8 @@ Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally bl
 - [x] Retain upstream postal/subregion normalization, Home cleanup, heading and exact-material filter; reconcile address search with the existing one-press, five-point/material/provenance UI. Replace unbounded public geocoding with explicit bounded native OS lookup, safe ambiguous/timeout/cancel behavior, no false GPS accuracy and honest web limitation; add eight mobile/one shared/one policy regression.
 - [x] Shared 85/mobile 218/full 364-test validation and all gates/14-route builds pass; browser/push observations are recorded separately in TEST_EVIDENCE.
 - [x] All three actual-Metro browser runners pass (nearby/app/photo); inspect native-only web notice and current dark nearby screenshot. Review selected source/history/metadata; no ignored work/native/signing/private environment artifacts or key-pattern candidates in the limited tracked-delta check.
-- [~] Publish the reviewed merge to verified main without force and independently verify remote SHA; record CI only as actually observed. Source sharing is not production GO; native address/search/map/permission acceptance remains separate and next.
+- [x] Non-force `44cc1b2..7ff234e` main push succeeds and independent remote SHA matches. Both merge parents verified ancestors; no KeepItGreen/settings/tag/other-branch change. Record the outcome in the same sharing step; future pushes require separate permission.
+- [~] Source-push CI 39461165652 / Security 39461165262 initially queued/in progress, not passed by local validation. Source sharing is not production GO; native address/search/map/permission acceptance remains separate and next.
 
 ## Current owner-requested signing/install renewal — October 20
 
