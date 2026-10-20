@@ -3,6 +3,23 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 
 const read = (path) => readFileSync(new URL(`../../${path}`, import.meta.url), "utf8");
+test("manual address lookup is explicit, OS-only, ephemeral and never presented as GPS accuracy", () => {
+  const screen = read("mobile/app/src/app/nearby.tsx");
+  const adapter = read("mobile/app/src/features/nearby/device-location.ts");
+  const helper = read("mobile/app/src/features/nearby/manual-location.ts");
+  assert.match(screen, /nearbyLocationHint/u);
+  assert.match(screen, /onPress=\{\(\) => void findByLocation\(\)\}/u);
+  assert.match(screen, /setLocationInput\(""\)/u);
+  assert.match(screen, /accuracy: null,\s*origin: "address"/u);
+  assert.match(screen, /nearbyManualEstimate/u);
+  assert.match(adapter, /Location\.geocodeAsync\(address\)/u);
+  assert.match(adapter, /Platform\.OS === "web"/u);
+  assert.doesNotMatch(
+    screen + adapter + helper,
+    /nominatim|fetch\(|AsyncStorage|console\.|trackEvent/u,
+  );
+  assert.match(read("mobile/app/src/app/legal.tsx"), /t\("nearbyLocationHint"\)/u);
+});
 test("nearest result identifies the source point without inventing missing names or types", () => {
   const screen = read("mobile/app/src/components/nearby-point-card.tsx");
   assert.match(screen, /point\.name \?\? point\.operator \?\? t\("nearbyGeneric"\)/u);

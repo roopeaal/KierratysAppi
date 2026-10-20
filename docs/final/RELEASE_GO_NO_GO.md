@@ -1,5 +1,16 @@
 # Release decision
 
+October 20 source integration/publication is **not a production GO**. Owner
+explicitly confirms KierratysAppi/main. Both team/local histories are preserved;
+manual address search is reconciled with five-point/material/provenance behavior
+and the existing native OS-map boundary, with explicit address disclosure,
+bounded/cancellable UI, ambiguity refusal, single-flight native work and honest
+web limitation. Shared 85/mobile 218/full 364-test validation passes. Earlier Home
+and signing evidence predates this integration; actual native geocoding/permissions/
+background/map acceptance remains OA-NEARBY-ADDRESS-01. No real address/GPS/photo,
+paid AI call, new account or native/signing change. PHOTO-003 high and wider
+production gates remain; publication/CI outcome must be observed separately.
+
 Latest October 20 renewal: approved exact three-root cleanup succeeds, about
 18 GiB free; post-cleanup mobile 209/full 354 tests pass. Same-app/team stable
 physical-device build, actual new profile/app+12-framework/device/purpose

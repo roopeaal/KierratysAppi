@@ -19,7 +19,7 @@ export function NearbyPointCard({
   index,
 }: {
   readonly result: NearbyCollectionPoint;
-  readonly accuracy: number;
+  readonly accuracy: number | null;
   readonly index: number;
 }) {
   const { point, distanceMeters } = result;
@@ -144,9 +144,11 @@ export function NearbyPointCard({
           <AppText variant="small" muted>
             {t("nearbyPointId")}: {point.id}
           </AppText>
-          <AppText variant="small" muted>
-            {t("nearbyAccuracy")}: ±{Math.max(1, Math.ceil(accuracy / 10) * 10)} m
-          </AppText>
+          {accuracy !== null && (
+            <AppText variant="small" muted>
+              {t("nearbyAccuracy")}: ±{Math.max(1, Math.ceil(accuracy / 10) * 10)} m
+            </AppText>
+          )}
           <AppText variant="small" muted>
             {t("nearbyCaution")}
           </AppText>

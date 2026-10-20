@@ -1,4 +1,4 @@
-import { CoordinatesSchema, straightLineMeters, type Coordinates } from "@kierratysappi/domain";
+import { type Coordinates, CoordinatesSchema, straightLineMeters } from "@kierratysappi/domain";
 import { z } from "zod";
 
 export const CollectionMaterialSchema = z.enum([
@@ -113,6 +113,30 @@ export function nearestCollectionPoint(
     }
   }
   return nearest;
+}
+
+/**
+ * Nearest points whose directory explicitly reports at least one of `materials`.
+ * Exact reports only: a broad category never implies a narrower one, and an
+ * exclusion is never overridden. Filters before limiting so far-but-matching
+ * points are not hidden behind five near non-matching ones.
+ */
+export function nearestCollectionPointsAccepting(
+  points: readonly CollectionPoint[],
+  position: Coordinates,
+  materials: readonly CollectionMaterial[],
+  limit = 5,
+): readonly NearbyCollectionPoint[] {
+  if (materials.length === 0) throw new RangeError("At least one material is required");
+  for (const material of materials) CollectionMaterialSchema.parse(material);
+  const wanted = new Set<CollectionMaterial>(materials);
+  return nearestCollectionPoints(
+    points.filter((point) =>
+      point.reportedMaterials.some((m) => wanted.has(m) && !point.reportedExclusions.includes(m)),
+    ),
+    position,
+    limit,
+  );
 }
 
 export function collectionPointUrl(point: CollectionPoint): string {

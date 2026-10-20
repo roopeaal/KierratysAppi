@@ -72,6 +72,20 @@ async function noOverflow(page) {
     page.on("pageerror", (error) => errors.push(error.message));
     await page.goto(baseUrl + "/nearby");
     await page.getByTestId("nearby-find").waitFor();
+    await page.getByTestId("nearby-location-toggle").click();
+    await page
+      .getByText(
+        "Osoitehaku toimii iPhone- ja Android-sovelluksessa. Selaimessa voit hakea laitteen sijainnilla.",
+        { exact: true },
+      )
+      .waitFor();
+    assert.equal(
+      await page.getByTestId("nearby-location-input").count(),
+      0,
+      "Web must not collect an address for an unavailable provider",
+    );
+    await page.screenshot({ path: path.join(evidenceDir, "manual-web-fi.png"), fullPage: true });
+    await page.getByTestId("nearby-location-toggle").click();
     assert.equal(
       await page.evaluate(() => window.qaLocation.watch),
       0,
@@ -224,6 +238,14 @@ async function noOverflow(page) {
     assert.equal(await en.evaluate(() => window.qaLocation.watch), 1);
     await noOverflow(en);
     await en.screenshot({ path: path.join(evidenceDir, "en.png"), fullPage: true });
+    await en.getByTestId("nearby-location-toggle").click();
+    await en
+      .getByText(
+        "Address search is available in the iPhone and Android app. In a browser, use device location instead.",
+        { exact: true },
+      )
+      .waitFor();
+    assert.equal(await en.getByTestId("nearby-location-input").count(), 0);
     await english.close();
 
     const denied = await browser.newContext({ viewport: { width: 390, height: 844 } });
@@ -264,7 +286,7 @@ async function noOverflow(page) {
     await h.waitForFunction((before) => window.qaLocation.clear > before, clearsBeforeTimeout);
     await held.close();
     console.log(
-      "PASS: one-press Home, non-acquiring direct URL, independently ranked five real points, reported/unknown/excluded materials, source/date, keyboard details, offline, FI/EN, dark, 320/390 and 130% synthetic text, denial/cancel/timeout and watcher cleanup. No user GPS or native acceptance.",
+      "PASS: one-press Home, non-acquiring direct URL, independently ranked five real points, reported/unknown/excluded materials, source/date, keyboard details, offline, FI/EN, dark, 320/390 and 130% synthetic text, denial/cancel/timeout and watcher cleanup; manual-address web limitation in FI/EN with no address input. No user GPS or native acceptance.",
     );
   } finally {
     await browser.close();

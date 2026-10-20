@@ -1,13 +1,14 @@
 import { describe, expect, it } from "vitest";
 import {
   CollectionDirectorySchema,
+  type CollectionPoint,
   CollectionPointSchema,
-  collectionPointUrl,
   collectionPointMapUrl,
+  collectionPointUrl,
   directoryAgeDays,
   nearestCollectionPoint,
   nearestCollectionPoints,
-  type CollectionPoint,
+  nearestCollectionPointsAccepting,
 } from "../collection-points";
 
 const point: CollectionPoint = {
@@ -34,6 +35,35 @@ const directory = {
 };
 
 describe("local collection directory contract", () => {
+  it("filters exact reported materials before limiting, without broad-category inference or exclusion overrides", () => {
+    const points = [
+      {
+        ...point,
+        reportedMaterials: ["plastic"] as const,
+        reportedExclusions: ["plasticPackaging"] as const,
+      },
+      ...Array.from({ length: 5 }, (_, index) => ({ ...point, id: `node/${index + 2}` })),
+      {
+        ...point,
+        id: "node/9",
+        coordinates: { latitude: 60.1, longitude: 25 },
+        reportedMaterials: ["plasticPackaging"],
+      },
+    ] as CollectionPoint[];
+    expect(
+      nearestCollectionPointsAccepting(points, point.coordinates, ["plasticPackaging"], 1).map(
+        (p) => p.point.id,
+      ),
+    ).toEqual(["node/9"]);
+    expect(
+      nearestCollectionPointsAccepting(
+        [{ ...point, reportedMaterials: ["paper"], reportedExclusions: ["paper"] }],
+        point.coordinates,
+        ["paper"],
+      ),
+    ).toEqual([]);
+    expect(() => nearestCollectionPointsAccepting(points, point.coordinates, [])).toThrow();
+  });
   it("ranks five nearby alternatives by distance, without promoting a named or material-tagged point", () => {
     const list = Object.freeze(
       Array.from({ length: 7 }, (_, i) => ({

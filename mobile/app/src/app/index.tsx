@@ -27,8 +27,18 @@ export default function HomeScreen() {
 
   useFocusEffect(
     useCallback(() => {
+      let cancelled = false;
       reset();
-      void isHistoryEnabled().then(setHistoryState);
+      isHistoryEnabled()
+        .then((enabled) => {
+          if (!cancelled) setHistoryState(enabled);
+        })
+        .catch(() => {
+          if (!cancelled) setHistoryState(false);
+        });
+      return () => {
+        cancelled = true;
+      };
     }, [reset]),
   );
 

@@ -1,5 +1,13 @@
 # Decision log
 
+## D-UPSTREAM-2026-10-13 — Preserve postal codes in nearby address estimates
+
+- Date: 2026-10-13
+- Integration note: upstream called this D-025, which already identifies the September CI decision; namespaced on integration without changing its decision or authorship.
+- Status: accepted
+- Decision: normalize device reverse-geocoder results as `street streetNumber, postalCode locality`, with `subregion` as a locality fallback. Keep the existing estimate/source disclosure and bounded input validation; do not treat the result as a verified collection-point address.
+- Reason: Expo's native address shape commonly supplies postal codes and subregions. Dropping them made the optional nearby address lookup incomplete without changing its privacy or uncertainty boundary.
+
 ## D-001 — Accuracy is a domain invariant
 
 - Date: 2026-08-10
@@ -351,6 +359,14 @@
 - Authority: Roope reports completing the requested physical Trust/Verify action. This changes the first-launch prerequisite, not the scope to camera/GPS/paid calls, security bypass, reinstall or GitHub publication.
 - Decision/evidence: launch the same installed build 2 with the current Metro dev-client URL; CoreDevice reports success and two later process queries retain the returned PID. Inspect one native screenshot: current Finnish Home renders but an unrelated OS picture-in-picture partly occludes the header. Record only this limited observation, remove the exact newly generated mixed-content regular file after path/type checks, retain no mixed image and stop further capture. Command receipts and bounded generated acceptance summary remain ignored, not device IDs/profiles/binaries/screenshots in Git.
 - Status: EB-IOS-TRUST-01 and the requested signing/install/startup maintenance are complete; actual profile expiry stays October 27 17:27:13 Helsinki (UTC+2). Fresh full validation passes 354 unique tests and all gates/builds/14 routes. No source/behavior/dependency/native/model/rule change or new test cases. Full visual/native material-review/camera/retention/untethered/performance/production acceptance stays separate; PHOTO-003 remains high/open. Product provisioning now works, so prior helper No Accounts is historical; helper renewal is still untested, not newly externally blocked. Resume the queued free FI/EN prompt/label work without live calls or push.
+
+## D-050 — Integrate team history without restoring regressions or a silent location recipient
+
+- Date: 2026-10-20
+- Authority: Roope explicitly confirms publication to KierratysAppi/main after the generic push request; not KeepItGreen synchronization, force/rebase, settings or production release. Fresh public main `44cc1b2` has nine new commits; preserve it alongside the eleven local commits through a normal merge.
+- Decision: keep the upstream postal/subregion correction, async Home cleanup, heading/material-filter work and manual address-search intent. Restore current one-press/five-point/material/source UI instead of accepting the old-screen replacement. Existing native Expo Location supports forward geocoding; use its OS boundary, not the newly introduced unbounded public Nominatim endpoint. Disclose address recipient and app retention in FI/EN before explicit submission/Privacy. Bound queries and result shape, reject ambiguity, set a five-second UI deadline, ignore late results and gate uncancellable OS work until settlement. Deadline abort also prevents late Android permission approval from starting geocoding. No address cache/history/logging, automatic retry, background initiation or new service/key/dependency.
+- Accuracy/acceptance: preserve actual GPS accuracy in device search; manual origin is explicitly an address estimate with no invented GPS precision. Keep exact source-material reports/exclusions, map only public point coordinates, and native-only address availability on web without collecting unusable input. Eight helper regressions/one shared filter/one policy test supplement existing browser tests. Shared 85/mobile 218/full 364 unique tests pass; initial missing translations and a test-double type error are recorded, not waived. Native provider/permission/layout/map behavior is not inferred from fixtures or the earlier Home pass. D-025 upstream label is namespaced solely to avoid the existing ID collision; authorship/history unchanged.
+- Scope: no real address/GPS/photo acquisition, paid inference, secret/model/rule/directory/native/signing/database change or new account. Actual publication and CI observations are separate receipts; future sharing still requires separate permission. Production stays NO-GO and PHOTO-003 remains high/open.
 
 ## Remaining pending decisions (historical / production, continued)
 

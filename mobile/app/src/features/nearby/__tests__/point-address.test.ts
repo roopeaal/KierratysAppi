@@ -1,5 +1,5 @@
-import { afterEach, expect, it, vi } from "vitest";
 import type { CollectionPoint } from "@kierratysappi/contracts/collection-points";
+import { afterEach, expect, it, vi } from "vitest";
 import { normalizePointAddress, resolvePointAddress } from "../point-address";
 
 const point: CollectionPoint = {
@@ -16,11 +16,21 @@ const point: CollectionPoint = {
 afterEach(() => vi.useRealTimers());
 it("normalizes bounded street/locality without mistaking POI names for point identity", () => {
   expect(
-    normalizePointAddress({ street: " Example ", streetNumber: "2", city: "Town", name: "Shop" }),
-  ).toBe("Example 2, Town");
+    normalizePointAddress({
+      street: " Example ",
+      streetNumber: "2",
+      postalCode: "00100",
+      city: "Town",
+      name: "Shop",
+    }),
+  ).toBe("Example 2, 00100 Town");
   expect(normalizePointAddress({ name: "Shop" })).toBeNull();
   expect(normalizePointAddress({ street: "x".repeat(161) })).toBeNull();
-  expect(normalizePointAddress({ streetNumber: "4", city: "Town" })).toBe("Town");
+  expect(normalizePointAddress({ streetNumber: "4", postalCode: "00100", city: "Town" })).toBe(
+    "00100 Town",
+  );
+  expect(normalizePointAddress({ postalCode: "00100" })).toBe("00100");
+  expect(normalizePointAddress({ subregion: "Subregion" })).toBe("Subregion");
 });
 it("sends only the public point coordinates and handles absent/provider failures", async () => {
   const lookup = vi.fn(async () => [{ city: "Town" }]);

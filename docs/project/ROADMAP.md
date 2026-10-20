@@ -2,6 +2,14 @@
 
 Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally blocked.
 
+## Current authorized team-main integration — October 20
+
+- [x] Obtain explicit KierratysAppi/main confirmation; verify actual URL/public/default main and review nine remote-only/eleven local-only commits. Preserve both histories with a normal merge, no KeepItGreen import/force/settings change.
+- [x] Retain upstream postal/subregion normalization, Home cleanup, heading and exact-material filter; reconcile address search with the existing one-press, five-point/material/provenance UI. Replace unbounded public geocoding with explicit bounded native OS lookup, safe ambiguous/timeout/cancel behavior, no false GPS accuracy and honest web limitation; add eight mobile/one shared/one policy regression.
+- [x] Shared 85/mobile 218/full 364-test validation and all gates/14-route builds pass; browser/push observations are recorded separately in TEST_EVIDENCE.
+- [x] All three actual-Metro browser runners pass (nearby/app/photo); inspect native-only web notice and current dark nearby screenshot. Review selected source/history/metadata; no ignored work/native/signing/private environment artifacts or key-pattern candidates in the limited tracked-delta check.
+- [~] Publish the reviewed merge to verified main without force and independently verify remote SHA; record CI only as actually observed. Source sharing is not production GO; native address/search/map/permission acceptance remains separate and next.
+
 ## Current owner-requested signing/install renewal — October 20
 
 - [x] Receive exact cleanup approval, freshly validate and remove only the three obsolete DeviceSupport roots (26,302 objects, no links/force/retry); preserve current 24A5430a support and measure about 18 GiB free. No source/app/simulator/phone-data removal.
@@ -34,6 +42,10 @@ Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally bl
 - [x] After an initial CoreDevice reset, a fresh query confirms restored connected/DDI-ready state; replacement installation succeeds. Actual inventory confirms build 2, explicit dev-client launch and later exact-PID query pass. No uninstall/reset; local-content retention not measured.
 - [!] XCTest native interaction/semantic inspection: separate helper profile expired; explicit existing-ID rebuild fails No Accounts/missing profiles. Beta CoreDevice screenshots now work independently; EB-IOS-UI-01 is not a product build/install/startup or screenshot-reading blocker.
 - [ ] Complete owner-operated native photo/explicit-send/result/confirmation smoke, then wider permission recovery, file cleanup, background, accessibility/visual/performance matrix. Build 1/Expo Go remain gated; current phone has build 2. No GitHub push or automatic live AI request.
+## Nearby address lookup — October 13
+
+- [x] Preserve bounded postal-code and subregion fields from native reverse-geocoder responses, with regression tests and mobile typecheck passing.
+- [~] Verify the repaired estimate rendering and map handoff on the existing native client; this source change does not claim device-location evidence.
 
 ## Current authorized team publication — October 12
 

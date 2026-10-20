@@ -1,13 +1,22 @@
 import {
   CollectionDirectorySchema,
   directoryAgeDays,
-  nearestCollectionPoints,
   type NearbyCollectionPoint,
+  nearestCollectionPoints,
 } from "@kierratysappi/contracts/collection-points";
 import type { MessageKey } from "@kierratysappi/localization";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useRef, useState } from "react";
-import { ActivityIndicator, AppState, Linking, Platform, StyleSheet, View } from "react-native";
+import {
+  ActivityIndicator,
+  AppState,
+  Keyboard,
+  Linking,
+  Platform,
+  StyleSheet,
+  TextInput,
+  View,
+} from "react-native";
 import snapshot from "@/assets/data/finland-recycling.json";
 import { NearbyPointCard } from "@/components/nearby-point-card";
 import {
@@ -20,8 +29,9 @@ import {
   sharedStyles,
 } from "@/components/ui";
 import { announceAccessibility } from "@/features/accessibility/announcements";
-import { readDeviceLocation } from "@/features/nearby/device-location";
+import { readAddressLocation, readDeviceLocation } from "@/features/nearby/device-location";
 import { LocationIssue } from "@/features/nearby/location-session";
+import { AddressLookupIssue } from "@/features/nearby/manual-location";
 import { useNearbySearch } from "@/features/nearby/search-context";
 import { useLanguage } from "@/i18n/language-context";
 import { spacing, useAppTheme } from "@/theme/tokens";
@@ -30,7 +40,12 @@ const directory = CollectionDirectorySchema.safeParse(snapshot);
 type State =
   | { status: "idle" | "loading" }
   | { status: "error"; message: MessageKey }
-  | { status: "ready"; points: readonly NearbyCollectionPoint[]; accuracy: number };
+  | {
+      status: "ready";
+      points: readonly NearbyCollectionPoint[];
+      accuracy: number | null;
+      origin: "device" | "address";
+    };
 const errors = {
   permission: "nearbyPermission",
   services: "nearbyServices",
@@ -47,6 +62,8 @@ export default function NearbyScreen() {
   const [state, setState] = useState<State>({ status: "idle" });
   const [privacyOpen, setPrivacyOpen] = useState(false);
   const [linkError, setLinkError] = useState(false);
+  const [manualOpen, setManualOpen] = useState(false);
+  const [locationInput, setLocationInput] = useState("");
   const active = useRef<AbortController | null>(null);
   const clear = useCallback(() => {
     active.current?.abort();
@@ -54,6 +71,8 @@ export default function NearbyScreen() {
     setState({ status: "idle" });
     setPrivacyOpen(false);
     setLinkError(false);
+    setManualOpen(false);
+    setLocationInput("");
   }, []);
   const find = useCallback(async () => {
     if (active.current) return;
@@ -74,7 +93,7 @@ export default function NearbyScreen() {
         setState({ status: "error", message: "nearbyNoResult" });
         announceAccessibility(t("nearbyNoResult"), "high");
       } else {
-        setState({ status: "ready", points, accuracy: fix.coords.accuracy ?? 0 });
+        setState({ status: "ready", points, accuracy: fix.coords.accuracy ?? 0, origin: "device" });
         announceAccessibility(t("nearbyResult"), "high");
       }
     } catch (error) {
@@ -86,6 +105,46 @@ export default function NearbyScreen() {
       if (active.current === controller) active.current = null;
     }
   }, [t]);
+  const findByLocation = async () => {
+    if (active.current || Platform.OS === "web") return;
+    const input = locationInput;
+    clear();
+    Keyboard.dismiss();
+    if (!directory.success) {
+      setState({ status: "error", message: "nearbyDataError" });
+      return;
+    }
+    const controller = new AbortController();
+    active.current = controller;
+    setState({ status: "loading" });
+    announceAccessibility(t("nearbyLoading"));
+    try {
+      const coordinates = await readAddressLocation(input, controller.signal);
+      if (controller.signal.aborted) return;
+      const points = nearestCollectionPoints(directory.data.points, coordinates);
+      if (!points.length) {
+        setState({ status: "error", message: "nearbyNoResult" });
+        announceAccessibility(t("nearbyNoResult"), "high");
+      } else {
+        setState({ status: "ready", points, accuracy: null, origin: "address" });
+        announceAccessibility(`${t("nearbyResult")}. ${t("nearbyManualEstimate")}`, "high");
+      }
+    } catch (error) {
+      if (controller.signal.aborted) return;
+      const message =
+        error instanceof AddressLookupIssue && error.reason === "invalid"
+          ? "nearbyLocationInvalid"
+          : error instanceof AddressLookupIssue && error.reason === "ambiguous"
+            ? "nearbyLocationAmbiguous"
+            : error instanceof AddressLookupIssue && error.reason === "busy"
+              ? "nearbyLocationBusy"
+              : "nearbyLocationError";
+      setState({ status: "error", message });
+      announceAccessibility(t(message), "high");
+    } finally {
+      if (active.current === controller) active.current = null;
+    }
+  };
   useFocusEffect(
     useCallback(() => {
       // Only a recent in-memory Home press auto-starts; URL/deep-link opening alone never does.
@@ -172,7 +231,10 @@ export default function NearbyScreen() {
               <AppText>{t("nearbyStale")}</AppText>
             )}
             <AppText variant="small">{t("nearbyQuickCaution")}</AppText>
-            {state.accuracy > 100 && <AppText>{t("nearbyApproximate")}</AppText>}
+            {state.origin === "address" && <AppText>{t("nearbyManualEstimate")}</AppText>}
+            {state.accuracy !== null && state.accuracy > 100 && (
+              <AppText>{t("nearbyApproximate")}</AppText>
+            )}
           </View>
           <View style={sharedStyles.stack} testID="nearby-result">
             {state.points.map((result, index) => (
@@ -193,6 +255,56 @@ export default function NearbyScreen() {
         </>
       )}
       {linkError && <AppText accessibilityRole="alert">{t("nearbyLinkError")}</AppText>}
+      {state.status !== "loading" && (
+        <View style={sharedStyles.tightStack}>
+          <InlineLink
+            label={t("nearbyLocationAction")}
+            role="button"
+            expanded={manualOpen}
+            onPress={() => {
+              setManualOpen((open) => !open);
+              setLocationInput("");
+            }}
+            testID="nearby-location-toggle"
+          />
+          {manualOpen &&
+            (Platform.OS === "web" ? (
+              <AppText>{t("nearbyLocationNativeOnly")}</AppText>
+            ) : (
+              <View style={sharedStyles.tightStack}>
+                <AppText>{t("nearbyLocationHint")}</AppText>
+                <TextInput
+                  accessibilityLabel={t("nearbyLocationLabel")}
+                  accessibilityHint={t("nearbyLocationHint")}
+                  autoCorrect={false}
+                  autoComplete="off"
+                  maxLength={160}
+                  value={locationInput}
+                  onChangeText={setLocationInput}
+                  placeholder={t("nearbyLocationPlaceholder")}
+                  placeholderTextColor={palette.faint}
+                  returnKeyType="search"
+                  onSubmitEditing={() => void findByLocation()}
+                  style={[
+                    styles.locationInput,
+                    {
+                      color: palette.ink,
+                      borderColor: palette.borderStrong,
+                      backgroundColor: palette.surfaceRaised,
+                    },
+                  ]}
+                  testID="nearby-location-input"
+                />
+                <Button
+                  label={t("nearbyLocationAction")}
+                  onPress={() => void findByLocation()}
+                  disabled={!locationInput.trim()}
+                  testID="nearby-location-submit"
+                />
+              </View>
+            ))}
+        </View>
+      )}
       <View style={styles.provenance}>
         <AppText variant="small" muted>
           {t("nearbyScope")}
@@ -242,4 +354,11 @@ export default function NearbyScreen() {
 const styles = StyleSheet.create({
   screen: { gap: spacing.md },
   provenance: { gap: spacing.sm, paddingTop: spacing.sm },
+  locationInput: {
+    minHeight: 48,
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: spacing.md,
+    fontSize: 18,
+  },
 });

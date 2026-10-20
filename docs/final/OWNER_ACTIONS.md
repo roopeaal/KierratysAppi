@@ -1,5 +1,10 @@
 # Owner actions
 
+## October 20 — team-main integration acceptance
+
+- **OA-NEARBY-ADDRESS-01 / Roope operates, engineering validates, pending:** on the existing app open nearby → Hae osoitteella, read the OS-map recipient disclosure and submit only a public-place address/postcode, never a home address or personal details. Check the estimated-address-origin warning, up to five real points/material reports, no fabricated GPS accuracy, cancel/background clearing and a map link to the public point only. Engineering records pass/fail without query/coordinates/location-derived screenshots; stop for any actual device/permission action. No camera/photo/paid inference, new account, reinstall or further push is authorized by this acceptance procedure. Browser and helper fixtures do not complete it.
+- Roope explicitly authorized this source publication to **roopeaal/KierratysAppi/main**. Actual push/remote/CI outcome is in TEST_EVIDENCE; this does not authorize future automatic synchronization or production publication. KeepItGreen unchanged.
+
 ## October 20 — signing renewal / storage
 
 - **OA-HOST-02 completed / owner approved, engineering executed:** only the three enumerated obsolete DeviceSupport directories removed after fresh checks, 26,302 objects, no links/open files/force/retry. Current phone support/source/app/build/rollback/simulators/phone data preserved; immediate free space about 18 GiB. Removed copies are not in Trash; old-version debug support may need reacquisition. No further cleanup is authorized by this step.

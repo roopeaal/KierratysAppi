@@ -36,7 +36,7 @@ export function SortingResultCard({
           <AppText variant="small" muted>
             {t("destinationLabel")}
           </AppText>
-          <AppText variant="title" accessibilityRole="header">
+          <AppText variant="heading" accessibilityRole="header">
             {localizedText(language, result.destination.label)}
           </AppText>
         </View>

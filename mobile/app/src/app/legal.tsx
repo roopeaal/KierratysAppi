@@ -38,6 +38,7 @@ export default function LegalScreen() {
         </AppText>
         <AppText>{t("privacyInformation")}</AppText>
         <AppText>{t("nearbyPrivacy")}</AppText>
+        <AppText>{t("nearbyLocationHint")}</AppText>
         <AppText>{t("nearbyAddressDisclosure")}</AppText>
         <AppText>{t("photoPrivacy")}</AppText>
       </DocumentSection>

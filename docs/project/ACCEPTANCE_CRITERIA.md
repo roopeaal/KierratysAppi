@@ -46,6 +46,17 @@
 
 ## Free-data and nearest-point addition
 
+October 20 address-search integration additionally requires an explicit native
+OS-map-service disclosure before submitting an address/postcode, with no direct
+public-geocoder request or address cache/history/log. Bounds, ambiguity refusal,
+single-flight native work, timeout/cancel/background cleanup and late-permission
+protection must pass. Native geocoding cannot be forcibly cancelled after dispatch;
+ignore late output and do not start another request until settlement. Manual
+distances use a labelled estimated address origin, not GPS/±1 m precision. Retain
+the five-point/material/source/map UI; web clearly says address search is native-only
+and collects no address. Unit/browser evidence does not certify actual native OS
+geocoding, Android permissions or map handoff.
+
 October 11 school-scope addition supersedes the earlier runtime legal-banner
 retention requirements below: Privacy contains factual recipients, retention,
 local deletion and guidance limits, not unapproved terms or a review notice.

@@ -1,5 +1,9 @@
 # External blockers
 
+## October 20 team-main integration
+
+No new credential/account/payment/native-build requirement. Upstream manual search had local compile/behavior/privacy-boundary defects; integration repairs them using already-installed native OS geocoding, not a new public provider. Web address geocoding is explicitly unavailable, while device-location search remains available. This is a feature limitation, not a secret/funding blocker. Native address/postcode/permission/cancellation/background/map acceptance remains a separate engineering + device-owner evidence task (OA-NEARBY-ADDRESS-01); earlier Home/signing success does not establish it. No real address/GPS/photo or paid inference was acquired in integration; existing production/photo-accuracy gates remain unchanged.
+
 ## EB-IOS-TRUST-01 — resolved for same-app startup, 2026-10-20
 
 - Cleanup, account/provisioning, native build/new profile and replacement installation pass. Profile expires **October 27 at 17:27:13 Helsinki**, not October 19. Initial launch was rejected with CoreDevice 10002 → FBS Security despite passing local signatures/binding; the later owner-trust/startup evidence below supersedes that rejection without attributing a precise phone-side cause from Mac checks alone.

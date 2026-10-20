@@ -1,3 +1,3 @@
 # Next action
 
-Add FI/EN provider-label regressions and refine the photo observation prompt to retain legible brand/product names without guessing; preserve the pinned model and observation-only contract, and make no live API request or GitHub push.
+Verify the integrated native address/postcode search on the existing iPhone using a public-place query: check explicit disclosure, estimated-origin distances, five points/materials, cancel/background clearing and public-point map handoff; record only non-location-derived evidence, repair observed failures, and make no photo/paid AI request or further GitHub push.
