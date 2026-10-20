@@ -4,11 +4,15 @@ Latest October 20 renewal: approved exact three-root cleanup succeeds, about
 18 GiB free; post-cleanup mobile 209/full 354 tests pass. Same-app/team stable
 physical-device build, actual new profile/app+12-framework/device/purpose
 verification and replacement installation succeed. New expiry **October 27 at
-17:27:13 Helsinki**. First launch nevertheless fails FBS Security; actual owner
-Trust/Verify and fresh launch/Home evidence remain pending under EB-IOS-TRUST-01.
-Do not infer phone startup, data retention, broader native/product accuracy or
-release readiness from local signatures/install/tests. No uninstall/reset,
-paid inference, SDK/source/dependency change or push. Public **NO-GO** unchanged.
+17:27:13 Helsinki**. After the first FBS Security rejection, Roope reports Trust
+completed: fresh same-app current-Metro launch succeeds, two later queries find
+the same PID and current FI Home is visually observed. EB-IOS-TRUST-01 resolved
+for startup. OS picture-in-picture partly occludes Home; only the new mixed
+screenshot is removed after exact-file checks, no original phone data. Full
+visual/interaction/retention/camera/material accuracy/untethered acceptance is
+not established. Fresh full 354-test validation passes. No uninstall/reset,
+camera/GPS/paid inference, SDK/source/dependency change or push. Debug still
+needs Mac Metro/API/LAN; public **NO-GO** and PHOTO-003 high remain unchanged.
 
 Earlier October 20 pre-cleanup checkpoint: requested renewal was **not complete**. Old
 profile expired October 19 at 12:49:04 Helsinki; old app signature/recovery copy
@@ -164,11 +168,11 @@ The product is not production-ready. The current September 10 dependency set pas
 
 | Gate | Result | Release consequence |
 | --- | --- | --- |
-| No unresolved locally executable blocker/critical/high | **Not satisfied for GO** | Source-level high findings found in this run were repaired, but manually executable iPhone camera/accessibility/performance rows and native E2E remain incomplete |
-| Mandatory local tests | **Pass on 2026-10-07** | Format, lint, typecheck, 208 application/32 policy tests (240 total), API/package builds and 13-route web export pass with nested pnpm 11.16.0. No timeout was relaxed |
-| Expo compatibility | **Doctor pass dated 2026-09-10; October build passes** | Expo 57.0.21/Router 57.0.20/RN 0.86.3 and added ExpoLocation 57.0.16 compile with matched pod lock/manifest. No fresh October Doctor pass is claimed; current native runtime is pending |
+| No unresolved locally executable blocker/critical/high | **Not satisfied for GO** | PHOTO-003 high material-accuracy/native acceptance remains open despite the local correction/unknown mitigation; iPhone camera/accessibility/performance rows and native E2E remain incomplete |
+| Mandatory local tests | **Pass on 2026-10-20** | Pinned pnpm 11.16.0 full validation: 354 unique tests (69 policy + 285 application), boundaries/format/lint/strict types, API/package builds and 14-route web export. No gate/timeout relaxed; remote CI not newly run |
+| Expo compatibility | **Doctor pass dated 2026-09-10; October build/startup pass** | Expo 57.0.21/Router 57.0.20/RN 0.86.3 and ExpoLocation 57.0.16 compile with matched pod lock/manifest. No fresh October Doctor pass is claimed; current Home renders, not the wider native matrix |
 | Android release build | **No evidence** | No JDK/SDK/ADB/signing/AAB/device run |
-| iOS development/release build | **October compile/signatures/install/Home/nearby introduction pass; GPS pending; no release evidence** | Source `487af03`, Xcode 26.6, app and 12 framework signatures pass. Profile expires October 13 21:21:19 Finland time. Owner trust cleared startup; retry now yields actual native Home/nearby semantic and visual evidence. Starting location hits a helper system-modal timeout, so permission/result, background clearing, product-source UI and local-content retention remain unverified. Archive/TestFlight and wider matrix stay open |
+| iOS development/release build | **October 20 Debug build/signatures/install/startup/Home pass; no release evidence** | App source `fc433bc`, Xcode 26.6/iOS 26.5, same build 2 and app/all 12 framework/profile/device checks pass. Actual renewed profile expires October 27 17:27:13 Helsinki; owner trust followed by same-app current-Metro launch and two later same-PID checks pass. Home is partly occluded by OS picture-in-picture; mixed copy removed, no full visual/interaction/retention pass. Archive/TestFlight, latest material-review/native matrix and Mac-independent runtime remain open; older nearby permission evidence is separately dated |
 | Physical barcode test | **Partial** | One real EAN-13, permission/recovery and scanner-control semantics pass; EAN-8, UPC-A, unsupported UPC-E, actual torch toggle and adverse/rapid/multiple-code conditions remain |
 | Production API/database | **Absent** | Mobile production URL intentionally fails closed; no deployed service or restore drill |
 | Privacy/GDPR/terms | **Unapproved draft** | No controller/legal sign-off or hosted URLs |

@@ -4,9 +4,9 @@
 
 - **OA-HOST-02 completed / owner approved, engineering executed:** only the three enumerated obsolete DeviceSupport directories removed after fresh checks, 26,302 objects, no links/open files/force/retry. Current phone support/source/app/build/rollback/simulators/phone data preserved; immediate free space about 18 GiB. Removed copies are not in Trash; old-version debug support may need reacquisition. No further cleanup is authorized by this step.
 - **OA-IOS-RENEW-01 signing/install completed / engineering:** physical-destination existing-team stable build succeeds; strict app/12-framework/profile/device/purpose verification and replacement install/targeted build-2 inventory pass. New actual profile expires **27.10.2026 at 17:27:13 Helsinki**. No uninstall/reset; data retention not independently checked. Source validation mobile 209/full 354 passes after cleanup; no paid AI request or push.
-- **OA-IOS-TRUST-01 / Roope acts, engineering validates, pending:** first launch fails FBS Security despite passing local signatures/binding. On the iPhone check Settings → General → VPN & Device Management → own developer/Apple account; select Trust or Verify only if offered, then open KeepItGreen and report result/error. If absent, report absence rather than deleting/reinstalling or changing security settings. No password/code in chat, new account/payment, automatic capture/upload or bypass. After changed state engineering verifies same-app launch/rendered Home against current Metro; no runtime pass yet. Manual renewal before the new expiry is not automatically scheduled.
+- **OA-IOS-TRUST-01 completed / Roope + engineering:** owner reports **luotettu**. Fresh same-installed-app launch through current Metro succeeds; two later process queries retain the same PID, and current FI Home is visually observed. OS picture-in-picture partly covers the header, so this is not unobstructed visual/interaction acceptance; only the new mixed screenshot is removed after exact-file checks. No reinstall/reset/security bypass/camera/GPS/paid call/push. No Trust question remains; manual renewal before **27.10.2026 at 17:27 Helsinki** is not automatically scheduled. Debug still needs the Mac services/LAN; no Mac-independent or cable-disconnected pass.
 
-Exact approved roots under `/Users/roopeaaltonen/Library/Developer/Xcode/iOS DeviceSupport/` were `iPhone13,4 26.1 (23B82)`, `iPhone13,4 27.0 (24A5418b)` and `iPhone13,4 27.0 (24A5424a)`. The inventory request itself did not authorize deletion; Roope separately approved these three before removal. Earlier No Accounts/no-device and ENOSPC failures are superseded for signing/install/tests, not for pending phone Trust/launch acceptance.
+Exact approved roots under `/Users/roopeaaltonen/Library/Developer/Xcode/iOS DeviceSupport/` were `iPhone13,4 26.1 (23B82)`, `iPhone13,4 27.0 (24A5418b)` and `iPhone13,4 27.0 (24A5424a)`. The inventory request itself did not authorize deletion; Roope separately approved these three before removal. Earlier No Accounts/no-device, ENOSPC and first-launch failures are historical; signing/install/tests and post-owner-trust startup now pass, not wider native/retention/release acceptance.
 
 ## October 15 — AI credit and native acceptance
 
@@ -24,14 +24,7 @@ Exact approved roots under `/Users/roopeaaltonen/Library/Developer/Xcode/iOS Dev
   installation and targeted build-2 inventory pass. Explicit current dev-client
   launch and later PID-specific query pass; no uninstall/reset. No further
   reconnect request is pending for this completed install.
-- **OA-UI-01 / Apple Account owner, XCTest interaction/semantic inspection pending:** reauthorize
-  the existing account in Xcode Settings → Accounts if automated native UI tests
-  through XCTest are desired; handle actual login/keychain prompts yourself.
-  Direct beta CoreDevice screenshots already work without this action. Existing-ID helper
-  renewal currently fails No Accounts/missing profiles, with cached helper
-  profiles expired. Engineering rebuilds/verifies only the existing helper IDs
-  and reruns inspection after authorization; no new account/payment required.
-  Product signing/install/launch is independent and already passes.
+- **OA-UI-01 / engineering, XCTest interaction/semantic inspection pending:** October 15 helper No Accounts/missing-profile errors are historical; the existing account now successfully provisions the product. Engineering first rechecks/rebuilds/verifies only the existing helper IDs when automated interaction is needed, without another blind login request. Roope handles only an actual new login/keychain/device prompt; no secret in chat/new account/payment. Direct beta CoreDevice screenshots already work without helper renewal. No fresh helper/semantic pass is claimed; product signing/install/startup passes independently.
 - **OA-AI-01 / API account owner, completed for the recheck:** the owner reported
   completing the billing step; one explicitly authorized real synthetic-image
   Responses request returned HTTP 200 and runtime-validated `estimated`.

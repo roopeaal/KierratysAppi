@@ -1,3 +1,3 @@
 # Next action
 
-After Roope completes the actual iPhone Trust/Verify check for the newly installed app, verify same-app launch through current Metro and rendered Home without reinstalling, collecting photos/location, making paid AI calls or pushing to GitHub.
+Add FI/EN provider-label regressions and refine the photo observation prompt to retain legible brand/product names without guessing; preserve the pinned model and observation-only contract, and make no live API request or GitHub push.

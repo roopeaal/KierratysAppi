@@ -2,6 +2,31 @@
 
 Status date: 2026-10-20
 
+## Trust completed; actual same-app startup verified — 2026-10-20
+
+Source `419f572`, application source unchanged since `fc433bc`. No further build,
+install, reset, security bypass, account/dependency/native change or cleanup.
+
+| Check | Actual result |
+| --- | --- |
+| Changed owner prerequisite | Roope reports **luotettu** after the requested iPhone Trust/Verify step |
+| Fresh physical launch | Beta CoreDevice `device process launch --activate --payload-url` of the same installed bundle with current Metro URL exits 0, JSON outcome success |
+| Process persistence | Two subsequent targeted process queries each find the exact PID returned by launch, not just a successful install/host response |
+| Rendered Home | One native screenshot visually shows current FI Home: scan/manual/photo, plural nearby, guide/history and Privacy controls. Unrelated OS picture-in-picture partly occludes header; not complete visual/interaction acceptance |
+| Screen-data minimization | Removed only that newly generated mixed-content PNG after exact regular-file/realpath checks. No original phone content touched, no mixed screenshot retained, no further capture. Capture-command metadata and bounded observation receipt remain ignored |
+| Profile | Unchanged new actual expiry **October 27 15:27:13 UTC / 17:27:13 Helsinki (UTC+2)**. No recurring renewal |
+| Source validation | Fresh pinned full `pnpm validate` exits 0, 354 unique tests (69 policy + 285 application), boundaries/format/lint/strict types/package/API builds and 14 routes. No behavior change or new test cases |
+| Not established | Retained history, current material-review interaction/camera/VoiceOver/dark/large-text/performance, cable-disconnected/Mac-independent use or production readiness. No photo/GPS acquisition or paid inference. Debug needs Mac Metro/API/LAN |
+
+EB-IOS-TRUST-01 / OA-IOS-TRUST-01 are resolved for this startup only; earlier
+rejection remains below. Evidence: ignored `work/ios-renewal-2026-10-20.xwM2qA/`
+`launch-after-trust.{json,log}`, `processes-after-trust.json`,
+`processes-trusted-later.json`, `screenshot-after-trust.json`,
+`trusted-launch-verification.json`, `validate-trusted-launch.log` and
+post-documentation `validate-trusted-final.log`.
+No helper renewal, GitHub push or production GO. Product provisioning works;
+the older helper account failure is historical, not newly reproduced.
+
 ## New profile and installation verified; first launch rejected — 2026-10-20
 
 Source `f31c476` (application source unchanged since `fc433bc`), same app ID/

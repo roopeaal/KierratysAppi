@@ -345,6 +345,13 @@
 - Acceptance: replacement install and targeted build-2 inventory pass, not data retention. First launch fails FBS Security despite local signatures; require the actual owner Trust/Verify check, then fresh launch/Home evidence. Never bypass, repeatedly retry unchanged state, uninstall/reset or claim runtime from installation alone. Native-helper, camera/VoiceOver/material accuracy and public production acceptance remain separate.
 - Validation: after cleanup scoped mobile 209/full 354 tests and build/format/lint/types/boundary/14-route gates pass. Correct-worktree API/Metro, LAN manifest/current material-review iOS asset pass; no new paid call, key/model/prompt/rule/dependency/native-config change, private import, global Xcode switch or GitHub push. Renewal remains manual; no automation created.
 
+## D-049 — Close trust only with actual same-app startup; minimize screen evidence
+
+- Date: 2026-10-20
+- Authority: Roope reports completing the requested physical Trust/Verify action. This changes the first-launch prerequisite, not the scope to camera/GPS/paid calls, security bypass, reinstall or GitHub publication.
+- Decision/evidence: launch the same installed build 2 with the current Metro dev-client URL; CoreDevice reports success and two later process queries retain the returned PID. Inspect one native screenshot: current Finnish Home renders but an unrelated OS picture-in-picture partly occludes the header. Record only this limited observation, remove the exact newly generated mixed-content regular file after path/type checks, retain no mixed image and stop further capture. Command receipts and bounded generated acceptance summary remain ignored, not device IDs/profiles/binaries/screenshots in Git.
+- Status: EB-IOS-TRUST-01 and the requested signing/install/startup maintenance are complete; actual profile expiry stays October 27 17:27:13 Helsinki (UTC+2). Fresh full validation passes 354 unique tests and all gates/builds/14 routes. No source/behavior/dependency/native/model/rule change or new test cases. Full visual/native material-review/camera/retention/untethered/performance/production acceptance stays separate; PHOTO-003 remains high/open. Product provisioning now works, so prior helper No Accounts is historical; helper renewal is still untested, not newly externally blocked. Resume the queued free FI/EN prompt/label work without live calls or push.
+
 ## Remaining pending decisions (historical / production, continued)
 
 - October 8 publication outcome: explicit non-force push succeeds to existing public KierratysAppi main, verified remotely. Do not change visibility/settings or KeepItGreen; source sharing does not publish a running production service or certify stores/native pending flows.
