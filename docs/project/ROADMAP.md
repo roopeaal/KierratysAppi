@@ -2,6 +2,11 @@
 
 Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally blocked.
 
+- [x] October 26: upgrade the test repository to Expo SDK 58 and complete host validation; owner confirms Expo Go works.
+- [x] Apply the same dependency/configuration and QA fixes locally to KierratysAppi main `73fed83`, preserving application behavior and folder ownership.
+- [x] Obtain owner approval to commit and push the tested SDK 58 upgrade to `roopeaal/KierratysAppi/main`.
+- [ ] Check the upgraded original-repository app on the owner's phone. Existing dependency-audit findings remain a separate gate.
+
 ## Current authorized team-main integration — October 20
 
 - [x] Obtain explicit KierratysAppi/main confirmation; verify actual URL/public/default main and review nine remote-only/eleven local-only commits. Preserve both histories with a normal merge, no KeepItGreen import/force/settings change.

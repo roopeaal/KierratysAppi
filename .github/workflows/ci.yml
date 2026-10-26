@@ -51,7 +51,7 @@ jobs:
       - run: pnpm validate
       - name: Expo project health
         working-directory: mobile/app
-        run: pnpm dlx expo-doctor@1.20.1
+        run: pnpm dlx expo-doctor@1.21.5
       - name: Dependency security policy
         run: pnpm security:audit
 

@@ -1,5 +1,7 @@
 # Current state
 
+2026-10-26: Applied the SDK 58 upgrade tested in `Bezxs/testkierratysappi` at `b578137` to KierratysAppi main `73fed83`, following the owner's successful Expo Go test and renewed approval. Expo 58.0.19, React 19.3.0, React Native 0.88.0, compatible modules, the status-bar plugin and CI Doctor pin match that tested version. App logic, backend, shared models/rules and folder ownership are unchanged. The owner approved committing and pushing this upgrade to `roopeaal/KierratysAppi/main` after successful test-repository device testing. Validation is recorded in `docs/final/TEST_EVIDENCE.md`.
+
 ## Team-main source push verified — 2026-10-20
 
 - Explicit non-force push succeeds **`44cc1b2..7ff234e`** to `https://github.com/roopeaal/KierratysAppi.git`, `HEAD:refs/heads/main`; independent `git ls-remote` confirms **`7ff234e9b3801ed2dca482297d241d154d48fc84`**. Merge parents are prior local `3233a3a` and team `44cc1b2`, both verified ancestors. No teammate history lost, private KeepItGreen touched, tag/other branch mirrored, settings changed or app-store/production release made.

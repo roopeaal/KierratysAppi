@@ -1,5 +1,7 @@
 # Decision log
 
+2026-10-26: Apply the owner-tested SDK 58 dependency set from test commit `b578137` to KierratysAppi without unrelated refinements. Retain Node 24.19.0/pnpm 11.16.0, the strict release-age gate, existing photo-capture restrictions and all application behavior. Require the development-client major to match Expo. The owner approved committing and pushing this upgrade to `roopeaal/KierratysAppi/main` after successful test-repository device testing.
+
 ## D-UPSTREAM-2026-10-13 — Preserve postal codes in nearby address estimates
 
 - Date: 2026-10-13

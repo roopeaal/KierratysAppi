@@ -86,7 +86,8 @@
           "imageWidth": 76
         }
       ],
-      "expo-font"
+      "expo-font",
+      "expo-status-bar"
     ],
     "runtimeVersion": {
       "policy": "appVersion"

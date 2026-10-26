@@ -24,7 +24,7 @@ test("Expo compatibility remains a mandatory CI gate without package exclusions"
 
   assert.deepEqual(mobile.expo?.install?.exclude ?? [], []);
   assert.notEqual(mobile.expo?.doctor?.appConfigFieldsNotSyncedCheck?.enabled, false);
-  assert.match(workflow, /run: pnpm dlx expo-doctor@1\.20\.1/);
+  assert.match(workflow, /run: pnpm dlx expo-doctor@1\.21\.5(?:\r?\n|$)/);
   assert.doesNotMatch(
     workflow,
     /continue-on-error: true|EXPO_DOCTOR_SKIP_DEPENDENCY_VERSION_CHECK/,

@@ -1,3 +1,3 @@
 # Next action
 
-Verify the integrated native address/postcode search on the existing iPhone using a public-place query: check explicit disclosure, estimated-origin distances, five points/materials, cancel/background clearing and public-point map handoff; record only non-location-derived evidence, repair observed failures, and make no photo/paid AI request or further GitHub push.
+Run `pnpm dev:mobile --go --host lan --port 8081 --clear` in the updated KierratysAppi checkout with a phone-reachable API origin and check barcode/manual lookup plus nearby address/postcode search in SDK 58 Expo Go.

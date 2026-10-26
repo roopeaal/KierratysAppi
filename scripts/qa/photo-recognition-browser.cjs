@@ -382,6 +382,7 @@ const get = (page, id) => page.getByTestId(id);
     await page.goto(origin, { waitUntil: "networkidle" });
     await get(page, "language-en").click();
     await get(page, "home-photo-action").click();
+    await page.getByText("OpenAI may retain data", { exact: false }).waitFor();
     assert.ok((await page.locator("body").innerText()).includes("OpenAI may retain data"));
     await page.screenshot({ path: path.join(evidence, "en-intro.png"), fullPage: true });
     mode = "nutella";

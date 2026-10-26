@@ -18,9 +18,17 @@ test("every EAS development-client profile includes the native runtime dependenc
     developmentClientProfiles.length > 0,
     "eas.json must retain at least one development-client profile",
   );
-  assert.match(
+  const stableVersion = /^[~^]?(\d+)\.\d+\.\d+$/u;
+  const expoMajor = stableVersion.exec(mobilePackage.dependencies?.expo ?? "")?.[1];
+  const developmentClientMajor = stableVersion.exec(
     mobilePackage.dependencies?.["expo-dev-client"] ?? "",
-    /^~?57\./,
-    `${developmentClientProfiles.join(", ")} requires an Expo SDK 57-compatible expo-dev-client dependency`,
+  )?.[1];
+
+  assert.ok(expoMajor, "expo must specify a stable SDK version");
+  assert.ok(developmentClientMajor, "expo-dev-client must specify a stable runtime version");
+  assert.equal(
+    developmentClientMajor,
+    expoMajor,
+    `${developmentClientProfiles.join(", ")} requires an Expo SDK ${expoMajor}-compatible expo-dev-client dependency`,
   );
 });

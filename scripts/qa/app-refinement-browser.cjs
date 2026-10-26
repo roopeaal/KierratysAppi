@@ -171,6 +171,7 @@ async function largeText(page) {
       page.on("pageerror", (e) => errors.push(e.message));
       let scenario = "not_found";
       let requests = 0;
+      let releaseNotFound;
       await context.route("**/v1/recycling/lookup", async (route) => {
         if (route.request().method() === "OPTIONS")
           return route.fulfill({
@@ -184,7 +185,10 @@ async function largeText(page) {
         requests++;
         assert.equal(route.request().postDataJSON().gtin, gtin);
         if (scenario === "offline") return route.abort("internetdisconnected");
-        if (scenario === "not_found") await new Promise((resolve) => setTimeout(resolve, 600));
+        if (scenario === "not_found")
+          await new Promise((resolve) => {
+            releaseNotFound = resolve;
+          });
         const body =
           scenario === "resolved"
             ? resolved
@@ -215,6 +219,9 @@ async function largeText(page) {
           await page.getByTestId("action-icon-" + kind).getAttribute("aria-hidden"),
           "true",
         );
+      await page.getByTestId("home-nearby-action").waitFor({ state: "visible" });
+      await page.getByTestId("home-guide-action").waitFor({ state: "visible" });
+      await page.evaluate(() => document.fonts.ready);
       const nearbyTile = await page.getByTestId("home-nearby-action").boundingBox();
       const guideTile = await page.getByTestId("home-guide-action").boundingBox();
       assert.ok(Math.abs(nearbyTile.y - guideTile.y) < 1, "Phone navigation tiles share a row");
@@ -287,6 +294,9 @@ async function largeText(page) {
         if (state === "not_found") {
           await page.getByTestId("result-loading-screen").waitFor();
           await shot(page, language + "-result-loading");
+          assert.equal(typeof releaseNotFound, "function");
+          releaseNotFound();
+          releaseNotFound = undefined;
         }
         await page
           .getByTestId(
@@ -508,6 +518,8 @@ async function largeText(page) {
       }
       await page.goto(baseUrl);
       await page.setViewportSize({ width: 320, height: 740 });
+      await page.getByTestId("home-nearby-action").waitFor({ state: "visible" });
+      await page.getByTestId("home-guide-action").waitFor({ state: "visible" });
       await shot(page, language + "-home-320");
       const narrowNearby = await page.getByTestId("home-nearby-action").boundingBox();
       const narrowGuide = await page.getByTestId("home-guide-action").boundingBox();
@@ -516,6 +528,8 @@ async function largeText(page) {
         "Narrow navigation tiles stack",
       );
       await page.setViewportSize({ width: 1280, height: 800 });
+      await page.getByTestId("home-nearby-action").waitFor({ state: "visible" });
+      await page.getByTestId("home-guide-action").waitFor({ state: "visible" });
       await shot(page, language + "-home-wide");
       assert.deepEqual(errors, []);
       await context.close();
