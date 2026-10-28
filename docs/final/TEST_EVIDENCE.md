@@ -1,5 +1,26 @@
 # Test evidence
 
+## October 28 illustrated integration
+
+Team `28e0f32` functionality/SDK 58 is retained while explicitly approved selected
+KeepItGreen `0142bb0` presentation is ported on a separate local branch. New
+Home/Identify/Settings/tab routing, one-shot location intent and immersive-flow
+separation have four pure + four policy regressions. Full pinned validation
+passes **372 unique tests (74 policy + 298 application)** and all mandatory
+checks/builds/16 web routes; mobile scope passes **222 overlapping tests**. Four
+actual-UI browser runners pass; inspected FI/EN/dark/narrow/large images, synthetic
+GPS and photo fixtures remain distinct from native acceptance. No live paid
+request or private photo/location acquired. Detailed repairs, artifact paths,
+exact owner-approved two-root storage cleanup and native build outcome:
+`ILLUSTRATED_INTEGRATION.md`. The serial stable-Xcode native build, strict app/11
+framework signatures/profile/device/purpose checks, replacement install/build-3
+inventory pass. Actual expiry is **November 4 at 20:28:39 Helsinki**. First FBS
+Security refusal resolves after owner **luotettu**: fresh launch, two same-PID
+queries and inspected native Home/artwork/four tabs pass. Other native controls,
+camera/GPS/retention/a11y/performance remain unaccepted. A fresh 11-package Expo
+patch expectation fails closed. No remote write, dependency/security bypass or
+production GO; current Debug still needs the Mac Metro/API/LAN.
+
 2026-10-26 SDK 58 migration, tested in `Bezxs/testkierratysappi` at `b578137` and applied locally to KierratysAppi main `73fed83` after the owner confirmed Expo Go works:
 
 - Expo 58.0.19 with React 19.3.0, React Native 0.88.0 and Expo-aligned modules installed through `expo install --fix`; frozen reinstall, `expo install --check` and `pnpm peers check` pass. The one-day release-age gate, signatures/checksums and TLS checks remain enabled. Expo added its status-bar config plugin; app IDs, permissions and application logic are unchanged.

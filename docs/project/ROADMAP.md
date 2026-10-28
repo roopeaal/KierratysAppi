@@ -2,6 +2,17 @@
 
 Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally blocked.
 
+## Current illustrated integration — October 28
+
+- [x] Obtain explicit selective visual-import/iPhone-install approval; branch from `28e0f32` without merging private history or publishing either repository.
+- [x] Reuse unchanged owner artwork; implement FI/EN illustrated Home and four real tabs over existing functionality. Preserve explicit location intent, photo safety, sources, dark mode, large text and technical identity.
+- [x] Repair observed artwork/stack/selector issues; four new unit + four policy regressions, full 372-test validation/mobile 222 scope and four browser runners pass. Browser synthetic tests are not native acceptance.
+- [x] Generate SDK 58 iOS client 3 and install 122 pods. Record ENOSPC failure; remove only the owner's exact two approved old build roots and preserve a verified independent old-app recovery artifact.
+- [x] Serial Xcode 26.6/iOS 26.5 Debug build succeeds; strict app/11-framework signatures, actual profile/team/device/purpose checks, exact-bundle replacement install and 0.1.0/build-3 inventory pass. Profile expires November 4 at 20:28:39 Helsinki. First Security rejection resolves after owner Trust; fresh launch, two same-PID observations and current native Home/artwork/four-tab screenshot pass. No uninstall/reset or all-flow/native-camera/retention claim.
+- [ ] Complete installed-build native navigation acceptance separately from the browser matrix; keep Mac Metro/API available and do not collect real photo/location data merely to test navigation.
+- [ ] Continue the remaining guide/search and page-specific visual port as later coherent work; old municipality provider/welcome/profile/points are not part of this first pilot.
+- [ ] Resolve renewed SDK 58 patch expectations and baseline dependency-security/photo-accuracy gates before any production claim. No push or paid photo call is authorized.
+
 - [x] October 26: upgrade the test repository to Expo SDK 58 and complete host validation; owner confirms Expo Go works.
 - [x] Apply the same dependency/configuration and QA fixes locally to KierratysAppi main `73fed83`, preserving application behavior and folder ownership.
 - [x] Obtain owner approval to commit and push the tested SDK 58 upgrade to `roopeaal/KierratysAppi/main`.

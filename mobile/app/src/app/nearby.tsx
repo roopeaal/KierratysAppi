@@ -171,7 +171,8 @@ export default function NearbyScreen() {
       <PageHeader
         onBack={() => {
           clear();
-          router.back();
+          if (router.canGoBack()) router.back();
+          else router.replace("/");
         }}
       />
       <PageIntro

@@ -2,7 +2,15 @@ import { StyleSheet, View } from "react-native";
 import { useAppTheme } from "@/theme/tokens";
 import { BarcodeMark } from "./packaging-mark";
 
-export type ActionIconKind = "nearby" | "guide" | "history" | "manual";
+export type ActionIconKind =
+  | "nearby"
+  | "guide"
+  | "history"
+  | "manual"
+  | "home"
+  | "scan"
+  | "settings"
+  | "photo";
 
 /** Original native linework. The surrounding control supplies its accessible name. */
 export function ActionIcon({ kind }: { readonly kind: ActionIconKind }) {
@@ -18,7 +26,42 @@ export function ActionIcon({ kind }: { readonly kind: ActionIconKind }) {
       pointerEvents="none"
       testID={`action-icon-${kind}`}
     >
-      {kind === "nearby" ? (
+      {kind === "home" ? (
+        <>
+          <View style={[styles.roof, stroke]} />
+          <View style={[styles.house, stroke]} />
+          <View style={[styles.door, stroke]} />
+        </>
+      ) : kind === "scan" ? (
+        <View style={[styles.scanFrame, stroke]}>
+          <View style={[styles.scanLine, { backgroundColor: palette.actionLink }]} />
+        </View>
+      ) : kind === "settings" ? (
+        <View style={styles.sliders}>
+          {[3, 10, 17].map((top, index) => (
+            <View
+              key={top}
+              style={[styles.sliderLine, { top, backgroundColor: palette.actionLink }]}
+            >
+              <View
+                style={[
+                  styles.sliderKnob,
+                  {
+                    borderColor: palette.actionLink,
+                    backgroundColor: palette.bgSurface,
+                    left: index === 1 ? 13 : 4,
+                  },
+                ]}
+              />
+            </View>
+          ))}
+        </View>
+      ) : kind === "photo" ? (
+        <View style={[styles.camera, stroke]}>
+          <View style={[styles.lens, stroke]} />
+          <View style={[styles.cameraTop, { backgroundColor: palette.actionLink }]} />
+        </View>
+      ) : kind === "nearby" ? (
         <View style={[styles.pin, stroke]}>
           <View style={[styles.pinCentre, stroke]} />
         </View>
@@ -111,6 +154,62 @@ const styles = StyleSheet.create({
   clockHour: { position: "absolute", left: 9, top: 9, width: 6, height: strokeWidth },
   keypad: { width: 21, flexDirection: "row", flexWrap: "wrap", gap: 3 },
   key: { width: 5, height: 6, borderWidth: strokeWidth, borderRadius: 1 },
+  roof: {
+    position: "absolute",
+    top: 3,
+    width: 17,
+    height: 17,
+    borderTopWidth: strokeWidth,
+    borderLeftWidth: strokeWidth,
+    transform: [{ rotate: "45deg" }],
+  },
+  house: {
+    position: "absolute",
+    top: 11,
+    width: 19,
+    height: 14,
+    borderWidth: strokeWidth,
+    borderTopWidth: 0,
+    borderBottomLeftRadius: 3,
+    borderBottomRightRadius: 3,
+  },
+  door: {
+    position: "absolute",
+    bottom: 3,
+    width: 6,
+    height: 8,
+    borderWidth: strokeWidth,
+    borderBottomWidth: 0,
+  },
+  scanFrame: {
+    width: 23,
+    height: 23,
+    borderWidth: strokeWidth,
+    borderRadius: 6,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  scanLine: { width: 15, height: strokeWidth },
+  sliders: { width: 23, height: 23 },
+  sliderLine: { position: "absolute", width: 23, height: strokeWidth },
+  sliderKnob: {
+    position: "absolute",
+    top: -2,
+    width: 6,
+    height: 6,
+    borderWidth: strokeWidth,
+    borderRadius: 3,
+  },
+  camera: {
+    width: 25,
+    height: 19,
+    borderWidth: strokeWidth,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  cameraTop: { position: "absolute", top: -5, left: 5, width: 10, height: 3, borderRadius: 2 },
+  lens: { width: 10, height: 10, borderWidth: strokeWidth, borderRadius: 5 },
   package: {
     width: 80,
     height: 90,

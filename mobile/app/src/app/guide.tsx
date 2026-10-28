@@ -26,7 +26,7 @@ export default function GuideScreen() {
   const { t } = useLanguage();
   return (
     <Screen>
-      <PageHeader onBack={() => router.back()} />
+      <PageHeader onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))} />
       <PageIntro title={t("materialGuideTitle")} body={t("materialGuideBody")} />
       <View style={styles.grid}>
         {GUIDE.map(([title, body]) => (

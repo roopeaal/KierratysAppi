@@ -191,7 +191,8 @@ test("recognition icons are original, decorative native linework with no motion 
 test("Home tiles label real destinations and adapt without hiding or capping text", () => {
   const home = readFileSync("mobile/app/src/app/index.tsx", "utf8");
   assert.equal((home.match(/<NavigationTile\b/g) ?? []).length, 2);
-  assert.match(home, /<ScanPackageMark color=\{palette.onStrong\}/);
+  assert.match(home, /<ScanIllustration\s*\/>/);
+  assert.match(home, /homeScanDetail/);
   for (const kind of ["manual", "nearby", "guide", "history"])
     assert.ok(home.includes(`<ActionIcon kind="${kind}"`));
   assert.match(home, /flexWrap: "wrap"/);

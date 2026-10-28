@@ -1,5 +1,13 @@
 # Acceptance criteria
 
+## Illustrated integration pilot
+
+1. Start from current KierratysAppi functionality/SDK 58/three roots. Reuse only the approved KeepItGreen visuals, with asset provenance; keep all real actions and current contracts/rules/provider licences. No invented nearest points, opening hours, account, impact score or universal name search.
+2. Home and Koti/Identify/Points/Settings tabs work in FI/EN. Barcode/manual/photo choices remain distinct; settings reflect actual local history and link to the current deletion/privacy flow. Returning between tabs does not duplicate Home routes or lose root navigation.
+3. No tabs in capture/preview/result/material-confirmation flows. Direct URLs never acquire location; an explicit non-selected Points press uses the current single-use intent. Leaving/backgrounding preserves existing photo/GPS cleanup. No user location/photo in browser fixtures or analytics.
+4. Decorative local images remain hidden from assistive technology. Native large text uses an independent heading, labels are not capped/truncated, narrow/large tabs wrap, target size is at least 44 points, keyboard focus/selection is visible, dark mode is reactive and reduced-motion behavior remains unchanged. CSS scaling is not native Dynamic Type evidence.
+5. New regression cases plus scoped/full validation and actual-UI browser flows pass. Separately verify current native build/signatures/profile/device binding, replacement install without reset and native startup/appearance. No browser/compile/signing-only result implies complete camera/location/VoiceOver/performance/store acceptance.
+
 ## Consented photo recognition
 
 1. Capture/preview never uploads automatically; recipient/retention/purpose are disclosed in FI/EN, followed by an explicit send action with versioned server-validated consent.

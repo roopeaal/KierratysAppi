@@ -1,5 +1,14 @@
 # Decision log
 
+## D-051 — Port presentation onto current functionality, not entire divergent histories
+
+- Date: 2026-10-28
+- Status: accepted by explicit owner implementation/install request
+- Use KierratysAppi `28e0f32` as the functional/SDK 58/three-part baseline and KeepItGreen `0142bb0` only as selected visual input. Keep current API/contracts, providers, OSM directory, rules/provenance, photo consent/material review and technical app identity. Reuse unchanged decorative artwork with its origin documented; do not add old profile scores, guessed nearby/opening data or an implied general product-name search.
+- First unit is illustrated Home/shared visual tokens/four-tab shell with real Identify/Settings pages. Tabs are absent in capture/review flows; explicit Points presses use the existing one-shot intent, while URL/render/selected-tab presses do not. Use supported `dismissTo` to avoid duplicated Home routes, verified against the actual SDK declaration and a browser regression; safe root-page Home fallback remains available.
+- Larger native text uses a non-overlaid heading and narrow/large navigation has two rows. All answers retain current uncertainty/source metadata. No new UI framework, dependency, model, credential or paid call. iOS build 3 distinguishes the SDK 58 client from the old build 2; minimum photo-purpose restrictions remain enforced.
+- Local installation authorization is not GitHub publication authorization. Preserve old branches, unset the new branch's team-main upstream and explicitly target KeepItGreen for any separately authorized future development push. The October 6 no-import boundary is superseded only for this selected owner-requested integration.
+
 2026-10-26: Apply the owner-tested SDK 58 dependency set from test commit `b578137` to KierratysAppi without unrelated refinements. Retain Node 24.19.0/pnpm 11.16.0, the strict release-age gate, existing photo-capture restrictions and all application behavior. Require the development-client major to match Expo. The owner approved committing and pushing this upgrade to `roopeaal/KierratysAppi/main` after successful test-repository device testing.
 
 ## D-UPSTREAM-2026-10-13 — Preserve postal codes in nearby address estimates

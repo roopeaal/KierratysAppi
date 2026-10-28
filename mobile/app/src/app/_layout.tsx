@@ -9,8 +9,10 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
+import { View } from "react-native";
 import { useReducedMotion } from "react-native-reanimated";
 import { navigationAnimation } from "@/features/accessibility/motion";
+import { BottomNavigation } from "@/components/bottom-navigation";
 import { NearbySearchProvider } from "@/features/nearby/search-context";
 import { ScanSessionProvider } from "@/features/scan/session-context";
 import { LanguageProvider } from "@/i18n/language-context";
@@ -22,7 +24,7 @@ function Navigation() {
   const { palette, isDark } = useAppTheme();
   const reducedMotion = useReducedMotion();
   return (
-    <>
+    <View style={{ flex: 1 }}>
       <StatusBar style={isDark ? "light" : "dark"} />
       <Stack
         screenOptions={{
@@ -31,7 +33,8 @@ function Navigation() {
           animation: navigationAnimation(reducedMotion),
         }}
       />
-    </>
+      <BottomNavigation />
+    </View>
   );
 }
 

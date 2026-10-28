@@ -30,7 +30,7 @@ export default function LegalScreen() {
   };
   return (
     <Screen>
-      <PageHeader onBack={() => router.back()} />
+      <PageHeader onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))} />
       <PageIntro title={t("legalAction")} />
       <DocumentSection>
         <AppText variant="heading" accessibilityRole="header">

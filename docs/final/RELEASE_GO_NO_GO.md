@@ -1,5 +1,15 @@
 # Release decision
 
+October 28 illustrated Home/navigation integration is an owner-approved local
+school-app pilot, **not production GO**. It preserves current functionality,
+contracts/provenance/privacy/photo safety and SDK 58 while selectively reusing
+approved artwork. Full 372-test validation/mobile 222 scope and four actual-UI
+fixture browser runners pass. Current native build/sign/install evidence must
+be read separately in `ILLUSTRATED_INTEGRATION.md`; no old phone pass is inherited.
+Eleven newly expected Expo patches and the existing security/photo-accuracy,
+native/platform/infrastructure/store gates remain. No GitHub publication or paid
+AI call is included. Do not lower existing findings based on a visual refresh.
+
 October 20 source integration/publication is **not a production GO**. Owner
 explicitly confirms KierratysAppi/main. Both team/local histories are preserved;
 manual address search is reconciled with five-point/material/provenance behavior

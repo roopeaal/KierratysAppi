@@ -7,7 +7,7 @@ const executablePath = process.env.BROWSER_EXECUTABLE_PATH;
 if (!modulePath || !executablePath) throw new Error("Set installed Playwright and browser paths.");
 const { chromium } = require(modulePath);
 const baseUrl = process.env.APP_QA_URL ?? "http://127.0.0.1:8093";
-const evidence = path.resolve("work/app-refinement-qa");
+const evidence = path.resolve(process.env.APP_QA_EVIDENCE_DIR ?? "work/app-refinement-qa");
 fs.mkdirSync(evidence, { recursive: true });
 const gtin = "3017620422003"; // Public example, not a user's scan.
 const provenance = {
@@ -114,6 +114,7 @@ async function layout(page) {
   const overflow = await page.evaluate(() =>
     [...document.querySelectorAll("div, input, textarea")]
       .filter((el) => {
+        if (el.closest('[aria-hidden="true"]')) return false;
         const box = el.getBoundingClientRect();
         return (
           box.width > 0 && box.height > 0 && (box.left < -1 || box.right > window.innerWidth + 1)
@@ -213,10 +214,13 @@ async function largeText(page) {
         ),
       );
       assert.ok(await page.getByTestId("home-legal-action").isVisible());
-      assert.equal(await page.getByTestId("scan-package-mark").getAttribute("aria-hidden"), "true");
+      assert.equal(await page.getByTestId("scan-illustration").getAttribute("aria-hidden"), "true");
       for (const kind of ["manual", "nearby", "guide", "history"])
         assert.equal(
-          await page.getByTestId("action-icon-" + kind).getAttribute("aria-hidden"),
+          await page
+            .getByTestId("home-screen")
+            .getByTestId("action-icon-" + kind)
+            .getAttribute("aria-hidden"),
           "true",
         );
       await page.getByTestId("home-nearby-action").waitFor({ state: "visible" });

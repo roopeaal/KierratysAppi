@@ -1,6 +1,34 @@
 # Physical iOS validation
 
-Status date: 2026-10-20
+Status date: 2026-10-28
+
+## Installed illustrated SDK 58 client 3 — 2026-10-28
+
+- Owner approves selective KeepItGreen visuals onto team `28e0f32` functionality
+  and iPhone installation. Same ID/name/version, iOS build 3; no private backend,
+  old dependency set, history merge or GitHub write. After an ENOSPC build and
+  exact owner-approved two-root old DerivedData removal, serial Xcode 26.6/iOS
+  26.5 Debug build succeeds. Generated old-project backup was incomplete and is
+  not claimed usable; the separate old signed-app recovery artifact verifies.
+- Strict app and **11** embedded-framework signatures, signed/profile
+  app/team/device binding and default/FI/EN camera/foreground-location checks pass.
+  Actual profile created October 28 18:28:39 UTC, expires **November 4 18:28:39
+  UTC / 20:28:39 Helsinki**. Replace-install succeeds and targeted physical
+  inventory confirms **0.1.0/build 3**, without uninstall/reset/private-data read.
+- First launch is actually rejected with CoreDevice/FBS Security. After owner
+  **luotettu**, a fresh same-app launch succeeds; two later queries retain PID
+  3621. One in-scope screenshot confirms current illustrated Home, leaf/scanner
+  assets, barcode/manual/photo/nearby/guide/history actions and four bottom tabs.
+  Existing development gear is visible; this is not store-asset acceptance.
+  History-enabled state is visible but private entries/complete retention are
+  not inspected. No photo capture/upload, real GPS/address or paid AI request.
+- Current LAN manifest/actual 11,794,758-byte iOS entry bundle and API health/
+  photo availability pass. Full 372-test validation/mobile 222 scope and four
+  fixture-based browser runners pass separately. Broader native navigation,
+  camera/permissions/cleanup/VoiceOver/large text/performance, Android, wireless-
+  only/Mac-independent and production acceptance are not inferred from Home.
+- Evidence and exact receipts: `ILLUSTRATED_INTEGRATION.md`, ignored
+  `work/illustrated-ios-2026-10-28.lqILo2/`. Services remain running for use.
 
 ## Trust completed; actual same-app startup verified — 2026-10-20
 

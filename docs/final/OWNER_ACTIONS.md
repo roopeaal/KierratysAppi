@@ -1,5 +1,26 @@
 # Owner actions
 
+## October 28 — installed integrated client 3
+
+- **Renewal/install/trust completed — Roope + engineering:** after exact two-root
+  cleanup approval, build/sign/profile verification and replacement install pass.
+  Owner reports **luotettu** after actual FBS Security rejection; fresh launch,
+  two same-PID observations and native illustrated Home/four-tab screenshot pass.
+  Same app 0.1.0/build 3; no current trust/account/passcode question remains.
+- **Next acceptance — Roope operates or engineering uses existing tools:** on
+  build 3 verify Identify → manual entry/back, Settings language persistence and
+  non-acquiring direct-link nearby/back. Record actual outcome separately from
+  passing browser tests. No private photo/address/GPS or paid upload is needed.
+- **Future manual renewal — Roope + engineering:** current actual profile expires
+  **November 4, 2026 at 20:28:39 Helsinki**. Request renewal before then, keep the
+  intended phone connected/unlocked and handle any real device/account/keychain
+  prompt personally. No scheduled renewal or free year-end validity exists.
+  Current Debug still needs the Mac's Metro/API and LAN. Do not uninstall/reset
+  to renew; do not share credentials/codes or assume all native tests passed.
+- Source stays local on `codex/illustrated-functional-integration`; no GitHub push
+  is requested or made. Wider security/SDK-patch/photo-accuracy/production gates
+  are unchanged; see `ILLUSTRATED_INTEGRATION.md`.
+
 ## October 20 — team-main integration acceptance
 
 - **OA-NEARBY-ADDRESS-01 / Roope operates, engineering validates, pending:** on the existing app open nearby → Hae osoitteella, read the OS-map recipient disclosure and submit only a public-place address/postcode, never a home address or personal details. Check the estimated-address-origin warning, up to five real points/material reports, no fabricated GPS accuracy, cancel/background clearing and a map link to the public point only. Engineering records pass/fail without query/coordinates/location-derived screenshots; stop for any actual device/permission action. No camera/photo/paid inference, new account, reinstall or further push is authorized by this acceptance procedure. Browser and helper fixtures do not complete it.

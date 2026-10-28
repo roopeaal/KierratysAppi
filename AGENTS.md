@@ -1,6 +1,18 @@
 # KierrätysAppi repository rules
 
-## Active owner boundary — October 6, 2026
+## Active owner boundary — October 28, 2026
+
+Roope explicitly approved combining the current KierratysAppi functionality with
+the selected KeepItGreen presentation and installing that integration on his
+iPhone. Work on `codex/illustrated-functional-integration` from team main
+`28e0f32`; selectively reuse the illustrated assets/UI from KeepItGreen
+`0142bb0`, not its backend, dependency versions, data contracts or history.
+Keep the three-part architecture and current technical app identity. This
+supersedes the appearance-import prohibition below only for this requested
+integration. No GitHub push, repository synchronization, paid inference or
+production publication is authorized by this installation request.
+
+## Historical independent-development boundary — October 6, 2026
 
 Continue this checkout from KierratysAppi main `39f8aa6`, independently of the newer KeepItGreen repository. Do not merge, cherry-pick or copy its code, appearance, assets or fixtures. The location feature is new work against this baseline, not a port. Keep the existing name/identity/style already present here. Roope explicitly authorized publishing this independent branch's current changes to KierratysAppi on October 8. This is one sharing step, not permission for future automatic pushes, private-repository synchronization or production publication; inspect actual remote URLs before every authorized publication.
 

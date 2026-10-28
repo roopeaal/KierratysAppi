@@ -60,7 +60,7 @@ export default function HistoryScreen() {
 
   return (
     <Screen>
-      <PageHeader onBack={() => router.back()} />
+      <PageHeader onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))} />
       <PageIntro title={t("historyTitle")} body={enabled ? t("historyOn") : t("historyOff")} />
       <Button
         label={enabled ? t("disableHistory") : t("enableHistory")}

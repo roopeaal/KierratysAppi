@@ -1,4 +1,5 @@
 import { type PropsWithChildren, type ReactNode, useState } from "react";
+import { usePathname } from "expo-router";
 import {
   ActivityIndicator,
   Pressable,
@@ -14,6 +15,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLanguage } from "@/i18n/language-context";
+import { activeTab } from "@/features/navigation/routes";
 import { controls, interaction, radius, spacing, typography, useAppTheme } from "@/theme/tokens";
 import { navigationTileMinimumWidth, screenLayout } from "./navigation-layout";
 
@@ -50,13 +52,14 @@ export function Screen({
 }>) {
   const { palette } = useAppTheme();
   const { language } = useLanguage();
+  const path = usePathname();
   const content = <View style={[styles.content, style]}>{children}</View>;
   return (
     <SafeAreaView
       nativeID="app-screen-surface"
       accessibilityLanguage={language === "fi" ? "fi-FI" : "en"}
       style={[styles.safeArea, { backgroundColor: palette.bgCanvas }]}
-      edges={["top", "bottom"]}
+      edges={activeTab(path) ? ["top"] : ["top", "bottom"]}
       testID={testID}
     >
       {scroll ? (
