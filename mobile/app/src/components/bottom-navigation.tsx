@@ -1,6 +1,6 @@
 import { usePathname, useRouter } from "expo-router";
 import { useState } from "react";
-import { Pressable, StyleSheet, View, useWindowDimensions } from "react-native";
+import { Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   activeTab,
@@ -12,6 +12,7 @@ import { useNearbySearch } from "@/features/nearby/search-context";
 import { useLanguage } from "@/i18n/language-context";
 import { interaction, useAppTheme } from "@/theme/tokens";
 import { ActionIcon } from "./action-icon";
+import { homeFont } from "./home-elements";
 import { AppText } from "./ui";
 
 export function BottomNavigation() {
@@ -70,13 +71,19 @@ export function BottomNavigation() {
               },
             ]}
           >
-            <ActionIcon kind={tab.icon} />
+            <ActionIcon
+              kind={tab.icon}
+              color={selected === tab.id ? palette.actionLink : palette.textSecondary}
+            />
             <AppText
               variant="small"
               style={{
                 textAlign: "center",
                 color: selected === tab.id ? palette.actionLink : palette.textSecondary,
-                fontFamily: selected === tab.id ? "Atkinson_700Bold" : "Atkinson_400Regular",
+                fontFamily: homeFont,
+                fontWeight: selected === tab.id ? "600" : "400",
+                fontSize: 12,
+                lineHeight: 17,
               }}
             >
               {t(tab.label)}

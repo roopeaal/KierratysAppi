@@ -13,9 +13,16 @@ export type ActionIconKind =
   | "photo";
 
 /** Original native linework. The surrounding control supplies its accessible name. */
-export function ActionIcon({ kind }: { readonly kind: ActionIconKind }) {
+export function ActionIcon({
+  kind,
+  color,
+}: {
+  readonly kind: ActionIconKind;
+  readonly color?: string;
+}) {
   const { palette } = useAppTheme();
-  const stroke = { borderColor: palette.actionLink };
+  const ink = color ?? palette.actionLink;
+  const stroke = { borderColor: ink };
   return (
     <View
       style={styles.icon}
@@ -33,21 +40,21 @@ export function ActionIcon({ kind }: { readonly kind: ActionIconKind }) {
           <View style={[styles.door, stroke]} />
         </>
       ) : kind === "scan" ? (
-        <View style={[styles.scanFrame, stroke]}>
-          <View style={[styles.scanLine, { backgroundColor: palette.actionLink }]} />
+        <View style={styles.scanFrame}>
+          <View style={[styles.frameCorner, styles.frameTopLeft, stroke]} />
+          <View style={[styles.frameCorner, styles.frameTopRight, stroke]} />
+          <View style={[styles.frameCorner, styles.frameBottomLeft, stroke]} />
+          <View style={[styles.frameCorner, styles.frameBottomRight, stroke]} />
         </View>
       ) : kind === "settings" ? (
         <View style={styles.sliders}>
           {[3, 10, 17].map((top, index) => (
-            <View
-              key={top}
-              style={[styles.sliderLine, { top, backgroundColor: palette.actionLink }]}
-            >
+            <View key={top} style={[styles.sliderLine, { top, backgroundColor: ink }]}>
               <View
                 style={[
                   styles.sliderKnob,
                   {
-                    borderColor: palette.actionLink,
+                    borderColor: ink,
                     backgroundColor: palette.bgSurface,
                     left: index === 1 ? 13 : 4,
                   },
@@ -59,22 +66,28 @@ export function ActionIcon({ kind }: { readonly kind: ActionIconKind }) {
       ) : kind === "photo" ? (
         <View style={[styles.camera, stroke]}>
           <View style={[styles.lens, stroke]} />
-          <View style={[styles.cameraTop, { backgroundColor: palette.actionLink }]} />
+          <View style={[styles.cameraTop, { backgroundColor: ink }]} />
         </View>
       ) : kind === "nearby" ? (
         <View style={[styles.pin, stroke]}>
           <View style={[styles.pinCentre, stroke]} />
         </View>
       ) : kind === "guide" ? (
-        <>
-          <View style={[styles.bookLeft, stroke]} />
-          <View style={[styles.bookRight, stroke]} />
-          <View style={[styles.bookSpine, stroke]} />
-        </>
+        <View style={styles.recycle}>
+          {[0, 120, 240].map((angle) => (
+            <View
+              key={angle}
+              style={[styles.recycleArm, { transform: [{ rotate: `${angle}deg` }] }]}
+            >
+              <View style={[styles.recycleBar, { backgroundColor: ink }]} />
+              <View style={[styles.recycleArrow, { borderLeftColor: ink }]} />
+            </View>
+          ))}
+        </View>
       ) : kind === "history" ? (
         <View style={[styles.clock, stroke]}>
-          <View style={[styles.clockMinute, { backgroundColor: palette.actionLink }]} />
-          <View style={[styles.clockHour, { backgroundColor: palette.actionLink }]} />
+          <View style={[styles.clockMinute, { backgroundColor: ink }]} />
+          <View style={[styles.clockHour, { backgroundColor: ink }]} />
         </View>
       ) : (
         <View style={styles.keypad}>
@@ -184,12 +197,51 @@ const styles = StyleSheet.create({
   scanFrame: {
     width: 23,
     height: 23,
-    borderWidth: strokeWidth,
-    borderRadius: 6,
     alignItems: "center",
     justifyContent: "center",
   },
-  scanLine: { width: 15, height: strokeWidth },
+  frameCorner: { width: 8, height: 8, position: "absolute" },
+  frameTopLeft: {
+    top: 0,
+    left: 0,
+    borderTopWidth: 2.5,
+    borderLeftWidth: 2.5,
+    borderTopLeftRadius: 4,
+  },
+  frameTopRight: {
+    top: 0,
+    right: 0,
+    borderTopWidth: 2.5,
+    borderRightWidth: 2.5,
+    borderTopRightRadius: 4,
+  },
+  frameBottomLeft: {
+    bottom: 0,
+    left: 0,
+    borderBottomWidth: 2.5,
+    borderLeftWidth: 2.5,
+    borderBottomLeftRadius: 4,
+  },
+  frameBottomRight: {
+    bottom: 0,
+    right: 0,
+    borderBottomWidth: 2.5,
+    borderRightWidth: 2.5,
+    borderBottomRightRadius: 4,
+  },
+  recycle: { width: 28, height: 28, alignItems: "center", justifyContent: "center" },
+  recycleArm: { width: 26, height: 26, position: "absolute" },
+  recycleBar: { width: 13, height: 4, position: "absolute", top: 2, left: 4, borderRadius: 1 },
+  recycleArrow: {
+    position: "absolute",
+    left: 15,
+    top: -1,
+    borderTopWidth: 5,
+    borderBottomWidth: 5,
+    borderLeftWidth: 7,
+    borderTopColor: "transparent",
+    borderBottomColor: "transparent",
+  },
   sliders: { width: 23, height: 23 },
   sliderLine: { position: "absolute", width: 23, height: strokeWidth },
   sliderKnob: {

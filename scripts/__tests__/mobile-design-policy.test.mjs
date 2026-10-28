@@ -4,7 +4,7 @@ import test from "node:test";
 
 // Source-policy coverage complements actual browser inspection; it is not a native render test.
 test("every native radio also exposes its checked state in the web renderer", () => {
-  for (const screen of ["index.tsx", "component.tsx", "feedback.tsx"]) {
+  for (const screen of ["index.tsx", "component.tsx", "feedback.tsx", "guide.tsx"]) {
     const source = readFileSync(`mobile/app/src/app/${screen}`, "utf8");
     const radios = [...source.matchAll(/<Pressable\b[\s\S]*?(?=>)/g)].filter(([control]) =>
       control.includes('accessibilityRole="radio"'),
@@ -17,14 +17,15 @@ test("every native radio also exposes its checked state in the web renderer", ()
   }
 });
 
-test("redesigned Home retains accessible primary, fallback and utility actions in task order", () => {
+test("reference Home keeps labelled barcode, primary photo, utility, history and manual recovery actions", () => {
   const home = readFileSync("mobile/app/src/app/index.tsx", "utf8");
   const ids = [
     "home-scan-action",
-    "home-manual-action",
+    "home-photo-action",
     "home-nearby-action",
     "home-guide-action",
     "home-history-action",
+    "home-manual-action",
   ];
   const positions = ids.map((id) => home.indexOf(`testID="${id}"`));
   assert.ok(positions.every((position) => position >= 0));
@@ -33,29 +34,59 @@ test("redesigned Home retains accessible primary, fallback and utility actions i
     positions,
     [...positions].sort((a, b) => a - b),
   );
-  const controls = [...home.matchAll(/<(Pressable|ActionRow|NavigationTile)\b/g)].map(
-    (match, index, matches) => ({
-      kind: match[1],
-      source: home.slice(match.index, matches[index + 1]?.index),
-    }),
-  );
-  for (const id of ids) {
-    const control = controls.find(({ source }) => source.includes(`testID="${id}"`));
-    assert.ok(control, `missing ${id}`);
-    if (control.kind !== "Pressable") {
-      assert.match(control.source, /label=\{t\(/);
-      assert.match(control.source, /onPress=/);
-      const ui = readFileSync("mobile/app/src/components/ui.tsx", "utf8");
-      const start = ui.indexOf(`export function ${control.kind}`);
-      const row = ui.slice(start, ui.indexOf("export function", start + 16));
-      assert.match(row, /accessibilityRole="button"/);
-      assert.match(row, /accessibilityLabel=\{label\}/);
-      assert.match(row, /testID=\{testID\}/);
+  const kinds = [
+    "Pressable",
+    "Pressable",
+    "HomeTile",
+    "HomeTile",
+    "HomeSectionHeading",
+    "InlineLink",
+  ];
+  for (const [index, id] of ids.entries()) {
+    const position = home.indexOf(`testID="${id}"`);
+    const kind = kinds[index];
+    const start = home.lastIndexOf(`<${kind}`, position);
+    assert.ok(start >= 0, `${id} uses ${kind}`);
+    const control = home.slice(start, home.indexOf(">", position) + 1);
+    assert.match(control, /onPress=/);
+    if (kind === "Pressable") {
+      assert.match(control, /accessibilityRole="button"/);
+      assert.match(control, /accessibilityLabel=\{t\(/);
+      assert.match(control, /accessibilityHint=\{t\(/);
+    } else if (kind === "HomeSectionHeading") {
+      assert.match(control, /title=\{t\(/);
+      assert.match(control, /action=\{t\(/);
     } else {
-      assert.match(control.source, /accessibilityRole="button"/);
-      assert.match(control.source, /accessibilityLabel=/);
+      assert.match(control, /label=\{t\(/);
+      if (kind === "InlineLink") assert.match(control, /role="button"/);
     }
   }
+
+  const elements = readFileSync("mobile/app/src/components/home-elements.tsx", "utf8");
+  const tile = elements.slice(
+    elements.indexOf("export function HomeTile"),
+    elements.indexOf("export function HomeSectionHeading"),
+  );
+  assert.match(tile, /accessibilityRole="button"/);
+  assert.match(tile, /accessibilityLabel=\{label\}/);
+  assert.match(tile, /accessibilityHint=\{detail\}/);
+  assert.match(tile, /testID=\{testID\}/);
+  const heading = elements.slice(
+    elements.indexOf("export function HomeSectionHeading"),
+    elements.indexOf("export function MaterialChip"),
+  );
+  assert.match(heading, /accessibilityRole="header"/);
+  assert.match(heading, /accessibilityRole="button"/);
+  assert.match(heading, /accessibilityLabel=\{`\$\{title\}: \$\{action\}`\}/);
+  assert.match(heading, /testID=\{testID\}/);
+  const ui = readFileSync("mobile/app/src/components/ui.tsx", "utf8");
+  const link = ui.slice(
+    ui.indexOf("export function InlineLink"),
+    ui.indexOf("export const sharedStyles"),
+  );
+  assert.match(link, /accessibilityRole=\{role\}/);
+  assert.match(link, /accessibilityLabel=\{label\}/);
+  assert.match(link, /minHeight: controls.minimumTouchTarget/);
 });
 
 test("all subpages use the same labelled navigation without repeated brand cards", () => {
@@ -85,7 +116,7 @@ test("all subpages use the same labelled navigation without repeated brand cards
 });
 
 test("forms preserve readable scalable text and strong focus boundaries", () => {
-  for (const screen of ["manual", "material-code", "feedback"]) {
+  for (const screen of ["manual", "material-code", "feedback", "guide"]) {
     const source = readFileSync(`mobile/app/src/app/${screen}.tsx`, "utf8");
     assert.match(source, /palette.borderStrong/);
     assert.match(source, /onFocus=|onFocus =/);
@@ -188,27 +219,37 @@ test("recognition icons are original, decorative native linework with no motion 
   );
 });
 
-test("Home tiles label real destinations and adapt without hiding or capping text", () => {
+test("compact Home tiles retain labelled destinations, wrapping, focus and scalable text", () => {
   const home = readFileSync("mobile/app/src/app/index.tsx", "utf8");
-  assert.equal((home.match(/<NavigationTile\b/g) ?? []).length, 2);
+  assert.equal((home.match(/<HomeTile\b/g) ?? []).length, 2);
   assert.match(home, /<ScanIllustration\s*\/>/);
-  assert.match(home, /homeScanDetail/);
-  for (const kind of ["manual", "nearby", "guide", "history"])
+  assert.match(home, /!expandedText && \(\s*<View style=\{\[styles.photoChevron/);
+  const elements = readFileSync("mobile/app/src/components/home-elements.tsx", "utf8");
+  assert.match(elements, /fontScale >= 1\.5 \? "100%" : fontScale > 1\.2/);
+  assert.match(elements, /fontWeight: "500", flexShrink: 1/);
+  assert.match(home, /homePhotoDetail/);
+  for (const kind of ["manual", "nearby", "history"])
     assert.ok(home.includes(`<ActionIcon kind="${kind}"`));
+  for (const kind of ["nearby", "guide"])
+    assert.match(home, new RegExp(`<HomeTile\\b[^>]*?kind="${kind}"`));
   assert.match(home, /flexWrap: "wrap"/);
-  const ui = readFileSync("mobile/app/src/components/ui.tsx", "utf8");
-  const tile = ui.slice(
-    ui.indexOf("export function NavigationTile"),
-    ui.indexOf("export function ChoiceIndicator"),
+  assert.match(home, /canvasWidth < 360 \|\| expandedText/);
+  assert.match(home, /stacked && \{ flexDirection: "column" \}/);
+  const tile = elements.slice(
+    elements.indexOf("export function HomeTile"),
+    elements.indexOf("export function HomeSectionHeading"),
   );
   assert.match(tile, /accessibilityLabel=\{label\}/);
   assert.match(tile, /accessibilityHint=\{detail\}/);
-  assert.match(tile, /pressed \? palette.pineSoft/);
-  assert.match(tile, /navigationTileMinimumWidth\(width, fontScale\)/);
-  assert.match(tile, /minWidth: minimumWidth/);
+  assert.match(tile, /<IconDisc kind=\{kind\}/);
   assert.match(tile, /onFocus=\{\(\) => setFocused\(true\)\}/);
   assert.match(tile, /focused \? palette.actionLink/);
-  assert.doesNotMatch(tile, /numberOfLines=|adjustsFontSizeToFit|maxFontSizeMultiplier=/);
-  assert.match(ui, /minWidth: 160/);
-  assert.match(ui, /minHeight: 152/);
+  assert.match(elements, /minHeight: 94/);
+  assert.match(elements, /minWidth: 44/);
+  assert.match(elements, /minHeight: 44/);
+  for (const source of [home, elements])
+    assert.doesNotMatch(
+      source,
+      /numberOfLines=|adjustsFontSizeToFit|maxFontSizeMultiplier=|allowFontScaling=\{false\}/,
+    );
 });

@@ -215,14 +215,12 @@ async function largeText(page) {
       );
       assert.ok(await page.getByTestId("home-legal-action").isVisible());
       assert.equal(await page.getByTestId("scan-illustration").getAttribute("aria-hidden"), "true");
-      for (const kind of ["manual", "nearby", "guide", "history"])
-        assert.equal(
-          await page
-            .getByTestId("home-screen")
-            .getByTestId("action-icon-" + kind)
-            .getAttribute("aria-hidden"),
-          "true",
-        );
+      for (const kind of ["manual", "nearby", "guide", "history"]) {
+        const icons = page.getByTestId("home-screen").getByTestId("action-icon-" + kind);
+        assert.ok(await icons.count());
+        for (const icon of await icons.all())
+          assert.equal(await icon.getAttribute("aria-hidden"), "true");
+      }
       await page.getByTestId("home-nearby-action").waitFor({ state: "visible" });
       await page.getByTestId("home-guide-action").waitFor({ state: "visible" });
       await page.evaluate(() => document.fonts.ready);
@@ -323,7 +321,7 @@ async function largeText(page) {
         await shot(page, language + "-result-" + state);
       }
       await page.goto(baseUrl + "/guide");
-      await page.getByRole("heading").first().waitFor();
+      await page.getByTestId("guide-section-metal").waitFor();
       await context.setOffline(true);
       assert.equal(await page.getByRole("heading").count(), 5);
       await shot(page, language + "-guide-offline");

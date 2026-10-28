@@ -1,5 +1,12 @@
 # Acceptance criteria
 
+## Reference Home refinement
+
+1. Follow the supplied illustrated Home hierarchy with real current actions; photo recognition is primary, barcode shortcut/manual entry remain. No reference places/distances/open status, coffee/bottle sorting examples, invented popularity or accounts as real data.
+2. Bounded FI/EN local search and chips select only the four existing editorial guides. Unknown/unsupported/malformed/repeated route input gives no fabricated match; reset restores all guides, with source/date/deposit caveat unchanged.
+3. Recent previews are empty when history is off and show at most two validated distinct records when on. No invented bin/material/photo; refresh clears stale names, late reads are ignored, and only explicit reopen calls a provider. Home/search never starts GPS.
+4. Native large text reflows tiles/chips/history and removes overlapping art/arrow; labels stay scalable, controls at least 44 points. FI/EN/dark/keyboard/narrow/large browser QA is separate from native acceptance. Existing photo consent/correction/unknown/unsafe/provenance behavior remains.
+
 ## Illustrated integration pilot
 
 1. Start from current KierratysAppi functionality/SDK 58/three roots. Reuse only the approved KeepItGreen visuals, with asset provenance; keep all real actions and current contracts/rules/provider licences. No invented nearest points, opening hours, account, impact score or universal name search.

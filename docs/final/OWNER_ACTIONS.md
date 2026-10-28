@@ -1,5 +1,20 @@
 # Owner actions
 
+## October 28 — reference Home follow-up
+
+- **Engineering:** changes stay local; no account/payment/key/GitHub action is
+  needed. Run/inspect the five fixture browser runners and full/scoped validation
+  as recorded in TEST_EVIDENCE. Do not turn fixture places/history into app data.
+- **Roope or engineering with existing native tools:** on client 3 open the
+  refined Home, try a local material search/back, photo-entry/back without taking
+  a picture, manual entry/back and Settings language persistence; repeat at
+  larger native text. Record observed UI, not private history/location/images.
+  Earlier Home acceptance predates this refinement. Report permission/recovery
+  issues before any reinstall/reset or helper/credential expansion.
+- Existing renewal, real-AI evaluation, hosting/security and store procedures
+  remain below. This visual request does not authorize paid image-recognition
+  calls, production release or GitHub sharing.
+
 ## October 28 — installed integrated client 3
 
 - **Renewal/install/trust completed — Roope + engineering:** after exact two-root

@@ -1,5 +1,12 @@
 # Decision log
 
+## D-052 — Match the illustrated reference without making its examples real
+
+- Date: 2026-10-28. Authority: Roope asks to follow the supplied Home screenshot; no GitHub or paid app-inference authority.
+- Presentation: existing stack/artwork plus one built-in-tool transparent bottle cutout; match hierarchy, platform typography, surfaces, camera emphasis and material shortcuts. Retain current services; Settings remains truthful, not a nonexistent Profile/account.
+- Data: local four-material editorial search with bounded/runtime-validated parameters and unknown/reset recovery; aliases do not identify a verified product or material. Nearby stays explicit, without assumed Helsinki/default GPS/opening status. Recent cards show only validated real opt-in records and lookup status, no invented photo/bin. Clear stale previews before asynchronous refresh and ignore blurred results.
+- Quality: expanded native text removes decorative arrow/art and reflows chips/cards; no font cap or looping motion. Eight pure/two policy regressions and full/scoped/browser outcomes are recorded separately. Old native acceptance does not certify the new composition; existing high photo/security/release findings remain. No backend/shared/rule/model/dependency/signature change or publication.
+
 ## D-051 — Port presentation onto current functionality, not entire divergent histories
 
 - Date: 2026-10-28

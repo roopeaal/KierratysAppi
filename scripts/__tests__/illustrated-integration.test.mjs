@@ -15,6 +15,67 @@ test("illustrated Home keeps every current real action, without the old Helsinki
   );
 });
 
+test("reference Home searches existing local guide params, not a fabricated product-name service", () => {
+  const home = readFileSync("mobile/app/src/app/index.tsx", "utf8");
+  assert.match(home, /testID="home-search-input"/);
+  assert.match(home, /accessibilityLabel=\{t\("homeSearchLabel"\)\}/);
+  assert.match(home, /accessibilityHint=\{t\("homeSearchHint"\)\}/);
+  assert.match(home, /maxLength=\{GUIDE_SEARCH_MAX_LENGTH\}/);
+  assert.match(home, /pathname: "\/guide",\s*params: \{ query:/);
+  assert.match(home, /pathname: "\/guide",\s*params: \{ material \}/);
+  assert.match(home, /\["plastic", "homeMaterialPlastic"\]/);
+  assert.match(home, /\["carton", "homeMaterialCarton"\]/);
+  assert.match(home, /\["glass", "homeMaterialGlass"\]/);
+  assert.match(home, /\["metal", "homeMaterialMetal"\]/);
+  assert.doesNotMatch(home, /fetch\(|\/v1\/|useCollectionPoints|\["battery"|\["electronics"/);
+  const guide = readFileSync("mobile/app/src/app/guide.tsx", "utf8");
+  assert.match(guide, /parseGuideSearchParams\(route\)/);
+  assert.match(guide, /invalid \? \[\] : filterGuideMaterials\(query, material\)/);
+  assert.match(guide, /testID="guide-search-empty"/);
+  assert.match(guide, /testID="guide-search-reset"/);
+});
+
+test("Home previews only real opt-in history, and never fabricates nearest points or openings", () => {
+  const home = readFileSync("mobile/app/src/app/index.tsx", "utf8");
+  assert.match(home, /Promise\.all\(\[isHistoryEnabled\(\), readHistory\(\)\]\)/);
+  assert.match(home, /homeHistoryPreview\(entries, enabled\)/);
+  assert.match(home, /if \(cancelled\) return/);
+  assert.ok(
+    home.indexOf("setRecent([])") < home.indexOf("Promise.all("),
+    "Clear stale history before asynchronous refresh",
+  );
+  assert.match(home, /lookupBarcode\(gtin, "history"\)/);
+  assert.match(home, /if \(attempt.accepted\) router.push\("\/result"\)/);
+  assert.match(home, /t\(historyStatusMessageKey\(entry.resultStatus\)\)/);
+  assert.match(home, /entry.productName \?\? entry.gtin/);
+  for (const key of [
+    "homeHistoryError",
+    "homeHistoryEmpty",
+    "homeHistoryDisabled",
+    "homeNearbyEmpty",
+  ])
+    assert.ok(home.includes(`t("${key}")`));
+  assert.doesNotMatch(
+    home,
+    /Mannerheimintie|Mäkelänkatu|Rinki-ekopiste|K-Supermarket|Avoinna|Open now|350 m|600 m|opening_hours|latitude:|longitude:/,
+  );
+  const focus = home.slice(home.indexOf("useFocusEffect("), home.indexOf("const search ="));
+  assert.doesNotMatch(
+    focus,
+    /requestSearch\(|lookupBarcode\(|readDeviceLocation|requestForegroundPermissionsAsync/,
+  );
+  assert.match(home, /const nearby = \(\) => \{\s*requestSearch\(\);\s*router.push\("\/nearby"\)/);
+  assert.doesNotMatch(
+    home,
+    /readDeviceLocation|requestForegroundPermissionsAsync|watchPosition|setInterval/,
+  );
+  const preview = readFileSync("mobile/app/src/features/history/home-preview.ts", "utf8");
+  assert.match(preview, /if \(!enabled \|\| !Array.isArray\(value\)\) return \[\]/);
+  assert.match(preview, /parseGtin\(row.gtin\)/);
+  assert.match(preview, /value.slice\(0, 20\)/);
+  assert.match(preview, /entries.length === 2/);
+});
+
 test("bottom navigation is mounted inside the current providers and does not acquire location on render", () => {
   const layout = readFileSync("mobile/app/src/app/_layout.tsx", "utf8");
   assert.match(layout, /<AppThemeProvider>/);

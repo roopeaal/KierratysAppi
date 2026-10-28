@@ -10,7 +10,7 @@ export function LeafBrandMark({ size = 52 }: { readonly size?: number }) {
       accessibilityElementsHidden
       importantForAccessibility="no-hide-descendants"
       pointerEvents="none"
-      style={{ width: size, height: size * 0.94, overflow: "hidden" }}
+      style={{ width: size, height: size * 0.94, overflow: "hidden", borderRadius: size / 2 }}
     >
       <Image
         source={require("../../assets/backgrounds/welcome-background.png")}
@@ -30,7 +30,7 @@ export function LeafBrandMark({ size = 52 }: { readonly size?: number }) {
 export function ScanIllustration() {
   return (
     <Image
-      source={require("../../assets/backgrounds/scan-illustration.png")}
+      source={require("../../assets/backgrounds/photo-bottle-v1.png")}
       testID="scan-illustration"
       accessible={false}
       aria-hidden
@@ -44,5 +44,5 @@ export function ScanIllustration() {
 }
 
 const styles = StyleSheet.create({
-  scan: { position: "absolute", right: -12, bottom: -12, width: 144, height: 154 },
+  scan: { position: "absolute", right: 4, bottom: -23, width: 125, height: 153 },
 });

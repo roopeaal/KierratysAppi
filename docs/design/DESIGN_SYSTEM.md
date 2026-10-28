@@ -21,6 +21,13 @@ Green/amber/brick/blue status pairs remain separate semantic tokens, tested for 
 
 ## Type and layout
 
+The October 28 reference follow-up scopes platform sans-serif to Home and bottom
+tabs, retaining native text scaling. Subpages keep the roles below. Home follows
+header → local search → photo recognition → compact nearby/guide → four material
+chips → explicit nearby search → real recent history. Reference example data and
+greenwashing slogans are omitted. Large native text stacks cards/chips and hides
+decorative header/photo overlay/arrow. See `../final/REFERENCE_HOME_REFINEMENT.md`.
+
 Atkinson Hyperlegible Next: regular 400 for body, semibold 600 for controls/section headings, bold 700 for display/titles. IBM Plex Mono 600 is reserved for identifiers and confidence values.
 
 Base scale: display 32/36, title 26/32, heading 19/25, body 17/25, small 14/20, label 16/22, mono 13/18. No font-scaling cap. Do not add fixed text heights or line-count clipping. Plain utility captions use Atkinson rather than decorative uppercase mono.

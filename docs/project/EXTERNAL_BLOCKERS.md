@@ -1,5 +1,14 @@
 # External blockers
 
+## October 28 reference Home refinement
+
+No new external blocker. Closer composition, local guide search and real-history
+previews need no new account, backend, paid app inference or native dependency.
+Latest native large-text/navigation acceptance remains pending, not certified
+by the earlier build-3 Home screenshot or browser fixtures. Existing platform,
+photo-accuracy, security and production gates remain. No automatic GPS or
+reference-place fixtures were added; directory coverage/metadata limits remain.
+
 ## October 28 illustrated integration and installation
 
 - **Storage approval resolved:** first native build failed ENOSPC. Roope explicitly approved only the old `work/location-2026-10-06/DerivedData` (team worktree) and `work/ios-scene-2026-09-27.KYLHaN/DerivedData` (original private checkout). Exact two-root/type/count/open-file checks passed: 44,852 objects, no symlinks. Removal succeeded without force/retry; generated artifacts can be rebuilt, not restored from Trash. Source, new build, separate verified rollback, Xcode and phone data were excluded. No additional cleanup is approved.

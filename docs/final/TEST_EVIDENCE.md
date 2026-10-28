@@ -1,5 +1,44 @@
 # Test evidence
 
+## October 28 — closer supplied-reference Home
+
+- Full pinned `pnpm validate`: **382 unique cases (76 repository policy + 306
+  application)**; boundaries/format/lint/strict types, package/API builds and
+  **16 web routes**. Mobile scope: **230 overlapping cases**. Final exit receipts:
+  `work/reference-home-2026-10-28/validate-final.log` and
+  `validate-mobile-final.log`.
+- Eight new pure cases (5 guide-search, 3 history-preview), two new source-policy
+  cases. Existing source policies retain accessible labels, current actions,
+  scaling/focus/provenance/no-placeholder/no-implicit-GPS/photo boundaries.
+- Five actual-Metro browser runners pass on the final source: new
+  `reference-home-browser.cjs`, existing app-refinement, integrated navigation,
+  nearby and photo suites. Ignored logs: `browser-final.log`,
+  `refinement-final.log`, `navigation-final.log`, `nearby-final.log`,
+  `photo-final.log` in the same evidence root.
+- New browser cases cover FI/EN local guide search, four material chips,
+  unknown/reset/duplicate parameters, opted-out stale-history suppression, a
+  real-shaped opt-in saved preview, explicit single re-query and no inferred bin,
+  no implicit GPS/provider calls and 44-point controls. Saved values are isolated
+  QA fixtures, not user history or runtime seed data.
+- Reviewed Home top/footer/history/search, dark, 320/390/1280 and 130% synthetic
+  text screenshots. The old large-text word split is reproduced and repaired by
+  allocating more text space, without font caps. Native large-text arrow/chip/
+  stale-refresh risks found in independent review are repaired and source-guarded.
+- Earlier obsolete-ID/prior-route-heading/duplicate-icon/renderer-wait failures
+  were repaired before final passes; initial failed logs remain where available.
+  One test-only duplicate variable declaration was fixed before final validation.
+  First browser launch without host permission failed before page load; reruns
+  used approved host access. These facts are not native product failures or a
+  claim of flake-free CI.
+- Transparent decorative bottle PNG: alpha/dimensions/byte count/hash checked,
+  exact built-in tool prompt/input roles/project asset in
+  `REFERENCE_HOME_REFINEMENT.md`. Original assets unchanged.
+- No real capture/GPS/address or paid app-recognition call. Host Metro/API health
+  and `photo-capabilities.enabled=true` pass; no new native build/install/
+  signature/accuracy/VoiceOver/standalone claim. Existing release/security/photo
+  gates and build-3 November 4 expiry remain. No GitHub push.
+
+
 ## October 28 illustrated integration
 
 Team `28e0f32` functionality/SDK 58 is retained while explicitly approved selected

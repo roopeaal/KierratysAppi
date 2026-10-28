@@ -1,5 +1,12 @@
 # Roadmap
 
+## Reference composition follow-up — October 28
+
+- [x] Follow the supplied Home's illustrated header/search/photo-card/compact-tile/chip/nearby/history hierarchy without fabricating its example data.
+- [x] Implement local FI/EN four-material guide search/filters and validated opt-in history previews; retain all current flows and add eight pure/two policy cases.
+- [x] Repair reviewed large-text/stale-preview risks; record asset generation provenance and validation evidence.
+- [ ] Accept this latest Home/search/photo-entry/navigation at default and large native text on client 3; previous Home evidence predates the refinement. No private photo/GPS or paid recognition call is needed for visual QA.
+
 Status markers: `[ ]` pending, `[~]` active, `[x]` complete, `[!]` externally blocked.
 
 ## Current illustrated integration — October 28

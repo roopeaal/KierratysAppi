@@ -1,7 +1,9 @@
-import { useRouter } from "expo-router";
-import { Linking, StyleSheet, View } from "react-native";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import { Keyboard, Linking, Pressable, StyleSheet, TextInput, View } from "react-native";
 import {
   AppText,
+  Button,
   DocumentSection,
   InlineLink,
   PageHeader,
@@ -10,8 +12,15 @@ import {
   Screen,
   sharedStyles,
 } from "@/components/ui";
+import { announceAccessibility } from "@/features/accessibility/announcements";
+import {
+  filterGuideMaterials,
+  GUIDE_SEARCH_MAX_LENGTH,
+  type GuideMaterial,
+  parseGuideSearchParams,
+} from "@/features/guide/search";
 import { useLanguage } from "@/i18n/language-context";
-import { spacing, useAppTheme } from "@/theme/tokens";
+import { controls, interaction, radius, spacing, useAppTheme } from "@/theme/tokens";
 
 const GUIDE = [
   ["materialPlastic", "guidePlastic", "plastic"],
@@ -22,21 +31,152 @@ const GUIDE = [
 
 export default function GuideScreen() {
   const router = useRouter();
+  const route = useLocalSearchParams();
+  const initialSearch = parseGuideSearchParams(route);
   const { palette } = useAppTheme();
   const { t } = useLanguage();
+  const [query, setQuery] = useState(initialSearch.query);
+  const [material, setMaterial] = useState<GuideMaterial | null>(initialSearch.material);
+  const [invalid, setInvalid] = useState(initialSearch.invalid);
+  const [focused, setFocused] = useState(false);
+  const [focusedFilter, setFocusedFilter] = useState<GuideMaterial | "all" | null>(null);
+
+  useEffect(() => {
+    setQuery(initialSearch.query);
+    setMaterial(initialSearch.material);
+    setInvalid(initialSearch.invalid);
+  }, [initialSearch.query, initialSearch.material, initialSearch.invalid]);
+
+  const visibleMaterials = invalid ? [] : filterGuideMaterials(query, material);
+  const resultCount = t("guideSearchResultCount").replace(
+    "{count}",
+    String(visibleMaterials.length),
+  );
+  const resetSearch = () => {
+    Keyboard.dismiss();
+    setQuery("");
+    setMaterial(null);
+    setInvalid(false);
+  };
+
   return (
-    <Screen>
+    <Screen testID="guide-screen">
       <PageHeader onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))} />
       <PageIntro title={t("materialGuideTitle")} body={t("materialGuideBody")} />
+      <View style={styles.search}>
+        <AppText variant="label" nativeID="guide-search-label">
+          {t("guideSearchLabel")}
+        </AppText>
+        <TextInput
+          accessibilityLabel={t("guideSearchLabel")}
+          accessibilityLabelledBy="guide-search-label"
+          accessibilityHint={t("guideSearchHint")}
+          placeholder={t("guideSearchPlaceholder")}
+          placeholderTextColor={palette.textSecondary}
+          value={query}
+          onChangeText={(text) => {
+            const next = parseGuideSearchParams({ query: text });
+            setQuery(text);
+            setInvalid(next.invalid);
+            setMaterial(null);
+          }}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
+          onSubmitEditing={() => {
+            Keyboard.dismiss();
+            announceAccessibility(invalid ? t("guideSearchInvalid") : resultCount);
+          }}
+          maxLength={GUIDE_SEARCH_MAX_LENGTH}
+          autoCorrect={false}
+          autoComplete="off"
+          returnKeyType="search"
+          style={[
+            styles.input,
+            {
+              backgroundColor: palette.bgSurface,
+              color: palette.textPrimary,
+              borderColor: focused ? palette.actionLink : palette.borderStrong,
+            },
+          ]}
+          testID="guide-search-input"
+        />
+        <AppText variant="small" muted>
+          {t("guideSearchHint")}
+        </AppText>
+        <View
+          style={styles.filters}
+          accessibilityRole="radiogroup"
+          accessibilityLabel={t("guideSearchFilters")}
+        >
+          {([null, "plastic", "carton", "glass", "metal"] as const).map((option) => {
+            const title = GUIDE.find(([, , value]) => value === option)?.[0];
+            const label = title ? t(title) : t("guideSearchAll");
+            return (
+              <Pressable
+                key={option ?? "all"}
+                accessibilityRole="radio"
+                accessibilityLabel={label}
+                accessibilityState={{ checked: material === option }}
+                aria-checked={material === option}
+                onFocus={() => setFocusedFilter(option ?? "all")}
+                onBlur={() => setFocusedFilter(null)}
+                onPress={() => {
+                  setQuery("");
+                  setMaterial(option);
+                  setInvalid(false);
+                  Keyboard.dismiss();
+                }}
+                style={({ pressed }) => [
+                  styles.filter,
+                  {
+                    backgroundColor: material === option ? palette.pineSoft : palette.bgSurface,
+                    borderColor:
+                      material === option || focusedFilter === (option ?? "all")
+                        ? palette.actionLink
+                        : palette.borderSubtle,
+                    opacity: pressed ? interaction.pressedOpacity : 1,
+                  },
+                ]}
+                testID={`guide-material-${option ?? "all"}`}
+              >
+                <AppText variant="small" style={{ flexShrink: 1 }}>
+                  {label}
+                </AppText>
+              </Pressable>
+            );
+          })}
+        </View>
+        <AppText variant="small" muted accessibilityLiveRegion="polite" testID="guide-search-count">
+          {resultCount}
+        </AppText>
+        {(query.length > 0 || material !== null || invalid) && (
+          <Button
+            label={t("guideSearchReset")}
+            variant="secondary"
+            onPress={resetSearch}
+            testID="guide-search-reset"
+          />
+        )}
+      </View>
+      {visibleMaterials.length === 0 && (
+        <DocumentSection testID="guide-search-empty">
+          <AppText accessibilityRole={invalid ? "alert" : "header"} variant="heading">
+            {invalid ? t("guideSearchInvalid") : t("guideSearchEmpty")}
+          </AppText>
+          <AppText>{t("guideSearchEmptyBody")}</AppText>
+        </DocumentSection>
+      )}
       <View style={styles.grid}>
-        {GUIDE.map(([title, body]) => (
-          <DocumentSection key={title}>
-            <AppText variant="heading" accessibilityRole="header">
-              {t(title)}
-            </AppText>
-            <AppText>{t(body)}</AppText>
-          </DocumentSection>
-        ))}
+        {GUIDE.filter(([, , value]) => visibleMaterials.includes(value)).map(
+          ([title, body, value]) => (
+            <DocumentSection key={title} testID={`guide-section-${value}`}>
+              <AppText variant="heading" accessibilityRole="header">
+                {t(title)}
+              </AppText>
+              <AppText>{t(body)}</AppText>
+            </DocumentSection>
+          ),
+        )}
       </View>
       <Paper
         style={{ backgroundColor: palette.amberSoft, borderWidth: 0, marginBottom: spacing.lg }}
@@ -62,5 +202,26 @@ export default function GuideScreen() {
 }
 
 const styles = StyleSheet.create({
+  search: { gap: spacing.sm, paddingBottom: spacing.lg },
+  input: {
+    minHeight: controls.inputMinHeight,
+    borderWidth: 2,
+    borderRadius: radius.md,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    fontFamily: "Atkinson_400Regular",
+    fontSize: 17,
+  },
+  filters: { flexDirection: "row", flexWrap: "wrap", gap: spacing.xs },
+  filter: {
+    maxWidth: "100%",
+    minHeight: controls.minimumTouchTarget,
+    minWidth: controls.minimumTouchTarget,
+    borderWidth: 2,
+    borderRadius: radius.pill,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.sm,
+    justifyContent: "center",
+  },
   grid: { paddingBottom: spacing.sm },
 });

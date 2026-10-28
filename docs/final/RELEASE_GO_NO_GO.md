@@ -1,5 +1,14 @@
 # Release decision
 
+October 28 reference-Home follow-up remains **NO-GO for public production**.
+The closer composition, local four-material search and validated real-history
+preview preserve current services, source evidence and photo safeguards. Full
+382-case/mobile-230 validation and five fixture browser runners are recorded in
+TEST_EVIDENCE. These do not close existing security/SDK-patch/PHOTO-003 accuracy,
+native/platform/infrastructure/store gates or certify the newest native layout.
+No backend/dependency/native/signature change or publication; old native Home
+evidence is not inherited as acceptance of the new composition.
+
 October 28 illustrated Home/navigation integration is an owner-approved local
 school-app pilot, **not production GO**. It preserves current functionality,
 contracts/provenance/privacy/photo safety and SDK 58 while selectively reusing
