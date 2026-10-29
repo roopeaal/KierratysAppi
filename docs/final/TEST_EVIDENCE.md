@@ -2,6 +2,8 @@
 
 ## October29 — fresh contributor recheck and owner-authorized main sharing
 
+- **Publication receipt:** coherent heading/recheck commit091d962389a56ec5c52386cfbaf4a8bddef6b013 follows the seven reviewed integration/maintenance commits. Documentation-inclusive final full validation also passes431 cases (`validate-final.log`). Immediate fresh fetch still has0 remote-only/8 local-only; working tree clean and actual destination/ref verified. Normal explicit `git push origin HEAD:refs/heads/main` succeeds **28e0f32..091d962**. Independent `git ls-remote --heads origin main` at2026-10-29T20:41:13Z equals the exact local SHA. No force, private KeepItGreen write, tag/other branch/settings or production release.
+- Actual GitHub runs for that source SHA: [CI40951228125](https://github.com/roopeaal/KierratysAppi/actions/runs/40951228125) and [Security40951228098](https://github.com/roopeaal/KierratysAppi/actions/runs/40951228098) initially **in progress**. These are new runs, not the older main's failed CI; no remote pass inferred. This source-only publication/outcome follow-up is within the same explicit owner authorization; future team sharing still needs a new request.
 - Actual origin is `https://github.com/roopeaal/KierratysAppi.git`; private
   KeepItGreen remote/default push target is not used. Fresh fetch, independent
   ls-remote heads and paginated GitHub main-author/PR metadata still confirm

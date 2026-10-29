@@ -1,5 +1,11 @@
 # Release decision
 
+Actual owner-authorized source push succeeds **28e0f32..091d962**; independent
+remote SHA matches091d962389a56ec5c52386cfbaf4a8bddef6b013. Source CI40951228125
+and Security40951228098 initially in progress, not certified green. Publishing
+source preserves teammate history but does not alter the production **NO-GO**
+or constitute a store/server release. Outcome follow-up uses the same approval.
+
 October29 owner-authorized source-sharing recheck: **contributor preservation
 PASS**, not public-production GO. Fresh main remains28e0f32; all ten contributor
 IDs/current behaviors remain, with the previously published native-only address
