@@ -1,5 +1,14 @@
 # External blockers
 
+## October 29 reference fidelity continuation
+
+No new external blocker. Current Mac services and the existing client 3 are
+available; exact-app activation/Home render/inventory/later process check pass.
+No renewal, account, native dependency or paid recognition is needed for this
+visual unit. Wider native interactions/large-text/VoiceOver, recognition accuracy
+and existing SDK/security/production gates remain unverified, not solved by
+decorative assets or browser checks.
+
 ## October 28 reference Home refinement
 
 No new external blocker. Closer composition, local guide search and real-history

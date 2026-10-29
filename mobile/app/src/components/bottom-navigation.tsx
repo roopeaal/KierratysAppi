@@ -13,6 +13,7 @@ import { useLanguage } from "@/i18n/language-context";
 import { interaction, useAppTheme } from "@/theme/tokens";
 import { ActionIcon } from "./action-icon";
 import { homeFont } from "./home-elements";
+import { ReferenceSymbol } from "./reference-symbol";
 import { AppText } from "./ui";
 
 export function BottomNavigation() {
@@ -71,10 +72,29 @@ export function BottomNavigation() {
               },
             ]}
           >
-            <ActionIcon
-              kind={tab.icon}
-              color={selected === tab.id ? palette.actionLink : palette.textSecondary}
-            />
+            {tab.id === "home" && selected !== "home" ? (
+              <ActionIcon kind="home" color={palette.textSecondary} />
+            ) : (
+              <ReferenceSymbol
+                name={
+                  tab.id === "home"
+                    ? "home"
+                    : tab.id === "identify"
+                      ? "scan"
+                      : tab.id === "nearby"
+                        ? "pin"
+                        : "settings"
+                }
+                size={30}
+                color={
+                  tab.id === "home"
+                    ? undefined
+                    : selected === tab.id
+                      ? palette.actionLink
+                      : palette.textSecondary
+                }
+              />
+            )}
             <AppText
               variant="small"
               style={{
@@ -104,8 +124,8 @@ export function BottomNavigation() {
 const styles = StyleSheet.create({
   bar: {
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopLeftRadius: 26,
-    borderTopRightRadius: 26,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
     paddingTop: 6,
     alignItems: "center",
   },
@@ -119,7 +139,7 @@ const styles = StyleSheet.create({
   tab: {
     minHeight: 68,
     borderWidth: 2,
-    borderRadius: 22,
+    borderRadius: 26,
     paddingHorizontal: 3,
     paddingVertical: 6,
     alignItems: "center",

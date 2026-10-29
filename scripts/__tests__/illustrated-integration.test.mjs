@@ -116,6 +116,6 @@ test("selected local artwork is decorative and has an explicit source without al
   const attribution = readFileSync("mobile/app/assets/backgrounds/README.md", "utf8");
   assert.match(attribution, /0142bb0371d0794ffe8d30df5037b40329efb512/);
   const artwork = readFileSync("mobile/app/src/components/reference-artwork.tsx", "utf8");
-  assert.equal((artwork.match(/importantForAccessibility="no-hide-descendants"/g) ?? []).length, 2);
+  assert.equal((artwork.match(/importantForAccessibility="no-hide-descendants"/g) ?? []).length, 3);
   assert.doesNotMatch(artwork, /fetch\(|setInterval|withRepeat|https?:/);
 });

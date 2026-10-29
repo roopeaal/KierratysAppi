@@ -1,7 +1,20 @@
 import { describe, expect, it } from "vitest";
+import { homeColors } from "../home-colors";
 import { darkPalette, lightPalette } from "../palettes";
 
 describe("theme contrast", () => {
+  it.each([
+    ["Home light ink", homeColors(false).ink, homeColors(false).canvas],
+    ["Home light muted", homeColors(false).muted, homeColors(false).canvas],
+    ["Home light white-card copy", homeColors(false).muted, "#FFFFFF"],
+    ["Home light leaf-panel copy", homeColors(false).muted, "#DFF4E7"],
+    ["Home light links", homeColors(false).link, homeColors(false).canvas],
+    ["Home dark ink", homeColors(true).ink, homeColors(true).canvas],
+    ["Home dark muted", homeColors(true).muted, darkPalette.bgSurface],
+    ["Home dark links", homeColors(true).link, homeColors(true).canvas],
+  ])("keeps %s at AA without changing semantic result colors", (_name, foreground, background) => {
+    expect(contrastRatio(foreground, background)).toBeGreaterThanOrEqual(4.5);
+  });
   it.each([
     ["light ink", lightPalette.ink, lightPalette.background],
     ["light muted", lightPalette.muted, lightPalette.background],

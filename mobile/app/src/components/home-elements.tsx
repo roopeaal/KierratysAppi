@@ -1,15 +1,29 @@
-import { type PropsWithChildren, type ReactNode, useState } from "react";
-import { Platform, Pressable, StyleSheet, View, useWindowDimensions } from "react-native";
+import { type ComponentProps, type PropsWithChildren, type ReactNode, useState } from "react";
+import { Platform, Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
 import type { GuideMaterial } from "@/features/guide/search";
+import { homeColors } from "@/theme/home-colors";
 import { interaction, useAppTheme } from "@/theme/tokens";
 import { ActionIcon, type ActionIconKind } from "./action-icon";
-import { AppText, Chevron } from "./ui";
+import { ReferenceSymbol } from "./reference-symbol";
+import { AppText as BaseAppText, Chevron } from "./ui";
 
 // The reference uses native, compact sans-serif text. Retain system text scaling.
 export const homeFont = Platform.select({
   web: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
   default: "System",
 });
+
+export function HomeText({ style, ...props }: ComponentProps<typeof BaseAppText>) {
+  const { isDark } = useAppTheme();
+  const home = homeColors(isDark);
+  return (
+    <BaseAppText
+      {...props}
+      style={[{ fontFamily: homeFont, color: props.muted ? home.muted : home.ink }, style]}
+    />
+  );
+}
+const AppText = HomeText;
 
 export function HomeSurface({ children, testID }: PropsWithChildren<{ readonly testID?: string }>) {
   const { palette, isDark } = useAppTheme();
@@ -43,15 +57,27 @@ export function IconDisc({
     <View
       style={[
         styles.disc,
-        compact && { width: 28, height: 28 },
+        compact && { width: 48, height: 48, borderWidth: 0 },
         { backgroundColor: blue ? (isDark ? palette.cobaltSoft : "#E7F5FF") : palette.pineSoft },
       ]}
     >
-      <View style={{ transform: [{ scale: compact ? 1 : 1.3 }] }}>
-        <ActionIcon
-          kind={kind}
-          color={blue ? (isDark ? palette.cobalt : "#2672BA") : palette.actionLink}
-        />
+      <View
+        accessible={false}
+        aria-hidden
+        accessibilityElementsHidden
+        importantForAccessibility="no-hide-descendants"
+        pointerEvents="none"
+        testID={["photo", "nearby", "guide"].includes(kind) ? `action-icon-${kind}` : undefined}
+      >
+        {kind === "photo" || kind === "nearby" || kind === "guide" ? (
+          <ReferenceSymbol
+            name={kind === "photo" ? "camera" : kind === "nearby" ? "location" : "recycling"}
+            size={compact ? 35 : 44}
+            color={isDark ? (blue ? palette.cobalt : palette.actionLink) : undefined}
+          />
+        ) : (
+          <ActionIcon kind={kind} />
+        )}
       </View>
     </View>
   );
@@ -71,6 +97,8 @@ export function HomeTile({
   readonly testID: string;
 }) {
   const { palette } = useAppTheme();
+  const { isDark } = useAppTheme();
+  const home = homeColors(isDark);
   const [focused, setFocused] = useState(false);
   return (
     <Pressable
@@ -93,7 +121,12 @@ export function HomeTile({
       <IconDisc kind={kind} compact />
       <View style={styles.grow}>
         <AppText style={styles.tileTitle}>{label}</AppText>
-        <AppText style={[styles.caption, { color: palette.textSecondary }]}>{detail}</AppText>
+        <AppText style={[styles.tileCaption, { color: home.muted }]}>{detail}</AppText>
+      </View>
+      <View
+        style={[styles.tileChevron, { backgroundColor: isDark ? palette.bgElevated : "#F0F8F4" }]}
+      >
+        <Chevron />
       </View>
     </Pressable>
   );
@@ -111,6 +144,7 @@ export function HomeSectionHeading({
   readonly testID?: string;
 }) {
   const { palette } = useAppTheme();
+  const { isDark } = useAppTheme();
   const [focused, setFocused] = useState(false);
   return (
     <View style={styles.sectionHeading}>
@@ -132,7 +166,7 @@ export function HomeSectionHeading({
           },
         ]}
       >
-        <AppText style={[styles.caption, { color: palette.actionLink }]}>{action}</AppText>
+        <AppText style={[styles.caption, { color: homeColors(isDark).link }]}>{action}</AppText>
         <Chevron />
       </Pressable>
     </View>
@@ -213,9 +247,11 @@ function MaterialSymbol({ material }: { readonly material: GuideMaterial }) {
 const styles = StyleSheet.create({
   surface: { borderRadius: 22, overflow: "hidden" },
   disc: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    borderWidth: 2,
+    borderColor: "#FFFFFF",
     alignItems: "center",
     justifyContent: "center",
     flexShrink: 0,
@@ -223,11 +259,11 @@ const styles = StyleSheet.create({
   tile: {
     flex: 1,
     minWidth: 0,
-    minHeight: 94,
+    minHeight: 86,
     borderRadius: 22,
     borderWidth: 2,
     paddingHorizontal: 8,
-    paddingVertical: 14,
+    paddingVertical: 12,
     flexDirection: "row",
     alignItems: "center",
     gap: 6,
@@ -235,12 +271,23 @@ const styles = StyleSheet.create({
   grow: { flex: 1, minWidth: 0, gap: 4 },
   tileTitle: {
     fontFamily: homeFont,
-    fontSize: 14,
-    lineHeight: 20,
+    fontSize: 13,
+    lineHeight: 18,
     fontWeight: "700",
     letterSpacing: -0.35,
   },
   caption: { fontFamily: homeFont, fontSize: 13, lineHeight: 18 },
+  tileCaption: { fontFamily: homeFont, fontSize: 11.5, lineHeight: 15.5, paddingRight: 10 },
+  tileChevron: {
+    position: "absolute",
+    right: 6,
+    bottom: 9,
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   sectionHeading: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -250,8 +297,8 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontFamily: homeFont,
-    fontSize: 20,
-    lineHeight: 26,
+    fontSize: 17,
+    lineHeight: 23,
     letterSpacing: -0.5,
     fontWeight: "700",
     flexShrink: 1,

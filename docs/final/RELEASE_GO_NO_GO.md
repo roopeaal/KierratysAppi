@@ -1,5 +1,13 @@
 # Release decision
 
+October 29 reference-fidelity pass is **not production GO**. Full 396-case/
+mobile-240 validation, five isolated browser suites and a fresh native Home
+render/inventory/process check pass. Current photo consent/material correction,
+real-data/no-implicit-GPS boundaries and technical identity remain. No new model
+accuracy, native interaction/large-text/VoiceOver, release-build, SDK/security,
+infrastructure or store acceptance; previous high findings stay open. No
+GitHub publication or paid app-recognition call.
+
 October 28 reference-Home follow-up remains **NO-GO for public production**.
 The closer composition, local four-material search and validated real-history
 preview preserve current services, source evidence and photo safeguards. Full

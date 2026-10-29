@@ -1,5 +1,35 @@
 # Test evidence
 
+## October 29 — reference-fidelity and existing-client Home
+
+- Full pinned `pnpm validate`: **396 unique cases (80 policy + 316 application)**,
+  all boundaries/format/lint/strict types/builds/16 routes; mobile **240 overlapping
+  cases**. Final exits 0: `work/reference-polish-2026-10-29/validate-final.log`
+  and `validate-mobile-final.log`.
+- Four new built-in-only asset/PNG/topology/wiring cases, eight AA token-pair
+  cases and two bounded responsive-crop cases. Original SVGs/native alpha PNGs
+  are source-controlled, no new app dependency; same sharp 0.35.5/libvips 8.18.7
+  byte re-render `--check` passes (`symbols-check.log`).
+- All five actual-Metro runners pass: `browser-final.log`,
+  `refinement-final.log`, `navigation.log`, `nearby.log`, `photo.log`.
+  New Home AI card routes to the unchanged photo flow. All existing opt-in
+  history/local search/explicit GPS and photo consent/material correction/
+  unknown/unsafe/cancellation/source evidence remains. Fixtures are isolated;
+  no actual image/GPS/address or paid app-recognition request.
+- Final FI/EN/Home/large/narrow/dark snapshots reviewed, plus actual latest native
+  Home: fresh exact-app activation succeeds, targeted inventory reports 0.1.0/
+  build 3, later query finds the launch PID, and the screenshot shows current
+  artwork/card/symbols/tabs. No private history entry or other app content shown;
+  development gear and OS status/back label are not app-store visuals.
+- Native lock/launch/capture/app/process receipts and `native-home.png` remain
+  ignored in the same evidence root. No new sign/install/profile/credential or
+  native camera/navigation/large-text/VoiceOver/accuracy/standalone claim.
+  Existing November 4 profile expiry and production NO-GO remain unchanged.
+- Repaired actual initial failures: unsupported weight 750, missing source SVG
+  titles and stale source-policy geometry/icon assumptions; did not skip lint,
+  add exclusions or weaken failure-mode checks. Reference comparison, source/
+  export methodology, exact limits and artifact paths: REFERENCE_VISUAL_POLISH.
+
 ## October 28 — closer supplied-reference Home
 
 - Full pinned `pnpm validate`: **382 unique cases (76 repository policy + 306

@@ -21,6 +21,15 @@ Green/amber/brick/blue status pairs remain separate semantic tokens, tested for 
 
 ## Type and layout
 
+October 29 fidelity: Home-only navy ink `#142C39`, slate-blue secondary
+`#59688A`, links `#435D95` and canvas `#F5FCFA` complement the reference.
+Dark counterparts remain separately contrast-tested; sorting/status tokens are
+unchanged. Shaded original SVG symbols export to native alpha PNGs, without a
+runtime library. Main camera disc 64 pt, utility discs 48 pt, compact 86 pt
+minimum utility cards and 17 pt section headings retain 44-point controls and
+native scaling. The leafy card background is a render-only source-panel crop
+adapted to the measured card, not a screenshot UI.
+
 The October 28 reference follow-up scopes platform sans-serif to Home and bottom
 tabs, retaining native text scaling. Subpages keep the roles below. Home follows
 header → local search → photo recognition → compact nearby/guide → four material

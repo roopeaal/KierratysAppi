@@ -1,5 +1,18 @@
 # Owner actions
 
+## October 29 — reference fidelity
+
+- **Engineering complete:** source-controlled native symbol export, scoped/full
+  checks, five browser suites and latest actual client-3 Home render/inventory/
+  process acceptance. No native install or new trust/credential action needed.
+- **Roope or engineering with existing tools:** complete the physical smoke in
+  NEXT_ACTION at default and larger text; do not capture/upload a photo or use
+  real GPS just to check navigation. Camera accuracy and broader native release
+  acceptance remain separate from this visual Home pass.
+- Same November 4, 20:28:39 Helsinki manual-renewal deadline and Mac/LAN Debug
+  dependence. No extra account/payment/publication is authorized or required
+  by this visual task.
+
 ## October 28 — reference Home follow-up
 
 - **Engineering:** changes stay local; no account/payment/key/GitHub action is

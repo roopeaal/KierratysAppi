@@ -6,7 +6,9 @@ if (!process.env.PLAYWRIGHT_MODULE_PATH || !process.env.BROWSER_EXECUTABLE_PATH)
   throw new Error("Set installed Playwright and browser paths.");
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE_PATH);
 const base = process.env.APP_QA_URL ?? "http://127.0.0.1:8093";
-const evidence = path.resolve("work/reference-home-2026-10-28/browser");
+const evidence = path.resolve(
+  process.env.APP_QA_EVIDENCE_DIR ?? "work/reference-home-2026-10-28/browser",
+);
 fs.mkdirSync(evidence, { recursive: true });
 const gtin = "3017620422003";
 

@@ -1,5 +1,13 @@
 # Decision log
 
+## D-053 — Improve reference fidelity with native-safe source-controlled artwork
+
+- Date: 2026-10-29, continuing the owner-approved reference refinement begun October 28. No push or paid app-inference authority.
+- Match real composition rather than only colors: centered smaller wordmark/leaf, neutral caption, leafy photo card, filled shaded symbols and smaller utility/section hierarchy. Keep the primary photo entry explicit about AI, but no verified-result or speed claim. Preserve all current actions, real opt-in history, explicit GPS and non-fabricated nearby state.
+- Use seven original code-native SVGs compiled to committed alpha PNGs with installed sharp 0.35.5/libvips 8.18.7. No runtime SVG/native package, copied icon set, new image generation, remote image or app dependency. Retain source titles and hide redundant runtime symbols from assistive technology. Test bounded local assets, alpha/PNG structure and three separate recycling arrows; re-render byte check with the same toolchain.
+- Home-only colors have eight AA token-pair cases; semantic sorting/status colors and provider/rule/AI contracts remain unchanged. Leaf-panel crop scales to measured card height without leaking neighboring baked artwork; native large text retains existing non-overlaid fallback.
+- Full 396-case/mobile-240 validation and five browser suites pass. Fresh native build-3 activation/Home screenshot/later PID pass, not a renewed installation, all-flow/large-text/VoiceOver or model-accuracy acceptance. No change to November 4 profile expiry, production NO-GO or repository sharing boundary.
+
 ## D-052 — Match the illustrated reference without making its examples real
 
 - Date: 2026-10-28. Authority: Roope asks to follow the supplied Home screenshot; no GitHub or paid app-inference authority.

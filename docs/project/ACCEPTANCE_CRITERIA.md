@@ -1,5 +1,12 @@
 # Acceptance criteria
 
+## Reference fidelity and native symbols
+
+1. The leafy primary card opens the existing AI photo flow; explicit upload consent, inferred identity, separate material/condition confirmation and unknown/unsafe recovery remain unchanged. No image, precise location, fake nearest/open/last-viewed data or paid model request is added by rendering Home.
+2. Seven original symbol sources compile to bounded local 192×192 alpha PNGs; no script/remote SVG/image/text/animation or runtime package. Source titles exist; runtime images are decorative. Recycling has three separate visible arrows and transparent center.
+3. Home-only ink/muted/link pairs meet tested 4.5:1 token contrast; existing semantic result colors stay unchanged. Photo backdrop fits measured width/height and does not display neighboring baked cards. Native large text keeps the non-overlaid fallback and all controls remain scalable/44-point targets.
+4. Full/scoped validation and five fixture browser suites pass; new native Home render is separately observed on the actual client. This never implies native all-flow/large-text/accessibility/accuracy or store acceptance.
+
 ## Reference Home refinement
 
 1. Follow the supplied illustrated Home hierarchy with real current actions; photo recognition is primary, barcode shortcut/manual entry remain. No reference places/distances/open status, coffee/bottle sorting examples, invented popularity or accounts as real data.

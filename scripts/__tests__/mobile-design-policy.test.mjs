@@ -228,8 +228,8 @@ test("compact Home tiles retain labelled destinations, wrapping, focus and scala
   assert.match(elements, /fontScale >= 1\.5 \? "100%" : fontScale > 1\.2/);
   assert.match(elements, /fontWeight: "500", flexShrink: 1/);
   assert.match(home, /homePhotoDetail/);
-  for (const kind of ["manual", "nearby", "history"])
-    assert.ok(home.includes(`<ActionIcon kind="${kind}"`));
+  for (const kind of ["manual", "history"]) assert.ok(home.includes(`<ActionIcon kind="${kind}"`));
+  assert.match(home, /<ReferenceSymbol\s+name="location"/);
   for (const kind of ["nearby", "guide"])
     assert.match(home, new RegExp(`<HomeTile\\b[^>]*?kind="${kind}"`));
   assert.match(home, /flexWrap: "wrap"/);
@@ -244,7 +244,7 @@ test("compact Home tiles retain labelled destinations, wrapping, focus and scala
   assert.match(tile, /<IconDisc kind=\{kind\}/);
   assert.match(tile, /onFocus=\{\(\) => setFocused\(true\)\}/);
   assert.match(tile, /focused \? palette.actionLink/);
-  assert.match(elements, /minHeight: 94/);
+  assert.match(elements, /minHeight: 86/);
   assert.match(elements, /minWidth: 44/);
   assert.match(elements, /minHeight: 44/);
   for (const source of [home, elements])

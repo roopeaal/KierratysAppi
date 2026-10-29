@@ -1,5 +1,12 @@
 # Roadmap
 
+## Reference fidelity continuation — October 29
+
+- [x] Compare proportional reference gaps; implement improved branding, leafy photo-card crop, filled native-compatible symbols, Home-only colors and compact hierarchy while retaining current AI/photo safeguards and actual data.
+- [x] Add four asset/PNG/topology, eight contrast and two crop regressions; full 396 cases/mobile 240, vector byte check and all five browser suites pass. Record first lint/type/policy failures and repairs.
+- [x] Relaunch existing client 3, confirm targeted inventory, inspect actual latest native Home and verify later matching process, without reinstall/capture/upload/GPS/paid call.
+- [ ] Complete latest physical navigation and large-text acceptance; Home rendering alone does not establish camera entry, VoiceOver, native interactions or recognition accuracy.
+
 ## Reference composition follow-up — October 28
 
 - [x] Follow the supplied Home's illustrated header/search/photo-card/compact-tile/chip/nearby/history hierarchy without fabricating its example data.

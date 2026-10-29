@@ -13,6 +13,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ActionIcon } from "@/components/action-icon";
 import {
+  HomeText as AppText,
   HomeSectionHeading,
   HomeSurface,
   HomeTile,
@@ -20,8 +21,9 @@ import {
   IconDisc,
   MaterialChip,
 } from "@/components/home-elements";
-import { LeafBrandMark, ScanIllustration } from "@/components/reference-artwork";
-import { AppText, Chevron, InlineLink } from "@/components/ui";
+import { LeafBrandMark, PhotoCardBackdrop, ScanIllustration } from "@/components/reference-artwork";
+import { ReferenceSymbol } from "@/components/reference-symbol";
+import { Chevron, InlineLink } from "@/components/ui";
 import { GUIDE_SEARCH_MAX_LENGTH } from "@/features/guide/search";
 import { homeHistoryPreview } from "@/features/history/home-preview";
 import { historyStatusMessageKey } from "@/features/history/presentation";
@@ -29,6 +31,7 @@ import { type HistoryEntry, isHistoryEnabled, readHistory } from "@/features/his
 import { useNearbySearch } from "@/features/nearby/search-context";
 import { useScanSession } from "@/features/scan/session-context";
 import { useLanguage } from "@/i18n/language-context";
+import { homeColors } from "@/theme/home-colors";
 import { controls, interaction, useAppTheme } from "@/theme/tokens";
 
 const MATERIALS = [
@@ -41,6 +44,7 @@ const MATERIALS = [
 export default function HomeScreen() {
   const router = useRouter();
   const { palette, isDark } = useAppTheme();
+  const home = homeColors(isDark);
   const { language, setLanguage, t } = useLanguage();
   const { reset, lookupBarcode } = useScanSession();
   const { requestSearch } = useNearbySearch();
@@ -50,6 +54,7 @@ export default function HomeScreen() {
   const [query, setQuery] = useState("");
   const [searchFocused, setSearchFocused] = useState(false);
   const [photoFocused, setPhotoFocused] = useState(false);
+  const [photoHeight, setPhotoHeight] = useState(112);
   const { width, fontScale } = useWindowDimensions();
   const canvasWidth = Math.min(width, 560);
   const expandedText = fontScale > 1.2;
@@ -103,7 +108,7 @@ export default function HomeScreen() {
       testID="home-screen"
       edges={["top"]}
       accessibilityLanguage={language === "fi" ? "fi-FI" : "en"}
-      style={{ flex: 1, backgroundColor: palette.bgCanvas }}
+      style={{ flex: 1, backgroundColor: home.canvas }}
     >
       <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
         <View testID="home-canvas" style={{ width: canvasWidth }}>
@@ -124,25 +129,25 @@ export default function HomeScreen() {
                 style={{
                   position: "absolute",
                   top: 0,
-                  left: 0,
-                  width: canvasWidth,
-                  height: (canvasWidth * 1672) / 941,
+                  left: -canvasWidth * 0.03,
+                  width: canvasWidth * 1.06,
+                  height: (canvasWidth * 1.06 * 1672) / 941,
                   opacity: isDark ? 0.25 : 1,
                 }}
               />
             )}
             <View style={[styles.branding, expandedText && styles.brandingExpanded]}>
-              <LeafBrandMark size={canvasWidth < 360 ? 44 : 52} />
+              <LeafBrandMark size={canvasWidth < 360 ? 44 : 48} />
               <AppText
                 accessibilityRole="header"
-                style={[styles.wordmark, { fontSize: canvasWidth < 360 ? 27 : 31 }]}
+                style={[styles.wordmark, { fontSize: canvasWidth < 360 ? 25 : 27 }]}
               >
                 {t("appName").slice(0, -5)}
                 <AppText
                   style={[
                     styles.wordmark,
                     {
-                      fontSize: canvasWidth < 360 ? 27 : 31,
+                      fontSize: canvasWidth < 360 ? 25 : 27,
                       color: isDark ? palette.actionLink : "#358751",
                     },
                   ]}
@@ -153,9 +158,10 @@ export default function HomeScreen() {
               <AppText
                 style={[
                   styles.question,
+                  !expandedText && { transform: [{ translateX: canvasWidth * 0.075 }] },
                   {
-                    color: isDark ? palette.textSecondary : "#455B76",
-                    backgroundColor: isDark ? palette.bgCanvas : "rgba(245, 252, 249, 0.86)",
+                    color: home.muted,
+                    backgroundColor: isDark ? palette.bgCanvas : "transparent",
                   },
                 ]}
               >
@@ -192,7 +198,7 @@ export default function HomeScreen() {
                 accessibilityLabel={t("homeSearchLabel")}
                 accessibilityHint={t("homeSearchHint")}
                 placeholder={t("homeSearchPlaceholder")}
-                placeholderTextColor={palette.textSecondary}
+                placeholderTextColor={home.muted}
                 value={query}
                 maxLength={GUIDE_SEARCH_MAX_LENGTH}
                 onChangeText={setQuery}
@@ -203,7 +209,7 @@ export default function HomeScreen() {
                 autoComplete="off"
                 autoCorrect={false}
                 testID="home-search-input"
-                style={[styles.searchInput, { color: palette.textPrimary }]}
+                style={[styles.searchInput, { color: home.ink }]}
               />
               <Pressable
                 accessibilityRole="button"
@@ -231,6 +237,7 @@ export default function HomeScreen() {
               onPress={() => router.push("/photo")}
               onFocus={() => setPhotoFocused(true)}
               onBlur={() => setPhotoFocused(false)}
+              onLayout={({ nativeEvent }) => setPhotoHeight(nativeEvent.layout.height)}
               style={({ pressed }) => [
                 styles.photoAction,
                 {
@@ -240,16 +247,19 @@ export default function HomeScreen() {
                 },
               ]}
             >
+              {!expandedText && (
+                <PhotoCardBackdrop width={canvasWidth - 32} height={Math.max(1, photoHeight - 4)} />
+              )}
               <View
                 style={[
                   styles.photoContent,
-                  !expandedText && { paddingRight: canvasWidth < 360 ? 92 : 102 },
+                  !expandedText && { paddingRight: canvasWidth < 360 ? 86 : 102 },
                 ]}
               >
                 <IconDisc kind="photo" blue />
                 <View style={styles.grow}>
                   <AppText style={styles.photoTitle}>{t("homePhotoTitle")}</AppText>
-                  <AppText style={[styles.photoBody, { color: palette.textSecondary }]}>
+                  <AppText style={[styles.photoBody, { color: home.muted }]}>
                     {t("homePhotoDetail")}
                   </AppText>
                 </View>
@@ -315,11 +325,15 @@ export default function HomeScreen() {
                   aria-hidden
                 >
                   <View style={[styles.mapRoad, { backgroundColor: palette.bgSurface }]} />
-                  <ActionIcon kind="nearby" />
+                  <ReferenceSymbol
+                    name="location"
+                    size={30}
+                    color={isDark ? palette.actionLink : undefined}
+                  />
                 </View>
                 <View style={styles.grow}>
                   <AppText style={styles.rowTitle}>{t("homeNearbyStart")}</AppText>
-                  <AppText style={[styles.caption, { color: palette.textSecondary }]}>
+                  <AppText style={[styles.caption, { color: home.muted }]}>
                     {t("homeNearbyEmpty")}
                   </AppText>
                 </View>
@@ -353,7 +367,7 @@ export default function HomeScreen() {
                     <ActionIcon kind="history" />
                     <View style={styles.grow}>
                       <AppText style={styles.rowTitle}>{entry.productName ?? entry.gtin}</AppText>
-                      <AppText style={[styles.caption, { color: palette.textSecondary }]}>
+                      <AppText style={[styles.caption, { color: home.muted }]}>
                         {t(historyStatusMessageKey(entry.resultStatus))}
                       </AppText>
                     </View>
@@ -367,7 +381,7 @@ export default function HomeScreen() {
                   <ActionIcon kind="history" />
                   <AppText
                     testID="home-history-empty"
-                    style={[styles.caption, styles.grow, { color: palette.textSecondary }]}
+                    style={[styles.caption, styles.grow, { color: home.muted }]}
                   >
                     {historyError
                       ? t("homeHistoryError")
@@ -438,25 +452,31 @@ const styles = StyleSheet.create({
   scroll: { flexGrow: 1, alignItems: "center" },
   hero: { overflow: "hidden", justifyContent: "center", paddingBottom: 24 },
   heroExpanded: { paddingHorizontal: 16, paddingTop: 20, paddingBottom: 36 },
-  branding: { marginLeft: "35%", paddingRight: 12, alignItems: "center", gap: 5 },
-  brandingExpanded: { marginLeft: 0, paddingRight: 0 },
-  wordmark: { fontFamily: homeFont, fontWeight: "800", letterSpacing: -1.3, lineHeight: 38 },
+  branding: {
+    width: "68%",
+    marginLeft: "18%",
+    alignItems: "center",
+    gap: 3,
+    transform: [{ translateY: -10 }],
+  },
+  brandingExpanded: { width: "100%", marginLeft: 0, transform: [{ translateY: 0 }] },
+  wordmark: { fontFamily: homeFont, fontWeight: "700", letterSpacing: -1.1, lineHeight: 33 },
   question: {
     fontFamily: homeFont,
-    fontSize: 14,
-    lineHeight: 20,
+    fontSize: 12.5,
+    lineHeight: 18,
     textAlign: "center",
     borderRadius: 8,
     paddingHorizontal: 3,
   },
-  content: { paddingHorizontal: 14, marginTop: -26, paddingBottom: 24, gap: 12 },
+  content: { paddingHorizontal: 14, marginTop: -26, paddingBottom: 24, gap: 8 },
   search: {
-    minHeight: 56,
+    minHeight: 54,
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 2,
     borderRadius: 32,
-    padding: 4,
+    padding: 3,
     boxShadow: "0px 5px 18px rgba(40, 110, 78, 0.07)",
   },
   searchButton: { width: 44, minHeight: 44, alignItems: "center", justifyContent: "center" },
@@ -487,25 +507,25 @@ const styles = StyleSheet.create({
     transform: [{ rotate: "45deg" }],
   },
   photoAction: {
-    minHeight: 116,
+    minHeight: 112,
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 2,
     borderRadius: 22,
     overflow: "hidden",
-    paddingVertical: 16,
-    paddingLeft: 10,
+    paddingVertical: 14,
+    paddingLeft: 8,
     paddingRight: 16,
   },
   photoContent: { flex: 1, minWidth: 0, flexDirection: "row", alignItems: "center", gap: 10 },
   photoTitle: {
     fontFamily: homeFont,
-    fontSize: 22,
-    lineHeight: 26,
+    fontSize: 20,
+    lineHeight: 25,
     letterSpacing: -0.8,
     fontWeight: "700",
   },
-  photoBody: { fontFamily: homeFont, fontSize: 14, lineHeight: 19 },
+  photoBody: { fontFamily: homeFont, fontSize: 13, lineHeight: 18 },
   photoChevron: {
     width: 32,
     height: 32,

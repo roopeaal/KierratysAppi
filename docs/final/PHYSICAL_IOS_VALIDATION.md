@@ -1,6 +1,27 @@
 # Physical iOS validation
 
-Status date: 2026-10-28
+Status date: 2026-10-29
+
+## Updated reference Home on existing client 3 — 2026-10-29
+
+- Exact own-device lock query is available without passcode prompt. Fresh
+  existing-app launch via the verified current LAN Metro succeeds. Targeted app
+  inventory confirms KeepItGreen 0.1.0/build 3, and later process query finds the
+  same launched PID. No uninstall/reinstall/signing/profile change.
+- One actual screenshot inspected: updated illustrated Home/leaf/wordmark,
+  searchable material field, leafy primary AI card, filled camera/pin/recycling
+  symbols, four material shortcuts, honest nearby action and all four tabs.
+  Development gear is still visible in the hero; OS back-app label/status bar
+  are not store-ready app UI. No private history entry or unrelated app content
+  is shown. Screenshot remains ignored, never committed.
+- This verifies this latest Home rendering only. No native camera opening,
+  image capture/send, real GPS/address, model call, navigation interaction,
+  VoiceOver, large native text, retention or standalone/battery acceptance is
+  inferred. Existing installed profile expiry remains November 4 at 20:28:39
+  Helsinki; JS artwork updates do not renew it. Mac/LAN services remain needed.
+- Ignored receipts: `work/reference-polish-2026-10-29/native-*.{log,json}`
+  and `native-home.png`. Current host Metro/API health and photo-enabled
+  capabilities pass without a recognition call.
 
 ## Installed illustrated SDK 58 client 3 — 2026-10-28
 
