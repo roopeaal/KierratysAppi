@@ -1,3 +1,3 @@
 # Next action
 
-Build and replace-install a matching patched SDK 58 iPhone development client, preserving the verified old binary and local data, then verify Home → Identify → barcode/manual/photo entry-and-back at normal and larger native text without taking/uploading a photo, real GPS, paid inference or GitHub publication; Roope handles any actual unlock/trust/account prompt.
+On installed client4, complete owner-assisted Home → Identify → barcode/manual/photo entry-and-back at normal and larger native text, keeping the camera covered/no barcode for any preview and recording only pass/fail without photos, GPS, uploads, paid inference or GitHub publication; do not treat the observed native Home/Identify direct-link render as a button-flow or Dynamic Type pass.

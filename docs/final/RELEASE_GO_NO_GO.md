@@ -1,5 +1,15 @@
 # Release decision
 
+October29 patched iPhone client4: **development build/install/startup scope
+passes**, not production GO. Stable build, strict app/all11-framework/profile/
+device/native-lock/purpose checks, replacement0.1.0/build4 inventory, actual
+native Home/passive Identify rendering and repeated process observations pass.
+Full430 tests pass. Valid November4 profile is reused, not renewed. Owner grants
+current LAN/current-key restoration; restricted listeners run without exposing
+the key or performing paid requests. Exact scope: IOS_PATCH_CLIENT4. Actual
+button-flow/large-text/VoiceOver/camera/GPS/AI accuracy and existing release/
+operations/licensing/privacy/store gates remain; production **NO-GO**, no push.
+
 October29 maintenance: **local SDK/high-critical dependency HOLD repaired**,
 not public-production GO. Frozen install, peers, online compatibility,
 Doctor20/20, live security policy, full429 cases/all builds/16 routes, all

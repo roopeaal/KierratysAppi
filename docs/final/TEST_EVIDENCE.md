@@ -1,5 +1,48 @@
 # Test evidence
 
+## October29 — patched iPhone build4 installed and started
+
+- Source baseline `e815522`; only iOS build4 metadata plus corresponding policy
+  and one immutable-native-Constants guard regression. Initial added fixture
+  failed strict TS2353; repaired with a structural variable, no suppression.
+  Full validation passes **430 unique tests (113 policy+317 application)**,
+  all builds/16 routes; mobile typecheck,12 photo cases/4 policy cases pass.
+  Final documentation-inclusive rerun also passes: mobile241 overlapping cases
+  (`validate-mobile.log`) and full430 (`validate-final.log`) in the same root.
+- Completed verified app3/entire-native-tree APFS snapshots before Expo cleared
+  the ignored iOS directory. New generation and CocoaPods1.17 install122 pods;
+  new lock equals Manifest. React-Core0.88.1 and all twelve Expo/RN patch targets
+  match JS. No old-lock restoration, cleanup, new runtime dependency or ID change.
+- Stable Xcode26.6/iOS26.5 Debug serial **BUILD SUCCEEDED**. Explicit new verifier
+  checks actual build4/config4/0.1.0/ID/name/scheme, default/FI/EN camera/location,
+  no microphone/Always/background location, strict app/all11-framework signatures,
+  profile/signed team/app/device/task-allow binding and patched native lock.
+  Reused valid profile: **created2026-10-28T18:28:39Z; expires2026-11-04T18:28:39Z /
+  November4 at20:28:39 Helsinki**. No new seven-day renewal is claimed.
+- Replacement install succeeds. Exact-bundle device inventory confirms0.1.0/
+  build4, without uninstall/reset. No private app data/history inspected; data
+  retention is not independently certified. Current iOS manifest/actual launch
+  asset are200/build4/SDK58,12,156,274 bytes, current LAN API and no server-key
+  markers. These are host checks, separate from physical observations below.
+- Native launch succeeds without a new trust prompt; three targeted queries
+  retain its PID. Actual in-scope Home and passive `/identify` deep-link images
+  inspected: current artwork/combined card/four tabs and barcode/manual/AI order
+  with uncertainty text. Return-home link succeeds. Not a physical button/back,
+  largest-text/VoiceOver/camera/GPS/recognition-accuracy/all-flow pass.
+- Initial all-interface API start was blocked before execution. Roope explicitly
+  approves current trusted LAN and current key. API binds only that address3003;
+  Metro127.0.0.1:8093 plus address-only forwarding8093, no payload logging.
+  Services run only after matching client4 install; no wildcard listener. Existing
+  key stays server-side/unchanged, not printed or in the bundle. Only health/
+  capability GETs, no image, actual location/barcode, provider or paid inference.
+- Ignored root `work/ios-patch-2026-10-29.jsZhvk/`: original-clone/profile receipt,
+  client3.app/ios-client3, prebuild/pods/build, first validate.log and repaired
+  validate-repaired.log; native-verification.json, install.json, installed-after.json,
+  dev-runtime-verification.json, launch.json, process-{1,2,3}.json, native-home.png,
+  native-identify.png, return-home.json. Main app hash/lock hash in verifier receipt.
+  Source-only documentation: IOS_PATCH_CLIENT4; no profiles/identifiers/binaries/
+  screenshots in Git, no GitHub push or production GO.
+
 ## October 29 — SDK 58 compatibility/security repair
 
 - Owner-approved maintenance from `ceedb6a`. Frozen install/supply-chain age

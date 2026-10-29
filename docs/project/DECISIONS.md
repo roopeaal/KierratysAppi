@@ -1,5 +1,13 @@
 # Decision log
 
+## D-058 — Match the native installation and bound development-network restoration
+
+- Date: 2026-10-29. Roope requests updating the phone, then explicitly approves the current trusted LAN and reuse of the existing server-only key. No GitHub publication, new key or paid evaluation request.
+- Use client4 metadata to distinguish the patched RN/Expo binary; retain technical identity/data namespace/Android2 and ordinary photo-purpose eligibility. Preserve a signature-verified app and complete generated-native snapshot before prebuild; do not restore old dependency locks over new native versions. Reuse DerivedData only with an explicit build4/hash/native-lock verifier rejecting the old artifact.
+- Verify strict app/all-framework signatures, real profile dates/bindings, matching installed pod graph and device inventory separately from launch/render evidence. A reused valid profile remains November4 expiry; build4 is not a renewal. Never uninstall/reset or inspect private history merely to establish update success.
+- After an attempted all-interface API bind is rejected before execution, require owner permission and narrow the service to the current LAN address. Expo stays loopback with a current-address-only/no-payload-log forwarder; enable delivery only after matching build4 inventory. Existing credential remains server-side; no assistant image/paid call.
+- Native Home/Identify screenshots, passive deep links and repeated same-PID queries prove named startup/render observations, not actual button/back/large-text/VoiceOver/camera/GPS/material accuracy or release readiness. Keep that remaining controlled acceptance as one next action and preserve existing production NO-GO.
+
 ## D-057 — Repair dependency gates without hiding a CLI migration or native mismatch
 
 - Date: 2026-10-29. Roope approves repairing the audit's local dependency gates, not pushing or making paid calls.

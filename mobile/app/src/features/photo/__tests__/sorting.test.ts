@@ -88,6 +88,20 @@ describe("photo confirmation", () => {
       }),
     ).toBe(false);
   });
+  it("accepts patched iOS client 4 only from its installed native build metadata", () => {
+    const runtime = {
+      executionEnvironment: "bare",
+      platform: { ios: { buildNumber: "4" } },
+      expoConfig: { ios: { buildNumber: "3" } },
+    };
+    expect(canUsePhotoCapture("ios", runtime)).toBe(true);
+    const missingNativeBuild = {
+      ...runtime,
+      platform: { ios: {} },
+      expoConfig: { ios: { buildNumber: "4" } },
+    };
+    expect(canUsePhotoCapture("ios", missingNativeBuild)).toBe(false);
+  });
   it("does not issue guidance from an unconfirmed or unrelated part", () => {
     const estimate = example();
     const part = estimate.observation.parts[0];

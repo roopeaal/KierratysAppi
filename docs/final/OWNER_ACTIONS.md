@@ -1,5 +1,23 @@
 # Owner actions
 
+## October29 — client4 installed, source remains local
+
+- **Engineering completed:** matching patched native build4, same app/version,
+  strict app/all11-framework/profile/native-lock/purpose checks, replacement
+  install/targeted inventory, actual launch/Home/passive Identify rendering/
+  repeated process/return-home evidence. Full430 checks pass. Existing profile
+  reused; **request renewal before November4 at20:28 Helsinki**, no automation.
+- **Roope completed permission choices:** current trusted LAN and same server
+  key explicitly approved. Final listeners use only loopback/current LAN IP,
+  not wildcard interfaces; key stays on server. No paid request by engineering.
+- **Engineering + Roope next:** follow NEXT_ACTION on client4, default/larger
+  native text and controlled button entry/back. Cover camera/no barcode for
+  any scanner preview; no image/upload/GPS/paid request. Actual physical
+  settings/actions are owner-operated when needed; screenshots only nonprivate
+  intro screens. Native Home/deep-link rendering is not complete interaction QA.
+- Mac Metro/API/LAN still required; leaving the current network stops access.
+  No public release or GitHub push; separate owner authorization remains needed.
+
 ## October 29 — dependency gates repaired; native client next
 
 - **Engineering complete:** twelve official SDK/RN expectations and twelve

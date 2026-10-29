@@ -2,6 +2,15 @@
 
 Status date: 2026-10-29
 
+## Current checkpoint — patched client 4 installed, 2026-10-29
+
+Build/signature/native-lock/replacement install and exact 0.1.0/build 4 inventory
+pass. Actual native launch, Home/passive Identify rendering and repeated same-PID
+checks pass. Profile reused, expires November 4 at 20:28:39 Helsinki. Final full
+430-case/mobile 241 overlapping-case validation passes. Detailed client 4 evidence
+is at the end of this file and in IOS_PATCH_CLIENT4; older entries below keep
+their original scope. Button-flow/large-text/camera/accuracy/release gates remain.
+
 ## Updated reference Home on existing client 3 — 2026-10-29
 
 - Exact own-device lock query is available without passcode prompt. Fresh
@@ -679,3 +688,30 @@ All camera, lifecycle, VoiceOver, appearance, performance, battery and wider bar
 ## Remaining boundary
 
 Device-to-Mac connectivity plus Home/manual/known-result smoke now pass on the installed Expo 57 development client. The current binary still needs the wider camera/barcode matrix, VoiceOver, largest Dynamic Type, dark/reduced-motion, lifecycle and valid performance/battery tests. Release remains blocked until a paid-program release archive/TestFlight build, broader Apple device matrix and all remaining acceptance gates pass.
+## Patched client 4 — detailed October 29 evidence
+
+**Local install/startup scope passes; broader device matrix remains open.**
+Roope requests updating the phone from SDK58 maintenance `e815522`. Native
+build4 retains app/version0.1.0/identity/Android2. Verified complete app/native
+snapshots precede generation;122 new pods/lock-manifest/JS patch versions match.
+Stable Xcode26.6/iOS26.5 serial Debug build succeeds; actual client4/app/all11
+framework signatures, profile/team/device/task-allow/purpose checks pass.
+The valid October28 profile is **reused, expires November4 at20:28:39 Helsinki**,
+not renewed by the new build. Targeted phone inventory confirms0.1.0/build4
+after replacement install, no uninstall/reset or private-container inspection.
+
+Correct LAN manifest/exact12,156,274-byte asset/API health/capability GETs pass.
+Owner explicitly approves current trusted LAN/current key after an initial
+all-interface bind was rejected before execution; final listeners are restricted
+to loopback/current approved address, no key/payload logging. Native dev-client
+launch, three same-PID queries, actual Home/passive Identify screenshot inspection
+and return-home link pass without new trust/account prompt. Barcode/manual/AI
+hierarchy is visible, but physical buttons/back, largest Dynamic Type/VoiceOver,
+camera/permissions/GPS/retention/material accuracy/performance are not newly
+accepted. No camera frame/photo/upload/real lookup/paid inference was taken.
+
+Full430-test validation passes after repairing a new test-fixture type error;
+exact receipts/limits: `IOS_PATCH_CLIENT4.md` / TEST_EVIDENCE. Current services
+remain running for this Mac/LAN-dependent Debug client. No key creation, cleanup,
+new funding/account, GitHub or production publication. Historical evidence below
+retains its original dates and does not override this scoped result.

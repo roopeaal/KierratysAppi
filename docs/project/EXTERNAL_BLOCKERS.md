@@ -1,5 +1,18 @@
 # External blockers
 
+## October29 patched client4
+
+No new external blocker: build/signature/profile/native-lock/replacement install,
+exact build4 inventory, native launch/Home/Identify render and repeated-process
+checks pass. Existing November4 profile is reused; no renewal/trust/login/funding
+request arose. Initial broad LAN-server start was blocked before execution;
+Roope explicitly approves the current trusted LAN/current key and restricted
+address listeners now work. No key exposure or paid call. Engineering owns
+remaining button-flow/larger-text acceptance; Roope handles real physical camera/
+settings prompts if needed. Installed binary success does not close PHOTO-003,
+Android/release/infrastructure/privacy/licensing/store gates. No cleanup or
+GitHub publication authorized by this installation.
+
 ## October 29 dependency maintenance
 
 No new external blocker. Local SDK compatibility and high/critical dependency

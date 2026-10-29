@@ -1,5 +1,13 @@
 # Roadmap
 
+## Patched iPhone client4 — October29
+
+- [x] Preserve verified old app/native-tree snapshots before generation; bump only iOS build4 and add native-build metadata regression, retaining purpose minimum/Android identity.
+- [x] Install122 matching patched pods, verify native locks/JS versions; stable serial Xcode26.6 build, exact app/all11-framework/profile/purpose/device checks pass. Existing November4 profile reused, not a renewal.
+- [x] Replace-install and confirm targeted0.1.0/build4 inventory; native launch/later same-PID/Home/passive Identify render/return-to-Home pass, no camera/GPS/image/paid call. Full430 validation passes; detailed IOS_PATCH_CLIENT4 evidence.
+- [x] Obtain explicit LAN/current-key approval after wildcard start is blocked; bind only loopback/current approved address, verify actual iOS launch asset/current API origin and restore services without exposing the key.
+- [ ] Complete controlled native button-entry/back/larger-text acceptance on installed client4; physical camera/VoiceOver/AI accuracy/Android/production remain separate.
+
 ## SDK 58 dependency maintenance — October 29
 
 - [x] Repair the twelve official patch expectations and all twelve blocking high/critical advisory records, retaining the audited SDK generation and teammate behavior. Do not weaken age/security/Doctor gates.

@@ -1,5 +1,12 @@
 # Acceptance criteria
 
+## Matching patched iPhone installation
+
+1. Preserve a verified prior binary and complete native-tree snapshot before generation; native lock/installed Manifest and JS package versions agree. Native/app/build identity and default/FI/EN camera/foreground-only location declarations are checked against source.
+2. Verify current app/all frameworks, signed/profile/device binding and real profile dates. Replacement inventory proves build4 before delivering patched JS. A build bump/reinstall does not prove a new signing expiry or private-data retention.
+3. Restore development networking only with explicit owner approval and bounded current-address/loopback listeners. Existing credential stays server-side; no paid model call, capture/location or new key is needed merely to verify startup.
+4. Record actual launch/process/Home/Identify rendering separately from button/back/Dynamic Type/VoiceOver/camera/accuracy and public release gates. No historical or browser pass substitutes for unrun native acceptance.
+
 ## SDK 58 dependency maintenance
 
 1. Current official SDK 58 patch expectations, frozen supply-chain install, peers, online Expo check, pinned Doctor and no-exceptions high/critical audit pass without changing app behavior, identity or contributor history. Preserve strict age and CI gates.
