@@ -1,5 +1,27 @@
 # Release decision
 
+October29 maintenance: **local SDK/high-critical dependency HOLD repaired**,
+not public-production GO. Frozen install, peers, online compatibility,
+Doctor20/20, live security policy, full429 cases/all builds/16 routes, all
+three scopes and five browser suites pass. App source/teammate behavior remain;
+twelve moderate/six low records stay visible, no exception/bypass. See
+SDK58_SECURITY_MAINTENANCE. Source is a locally validated sharing candidate,
+but no push or remote CI run occurred. Native patches are **not accepted on
+old installed client3**; matching rebuild/install/smoke is next. Old profile
+expiry unchanged. Existing PHOTO-003/platform/operations/licensing/privacy/
+store gates keep production **NO-GO**; owner sharing approval remains separate.
+
+October 29 contributor-preservation audit: **no teammate-function loss found in
+the five current UI commits**, but **HOLD the recommendation for a team-main
+push** until existing local dependency gates are repaired/revalidated. Fresh
+410-case validation passes; online Expo check fails with 12 expected patches
+and security:audit fails on 12 high/critical advisory records. Actual main CI
+40403403764 already failed Dependency security policy. Source preservation,
+source sharing and public production readiness are distinct decisions.
+Native-only manual address lookup and the unwired material helper are
+pre-existing qualifications, not losses caused by this redesign. No push,
+package correction or native action is authorized/performed by the audit.
+
 October 29 combined identification hub is **not production GO**. Home now leads
 to passive Identify choices in the owner-requested barcode/manual/AI order,
 without changing actual camera/provider/consent/material/source behavior.

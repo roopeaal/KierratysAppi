@@ -1,5 +1,18 @@
 # Acceptance criteria
 
+## SDK 58 dependency maintenance
+
+1. Current official SDK 58 patch expectations, frozen supply-chain install, peers, online Expo check, pinned Doctor and no-exceptions high/critical audit pass without changing app behavior, identity or contributor history. Preserve strict age and CI gates.
+2. Tests retain the patched package floors and actual Expo-selected CLI/Zod schema behavior. Any scoped cross-major tooling override has explicit rationale and invalid-input/strict/readonly/output/JSON-schema coverage, not an untested alias.
+3. Full/scoped tests, builds and existing browser safety/navigation/visual flows pass; remaining low/moderate records remain visible. Source success is not remote CI, production GO or an updated native binary.
+4. Do not deliver patched-native JS to an old development binary. A fresh matching native build/sign/profile/install/navigation check is required before claiming phone compatibility; no photo/GPS/paid inference is needed merely to verify entry/back/layout.
+
+## Contributor preservation before sharing
+
+1. Verify account-associated commits and current remote head, then inspect each patch/current call site; ancestry alone and broad commit titles are insufficient.
+2. Retained/refined/replaced/not-wired behavior is distinguished honestly. Existing native-only address lookup is not presented as browser support; an exported helper is not a finished UI filter.
+3. Fresh validation, online platform expectations and security gates are recorded separately. Preservation success does not imply green CI, physical acceptance, publication authority or production GO.
+
 ## Combined identification hub
 
 1. Home's Skannaa tuote / Lue viivakoodi tai käytä tekoälytunnistusta card opens the existing Identify tab, not a camera or direct-photo flow. Matching EN, accessible name/hint and current direct barcode/manual shortcuts remain.

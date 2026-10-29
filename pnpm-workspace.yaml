@@ -6,6 +6,11 @@ packages:
 minimumReleaseAge: 1440
 minimumReleaseAgeStrict: true
 
+# SDK 58 CLI still requests Zod 3; only this consumer is migrated to patched Zod 4.
+# Actual CLI schemas are exercised by expo-cli-zod-compatibility.test.mjs.
+overrides:
+  '@expo/cli>zod': 4.6.7
+
 allowBuilds:
   esbuild: true
 

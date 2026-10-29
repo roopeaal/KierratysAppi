@@ -1,5 +1,21 @@
 # Roadmap
 
+## SDK 58 dependency maintenance — October 29
+
+- [x] Repair the twelve official patch expectations and all twelve blocking high/critical advisory records, retaining the audited SDK generation and teammate behavior. Do not weaken age/security/Doctor gates.
+- [x] Add twelve security/SDK/lock-parser and seven actual CLI/Zod compatibility regressions. Fresh frozen install, peers, online Expo check, Doctor 20/20, live high/critical policy, full 429 tests/builds/16 routes and all three part validations pass.
+- [x] Keep eighteen lower-severity records visible and separate local gates from actual remote CI/publication. Record exact sources, CLI-only major override and native-runtime incompatibility boundary.
+- [x] Pass all five existing fixture browser suites after repairing a diagnosed same-frame measurement race; inspect Home/dark Identify/narrow-large material-review visuals without changing app source or weakening assertions.
+- [ ] Build/install/smoke the new native dependency set before serving it to the old iPhone client; no signing, native/device acceptance, new expiry or GitHub push follows from source/browser success.
+
+## Contributor preservation / pre-sharing review — October 29
+
+- [x] Resolve GitHub identities and main/PR history; trace ITbes-dev's one SDK commit and Rdotcom's eight patches/merge into current code, separately from ancestry.
+- [x] Confirm five UI commits introduce no teammate-function loss; record prior native-only address reconciliation and still-unused material-filter helper honestly.
+- [x] Re-run full 410-case validation and current CI/online compatibility/security checks without installing/updating packages or publishing.
+- [x] Repair the SDK patch expectations and high/critical security gate in the separately owner-approved maintenance above; the earlier audit itself did not implement them.
+- [ ] Complete latest physical hub/address/large-text acceptance separately; signing or browser fixtures do not establish native behavior. No sharing is authorized by review alone.
+
 ## Identification hub — October 29
 
 - [x] Route the illustrated Home Skannaa tuote card to the real Identify tab with the owner-proposed combined FI copy and equivalent EN; preserve direct shortcuts.

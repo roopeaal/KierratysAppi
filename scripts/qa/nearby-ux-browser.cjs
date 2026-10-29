@@ -6,7 +6,7 @@ const browserExecutable = process.env.BROWSER_EXECUTABLE_PATH;
 if (!playwrightModule || !browserExecutable) throw new Error("Set installed local QA tool paths.");
 const { chromium } = require(playwrightModule);
 const baseUrl = process.env.NEARBY_QA_URL ?? "http://127.0.0.1:8093";
-const evidenceDir = path.resolve("work/nearby-ux-qa");
+const evidenceDir = path.resolve(process.env.APP_QA_EVIDENCE_DIR ?? "work/nearby-ux-qa");
 fs.mkdirSync(evidenceDir, { recursive: true });
 const directory = JSON.parse(
   fs.readFileSync("mobile/app/assets/data/finland-recycling.json", "utf8"),

@@ -1,5 +1,73 @@
 # Test evidence
 
+## October 29 — SDK 58 compatibility/security repair
+
+- Owner-approved maintenance from `ceedb6a`. Frozen install/supply-chain age
+  verification, peers and fresh online Expo check pass. CI-pinned **Doctor
+  1.21.5: 20/20**. Live unchanged security policy passes: **zero high/critical,
+  12 moderate + 6 low** retained. Raw audit exits1 for monitored records, not a
+  policy failure. No exception/exclusion or severity downgrade.
+- Full validation passes **429 unique cases (113 policy + 316 application)**,
+  boundaries/format/lint/types/all builds/16 routes. All three independent
+  scopes pass; overlapping tests, not additional totals. Nineteen new SDK/
+  security-floor/parser/actual Expo CLI-Zod regressions complement existing v1/
+  API/provider tests. Independent focused29/29 overlaps the full count.
+  Final documentation-inclusive full rerun also passes: `validate-final.log`.
+- **All five actual-Metro browser suites pass** on isolated loopback8094:
+  navigation, reference Home, whole-app refinement, photo safety and nearby.
+  Synthetic camera/GPS and intercepted product/photo responses only; no real
+  user data, paid inference or live provider lookup. Existing FI/EN, all-method
+  entry/back, passive entry, consent/material correction/provenance, recovery,
+  local state, keyboard, dark, 320/390/1280 and130% synthetic-text checks remain.
+  Inspected Home, dark Identify and narrow/large material-review screenshots.
+- Initial navigation failure was a mixed-frame responsive measurement race:
+  stale manual y405/h137 against AI y528; atomic measurement gave actual
+  manual bottom512/AI top528, a16px gap. Wait for the scoped narrow branch and
+  read all geometry/fonts together; exact assertions remain. First repair's
+  broad icon selector was corrected to current Identify actions. Original
+  failure/diagnostic retained, not treated as app overlap or ignored.
+- Built API smoke with photo AI explicitly disabled: health/OpenAPI/
+  capabilities HTTP200, synthetic malformed lookup HTTP400. Corrected first
+  smoke's wrong OpenAPI URL to unchanged `/v1/openapi.json`. No valid lookup.
+  App source/localization/assets/rules/directory/SQL/identity/model/prompt/CI/
+  audit implementation unchanged; intentional package/lock/CLI migration explicit.
+- Ignored root: `work/sdk58-security-maintenance-2026-10-29/`. Core logs:
+  `frozen-install`, `peers`, `expo-check`, `expo-doctor`, `security-audit`,
+  `validate`, `validate-{shared,backend,mobile}`, `api-smoke` (`.log`);
+  `audit-{before,after}.json`. Browser: `navigation-final.log`, `reference.log`,
+  `refinement.log`, `photo.log`, `nearby.log`, `browser/`; initial failure is
+  `navigation.log`. SDK58_SECURITY_MAINTENANCE records procedures/failed attempts.
+- **Not a phone/native/signing/install or remote CI pass.** Verified old
+  Metro8093/API3003 paused before native-dependency changes; matching client
+  rebuild/install/smoke is next. Old November4 profile not renewed. No GitHub
+  write/paid call; production NO-GO and PHOTO-003 remain.
+
+## October 29 — contributor preservation / pre-sharing audit
+
+- Inspected app `ceedb6a`, fresh team main `28e0f32`; 0 remote-only/5
+  local-only commits. GitHub account queries verify ITbes-dev's one commit and
+  Rdotcom's eight nonmerge commits plus merged PR #37. All are ancestors;
+  actual patches/call sites and unchanged core files were also checked.
+  Matrix and qualifications: CONTRIBUTOR_PRESERVATION_AUDIT.
+- Fresh pinned full validation **410 unique cases (94 policy + 316 app)**,
+  all gates/builds/16 routes passes. Independent mobile 148/contracts 25/
+  location-policy 10/SDK-policy 10 checks also pass; overlapping, not additive.
+- Fresh **online Expo install --check exits 1: 12 expected patch updates**.
+  Earlier offline-map fallback is not accepted. Fresh **security:audit exits
+  1: 12 high/critical advisory records**, no exceptions. Current-main lockfile/
+  manifest/workflows are unchanged; findings are not visual-branch additions.
+- Actual main CI 40403403764 failed Dependency security policy on October 26;
+  its three part jobs and separate Security 40403403577 succeeded. Do not
+  equate these different workflows or infer an active secret leak from an older
+  annotation. GET metadata only, no workflow rerun.
+- Ignored logs: `work/contributor-audit-2026-10-29/{validate,security-audit}.log`.
+  Final documentation-inclusive full rerun also passes in
+  `validate-post-audit-docs.log`; app HEAD remains `ceedb6a`.
+  pnpm 11.16.0 with automatic pre-command dependency installation disabled to
+  keep review non-mutating; actual mandatory checks were not weakened.
+  No new browser/native/accuracy pass, real user data, paid call, app/package
+  correction, merge, commit, push or PR. Only audit/state documentation updated.
+
 ## October 29 — combined barcode/manual/AI hub
 
 - Full pinned `pnpm validate`: **410 unique cases (94 policy + 316 application)**,

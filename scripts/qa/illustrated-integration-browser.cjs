@@ -44,20 +44,49 @@ async function inspectIdentify(page, language, name, checkProminence = false) {
     ids,
     "Identification actions must follow barcode, manual, AI reading and keyboard order",
   );
-  const boxes = [];
-  const sizes = [];
-  for (const [index, id] of ids.entries()) {
-    const control = page.getByTestId(id);
-    assert.equal(await control.getAttribute("aria-label"), labels[index]);
-    boxes.push(await control.boundingBox());
-    sizes.push(
-      await control
-        .getByText(labels[index], { exact: true })
-        .evaluate((el) => parseFloat(getComputedStyle(el).fontSize)),
-    );
+  await page.evaluate(() => document.fonts.ready);
+  if (page.viewportSize().width < 360) {
+    // React's responsive branch commits asynchronously after a viewport resize.
+    await page
+      .getByTestId("identify-manual-action")
+      .getByTestId("action-icon-manual")
+      .waitFor({ state: "detached" });
+    await page
+      .getByTestId("identify-photo-action")
+      .getByTestId("reference-symbol-camera")
+      .waitFor({ state: "detached" });
   }
-  assert.ok(boxes[1].y >= boxes[0].y + boxes[0].height, "Manual follows barcode visually");
-  assert.ok(boxes[2].y >= boxes[1].y + boxes[1].height, "AI follows manual visually");
+  // One browser evaluation prevents comparing boxes from different layout frames.
+  const measurements = await page
+    .getByTestId("identify-screen")
+    .locator('[data-testid^="identify-"][data-testid$="-action"]')
+    .evaluateAll(
+      (els, expectedLabels) =>
+        els.map((el, index) => {
+          const box = el.getBoundingClientRect();
+          const title = [...el.querySelectorAll("*")].find(
+            (node) => node.childElementCount === 0 && node.textContent === expectedLabels[index],
+          );
+          if (!title) throw new Error("Missing exact identification action title");
+          return {
+            label: el.getAttribute("aria-label"),
+            y: box.top,
+            bottom: box.bottom,
+            height: box.height,
+            titleSize: parseFloat(getComputedStyle(title).fontSize),
+            titleWidth: title.getBoundingClientRect().width,
+          };
+        }),
+      labels,
+    );
+  assert.deepEqual(
+    measurements.map((item) => item.label),
+    labels,
+  );
+  const boxes = measurements;
+  const sizes = measurements.map((item) => item.titleSize);
+  assert.ok(boxes[1].y >= boxes[0].bottom, "Manual follows barcode visually");
+  assert.ok(boxes[2].y >= boxes[1].bottom, "AI follows manual visually");
   if (checkProminence) {
     assert.ok(
       boxes[0].height > Math.max(boxes[1].height, boxes[2].height),
@@ -86,8 +115,7 @@ async function inspectIdentify(page, language, name, checkProminence = false) {
     );
     for (const index of [1, 2])
       assert.ok(
-        (await page.getByTestId(ids[index]).getByText(labels[index], { exact: true }).boundingBox())
-          .width >= 150,
+        measurements[index].titleWidth >= 150,
         "Narrow secondary labels retain usable reading width",
       );
   }

@@ -7,7 +7,7 @@ const executablePath = process.env.BROWSER_EXECUTABLE_PATH;
 if (!modulePath || !executablePath) throw new Error("Set installed Playwright and browser paths.");
 const { chromium } = require(modulePath);
 const origin = process.env.APP_QA_URL ?? "http://127.0.0.1:8093";
-const evidence = path.resolve("work/photo-qa");
+const evidence = path.resolve(process.env.APP_QA_EVIDENCE_DIR ?? "work/photo-qa");
 fs.mkdirSync(evidence, { recursive: true });
 const estimate = {
   status: "estimated",

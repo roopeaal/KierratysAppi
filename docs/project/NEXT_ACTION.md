@@ -1,3 +1,3 @@
 # Next action
 
-Complete one installed-client-3 navigation smoke of Home Skannaa tuote → the selected Identify tab → barcode/manual/AI entry and back, checking order, labels and reading width at default and larger native text without capturing/uploading images, scanning a real code, using real GPS/addresses, paid recognition calls or GitHub publication.
+Build and replace-install a matching patched SDK 58 iPhone development client, preserving the verified old binary and local data, then verify Home → Identify → barcode/manual/photo entry-and-back at normal and larger native text without taking/uploading a photo, real GPS, paid inference or GitHub publication; Roope handles any actual unlock/trust/account prompt.

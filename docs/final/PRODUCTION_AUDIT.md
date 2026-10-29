@@ -1,5 +1,28 @@
 # Adversarial production-readiness audit
 
+## AUD-044 — Blocking SDK58-era dependency advisories, October29
+
+- Severity: **critical** aggregate (one critical/eleven high records), not
+  lowered to obtain a pass. Status: **locally repaired**.
+- Evidence: captured `ceedb6a` audit reports brace-expansion, Fastify, forge,
+  source-map-js, compression, shell-quote, Vite-bundled launch-editor and Zod.
+  Fresh audit after repair has zero high/critical, twelve moderate/six low;
+  unchanged fail-closed/no-exceptions policy passes.
+- Affected: workspace manifests/lock, API validation/runtime, Expo/test/build
+  tooling. App features/source/policy/data/identity retained.
+- Reproduce: inspect `work/sdk58-security-maintenance-2026-10-29/audit-before.json`
+  (ignored) and `git show ceedb6a:pnpm-lock.yaml`; run security:audit, new floor/
+  actual CLI-schema tests, online Expo/Doctor, frozen install/full validation.
+- Remediation: compatible security/SDK patches, explicit CLI-only Zod migration,
+  supported Vite test peer, nineteen new regressions. Full429 tests/builds,
+  all scopes/five browser suites and Doctor20/20 pass. Exact sources/results:
+  SDK58_SECURITY_MAINTENANCE. Remaining monitored records have engineering-owned
+  procedures in DEPENDENCY_RISK_ACCEPTANCE.
+- Boundary: local repair complete, not externally blocked. Native patches need
+  matching rebuild/install/smoke. No new native/remote CI/GitHub/publication or
+  production GO claim. Existing PHOTO-003 and broader release matrix remain;
+  this is not a repeated30-lane audit.
+
 ## Material-review mitigation — 2026-10-15
 
 Scoped follow-up, not a repeated 30-lane audit. PHOTO-003's locally executable

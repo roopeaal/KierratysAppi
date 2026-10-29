@@ -1,9 +1,39 @@
 # Dependency risk acceptance
 
-Reviewed: 2026-09-10
+Reviewed: 2026-10-29
 Owner: engineering; product owner must review remaining risks before release
 
-## Current live high/critical gate: pass, no exceptions
+## Current October29 gate: pass, no high/critical exceptions
+
+The SDK58 maintenance repairs twelve blocking records (eleven high/one
+critical). Fresh raw audit: **zero high/critical, twelve moderate and six low**;
+the unchanged policy passes. Frozen install/supply-chain age, peers, fresh
+online Expo, Doctor20/20, full429 tests/all builds and five browser suites pass.
+No severity was lowered. CLI-only Zod3→4 migration is explicit and tested,
+not a v3 alias or advisory exception. Exact sources and remediation rationale:
+`docs/research/dependency-security-2026-10-29.md`; logs/procedures in
+`docs/final/SDK58_SECURITY_MAINTENANCE.md`. No new phone or remote-CI acceptance.
+
+### Current monitored records — not approved for public release
+
+| Dependency | Records | IDs / patched upstream floor |
+| --- | --- | --- |
+| esbuild0.27.7 | 1 low | GHSA-g7r4-m6w7-qqqr /0.28.1 |
+| ip-address10.4.0 | 5 moderate | GHSA-rpw4-54j3-4h4q, GHSA-2vr4-cq9g-pvrc /10.5.1; GHSA-j6r3-76f7-8jcv, GHSA-h3mg-xc3c-68pw /10.7.1; GHSA-rxp7-6hxx-x8q5 /10.7.4 |
+| fast-uri3.1.7/4.1.4 | 7 moderate,4 low | GHSA-hrr3-gc8f-f4qj, GHSA-jvvf-x445-j334; GHSA-w74x-v6f9-j3xg, GHSA-xhq7-xmqj-769h, GHSA-wjr9-j795-jxcr, GHSA-333x-w4r6-6crp; final compatible floors3.1.9/4.2.3 |
+| deepmerge4.3.1 | 1 low | GHSA-gcqx-w48m-w2h4 /4.3.2 |
+
+These are eighteen registry advisory records, not eighteen unique packages or
+proof of application exploitability/non-exploitability. Raw report retains each
+path/range/severity. **Engineering** owns the next bounded lower-severity review:
+confirm supported parent ranges and age for ip-address/fast-uri/deepmerge,
+apply compatible patches, then frozen install/API/contracts/full/online security
+checks. Evaluate esbuild's0.27→0.28 parent/tooling migration separately rather
+than blindly overriding a pre-1.0 minor. Never hide these records or declare
+production clearance from the high/critical threshold. Existing native-runtime
+matching/install is the single current NEXT_ACTION; this is follow-up risk work.
+
+## Historical September10 live high/critical gate: pass, no exceptions
 
 On September 10 the registry recovered. Its initial audit returned 20 high, zero critical, ten moderate and one low records. SDK-compatible Expo 57.0.21/Router 57.0.20 repairs the remote Doctor failure; a separate narrow transitive update repairs xmldom 0.8.13 → 0.8.15, xmldom 0.9.10 → 0.9.12, and js-yaml 4.3.1 → 4.3.2. Parent ranges allow these patches; no parser was added as a direct dependency and no override/exclusion was introduced. All releases exceed the strict 1,440-minute age gate.
 

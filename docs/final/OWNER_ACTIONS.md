@@ -1,5 +1,44 @@
 # Owner actions
 
+## October 29 — dependency gates repaired; native client next
+
+- **Engineering complete:** twelve official SDK/RN expectations and twelve
+  blocking advisory records repaired. Frozen install, peers, online Expo,
+  Doctor20/20, security policy, full429 tests/builds, three independent scopes
+  and five browser suites pass. Eighteen lower-severity records remain visible;
+  no teammate implementation removed. See SDK58_SECURITY_MAINTENANCE.
+- **Engineering next:** preserve/verify client3 rollback; generate the patched
+  native project from `mobile/app` using the same technical ID/team and stable
+  Xcode26.6, install matching pods, compile and verify app/framework signatures,
+  purpose strings, native/JS versions and actual profile dates. Replace-install
+  without uninstall/reset; verify inventory/startup and NEXT_ACTION navigation/
+  larger text. Restore phone-serving Metro/API only with matching binary. No
+  real GPS/photo upload/paid inference is needed for this acceptance.
+- **Roope only if needed:** connect/unlock the intended phone and handle actual
+  trust/keychain/account prompts personally. No new account/funding requirement
+  was demonstrated. Old profile expires November4 at20:28:39 Helsinki until a
+  new profile is verified; never send credentials/codes in chat.
+- **Separate Roope sharing decision:** this repair is not push permission.
+  Source is locally validated, remote CI unobserved; publication requires
+  explicit destination/ref approval. Production/PHOTO-003/store gates remain.
+
+## October 29 — teammate preservation / source-sharing assessment
+
+- **Engineering audit complete:** GitHub identity/history and all nine
+  substantive contributor commits traced; current five UI commits introduce no
+  teammate-function regression found. Prior web-address removal/native OS
+  replacement and unused material-filter helper are explicitly qualified in
+  CONTRIBUTOR_PRESERVATION_AUDIT.
+- **Engineering next maintenance:** repair the 12 current SDK patch
+  expectations and high/critical dependency-policy failure without discarding
+  contributor behavior, then run frozen-install, online Expo health, security
+  and full tests. Do not waive gates or treat old CI as new proof.
+- **Roope:** this review is not push approval. After reviewed maintenance and
+  latest native acceptance, separately decide whether to share the selected
+  history to the verified team main. Signing's November 4 deadline concerns
+  phone tests, not whether Git permits a source push; no renewal is required
+  merely to review code.
+
 ## October 29 — combined identification hub
 
 - **Engineering complete locally:** combined Home entry, barcode-first Identify,

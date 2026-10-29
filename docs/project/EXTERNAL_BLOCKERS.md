@@ -1,5 +1,31 @@
 # External blockers
 
+## October 29 dependency maintenance
+
+No new external blocker. Local SDK compatibility and high/critical dependency
+gates are repaired and freshly pass; twelve moderate and six low records remain
+tracked, not hidden. Engineering owns a matching native rebuild/install/smoke
+because patched RN/Expo JS is not accepted on old client 3. The previous verified
+phone identity/profile remains; no new account, funding, signing, device-read or
+trust failure was observed here. Roope handles an actual physical/account prompt
+only if the next installation encounters one. Legacy Metro/API were deliberately
+paused to avoid mismatch; isolated web QA is on 8094, not phone acceptance.
+Existing PHOTO-003, Android/release/operations/store gates remain. No publication
+or paid inference is authorized by this repair request.
+
+## October 29 contributor-preservation audit
+
+No new external blocker. Teammate changes/history are preserved as documented
+in CONTRIBUTOR_PRESERVATION_AUDIT; native-only manual address lookup and the
+unwired material-filter helper are existing implementation limits. Fresh online
+Expo compatibility expects 12 patch updates, and security:audit rejects 12
+high/critical records on the unchanged main lockfile. These are local dependency
+maintenance/validation work, not a missing account, database or funding issue.
+Review did not authorize package fixes or a push. Latest physical acceptance
+and existing production-owner gates remain separate. No current secret leak is
+inferred from older annotations; latest main's separate Security workflow passed
+while its CI dependency-security step failed.
+
 ## October 29 identification hub
 
 No new external blocker. Grouping the existing barcode/manual/photo choices

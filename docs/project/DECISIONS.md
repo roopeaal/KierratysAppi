@@ -1,5 +1,21 @@
 # Decision log
 
+## D-057 — Repair dependency gates without hiding a CLI migration or native mismatch
+
+- Date: 2026-10-29. Roope approves repairing the audit's local dependency gates, not pushing or making paid calls.
+- Retain SDK 58/RN 0.88/React 19.3 and all app behavior. Apply official compatible native patches, Fastify 5.x/Zod 4.x security updates and compatible transitive fixes. Pin supported Vite as the test runner's explicit development peer; align Vitest/coverage patches, not a test-runner major migration.
+- Expo CLI still requires vulnerable Zod 3. A narrow `@expo/cli>zod: 4.6.7` migration is explicit, supported by tests against its two actual consuming schema modules and full config/export/Metro/Doctor/browser checks. Do not globally replace consumers, alias old v3 code or waive advisories. Revisit/remove when supported upstream adopts safe Zod.
+- Keep strict 1,440-minute age and every diagnostic/security gate. Twelve security-floor/parser/SDK and seven CLI runtime regressions complement existing v1/API/provider/source tests. Fresh online security/Doctor evidence is separate from remote CI and production GO; eighteen lower-severity records remain visible.
+- Old client 3 contains different native code. Stop only its verified development servers before package changes; use isolated loopback web QA. Require a matching native build/install/smoke before resuming phone delivery. No new native, expiry, recognition-accuracy or paid-call claim; no GitHub write. The responsive QA measurement repair reads same-frame geometry without loosening layout requirements.
+
+## D-056 — Audit contribution intent separately from ancestry and sharing readiness
+
+- Date: 2026-10-29. Roope asks whether teammates' work survives before deciding on a push; this authorizes investigation, not implementation, package changes or publication.
+- Verify GitHub account associations, PRs, fresh remote heads, exact ancestry and each actual patch/current call site. Git author `unknown` is not proof a contribution disappeared. Commit titles are not implementation evidence; documentation next actions can legitimately be superseded.
+- Preserve distinctions: Rdotcom's native address intent/postal/subregion work remains, but earlier published main replaced original public Nominatim/web lookup; a retained unused material helper is not a completed UI feature. Current UI work changed neither implementation. ITbes-dev's dependency/CI set is retained byte-for-byte, apart from separately identified native build-number metadata and later QA/doc additions.
+- Fresh 410-test validation does not override failing online Expo expectations or dependency security. Treat main source sharing as HOLD pending repair/revalidation, not as production readiness or missing teammate work. Current-main failed CI is confirmed at its security-policy step; a separate successful Security workflow does not cancel that result.
+- Keep the audit non-mutating for application/test/config/dependency/history/publication. Record evidence and the next local repair action; owner must separately approve any later team sharing step.
+
 ## D-055 — Group identification choices without merging their trust boundaries
 
 - Date: 2026-10-29. Authority: Roope explicitly asks for Home's combined Skannaa tuote action to open Identify, with barcode, manual barcode and AI in that order. No paid inference, GitHub sharing or native renewal authority.
