@@ -13,6 +13,7 @@ import {
 import { announceAccessibility } from "@/features/accessibility/announcements";
 import { saveFeedbackDraft } from "@/features/history/storage";
 import { useLanguage } from "@/i18n/language-context";
+import { appFontFamily } from "@/theme/fonts";
 import { radius, spacing, useAppTheme } from "@/theme/tokens";
 
 const CATEGORIES = [
@@ -149,8 +150,8 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: radius.md,
     padding: spacing.md,
-    fontFamily: "Atkinson_400Regular",
-    fontSize: 17,
+    fontFamily: appFontFamily,
+    fontSize: 16,
     lineHeight: 24,
     marginBottom: spacing.sm,
   },

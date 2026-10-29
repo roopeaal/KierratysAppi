@@ -34,7 +34,8 @@ import { LocationIssue } from "@/features/nearby/location-session";
 import { AddressLookupIssue } from "@/features/nearby/manual-location";
 import { useNearbySearch } from "@/features/nearby/search-context";
 import { useLanguage } from "@/i18n/language-context";
-import { spacing, useAppTheme } from "@/theme/tokens";
+import { appFontFamily } from "@/theme/fonts";
+import { radius, spacing, useAppTheme } from "@/theme/tokens";
 
 const directory = CollectionDirectorySchema.safeParse(snapshot);
 type State =
@@ -357,9 +358,10 @@ const styles = StyleSheet.create({
   provenance: { gap: spacing.sm, paddingTop: spacing.sm },
   locationInput: {
     minHeight: 48,
-    borderWidth: 1,
-    borderRadius: 8,
+    borderWidth: 2,
+    borderRadius: radius.lg,
     padding: spacing.md,
-    fontSize: 18,
+    fontFamily: appFontFamily,
+    fontSize: 16,
   },
 });

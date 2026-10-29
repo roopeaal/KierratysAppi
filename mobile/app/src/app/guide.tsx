@@ -20,6 +20,7 @@ import {
   parseGuideSearchParams,
 } from "@/features/guide/search";
 import { useLanguage } from "@/i18n/language-context";
+import { appFontFamily } from "@/theme/fonts";
 import { controls, interaction, radius, spacing, useAppTheme } from "@/theme/tokens";
 
 const GUIDE = [
@@ -209,8 +210,8 @@ const styles = StyleSheet.create({
     borderRadius: radius.md,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
-    fontFamily: "Atkinson_400Regular",
-    fontSize: 17,
+    fontFamily: appFontFamily,
+    fontSize: 16,
   },
   filters: { flexDirection: "row", flexWrap: "wrap", gap: spacing.xs },
   filter: {

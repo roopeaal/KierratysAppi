@@ -1,5 +1,12 @@
 # Roadmap
 
+## Whole-app visual consistency — October 29
+
+- [x] Extend Home's font, ink/secondary/link/canvas tokens to all thirteen functional pages; centralize fonts and Home palette aliases without changing semantic statuses or dependencies.
+- [x] Unify compact leaf/back navigation, surfaces, controls, focus and original symbols; refine Identify/Settings and keep reading/capture/provenance content focused.
+- [x] Repair reviewed dark navigation corners; add nine source-policy regressions and expand the actual-Metro typography/palette/focus/narrow/wide browser matrix. Scoped 240/full 405 checks and all five fixture suites pass. Exact outcomes: APP_DESIGN_CONSISTENCY and TEST_EVIDENCE.
+- [ ] Accept this latest all-page design on installed client 3 at normal and larger native text, with real navigation/VoiceOver recorded separately from browser evidence. No photo upload/GPS/paid call is needed.
+
 ## Reference fidelity continuation — October 29
 
 - [x] Compare proportional reference gaps; implement improved branding, leafy photo-card crop, filled native-compatible symbols, Home-only colors and compact hierarchy while retaining current AI/photo safeguards and actual data.

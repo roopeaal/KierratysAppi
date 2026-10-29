@@ -1,6 +1,7 @@
 import { type ComponentProps, type PropsWithChildren, type ReactNode, useState } from "react";
-import { Platform, Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
+import { Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
 import type { GuideMaterial } from "@/features/guide/search";
+import { appFontFamily } from "@/theme/fonts";
 import { homeColors } from "@/theme/home-colors";
 import { interaction, useAppTheme } from "@/theme/tokens";
 import { ActionIcon, type ActionIconKind } from "./action-icon";
@@ -8,10 +9,7 @@ import { ReferenceSymbol } from "./reference-symbol";
 import { AppText as BaseAppText, Chevron } from "./ui";
 
 // The reference uses native, compact sans-serif text. Retain system text scaling.
-export const homeFont = Platform.select({
-  web: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-  default: "System",
-});
+export const homeFont = appFontFamily;
 
 export function HomeText({ style, ...props }: ComponentProps<typeof BaseAppText>) {
   const { isDark } = useAppTheme();

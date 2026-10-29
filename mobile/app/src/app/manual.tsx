@@ -1,10 +1,19 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Keyboard, StyleSheet, TextInput, View } from "react-native";
-import { AppText, Button, PageHeader, PageIntro, Screen, sharedStyles } from "@/components/ui";
+import {
+  AppText,
+  Button,
+  PageHeader,
+  PageIntro,
+  Paper,
+  Screen,
+  sharedStyles,
+} from "@/components/ui";
 import { announceAccessibility } from "@/features/accessibility/announcements";
 import { useScanSession } from "@/features/scan/session-context";
 import { useLanguage } from "@/i18n/language-context";
+import { codeFontFamily } from "@/theme/fonts";
 import { controls, radius, spacing, useAppTheme } from "@/theme/tokens";
 
 export default function ManualEntryScreen() {
@@ -31,7 +40,7 @@ export default function ManualEntryScreen() {
     <Screen testID="manual-entry-screen">
       <PageHeader onBack={() => router.back()} testID="manual-close-action" />
       <PageIntro title={t("manualEntry")} body={t("manualLocation")} />
-      <View style={styles.body}>
+      <Paper style={styles.body}>
         <View style={sharedStyles.tightStack}>
           <AppText variant="label" nativeID="gtin-label">
             {t("gtinLabel")}
@@ -85,7 +94,7 @@ export default function ManualEntryScreen() {
           disabled={value.trim().length === 0}
           testID="manual-submit-action"
         />
-      </View>
+      </Paper>
     </Screen>
   );
 }
@@ -95,10 +104,10 @@ const styles = StyleSheet.create({
   input: {
     minHeight: controls.inputMinHeight,
     borderWidth: 2,
-    borderRadius: radius.md,
+    borderRadius: radius.lg,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.md,
-    fontFamily: "IBMPlexMono_600SemiBold",
+    fontFamily: codeFontFamily,
     fontSize: 18,
     letterSpacing: 0.5,
   },

@@ -46,11 +46,7 @@ export function PackagingMark({ material }: { readonly material?: string }) {
       style={[styles.tile, { backgroundColor: palette.pineSoft }]}
     >
       {!material || material === "unknown" ? (
-        <Text
-          style={{ color: palette.textPrimary, fontSize: 26, fontFamily: "Atkinson_400Regular" }}
-        >
-          ?
-        </Text>
+        <Text style={{ color: palette.textPrimary, fontSize: 26 }}>?</Text>
       ) : isBottle ? (
         <View style={styles.object}>
           <View style={[styles.bottleCap, border]} />

@@ -1,5 +1,12 @@
 # Acceptance criteria
 
+## App-wide design consistency
+
+1. Home and all thirteen functional pages share one platform sans and live canvas/ink/secondary/link palette. Monospaced identifiers remain intentional; no legacy sans override, clipped text or scaling cap. Home's palette alias cannot drift independently.
+2. Compact leaf/back navigation, rounded surfaces/controls and original semantic action symbols are consistent. Brand artwork stays decorative; reading/source sections and camera overlays remain focused, without a second hero or invented content.
+3. Keyboard focus remains visible beside filled/secondary/quiet actions, controls retain 44-point targets, disabled/busy semantics and FI/EN. Dark mode is reactive. Error/uncertainty/source/consent/material-confirmation and local-data boundaries are not simplified away.
+4. Source regressions plus actual-Metro computed-style, FI/EN, 320/390/1280, dark and synthetic 130% reading/form/Identify/Settings/Nearby checks pass alongside all five existing fixture suites and full/scoped validation. Browser evidence is explicitly separate from the latest native all-page, Dynamic Type/VoiceOver/camera/accuracy acceptance.
+
 ## Reference fidelity and native symbols
 
 1. The leafy primary card opens the existing AI photo flow; explicit upload consent, inferred identity, separate material/condition confirmation and unknown/unsafe recovery remain unchanged. No image, precise location, fake nearest/open/last-viewed data or paid model request is added by rendering Home.

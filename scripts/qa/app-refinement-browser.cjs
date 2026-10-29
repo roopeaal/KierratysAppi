@@ -231,7 +231,7 @@ async function largeText(page) {
       await page.waitForFunction(
         () =>
           getComputedStyle(document.querySelector('[data-testid="home-guide-action"]'))
-            .borderTopColor === "rgb(36, 77, 60)",
+            .borderTopColor === "rgb(67, 93, 149)",
       );
       await page.getByTestId("home-guide-action").press("Enter");
       await page
@@ -243,6 +243,14 @@ async function largeText(page) {
       await page.goto(baseUrl);
       await page.getByTestId("home-screen").waitFor();
       await shot(page, language + "-home");
+      const homeType = await page
+        .getByTestId("home-photo-action")
+        .getByText(language === "fi" ? "Skannaa tuote" : "Scan an item", { exact: true })
+        .evaluate((el) => ({
+          font: getComputedStyle(el).fontFamily,
+          color: getComputedStyle(el).color,
+          canvas: getComputedStyle(document.getElementById("app-screen-surface")).backgroundColor,
+        }));
       for (const id of [
         "home-scan-action",
         "home-manual-action",
@@ -278,6 +286,13 @@ async function largeText(page) {
       );
       await page.getByTestId("manual-gtin-input").fill("123");
       await page.getByTestId("manual-submit-action").focus();
+      assert.match(
+        await page
+          .getByTestId("manual-submit-action")
+          .evaluate((el) => getComputedStyle(el).boxShadow),
+        /rgb\(67, 93, 149\)/,
+        "Primary action keeps a separated visible keyboard-focus ring",
+      );
       await page.getByTestId("manual-submit-action").press("Enter");
       await page.getByRole("alert").waitFor();
       assert.equal(requests, 0, "Invalid code never reaches API");
@@ -291,7 +306,27 @@ async function largeText(page) {
       ]) {
         scenario = state;
         await page.goto(baseUrl + "/manual");
-        await page.getByTestId("manual-gtin-input").fill(gtin);
+        try {
+          await page.getByTestId("manual-gtin-input").fill(gtin);
+        } catch (error) {
+          const diagnostic = await page.evaluate(() => ({
+            path: location.pathname,
+            ready: document.readyState,
+            screen: document.querySelector("[data-testid$='-screen']")?.getAttribute("data-testid"),
+            headings: [...document.querySelectorAll("[role='heading']")].map(
+              (el) => el.textContent,
+            ),
+          }));
+          await page.screenshot({
+            path: path.join(evidence, language + "-manual-load-failure-" + state + ".png"),
+            fullPage: true,
+          });
+          throw new Error(
+            JSON.stringify({ language, state, diagnostic, pageErrors: errors }) +
+              ": " +
+              error.message,
+          );
+        }
         await page.getByTestId("manual-submit-action").click();
         if (state === "not_found") {
           await page.getByTestId("result-loading-screen").waitFor();
@@ -464,6 +499,9 @@ async function largeText(page) {
       await shot(page, language + "-legal");
       for (const route of [
         "",
+        "identify",
+        "settings",
+        "nearby",
         "manual",
         "component",
         "feedback",
@@ -474,6 +512,31 @@ async function largeText(page) {
       ]) {
         await page.goto(baseUrl + "/" + route);
         await page.getByText("KeepItGreen", { exact: true }).first().waitFor();
+        await page.emulateMedia({ colorScheme: "light" });
+        await page.waitForFunction(
+          (canvas) =>
+            getComputedStyle(document.getElementById("app-screen-surface")).backgroundColor ===
+            canvas,
+          homeType.canvas,
+        );
+        if (route) {
+          const heading = page.getByRole("heading").first();
+          const style = await heading.evaluate((el) => ({
+            font: getComputedStyle(el).fontFamily,
+            color: getComputedStyle(el).color,
+          }));
+          assert.equal(style.font, homeType.font, route + " shares Home's sans family");
+          assert.equal(style.color, homeType.color, route + " shares Home's heading ink");
+          await shot(page, language + "-consistent-" + route);
+          if (route === "guide" || route === "feedback") {
+            const field = page.getByRole("textbox").first();
+            assert.equal(
+              await field.evaluate((el) => getComputedStyle(el).fontFamily),
+              homeType.font,
+              route + " input shares Home's sans family",
+            );
+          }
+        }
         await page.emulateMedia({ colorScheme: "dark" });
         await page
           .waitForFunction(
@@ -493,6 +556,13 @@ async function largeText(page) {
             throw new Error(`${error.message}: ${JSON.stringify(observed)}`);
           });
         await shot(page, language + "-dark-" + (route || "home"));
+        assert.equal(
+          await page
+            .locator("#app-navigation-surface")
+            .evaluate((el) => getComputedStyle(el).backgroundColor),
+          "rgb(20, 34, 27)",
+          "Rounded navigation corners must not expose a white root surface in dark mode",
+        );
         await largeText(page);
         await shot(page, language + "-large-" + (route || "home"));
         if (route === "") {
@@ -517,6 +587,15 @@ async function largeText(page) {
           );
         }
         await page.emulateMedia({ colorScheme: "light" });
+        if (route) {
+          for (const width of [320, 1280]) {
+            await page.setViewportSize({ width, height: 844 });
+            await page.reload();
+            await page.getByText("KeepItGreen", { exact: true }).first().waitFor();
+            await shot(page, language + "-consistent-" + route + "-" + width);
+          }
+          await page.setViewportSize({ width: 390, height: 844 });
+        }
       }
       await page.goto(baseUrl);
       await page.setViewportSize({ width: 320, height: 740 });
@@ -537,7 +616,7 @@ async function largeText(page) {
       await context.close();
     }
     console.log(
-      "PASS: isolated FI/EN UI flows, invalid-no-request, missing/unavailable/offline/resolved/unknown, provenance, confirmation, ambiguity, local history/draft/factual privacy, touch targets, dark/130% synthetic text, 320/390/1280 widths. No user GPS or production fixture data.",
+      "PASS: isolated FI/EN UI flows, shared Home/subpage type and palette, invalid-no-request, missing/unavailable/offline/resolved/unknown, provenance, confirmation, ambiguity, local history/draft/factual privacy, touch targets, dark/130% synthetic text, all reading/form/Identify/Settings/Nearby pages at 320/390/1280 widths. No user GPS or production fixture data.",
     );
   } finally {
     await browser.close();

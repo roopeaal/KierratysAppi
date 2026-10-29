@@ -1,8 +1,3 @@
-import {
-  AtkinsonHyperlegibleNext_400Regular,
-  AtkinsonHyperlegibleNext_600SemiBold,
-  AtkinsonHyperlegibleNext_700Bold,
-} from "@expo-google-fonts/atkinson-hyperlegible-next";
 import { IBMPlexMono_600SemiBold } from "@expo-google-fonts/ibm-plex-mono";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
@@ -11,8 +6,8 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { View } from "react-native";
 import { useReducedMotion } from "react-native-reanimated";
-import { navigationAnimation } from "@/features/accessibility/motion";
 import { BottomNavigation } from "@/components/bottom-navigation";
+import { navigationAnimation } from "@/features/accessibility/motion";
 import { NearbySearchProvider } from "@/features/nearby/search-context";
 import { ScanSessionProvider } from "@/features/scan/session-context";
 import { LanguageProvider } from "@/i18n/language-context";
@@ -24,7 +19,7 @@ function Navigation() {
   const { palette, isDark } = useAppTheme();
   const reducedMotion = useReducedMotion();
   return (
-    <View style={{ flex: 1 }}>
+    <View nativeID="app-navigation-surface" style={{ flex: 1, backgroundColor: palette.bgCanvas }}>
       <StatusBar style={isDark ? "light" : "dark"} />
       <Stack
         screenOptions={{
@@ -40,9 +35,6 @@ function Navigation() {
 
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
-    Atkinson_400Regular: AtkinsonHyperlegibleNext_400Regular,
-    Atkinson_600SemiBold: AtkinsonHyperlegibleNext_600SemiBold,
-    Atkinson_700Bold: AtkinsonHyperlegibleNext_700Bold,
     IBMPlexMono_600SemiBold,
   });
 

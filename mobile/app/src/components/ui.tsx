@@ -1,5 +1,5 @@
-import { type PropsWithChildren, type ReactNode, useState } from "react";
 import { usePathname } from "expo-router";
+import { type PropsWithChildren, type ReactNode, useState } from "react";
 import {
   ActivityIndicator,
   Pressable,
@@ -9,15 +9,24 @@ import {
   Text,
   type TextProps,
   type TextStyle,
+  useWindowDimensions,
   View,
   type ViewStyle,
-  useWindowDimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useLanguage } from "@/i18n/language-context";
 import { activeTab } from "@/features/navigation/routes";
-import { controls, interaction, radius, spacing, typography, useAppTheme } from "@/theme/tokens";
+import { useLanguage } from "@/i18n/language-context";
+import {
+  controls,
+  focusRing,
+  interaction,
+  radius,
+  spacing,
+  typography,
+  useAppTheme,
+} from "@/theme/tokens";
 import { navigationTileMinimumWidth, screenLayout } from "./navigation-layout";
+import { LeafBrandMark } from "./reference-artwork";
 
 type TextVariant = "display" | "title" | "heading" | "body" | "small" | "label" | "mono";
 
@@ -78,7 +87,6 @@ export function Screen({
 }
 
 export function BrandLockup({ compact = false }: { readonly compact?: boolean }) {
-  const { palette } = useAppTheme();
   const { t } = useLanguage();
   return (
     <View
@@ -86,11 +94,7 @@ export function BrandLockup({ compact = false }: { readonly compact?: boolean })
       accessible
       accessibilityLabel={compact ? t("appName") : `${t("appName")}. ${t("tagline")}`}
     >
-      <View style={[styles.brandMark, { borderColor: palette.ink }]} accessibilityElementsHidden>
-        <View style={[styles.brandMarkTop, { backgroundColor: palette.pineSoft }]} />
-        <View style={[styles.brandMarkBottom, { backgroundColor: palette.actionPrimary }]} />
-        <View style={[styles.brandSeam, { backgroundColor: palette.surface }]} />
-      </View>
+      <LeafBrandMark size={compact ? 30 : 42} />
       <View style={styles.sectionTitle}>
         <AppText variant={compact ? "heading" : "title"}>{t("appName")}</AppText>
         {!compact && (
@@ -116,24 +120,35 @@ export function PageHeader({
   const { palette } = useAppTheme();
   const { t } = useLanguage();
   const backLabel = label ?? t("back");
+  const [focused, setFocused] = useState(false);
   return (
-    <View style={[styles.pageHeader, { borderColor: palette.borderSubtle }]}>
+    <View style={styles.pageHeader}>
       <Pressable
         accessibilityRole="button"
         accessibilityLabel={backLabel}
         onPress={onBack}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
         testID={testID}
         style={({ pressed }) => [
           styles.backAction,
-          { opacity: pressed ? interaction.pressedOpacity : 1 },
+          {
+            backgroundColor: palette.bgSurface,
+            borderColor: focused ? palette.actionLink : "transparent",
+            boxShadow: focused ? focusRing(palette) : "none",
+            opacity: pressed ? interaction.pressedOpacity : 1,
+          },
         ]}
       >
         <Chevron back />
         <AppText variant="label">{backLabel}</AppText>
       </Pressable>
-      <AppText variant="small" muted style={styles.headerWordmark}>
-        {t("appName")}
-      </AppText>
+      <View style={styles.headerBrand}>
+        <LeafBrandMark size={26} />
+        <AppText variant="small" style={styles.headerWordmark}>
+          {t("appName")}
+        </AppText>
+      </View>
     </View>
   );
 }
@@ -204,16 +219,24 @@ export function ActionRow({
   readonly testID?: string;
 }) {
   const { palette } = useAppTheme();
+  const [focused, setFocused] = useState(false);
   return (
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={label}
       accessibilityHint={detail}
       onPress={onPress}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
       testID={testID}
       style={({ pressed }) => [
         styles.actionRow,
-        { borderColor: palette.borderSubtle, opacity: pressed ? interaction.pressedOpacity : 1 },
+        {
+          borderColor: focused ? palette.actionLink : palette.borderSubtle,
+          backgroundColor: pressed ? palette.pineSoft : "transparent",
+          boxShadow: focused ? focusRing(palette) : "none",
+          opacity: pressed ? interaction.pressedOpacity : 1,
+        },
       ]}
     >
       {leading && (
@@ -339,6 +362,7 @@ export function Button({
   testID,
 }: ButtonProps) {
   const { palette } = useAppTheme();
+  const [focused, setFocused] = useState(false);
   const backgrounds = {
     primary: palette.actionPrimary,
     secondary: palette.actionSecondary,
@@ -361,13 +385,20 @@ export function Button({
       aria-disabled={disabled || busy}
       disabled={disabled || busy}
       onPress={onPress}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
       testID={testID}
       style={({ pressed }) => [
         styles.button,
         style,
         {
           backgroundColor: backgrounds[variant],
-          borderColor: variant === "secondary" ? palette.borderSubtle : backgrounds[variant],
+          boxShadow: focused ? focusRing(palette) : "none",
+          borderColor: focused
+            ? palette.actionLink
+            : variant === "secondary"
+              ? palette.borderStrong
+              : backgrounds[variant],
           opacity:
             disabled || busy
               ? interaction.disabledOpacity
@@ -456,10 +487,7 @@ export function StatusPill({
   return (
     <View style={[styles.pill, { backgroundColor: colors[tone][0] }]}>
       <View style={[styles.pillDot, { backgroundColor: colors[tone][1] }]} />
-      <AppText
-        variant="small"
-        style={{ color: colors[tone][1], fontFamily: "Atkinson_600SemiBold", flexShrink: 1 }}
-      >
+      <AppText variant="small" style={{ color: colors[tone][1], fontWeight: "600", flexShrink: 1 }}>
         {label}
       </AppText>
     </View>
@@ -484,6 +512,7 @@ export function InlineLink({
   readonly expanded?: boolean;
 }) {
   const { palette } = useAppTheme();
+  const [focused, setFocused] = useState(false);
   return (
     <Pressable
       accessibilityRole={role}
@@ -492,11 +521,18 @@ export function InlineLink({
       accessibilityState={expanded === undefined ? undefined : { expanded }}
       aria-expanded={expanded}
       onPress={onPress}
+      onFocus={() => setFocused(true)}
+      onBlur={() => setFocused(false)}
       hitSlop={8}
       testID={testID}
       style={({ pressed }) => ({
         opacity: pressed ? interaction.pressedOpacity : 1,
         minHeight: controls.minimumTouchTarget,
+        minWidth: controls.minimumTouchTarget,
+        borderWidth: 2,
+        borderColor: focused ? palette.actionLink : "transparent",
+        boxShadow: focused ? focusRing(palette) : "none",
+        borderRadius: radius.sm,
         justifyContent: "center",
       })}
     >
@@ -536,22 +572,12 @@ const styles = StyleSheet.create({
     paddingBottom: spacing.xxl,
   },
   brand: { flexDirection: "row", alignItems: "center", gap: 10, flexShrink: 1 },
-  brandMark: { width: 32, height: 36, borderRadius: 7, borderWidth: 1.5, overflow: "hidden" },
-  brandMarkTop: { flex: 1 },
-  brandMarkBottom: { flex: 1 },
-  brandSeam: {
-    position: "absolute",
-    width: 3,
-    height: 32,
-    left: 19,
-    top: 0,
-  },
   button: {
     minHeight: controls.buttonMinHeight,
-    borderRadius: radius.md,
-    borderWidth: 1,
+    borderRadius: radius.pill,
+    borderWidth: 2,
     paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.md,
+    paddingVertical: spacing.sm,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -563,18 +589,20 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     gap: spacing.xs,
     paddingBottom: spacing.xs,
-    borderBottomWidth: 1,
   },
   backAction: {
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.sm,
     minHeight: controls.minimumTouchTarget,
-    paddingRight: spacing.sm,
+    paddingHorizontal: spacing.sm,
+    borderRadius: radius.pill,
+    borderWidth: 2,
     flexShrink: 1,
   },
-  headerWordmark: { flexShrink: 1 },
-  pageIntro: { paddingTop: spacing.lg, paddingBottom: spacing.lg, gap: spacing.xs },
+  headerBrand: { flexDirection: "row", alignItems: "center", gap: 6, flexShrink: 1 },
+  headerWordmark: { flexShrink: 1, fontWeight: "700", letterSpacing: -0.5 },
+  pageIntro: { paddingTop: spacing.lg, paddingBottom: spacing.lg, gap: spacing.sm },
   documentSection: { borderTopWidth: 1, paddingVertical: 20, gap: spacing.sm },
   chevron: {
     width: 8,
@@ -590,6 +618,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     minHeight: 60,
     paddingVertical: spacing.md,
+    paddingHorizontal: spacing.xxs,
   },
   navigationTile: {
     flexBasis: 160,

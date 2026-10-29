@@ -1,5 +1,13 @@
 # Decision log
 
+## D-054 — Extend the approved Home language without decorating the answer
+
+- Date: 2026-10-29. Authority: Roope approves the proposed whole-app visual unification after an explicit review found Home and detail pages inconsistent. No push, native renewal or paid-inference authority.
+- Promote the existing Home platform sans/navy/slate/mint palette to shared theme tokens and derive Home's aliases from that palette. Retain scalable system text and monospaced codes; remove legacy sans overrides/loading but do not churn dependency versions or lockfile. This supersedes the Home-only font/color scope in D-052/D-053, not semantic result statuses or source rules.
+- Use one compact decorative leaf/back header and existing original symbols, 22-point reading surfaces and rounded primary controls. Identify prioritizes the real AI-photo entry, with distinct barcode/manual alternatives; Settings uses actual local controls, never an invented account. Preserve reading/list structure for guide/legal/history and focused high-contrast camera overlays instead of spreading hero artwork across every page.
+- Add a canvas-gap/outer keyboard ring so focus is visible beside filled as well as quiet actions. Retain 44-point controls, FI/EN, dark mode, uncapped text, explicit disabled/busy states, uncertainty and full provenance. No new motion, runtime library, raster asset, copied provider or fake example data.
+- Validate shared computed browser typography/palette, narrow/wide and synthetic large-text layouts alongside existing photo/nearby/local-state fixtures and full/scoped checks. Record native acceptance separately: no current phone interaction, VoiceOver, camera, material accuracy, battery or production pass follows from this presentation work.
+
 ## D-053 — Improve reference fidelity with native-safe source-controlled artwork
 
 - Date: 2026-10-29, continuing the owner-approved reference refinement begun October 28. No push or paid app-inference authority.

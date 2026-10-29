@@ -1,5 +1,21 @@
 # Owner actions
 
+## October 29 — app-wide consistency
+
+- **Engineering complete:** shared Home/detail font and palette, coherent
+  headers/controls/symbols/Identify/Settings, dark-root repair, nine source
+  regressions, full 405/scoped-mobile 240 checks and five browser suites.
+  Details and ignored screenshots: APP_DESIGN_CONSISTENCY / TEST_EVIDENCE.
+- **Engineering + Roope if physical interaction is needed:** run the single
+  NEXT_ACTION smoke on installed client 3 at normal and larger native text.
+  Check actual navigation/labels and record observed outcomes; do not upload a
+  photo, use real location/address or call paid inference just for visual QA.
+  Handle an actual unlock/permission prompt personally only if it appears.
+- No new account/payment/GitHub/signature action is needed for this JS work.
+  Existing November 4 at 20:28:39 Helsinki renewal deadline and Mac/LAN Debug
+  dependence remain. Wider camera/material accuracy/production procedures below
+  are unchanged.
+
 ## October 29 — reference fidelity
 
 - **Engineering complete:** source-controlled native symbol export, scoped/full

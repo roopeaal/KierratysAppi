@@ -204,7 +204,7 @@ test("loading and error states explain the task once without asserting a fresh r
   assert.match(readFileSync("mobile/app/src/app/feedback.tsx", "utf8"), /t\("draftNotSent"\)/);
 });
 
-test("recognition icons are original, decorative native linework with no motion or emoji dependency", () => {
+test("recognition icons reuse original decorative symbols and native linework without motion or emoji", () => {
   const icons = readFileSync("mobile/app/src/components/action-icon.tsx", "utf8");
   for (const kind of ["nearby", "guide", "history", "manual"])
     assert.ok(icons.includes(`"${kind}"`));

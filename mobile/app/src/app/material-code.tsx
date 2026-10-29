@@ -25,6 +25,7 @@ import {
 import { announceAccessibility } from "@/features/accessibility/announcements";
 import { sortRecognizedMaterialCode } from "@/features/material-code/sorting";
 import { useLanguage } from "@/i18n/language-context";
+import { codeFontFamily } from "@/theme/fonts";
 import { radius, spacing, useAppTheme } from "@/theme/tokens";
 
 export default function MaterialCodeScreen() {
@@ -239,7 +240,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: radius.md,
     paddingHorizontal: spacing.md,
-    fontFamily: "IBMPlexMono_600SemiBold",
+    fontFamily: codeFontFamily,
     fontSize: 20,
     letterSpacing: 1.2,
   },
@@ -251,7 +252,7 @@ const styles = StyleSheet.create({
     gap: spacing.xs,
   },
   code: {
-    fontFamily: "IBMPlexMono_600SemiBold",
+    fontFamily: codeFontFamily,
     fontSize: 28,
     lineHeight: 36,
     letterSpacing: -1,

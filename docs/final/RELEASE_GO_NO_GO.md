@@ -1,5 +1,14 @@
 # Release decision
 
+October 29 app-wide consistency is **not production GO**. Home's design now
+covers all thirteen functional pages, preserving semantic warnings, provenance,
+photo consent and material correction. Final 405-case/mobile-240 validation and
+five fixture browser suites pass, including computed typography/palette, dark
+navigation-root, keyboard focus, narrow/wide and synthetic large-text checks.
+Latest native all-page/VoiceOver/camera/accuracy/performance acceptance remains
+separate; existing SDK/security/PHOTO-003/infrastructure/store gates are not
+closed by visual polish. No new sign/install, paid inference or GitHub write.
+
 October 29 reference-fidelity pass is **not production GO**. Full 396-case/
 mobile-240 validation, five isolated browser suites and a fresh native Home
 render/inventory/process check pass. Current photo consent/material correction,

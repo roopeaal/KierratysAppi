@@ -1,5 +1,16 @@
 # External blockers
 
+## October 29 whole-app consistency
+
+No new external blocker. The approved visual unification uses existing fonts,
+symbols, services and native capabilities without a new package, key, account,
+payment or signature renewal. Existing build 3 can load these JS changes through
+Metro; this is not a fresh observed native all-page pass. Engineering owns the
+remaining physical visual/navigation check; Roope handles an actual unlock or
+system prompt only if needed. Existing SDK/security/photo-accuracy/production
+gates and the November 4 signing deadline remain unchanged. No GitHub sharing or
+paid recognition is authorized by this UI request.
+
 ## October 29 reference fidelity continuation
 
 No new external blocker. Current Mac services and the existing client 3 are

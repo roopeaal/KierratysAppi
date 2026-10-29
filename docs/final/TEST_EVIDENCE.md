@@ -1,5 +1,39 @@
 # Test evidence
 
+## October 29 — Home-aligned functional pages
+
+- Final pinned `pnpm validate` passes **405 unique cases (89 policy + 316
+  application)**, all mandatory boundaries/format/lint/strict types/builds and
+  **16 web routes**; final scoped mobile passes **240 overlapping cases**.
+  Logs: `work/app-design-consistency-2026-10-29/validate-complete.log` and
+  `validate-mobile-final.log`.
+- Nine new source-policy regressions guard shared font/mono distinction,
+  derived Home palette, thirteen functional pages, leaf/back/icon semantics,
+  retained warnings/consent, separated keyboard focus and dark root surface.
+  Expanded actual browser checks compare Home/subpage computed fonts/heading
+  colors/canvas, guide/feedback sans fields, focus ring and navigation background.
+- All five runners pass on the current styles: `refinement-verified.log`,
+  `reference-accepted.log`, `navigation-accepted.log`, `photo-accepted.log`,
+  `nearby-accepted.log` in that root. FI/EN, dark, 130% synthetic text and
+  reading/form/Identify/Settings/Nearby 320/390/1280 layouts; existing recovery,
+  provenance, local history/drafts/deletion, consent/material correction and
+  explicit location boundaries remain. No real GPS/image/address or paid call.
+- Latest whole-app snapshots are in `accepted/refinement/`; original runner
+  snapshot locations and scope are recorded in APP_DESIGN_CONSISTENCY.
+  Independent review found white corners behind rounded dark navigation; root
+  theme paint and source/computed-style regressions repair this. Initial
+  formatting/import-order errors were fixed, not bypassed.
+- One concurrent browser attempt timed out waiting for manual input after the
+  offline scenario (`refinement-final-pass.log` retained). Added bounded
+  route/readiness/heading/page-error diagnostics and a failure screenshot, with
+  no automatic retry, timeout relaxation or skipped assertion; reran separately
+  after builds/other browser jobs. Exact cause is not established and no
+  flake-free-CI claim is made. Existing two source-literal lint warnings remain.
+- No new native build/sign/install, current full-app phone/Dynamic Type/
+  VoiceOver/camera/accuracy/performance or production acceptance. Earlier native
+  Home evidence is not generalized. November 4 profile expiry and NO-GO gates
+  remain unchanged; no dependency/model/rule/backend/shared change or GitHub write.
+
 ## October 29 — reference-fidelity and existing-client Home
 
 - Full pinned `pnpm validate`: **396 unique cases (80 policy + 316 application)**,

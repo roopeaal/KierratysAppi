@@ -8,6 +8,7 @@ import {
 } from "react";
 import { Appearance } from "react-native";
 import { createColorSchemeStore } from "./color-scheme-store";
+import { appFontFamily, codeFontFamily } from "./fonts";
 import { type AppPalette, darkPalette, lightPalette } from "./palettes";
 
 export { darkPalette, lightPalette } from "./palettes";
@@ -25,45 +26,51 @@ export const spacing = {
 export const radius = {
   sm: 8,
   md: 18,
-  lg: 26,
+  lg: 22,
   pill: 999,
 } as const;
 
 export const typography = {
   display: {
-    fontFamily: "Atkinson_700Bold",
+    fontFamily: appFontFamily,
+    fontWeight: "700",
     fontSize: 32,
     lineHeight: 36,
     letterSpacing: -0.5,
   },
   title: {
-    fontFamily: "Atkinson_700Bold",
+    fontFamily: appFontFamily,
+    fontWeight: "700",
     fontSize: 26,
     lineHeight: 32,
     letterSpacing: -0.3,
   },
   heading: {
-    fontFamily: "Atkinson_600SemiBold",
+    fontFamily: appFontFamily,
+    fontWeight: "600",
     fontSize: 19,
     lineHeight: 25,
   },
   body: {
-    fontFamily: "Atkinson_400Regular",
-    fontSize: 17,
-    lineHeight: 25,
+    fontFamily: appFontFamily,
+    fontWeight: "400",
+    fontSize: 16,
+    lineHeight: 24,
   },
   small: {
-    fontFamily: "Atkinson_400Regular",
+    fontFamily: appFontFamily,
+    fontWeight: "400",
     fontSize: 14,
     lineHeight: 20,
   },
   label: {
-    fontFamily: "Atkinson_600SemiBold",
-    fontSize: 16,
+    fontFamily: appFontFamily,
+    fontWeight: "600",
+    fontSize: 15,
     lineHeight: 22,
   },
   mono: {
-    fontFamily: "IBMPlexMono_600SemiBold",
+    fontFamily: codeFontFamily,
     fontSize: 13,
     lineHeight: 18,
     letterSpacing: 0.2,
@@ -90,6 +97,11 @@ export const elevation = {
   none: 0,
   raised: 2,
 } as const;
+
+/** Canvas gap keeps a keyboard ring visible beside both filled and quiet actions. */
+export function focusRing(palette: AppPalette): string {
+  return `0px 0px 0px 2px ${palette.bgCanvas}, 0px 0px 0px 4px ${palette.actionLink}`;
+}
 
 type AppTheme = { palette: AppPalette; isDark: boolean };
 const AppThemeContext = createContext<AppTheme | undefined>(undefined);
