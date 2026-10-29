@@ -1,5 +1,18 @@
 # Owner actions
 
+## October 29 — combined identification hub
+
+- **Engineering complete locally:** combined Home entry, barcode-first Identify,
+  FI/EN labels, narrow/native-large reading layout, five source regressions and
+  full 410/scoped 240 checks and all five browser suites. Evidence: IDENTIFY_HUB_EVIDENCE.
+- **Engineering + Roope for any actual device action:** follow NEXT_ACTION once
+  on installed client 3: Home gateway, selected tab, three-method entry/back and
+  readable labels at normal/larger native text. Show no real barcode and do not
+  capture/upload a photo, use actual GPS/address or make paid calls for this QA.
+- No new account/key/database/payment/reinstallation/GitHub action is needed
+  for this UI unit. Existing November 4 at 20:28:39 Helsinki signing deadline,
+  Debug Mac/LAN dependency and wider production procedures remain unchanged.
+
 ## October 29 — app-wide consistency
 
 - **Engineering complete:** shared Home/detail font and palette, coherent

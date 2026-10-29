@@ -1,5 +1,13 @@
 # Decision log
 
+## D-055 — Group identification choices without merging their trust boundaries
+
+- Date: 2026-10-29. Authority: Roope explicitly asks for Home's combined Skannaa tuote action to open Identify, with barcode, manual barcode and AI in that order. No paid inference, GitHub sharing or native renewal authority.
+- Replace Home's direct-photo card with a labelled `/identify` gateway and neutral scan-frame symbol. Keep the small direct barcode shortcut/manual fallback. Use the existing route-driven selected-tab state and ordinary back path; do not create a second account/demo/camera flow or auto-start recognition just by entering a tab.
+- Make barcode visually primary (176-point minimum/22-point title), manual its next fallback and AI the third choice. Keep the current common palette, typography and surfaces; use independent localized names/details and retain AI's explicit estimated/material-review description. Narrow/native-large layouts hide only secondary decoration, not words, controls or safety notices.
+- The gateway changes discovery, not functionality or authority: barcode/manual still validate GTIN and call current services; photo keeps explicit capture/send/consent, inferred identity, independent material/condition confirmation and unsafe/unknown recovery. No combined background image classification or automatic permission/network action.
+- Guard source-order/routes/localization and actual browser selected-tab/order/prominence/no-implicit-effects/three entry-and-back journeys. Browser synthetic large text is not physical Dynamic Type/VoiceOver/camera acceptance; record that separately. Supersedes the photo-first hierarchy in D-054 only, not its shared theme or evidence boundaries.
+
 ## D-054 — Extend the approved Home language without decorating the answer
 
 - Date: 2026-10-29. Authority: Roope approves the proposed whole-app visual unification after an explicit review found Home and detail pages inconsistent. No push, native renewal or paid-inference authority.

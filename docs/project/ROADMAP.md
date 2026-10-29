@@ -1,5 +1,12 @@
 # Roadmap
 
+## Identification hub — October 29
+
+- [x] Route the illustrated Home Skannaa tuote card to the real Identify tab with the owner-proposed combined FI copy and equivalent EN; preserve direct shortcuts.
+- [x] Prioritize barcode scanning, then manual entry, then explicit AI recognition; retain current safeguards and improve narrow/native-large reading width without text caps.
+- [x] Add five source-policy cases and expand the existing browser order/prominence/route/back/passive-entry matrix. Full 410/mobile 240 checks and all five browser suites pass; outcomes in IDENTIFY_HUB_EVIDENCE and TEST_EVIDENCE.
+- [ ] Verify the latest Home → Identify → three-method/back flow at normal and larger native text on installed client 3; no image capture/upload, real location or paid call is needed for this navigation check.
+
 ## Whole-app visual consistency — October 29
 
 - [x] Extend Home's font, ink/secondary/link/canvas tokens to all thirteen functional pages; centralize fonts and Home palette aliases without changing semantic statuses or dependencies.

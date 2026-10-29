@@ -1,5 +1,16 @@
 # External blockers
 
+## October 29 identification hub
+
+No new external blocker. Grouping the existing barcode/manual/photo choices
+uses current routes, symbols and localization; it needs no key, account,
+payment, database, native dependency or renewed signature. Entering Identify
+does not activate a camera, acquire location or call a provider. Engineering owns
+latest physical navigation/large-text acceptance; Roope handles an actual unlock
+or OS prompt only if needed. Build-3 expiry and all existing security/photo-
+accuracy/public-production gates remain unchanged. No new paid inference or
+GitHub publication is authorized.
+
 ## October 29 whole-app consistency
 
 No new external blocker. The approved visual unification uses existing fonts,

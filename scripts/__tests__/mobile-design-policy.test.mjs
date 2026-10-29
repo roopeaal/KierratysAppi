@@ -17,11 +17,11 @@ test("every native radio also exposes its checked state in the web renderer", ()
   }
 });
 
-test("reference Home keeps labelled barcode, primary photo, utility, history and manual recovery actions", () => {
+test("reference Home keeps labelled barcode, primary Identify, utility, history and manual recovery actions", () => {
   const home = readFileSync("mobile/app/src/app/index.tsx", "utf8");
   const ids = [
     "home-scan-action",
-    "home-photo-action",
+    "home-identify-action",
     "home-nearby-action",
     "home-guide-action",
     "home-history-action",
@@ -223,11 +223,11 @@ test("compact Home tiles retain labelled destinations, wrapping, focus and scala
   const home = readFileSync("mobile/app/src/app/index.tsx", "utf8");
   assert.equal((home.match(/<HomeTile\b/g) ?? []).length, 2);
   assert.match(home, /<ScanIllustration\s*\/>/);
-  assert.match(home, /!expandedText && \(\s*<View style=\{\[styles.photoChevron/);
+  assert.match(home, /!expandedText && \(\s*<View style=\{\[styles.identifyChevron/);
   const elements = readFileSync("mobile/app/src/components/home-elements.tsx", "utf8");
   assert.match(elements, /fontScale >= 1\.5 \? "100%" : fontScale > 1\.2/);
   assert.match(elements, /fontWeight: "500", flexShrink: 1/);
-  assert.match(home, /homePhotoDetail/);
+  assert.match(home, /homeIdentifyDetail/);
   for (const kind of ["manual", "history"]) assert.ok(home.includes(`<ActionIcon kind="${kind}"`));
   assert.match(home, /<ReferenceSymbol\s+name="location"/);
   for (const kind of ["nearby", "guide"])

@@ -1,5 +1,12 @@
 # Current state
 
+## Combined identification entry — 2026-10-29
+
+- Roope requested one Home entry and a clearer barcode-first Identify tab. Continued locally from `b2fc482`. The illustrated **Skannaa tuote** card now says **Lue viivakoodi tai käytä tekoälytunnistusta**, opens `/identify` and selects the real Identify tab instead of entering photo recognition. Its icon is a neutral scan frame. The small direct barcode shortcut and manual fallback remain available.
+- Identify order is **Skannaa viivakoodi** (largest mint action, 22/28 title, 176-point minimum), **Syötä viivakoodi käsin**, then **Tunnista tuote tekoälyllä**. Labels/details are FI/EN. Native large/narrow layout stacks the primary content and removes secondary decorative icon columns, giving the words usable width without truncation or scaling caps. AI uncertainty/material-review wording remains; no automatic camera/GPS/API/capability request occurs on hub entry.
+- Five new source-policy cases and expanded browser checks cover the combined route, actual selected tab, reading/keyboard/visual order, relative prominence, all three entry/back paths, passive opening and narrow/large reading width. Full **410 unique cases (94 policy + 316 application)**, scoped mobile **240 overlapping cases**, all builds/16 routes and all **five browser suites pass**. Evidence: `docs/final/IDENTIFY_HUB_EVIDENCE.md` and TEST_EVIDENCE. This is navigation/browser evidence, not new native-camera/recognition-accuracy acceptance.
+- No backend/shared/public contract/provider/model/prompt/rule/data/dependency/native/signature/install change or paid/live photo request. No GitHub write; current build-3 November 4 at 20:28:39 Helsinki expiry is unchanged. Latest physical hub/navigation/large-text acceptance remains the single next action; existing production NO-GO/security/photo findings are not changed.
+
 ## App-wide visual consistency — 2026-10-29
 
 - Roope approved extending the illustrated Home's design to the rest of the app. Continued locally from `bd0d7a0` on `codex/illustrated-functional-integration`. All thirteen functional subpages now share Home's platform sans, navy heading ink, slate secondary/link text and mint canvas through the existing theme. Codes deliberately retain IBM Plex Mono. Home colors derive from the shared palettes rather than a second set of literals; legacy Atkinson overrides and unused startup font loading are removed without changing dependencies.

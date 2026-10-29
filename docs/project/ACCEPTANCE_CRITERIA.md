@@ -1,5 +1,13 @@
 # Acceptance criteria
 
+## Combined identification hub
+
+1. Home's Skannaa tuote / Lue viivakoodi tai käytä tekoälytunnistusta card opens the existing Identify tab, not a camera or direct-photo flow. Matching EN, accessible name/hint and current direct barcode/manual shortcuts remain.
+2. Reading/keyboard/visual order is barcode scanning first and largest, manual barcode second, AI recognition third. Each distinct action reaches its current route and returns to the hub; route-driven selected-tab state remains correct.
+3. Hub rendering/direct URL/tab selection does not request camera/GPS permission, acquire media/location, call lookup/capabilities/recognition or upload. Camera and provider work remain behind their existing explicit actions.
+4. Current FI/EN theme, 44-point targets, focus, reduced-motion behavior and uncapped text remain. Narrow/native-large layout prioritizes reading width over redundant secondary icons; no clipped label or hidden AI uncertainty/material-review notice.
+5. Five new source-policy regressions plus actual browser order/prominence/all-three entry/back/passive-entry/FI/EN/dark/narrow/large checks pass with scoped/full validation and all five suites. These do not establish native Dynamic Type/VoiceOver/camera quality, material accuracy or production readiness.
+
 ## App-wide design consistency
 
 1. Home and all thirteen functional pages share one platform sans and live canvas/ink/secondary/link palette. Monospaced identifiers remain intentional; no legacy sans override, clipped text or scaling cap. Home's palette alias cannot drift independently.

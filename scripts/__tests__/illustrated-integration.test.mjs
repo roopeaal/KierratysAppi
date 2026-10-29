@@ -4,7 +4,7 @@ import test from "node:test";
 
 test("illustrated Home keeps every current real action, without the old Helsinki default or reassurance", () => {
   const home = readFileSync("mobile/app/src/app/index.tsx", "utf8");
-  for (const action of ["scan", "manual", "photo", "nearby", "guide", "history", "legal"])
+  for (const action of ["scan", "manual", "identify", "nearby", "guide", "history", "legal"])
     assert.ok(home.includes(`testID="home-${action}-action"`));
   assert.match(home, /requestSearch\(\)/);
   assert.match(home, /<ScanIllustration/);

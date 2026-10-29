@@ -244,7 +244,7 @@ async function largeText(page) {
       await page.getByTestId("home-screen").waitFor();
       await shot(page, language + "-home");
       const homeType = await page
-        .getByTestId("home-photo-action")
+        .getByTestId("home-identify-action")
         .getByText(language === "fi" ? "Skannaa tuote" : "Scan an item", { exact: true })
         .evaluate((el) => ({
           font: getComputedStyle(el).fontFamily,
@@ -252,6 +252,7 @@ async function largeText(page) {
           canvas: getComputedStyle(document.getElementById("app-screen-surface")).backgroundColor,
         }));
       for (const id of [
+        "home-identify-action",
         "home-scan-action",
         "home-manual-action",
         "home-nearby-action",

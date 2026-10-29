@@ -34,7 +34,7 @@ card, not a screenshot UI.
 Platform sans-serif now covers Home, bottom tabs, detail text and text fields,
 retaining native scaling. One `appFontFamily` selects System on native and the
 platform browser sans stack on web. Home follows
-header → local search → photo recognition → compact nearby/guide → four material
+header → local search → combined identification gateway → compact nearby/guide → four material
 chips → explicit nearby search → real recent history. Reference example data and
 greenwashing slogans are omitted. Large native text stacks cards/chips and hides
 decorative header/photo overlay/arrow. See `../final/REFERENCE_HOME_REFINEMENT.md`.
@@ -47,11 +47,11 @@ The reading column is at most 560 points with 20-point side gutters. Main spacin
 
 ## Hierarchy
 
-Home: decorative illustrated brand/question → local guide search with barcode shortcut → AI photo action → nearby/guide tiles → material chips → explicit nearby action → real recent history → manual/language/privacy/jurisdiction. Source artwork is local and hidden from accessibility, while all labels/actions remain real components. Native large text uses an independent heading instead of overlaying the image. No unrequested welcome/profile/impact content is imported.
+Home: decorative illustrated brand/question → local guide search with barcode shortcut → Skannaa tuote gateway to Identify → nearby/guide tiles → material chips → explicit nearby action → real recent history → manual/language/privacy/jurisdiction. The gateway describes barcode and AI choices and never activates either by itself. Source artwork is local and hidden from accessibility, while all labels/actions remain real components. Native large text uses an independent heading instead of overlaying the image. No unrequested welcome/profile/impact content is imported.
 
 The four persistent tabs are Home/Identify/Points/Settings; they are absent during capture/result/material-review flows. A Points press is an explicit one-shot location intent, never a rendering side effect. Narrow/large text uses two rows without capped labels. Supported dismiss-to navigation prevents duplicate Home stacks; direct root pages have a Home fallback.
 
-Subpages use one compact labelled back action with a small decorative leaf/app name, not a repeated hero. Page titles and short purposes precede forms. Identify offers a photo-first mint action and grouped barcode/manual alternatives; Settings groups actual language/history/guide/privacy controls. Guide/legal content and history remain reading/list sections. Material/shape radios have visible indicators and flexible two-column layouts with short material names.
+Subpages use one compact labelled back action with a small decorative leaf/app name, not a repeated hero. Page titles and short purposes precede forms. Identify offers the largest barcode action first (176-point minimum, 22/28 title), then grouped manual-barcode and AI alternatives, preserving AI uncertainty text. Narrow/native-large layout stacks the primary content and omits redundant secondary icon columns, not labels. Settings groups actual language/history/guide/privacy controls. Guide/legal content and history remain reading/list sections. Material/shape radios have visible indicators and flexible two-column layouts with short material names.
 
 Result: product name/community qualification → part identity → prominent destination or safe recovery → confidence → preparation/explanation/exceptions → complete source, jurisdiction, checked date, rule version and verification. No part is hidden or dropped. Provider identity, retrieved date, actual database attribution and licence links follow.
 

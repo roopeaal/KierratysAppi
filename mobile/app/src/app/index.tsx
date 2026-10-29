@@ -53,8 +53,8 @@ export default function HomeScreen() {
   const [historyError, setHistoryError] = useState(false);
   const [query, setQuery] = useState("");
   const [searchFocused, setSearchFocused] = useState(false);
-  const [photoFocused, setPhotoFocused] = useState(false);
-  const [photoHeight, setPhotoHeight] = useState(112);
+  const [identifyFocused, setIdentifyFocused] = useState(false);
+  const [featureHeight, setFeatureHeight] = useState(112);
   const { width, fontScale } = useWindowDimensions();
   const canvasWidth = Math.min(width, 560);
   const expandedText = fontScale > 1.2;
@@ -231,42 +231,45 @@ export default function HomeScreen() {
             </View>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel={t("photoTitle")}
-              accessibilityHint={t("homePhotoDetail")}
-              testID="home-photo-action"
-              onPress={() => router.push("/photo")}
-              onFocus={() => setPhotoFocused(true)}
-              onBlur={() => setPhotoFocused(false)}
-              onLayout={({ nativeEvent }) => setPhotoHeight(nativeEvent.layout.height)}
+              accessibilityLabel={t("homeIdentifyTitle")}
+              accessibilityHint={t("homeIdentifyDetail")}
+              testID="home-identify-action"
+              onPress={() => router.push("/identify")}
+              onFocus={() => setIdentifyFocused(true)}
+              onBlur={() => setIdentifyFocused(false)}
+              onLayout={({ nativeEvent }) => setFeatureHeight(nativeEvent.layout.height)}
               style={({ pressed }) => [
-                styles.photoAction,
+                styles.identifyAction,
                 {
                   backgroundColor: palette.pineSoft,
-                  borderColor: photoFocused ? palette.actionLink : palette.bgSurface,
+                  borderColor: identifyFocused ? palette.actionLink : palette.bgSurface,
                   opacity: pressed ? interaction.pressedOpacity : 1,
                 },
               ]}
             >
               {!expandedText && (
-                <PhotoCardBackdrop width={canvasWidth - 32} height={Math.max(1, photoHeight - 4)} />
+                <PhotoCardBackdrop
+                  width={canvasWidth - 32}
+                  height={Math.max(1, featureHeight - 4)}
+                />
               )}
               <View
                 style={[
-                  styles.photoContent,
+                  styles.identifyContent,
                   !expandedText && { paddingRight: canvasWidth < 360 ? 86 : 102 },
                 ]}
               >
-                <IconDisc kind="photo" blue />
+                <IconDisc kind="scan" />
                 <View style={styles.grow}>
-                  <AppText style={styles.photoTitle}>{t("homePhotoTitle")}</AppText>
-                  <AppText style={[styles.photoBody, { color: home.muted }]}>
-                    {t("homePhotoDetail")}
+                  <AppText style={styles.identifyTitle}>{t("homeIdentifyTitle")}</AppText>
+                  <AppText style={[styles.identifyBody, { color: home.muted }]}>
+                    {t("homeIdentifyDetail")}
                   </AppText>
                 </View>
               </View>
               {!expandedText && <ScanIllustration />}
               {!expandedText && (
-                <View style={[styles.photoChevron, { backgroundColor: palette.bgSurface }]}>
+                <View style={[styles.identifyChevron, { backgroundColor: palette.bgSurface }]}>
                   <Chevron />
                 </View>
               )}
@@ -506,7 +509,7 @@ const styles = StyleSheet.create({
     bottom: -4,
     transform: [{ rotate: "45deg" }],
   },
-  photoAction: {
+  identifyAction: {
     minHeight: 112,
     flexDirection: "row",
     alignItems: "center",
@@ -517,16 +520,16 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
     paddingRight: 16,
   },
-  photoContent: { flex: 1, minWidth: 0, flexDirection: "row", alignItems: "center", gap: 10 },
-  photoTitle: {
+  identifyContent: { flex: 1, minWidth: 0, flexDirection: "row", alignItems: "center", gap: 10 },
+  identifyTitle: {
     fontFamily: homeFont,
     fontSize: 20,
     lineHeight: 25,
     letterSpacing: -0.8,
     fontWeight: "700",
   },
-  photoBody: { fontFamily: homeFont, fontSize: 13, lineHeight: 18 },
-  photoChevron: {
+  identifyBody: { fontFamily: homeFont, fontSize: 13, lineHeight: 18 },
+  identifyChevron: {
     width: 32,
     height: 32,
     borderRadius: 16,

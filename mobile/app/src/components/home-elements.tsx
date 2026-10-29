@@ -65,11 +65,21 @@ export function IconDisc({
         accessibilityElementsHidden
         importantForAccessibility="no-hide-descendants"
         pointerEvents="none"
-        testID={["photo", "nearby", "guide"].includes(kind) ? `action-icon-${kind}` : undefined}
+        testID={
+          ["photo", "nearby", "guide", "scan"].includes(kind) ? `action-icon-${kind}` : undefined
+        }
       >
-        {kind === "photo" || kind === "nearby" || kind === "guide" ? (
+        {kind === "photo" || kind === "nearby" || kind === "guide" || kind === "scan" ? (
           <ReferenceSymbol
-            name={kind === "photo" ? "camera" : kind === "nearby" ? "location" : "recycling"}
+            name={
+              kind === "photo"
+                ? "camera"
+                : kind === "nearby"
+                  ? "location"
+                  : kind === "scan"
+                    ? "scan"
+                    : "recycling"
+            }
             size={compact ? 35 : 44}
             color={isDark ? (blue ? palette.cobalt : palette.actionLink) : undefined}
           />

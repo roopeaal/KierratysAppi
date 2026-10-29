@@ -1,5 +1,14 @@
 # Release decision
 
+October 29 combined identification hub is **not production GO**. Home now leads
+to passive Identify choices in the owner-requested barcode/manual/AI order,
+without changing actual camera/provider/consent/material/source behavior.
+Full 410-case/mobile-240 validation and all five actual-Metro fixture browser
+suites pass; exact scope is recorded in IDENTIFY_HUB_EVIDENCE.
+No new native interaction/Dynamic Type/VoiceOver/camera/recognition-accuracy,
+signature/install, security or store acceptance. Existing NO-GO findings remain.
+No paid call, real image/location collection or GitHub publication.
+
 October 29 app-wide consistency is **not production GO**. Home's design now
 covers all thirteen functional pages, preserving semantic warnings, provenance,
 photo consent and material correction. Final 405-case/mobile-240 validation and

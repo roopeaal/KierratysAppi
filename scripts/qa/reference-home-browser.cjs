@@ -109,6 +109,24 @@ async function main() {
       assert.equal(await page.getByTestId(`home-recent-${gtin}`).count(), 0);
       assert.equal(await page.evaluate(() => window.qaGpsCalls), 0);
       assert.equal(calls.length, 0);
+      await page
+        .getByTestId("home-identify-action")
+        .getByText(
+          language === "fi"
+            ? "Lue viivakoodi tai käytä tekoälytunnistusta"
+            : "Read a barcode or use AI recognition",
+          { exact: true },
+        )
+        .waitFor();
+      await page.getByTestId("home-identify-action").focus();
+      await page.getByTestId("home-identify-action").press("Enter");
+      await page.getByTestId("identify-screen").waitFor();
+      assert.equal(new URL(page.url()).pathname, "/identify");
+      assert.equal(await page.getByTestId("tab-identify").getAttribute("aria-selected"), "true");
+      assert.equal(calls.length, 0, "Opening the hub must not request capabilities or recognition");
+      assert.equal(await page.evaluate(() => window.qaGpsCalls), 0);
+      await page.getByTestId("tab-home").click();
+      await page.getByTestId("home-screen").waitFor();
       await page.getByTestId("home-canvas").evaluate((el) => el.scrollIntoView({ block: "start" }));
       await shot(page, `${language}-home-top`);
       await page.getByTestId("home-history-action").scrollIntoViewIfNeeded();
@@ -157,7 +175,7 @@ async function main() {
       await context.close();
     }
     console.log(
-      "PASS: FI/EN reference Home, opt-out stale-history protection, real saved preview and explicit reopen, four real material chips, bounded local-guide search/unknown/reset/duplicate-parameter recovery, 44pt controls and zero implicit GPS/provider calls. Fixtures only; no paid image request.",
+      "PASS: FI/EN reference Home and keyboard-activated combined Identify entry, selected tab and no implicit capabilities/recognition/GPS, opt-out stale-history protection, real saved preview and explicit reopen, four real material chips, bounded local-guide search/unknown/reset/duplicate-parameter recovery, 44pt controls and zero implicit GPS/provider calls. Fixtures only; no paid image request.",
     );
   } finally {
     await browser.close();

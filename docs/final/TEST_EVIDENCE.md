@@ -1,5 +1,27 @@
 # Test evidence
 
+## October 29 — combined barcode/manual/AI hub
+
+- Full pinned `pnpm validate`: **410 unique cases (94 policy + 316 application)**,
+  all mandatory gates/builds and 16 routes; scoped mobile **240 overlapping
+  cases**. Logs: `work/identify-hub-2026-10-29/validate-final.log` and
+  `validate-mobile.log`. Standalone mobile typecheck/7 localization cases also pass.
+- Five source-policy regressions plus expanded actual browser assertions verify
+  Home gateway→selected Identify tab, barcode/manual/AI reading/keyboard/visual
+  order, larger barcode action, each entry/back path, passive hub and FI/EN
+  names/AI uncertainty. Narrow/native-large layout prioritizes text over
+  secondary icon columns; final 320-pixel browser labels retain usable width.
+- All five actual-Metro suites pass final source: `navigation.log`,
+  `reference.log`, `refinement.log`, `photo.log`, `nearby.log` in the same
+  ignored root; first visual pass preserved separately. FI/EN/light/dark,
+  320/390/1280 and 130% synthetic text, current source/error/local-state/photo/
+  nearby safeguards remain. Exact snapshot locations in IDENTIFY_HUB_EVIDENCE.
+- No real image/barcode/location/address or paid inference, backend/shared/model/
+  rule/dependency/native/signing/install change or GitHub write. Latest physical
+  hub/navigation/large-text/VoiceOver/camera/accuracy remain unverified; earlier
+  phone Home evidence is not generalized. November 4 expiry and production NO-GO
+  gates remain unchanged.
+
 ## October 29 — Home-aligned functional pages
 
 - Final pinned `pnpm validate` passes **405 unique cases (89 policy + 316

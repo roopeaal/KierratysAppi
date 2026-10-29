@@ -13,15 +13,15 @@ import {
   sharedStyles,
 } from "@/components/ui";
 import { useLanguage } from "@/i18n/language-context";
-import { interaction, radius, spacing, useAppTheme } from "@/theme/tokens";
+import { focusRing, interaction, radius, spacing, useAppTheme } from "@/theme/tokens";
 
 export default function IdentifyScreen() {
   const router = useRouter();
   const { t } = useLanguage();
   const { palette } = useAppTheme();
   const { width, fontScale } = useWindowDimensions();
-  const stackPhoto = fontScale > 1.2 || width < 360;
-  const [photoFocused, setPhotoFocused] = useState(false);
+  const stackScan = fontScale > 1.2 || width < 360;
+  const [scanFocused, setScanFocused] = useState(false);
   return (
     <Screen testID="identify-screen">
       <PageHeader onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))} />
@@ -29,45 +29,48 @@ export default function IdentifyScreen() {
       <View style={sharedStyles.stack}>
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel={t("photoTitle")}
-          accessibilityHint={t("identifyPhotoDetail")}
-          onPress={() => router.push("/photo")}
-          onFocus={() => setPhotoFocused(true)}
-          onBlur={() => setPhotoFocused(false)}
-          testID="identify-photo-action"
+          accessibilityLabel={t("identifyScanAction")}
+          accessibilityHint={t("identifyScanDetail")}
+          onPress={() => router.push("/scan")}
+          onFocus={() => setScanFocused(true)}
+          onBlur={() => setScanFocused(false)}
+          testID="identify-scan-action"
           style={({ pressed }) => [
-            styles.photoAction,
-            stackPhoto && styles.photoStack,
+            styles.scanAction,
+            stackScan && styles.scanStack,
             {
               backgroundColor: palette.pineSoft,
-              borderColor: photoFocused ? palette.actionLink : "transparent",
+              borderColor: scanFocused ? palette.actionLink : "transparent",
+              boxShadow: scanFocused ? focusRing(palette) : "none",
               opacity: pressed ? interaction.pressedOpacity : 1,
             },
           ]}
         >
-          <IconDisc kind="photo" blue />
-          <View style={[styles.photoCopy, !stackPhoto && sharedStyles.grow]}>
-            <AppText variant="heading">{t("photoTitle")}</AppText>
+          <IconDisc kind="scan" />
+          <View style={[styles.scanCopy, !stackScan && sharedStyles.grow]}>
+            <AppText variant="heading" style={styles.scanTitle}>
+              {t("identifyScanAction")}
+            </AppText>
             <AppText variant="small" muted>
-              {t("identifyPhotoDetail")}
+              {t("identifyScanDetail")}
             </AppText>
           </View>
-          {!stackPhoto && <Chevron />}
+          {!stackScan && <Chevron />}
         </Pressable>
         <Paper>
           <ActionRow
-            label={t("cameraTitle")}
-            detail={t("identifyScanDetail")}
-            leading={<IconDisc kind="scan" compact />}
-            onPress={() => router.push("/scan")}
-            testID="identify-scan-action"
-          />
-          <ActionRow
-            label={t("manualEntry")}
-            detail={t("gtinHint")}
-            leading={<IconDisc kind="manual" compact />}
+            label={t("identifyManualAction")}
+            detail={t("identifyManualDetail")}
+            leading={stackScan ? undefined : <IconDisc kind="manual" compact />}
             onPress={() => router.push("/manual")}
             testID="identify-manual-action"
+          />
+          <ActionRow
+            label={t("identifyPhotoAction")}
+            detail={t("identifyPhotoDetail")}
+            leading={stackScan ? undefined : <IconDisc kind="photo" compact blue />}
+            onPress={() => router.push("/photo")}
+            testID="identify-photo-action"
           />
         </Paper>
       </View>
@@ -76,15 +79,16 @@ export default function IdentifyScreen() {
 }
 
 const styles = StyleSheet.create({
-  photoAction: {
+  scanAction: {
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.md,
-    minHeight: 148,
+    minHeight: 176,
     padding: 20,
     borderWidth: 2,
     borderRadius: radius.lg,
   },
-  photoStack: { flexDirection: "column", alignItems: "flex-start" },
-  photoCopy: { minWidth: 0, flexShrink: 1, gap: spacing.xs },
+  scanStack: { flexDirection: "column", alignItems: "flex-start" },
+  scanCopy: { minWidth: 0, flexShrink: 1, gap: spacing.xs },
+  scanTitle: { fontSize: 22, lineHeight: 28, fontWeight: "700", letterSpacing: -0.5 },
 });
