@@ -1,5 +1,10 @@
 # External blockers
 
+October29 phone heading refresh: no new external blocker. Same-app native
+relaunch and visible **Suositut haut** Home observation succeed after clearing
+only its Metro cache. No renewal/trust/account/key/payment/physical-owner action
+was required; existing native matrix and production gates below remain separate.
+
 October29 team-source sharing: fresh contributor recheck and dependency/platform
 gates introduce no new credential/account/manual blocker. Roope explicitly
 authorizes this reviewed KierratysAppi/main source push. Existing native acceptance,

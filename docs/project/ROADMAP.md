@@ -1,5 +1,12 @@
 # Roadmap
 
+## Phone-only Home heading refresh — October29
+
+- [x] Confirm native8093 serves stale heading; validate exact process/current approved LAN and restart only that loopback Metro with cleared cache, leaving restricted forwarding/API/native installation intact.
+- [x] Verify exact LAN iOS asset/new FI+EN headings/old-heading absence/current API/SDK58/build4/no credential markers; relaunch same installed app/device and verify repeated PID plus actual native **Suositut haut** Home rendering. No reinstall/signing/data reset/camera/GPS/paid call/GitHub write.
+- [x] Pass fresh full431-case validation/all builds/16 routes and documentation-inclusive format check; retain scoped native receipts outside Git and record unchanged profile expiry separately from the JS refresh.
+- [ ] Complete the wider controlled native entry/back/larger-text acceptance; the successful Home heading observation does not replace that matrix.
+
 ## Owner-authorized preserved source sharing — October29
 
 - [x] Re-fetch actual team main, paginate contributor/PR metadata and independently trace all ten ITbes-dev/Rdotcom ancestor IDs/current behaviors; no new regression, no private-history merge. Keep native-only address/unwired filter qualifications visible.

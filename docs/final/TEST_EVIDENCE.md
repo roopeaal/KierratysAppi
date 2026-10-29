@@ -1,5 +1,40 @@
 # Test evidence
 
+## October29 — actual iPhone Suositut haut heading refresh
+
+- Source baseline0293ce5; no app/test/config/dependency/native source change.
+  Prior targeted status check proves the native8093 exact iOS asset still
+  contains Selaa materiaaleja and neither new heading. Browser8094/source/GitHub
+  success is not treated as phone delivery evidence.
+- Validate original Metro PID/command/cwd and unchanged approved LAN address,
+  stop only that process, restart same loopback8093 with cleared cache/current
+  public API/advertised address. Existing bounded address-only/no-payload-log
+  forwarder and API untouched. No broad listener, credential/API-key read,
+  dependency install, rebuild/sign/renew/reinstall/uninstall/reset or GitHub write.
+- Exact LAN manifest200 and launch-asset200: SDK58/build4/current technical ID,
+  new FI/EN headings present, old heading absent, current API/no server credential
+  markers;12,156,269 bytes, SHA256
+  `eced6c9b056d1256c59a8575a40dd1793e1d373b56ef72d0a7e5e8454644b067`.
+  No health/capability/provider/photo/location request needed for this refresh.
+- Exact previous device/app binding is reused through the installed beta
+  CoreDevice CLI; explicit dev-client Home payload with terminate-existing.
+  Launch activates successfully, and two later scoped app-process queries retain
+  the returned PID. One actual native Home screenshot inspected: **Suositut haut
+  visibly renders**, illustrated Home and four tabs remain. No camera/GPS/photo,
+  history opening/private-entry inspection, upload or paid inference. No renewed
+  expiry; existing profile remains November4 at20:28:39 Helsinki.
+- This proves named native Home render/update/startup observations, not every
+  physical action/back/large-text/VoiceOver/address/map/camera/material outcome.
+  All receipts/screenshot stay ignored in
+  `work/phone-heading-update-2026-10-29.3UkRnA/`: bundle-verification.json,
+  details/launch/process/process-later summaries and underlying targeted JSON,
+  native-home.png/home-screenshot.json and metro.log. No screenshot/device/private
+  artifact or server value is staged. Fresh full `pnpm validate` passes **431
+  unique cases (113 policy + 318 application)**, boundaries/format/lint/types,
+  all builds and16 web routes (`validate.log` in the same ignored root).
+  Documentation-inclusive format check also passes; no new source behavior or
+  test case is added for this delivery-only refresh.
+
 ## October29 — fresh contributor recheck and owner-authorized main sharing
 
 - **Publication receipt:** coherent heading/recheck commit091d962389a56ec5c52386cfbaf4a8bddef6b013 follows the seven reviewed integration/maintenance commits. Documentation-inclusive final full validation also passes431 cases (`validate-final.log`). Immediate fresh fetch still has0 remote-only/8 local-only; working tree clean and actual destination/ref verified. Normal explicit `git push origin HEAD:refs/heads/main` succeeds **28e0f32..091d962**. Independent `git ls-remote --heads origin main` at2026-10-29T20:41:13Z equals the exact local SHA. No force, private KeepItGreen write, tag/other branch/settings or production release.

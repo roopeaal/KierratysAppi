@@ -1,5 +1,11 @@
 # Current state
 
+## Phone Home heading refreshed and observed — 2026-10-29
+
+- Roope asks to update the phone after a targeted diagnostic proves native Metro8093 still serves **Selaa materiaaleja**, although source/browser/GitHub already have the new wording. Verify the exact process/cwd/current approved LAN, restart only loopback8093 with `--clear`, keep the existing address-only forwarder and API unchanged. No source/dependency/native build/sign/install/key or GitHub change.
+- Exact LAN iOS manifest/launch asset now pass: SDK58/build4, **Suositut haut / Popular searches present, old heading absent**, current API origin/no credential markers,12,156,269 bytes, SHA256eced6c9b056d1256c59a8575a40dd1793e1d373b56ef72d0a7e5e8454644b067. Actual same-device/same-app dev-client replacement launch and two later same-PID queries succeed. One native Home screenshot is inspected: **Suositut haut is visibly rendered**. No private history opened/read, camera/photo/GPS/provider/paid call, uninstall/reset or signing renewal. Existing November4 profile expiry remains unchanged.
+- Fresh full validation passes **431 unique cases (113 policy + 318 application)**, all mandatory checks/builds/16 web routes; documentation-inclusive format check also passes. No new source behavior/test case. This completes the requested heading refresh, not the broader button/back/larger-text/VoiceOver/address/camera/AI/Android/production acceptance. Local receipts/screenshot remain ignored under `work/phone-heading-update-2026-10-29.3UkRnA/`; project-control evidence is local only, no new push authorized/performed. No new external blocker. The same single controlled native acceptance action remains next.
+
 ## Contributor recheck and authorized team-source sharing — 2026-10-29
 
 - **Team-main push verified:** normal `28e0f32..091d962` push to the inspected `https://github.com/roopeaal/KierratysAppi.git`, explicit `HEAD:refs/heads/main`, succeeds. Independent ls-remote at20:41:13UTC confirms **091d962389a56ec5c52386cfbaf4a8bddef6b013**. No force/private remote/other-branch/settings/store change. Source CI40951228125 and Security40951228098 initially in progress, not assumed passed. This outcome documentation belongs to the same authorized source-sharing step, not permission for future automatic pushes.

@@ -1,5 +1,17 @@
 # Physical iOS validation
 
+## October29 — new Home heading actually observed
+
+Same installed client4 is reloaded after its own Metro8093 cache refresh; no
+native build/sign/install or data reset. Exact LAN iOS launch asset contains
+Suositut haut / Popular searches and not Selaa materiaaleja. Same-app launch
+and two later matching-PID checks pass. Actual native Home screenshot visibly
+shows **Suositut haut**, with illustrated Home/four tabs intact. No history,
+camera, GPS, photo/upload/provider/paid request. Existing November4 profile expiry
+is unchanged. This is a Home-heading/render observation, not wider button/back/
+large-text/VoiceOver/address/camera/AI acceptance. Receipts remain ignored under
+`work/phone-heading-update-2026-10-29.3UkRnA/`; details in TEST_EVIDENCE.
+
 Status date: 2026-10-29
 
 ## Current checkpoint — patched client 4 installed, 2026-10-29

@@ -1,5 +1,12 @@
 # Decision log
 
+## D-060 — Refresh the phone's JS delivery, not its valid native installation
+
+- Date: 2026-10-29. Roope requests updating the phone's Home heading after the previous status check proves its dedicated Metro cache is stale. A source push/browser pass does not prove current phone content.
+- Validate exact running Metro command/cwd and approved current LAN before stopping that process alone. Restart the same loopback8093 with cleared cache/current public API/advertised address, retaining the existing restricted LAN forwarder. Do not restart API, read/change credentials, broaden listening, rebuild native modules, renew signing or reinstall/reset app data for a string-only update.
+- Verify the exact LAN iOS manifest/asset retains SDK58/build4/identity/current API/no credential markers and contains new FI/EN headings with old FI wording absent. Relaunch only the previously bound exact app/device using the existing dev-client Home URL, then verify repeated matching PID and actual native Home screenshot. Observed Suositut haut is a specific native render pass, not native button-flow/Dynamic Type/camera/recognition accuracy.
+- Keep native screenshot/device receipts ignored and out of Git, do not open history/camera/location or make paid calls. Record the refresh locally; this request authorizes no new GitHub push or production release. Existing profile still expires November4 at20:28:39 Helsinki.
+
 ## D-059 — Share the preserved integration only under the owner's exact destination approval
 
 - Date: 2026-10-29. Roope explicitly authorizes KierratysAppi publication if the fresh contributor check passes and requests Home's Suositut haut heading. Verify actual origin URL/main, current author/PR history, all ten ancestor IDs and current call sites, not merely old audit prose. Current changes introduce no teammate-function loss; preserve the prior native-only address/unwired helper qualifications instead of claiming literal historical equivalence.
