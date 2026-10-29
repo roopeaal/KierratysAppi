@@ -2,6 +2,11 @@ import { describe, expect, it } from "vitest";
 import { localizedText, messages, translate } from "../index";
 
 describe("localization", () => {
+  it("uses the owner-selected Home shortcut heading in Finnish and English", () => {
+    expect(translate("fi", "homeMaterials")).toBe("Suositut haut");
+    expect(translate("en", "homeMaterials")).toBe("Popular searches");
+  });
+
   it("makes photo recipients, retention, inference and exhausted-credit recovery explicit in both languages", () => {
     for (const language of ["fi", "en"] as const) {
       expect(translate(language, "photoPrivacy")).toContain("OpenAI");

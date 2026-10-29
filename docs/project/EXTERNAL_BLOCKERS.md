@@ -1,5 +1,11 @@
 # External blockers
 
+October29 team-source sharing: fresh contributor recheck and dependency/platform
+gates introduce no new credential/account/manual blocker. Roope explicitly
+authorizes this reviewed KierratysAppi/main source push. Existing native acceptance,
+photo accuracy and production operations/privacy/licensing/store gates remain;
+source sharing does not close them or permit future automatic team publication.
+
 ## October29 patched client4
 
 No new external blocker: build/signature/profile/native-lock/replacement install,

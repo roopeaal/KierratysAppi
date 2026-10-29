@@ -1,5 +1,13 @@
 # Roadmap
 
+## Owner-authorized preserved source sharing — October29
+
+- [x] Re-fetch actual team main, paginate contributor/PR metadata and independently trace all ten ITbes-dev/Rdotcom ancestor IDs/current behaviors; no new regression, no private-history merge. Keep native-only address/unwired filter qualifications visible.
+- [x] Rename Home's existing material shortcut heading to Suositut haut / Popular searches without analytics/fake ranking; add localization and semantic browser assertions. Fresh full431 tests/all builds/16 routes, online Expo, Doctor20/20 and high/critical dependency policy pass.
+- [x] Pass mobile242 validation and both affected Home/integrated-browser suites; inspect FI/EN heading screenshots and review selected history/delta without native/credential/device artifacts. Record initial cache/timeout failures and strict passing reruns.
+- [ ] Execute the explicitly authorized fast-forward KierratysAppi/main push; record actual remote SHA/CI separately from local validation and public production NO-GO.
+- [ ] Complete installed-client4 controlled button/back/larger-native-text acceptance; earlier screenshots, source sharing and browser fixtures do not establish it.
+
 ## Patched iPhone client4 — October29
 
 - [x] Preserve verified old app/native-tree snapshots before generation; bump only iOS build4 and add native-build metadata regression, retaining purpose minimum/Android identity.

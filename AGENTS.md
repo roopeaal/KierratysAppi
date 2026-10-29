@@ -1,5 +1,14 @@
 # KierrätysAppi repository rules
 
+## Explicit team-source sharing — October 29, 2026
+
+Roope requests a fresh ITbes-dev/Rdotcom preservation check, the Home heading
+“Suositut haut”, and publication to `roopeaal/KierratysAppi/main` if preservation
+passes. This authorizes one reviewed, normal fast-forward source-sharing step
+and its outcome documentation; no private-history synchronization, force push,
+future automatic sharing, paid inference or production release. Keep the
+documented native-only address/unwired material-filter qualifications explicit.
+
 ## Active owner boundary — October 28, 2026
 
 Roope explicitly approved combining the current KierratysAppi functionality with

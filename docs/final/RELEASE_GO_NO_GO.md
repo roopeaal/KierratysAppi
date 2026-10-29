@@ -1,5 +1,17 @@
 # Release decision
 
+October29 owner-authorized source-sharing recheck: **contributor preservation
+PASS**, not public-production GO. Fresh main remains28e0f32; all ten contributor
+IDs/current behaviors remain, with the previously published native-only address
+and unwired material-filter qualifications. Full431 tests/all builds/16 routes,
+online Expo, Doctor20/20 and live high/critical policy pass; eighteen lower records
+remain monitored. Suositut haut / Popular searches changes an existing shortcut
+heading, not provider behavior or measured ranking. Owner expressly authorizes
+this team's main push; actual publication/browser/remote CI results are recorded
+in TEST_EVIDENCE. Older HOLD/no-authority statements below describe earlier work,
+not this new sharing step. Native full-flow/large-text/VoiceOver/camera/AI accuracy,
+Android, operations/licensing/privacy/store gates keep production **NO-GO**.
+
 October29 patched iPhone client4: **development build/install/startup scope
 passes**, not production GO. Stable build, strict app/all11-framework/profile/
 device/native-lock/purpose checks, replacement0.1.0/build4 inventory, actual

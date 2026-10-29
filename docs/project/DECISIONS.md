@@ -1,5 +1,12 @@
 # Decision log
 
+## D-059 — Share the preserved integration only under the owner's exact destination approval
+
+- Date: 2026-10-29. Roope explicitly authorizes KierratysAppi publication if the fresh contributor check passes and requests Home's Suositut haut heading. Verify actual origin URL/main, current author/PR history, all ten ancestor IDs and current call sites, not merely old audit prose. Current changes introduce no teammate-function loss; preserve the prior native-only address/unwired helper qualifications instead of claiming literal historical equivalence.
+- Keep the four existing editorial material shortcuts and change only the FI/EN heading, with localization and semantic browser regressions. No invented popularity measurements, tracking or provider query. The approved visual import remains selective; do not merge private KeepItGreen history/services or publish ignored native/credential/device artifacts.
+- Require fresh full/mobile validation and live compatibility/Doctor/security gates, selected-delta/history review and an immediate remote fast-forward check. Push explicitly to the verified team `HEAD:refs/heads/main`, never the branch's private default push target; no force, mirror, settings or other-branch change. Outcome-only documentation belongs to this same authorized step. Remote CI is observed separately; local tests are not remote CI.
+- Production remains NO-GO and native button/back/larger-text/address/camera/AI evidence remains separate. No new paid inference, secret read, account, signing renewal or phone-data action. This single source-sharing authorization does not permit future automatic team pushes.
+
 ## D-058 — Match the native installation and bound development-network restoration
 
 - Date: 2026-10-29. Roope requests updating the phone, then explicitly approves the current trusted LAN and reuse of the existing server-only key. No GitHub publication, new key or paid evaluation request.

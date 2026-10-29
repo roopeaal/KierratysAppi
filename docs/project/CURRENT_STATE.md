@@ -1,5 +1,12 @@
 # Current state
 
+## Contributor recheck and authorized team-source sharing — 2026-10-29
+
+- Roope explicitly requests a fresh ITbes-dev/Rdotcom preservation check, Home **Suositut haut** and a conditional KierratysAppi/main push. Fresh origin fetch/GitHub paginated author and PR queries still show main `28e0f32`, seven local commits and no remote-only commit. All ten contributor IDs remain ancestors; independent patch/current-call-site reviews find no new teammate-function loss. Native-only address lookup and the unwired exact-material helper remain the already-published qualifications, not regressions from this integration.
+- Change only the localized Home shortcut heading to **Suositut haut / Popular searches**, with a localization regression and real-browser semantic-heading assertion. The same four editorial guide shortcuts remain; no usage ranking, tracking, fake products or popularity metrics are introduced. Fresh full validation passes **431 unique tests (113 policy + 318 application)**/all builds/16 routes; online Expo, Doctor20/20 and high/critical dependency policy pass with twelve moderate/six low records retained.
+- Mobile validation242 overlapping cases and both affected actual-Metro FI/EN Home/navigation suites pass; FI/EN heading screenshots inspected. First stale-heading cache and a cold concurrent nearby timeout are retained in TEST_EVIDENCE; a cleared test cache/isolated unchanged-suite rerun passes, no app workaround or weakened assertion. Phone services untouched.
+- Source sharing is separately owner-authorized, not production GO. Actual push and remote CI are recorded in TEST_EVIDENCE as observed. Existing client4/native entry/back/larger-text/address/camera/AI/Android/operations/store gaps remain; no new external blocker, native reinstall, paid request, secret read or private-repository synchronization. Broader controlled native acceptance remains the single next action.
+
 ## Patched iPhone client 4 installed — 2026-10-29
 
 - Roope requests the phone update after `e815522`. Only iOS build3→4 plus corresponding policy/native-Constants test change; version0.1.0, identity, Android2, app behavior, models/data/rules/dependencies unchanged. Full validation passes **430 unique tests (113 policy + 317 application)**/all builds/16 routes after repairing a type error in the new test fixture. Evidence: `docs/final/IOS_PATCH_CLIENT4.md`.

@@ -103,6 +103,12 @@ async function main() {
       // Language is also switched through the actual control, not inferred from storage internals.
       await page.getByTestId(`language-${language}`).click();
       await page
+        .getByRole("heading", {
+          name: language === "fi" ? "Suositut haut" : "Popular searches",
+          exact: true,
+        })
+        .waitFor();
+      await page
         .getByTestId("home-history-empty")
         .filter({ hasText: language === "fi" ? "Historia ei ole käytössä" : "History is off" })
         .waitFor();
@@ -175,7 +181,7 @@ async function main() {
       await context.close();
     }
     console.log(
-      "PASS: FI/EN reference Home and keyboard-activated combined Identify entry, selected tab and no implicit capabilities/recognition/GPS, opt-out stale-history protection, real saved preview and explicit reopen, four real material chips, bounded local-guide search/unknown/reset/duplicate-parameter recovery, 44pt controls and zero implicit GPS/provider calls. Fixtures only; no paid image request.",
+      "PASS: FI/EN Popular searches heading, reference Home and keyboard-activated combined Identify entry, selected tab and no implicit capabilities/recognition/GPS, opt-out stale-history protection, real saved preview and explicit reopen, four real material chips, bounded local-guide search/unknown/reset/duplicate-parameter recovery, 44pt controls and zero implicit GPS/provider calls. Fixtures only; no paid image request.",
     );
   } finally {
     await browser.close();

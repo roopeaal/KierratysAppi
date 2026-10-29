@@ -1,5 +1,43 @@
 # Contributor preservation audit — October 29, 2026
 
+## Fresh pre-push recheck after maintenance and client4
+
+Roope now explicitly requests the Home heading change and a conditional push to
+**roopeaal/KierratysAppi/main**. Fresh fetch, independently listed remote heads,
+paginated account-associated main commits and PR queries still find team main
+`28e0f3228e2754aae5c9b91ce42bf9ab60935549`, ITbes-dev's one SDK commit and
+Rdotcom's eight commits plus merged #37, with no additional human team head.
+At `efbf28b` the branch is **0 behind / 7 ahead**. All ten contributor IDs
+remain ancestors; the private visual-source commit is not an ancestor.
+
+Independent source rechecks find **no new contributor-function regression**.
+Core backend/shared logic, camera/photo/result/storage/nearby adapters/cards,
+nearby translations and postal/subregion normalization/tests remain identical
+to team main. Home catch/ignore-after-blur protection, native address input,
+five-point/material/map results and sorting-result heading remain reachable.
+The SDK generation/status-bar/Doctor/QA-readiness changes remain; later compatible
+dependency security patches and build4 are intentional, not byte-identical pins.
+The two platform/UI qualifications below still apply: original public browser
+address lookup was replaced on already-published main, and the exact-material
+helper remains unwired. No claim of literal historical platform equivalence.
+
+Full validation now passes **431 unique tests (113 policy + 318 application)**,
+all builds and 16 routes. Fresh online Expo compatibility, Doctor **20/20** and
+the unchanged live high/critical security policy pass; **12 moderate + 6 low**
+records remain. The earlier dependency HOLD below is dated/superseded, not a
+current gate failure. Installed native client4 startup/render evidence is in
+IOS_PATCH_CLIENT4; controlled button/back/larger-text and address/provider/map
+acceptance remain pending and are not inferred from source or browser checks.
+
+Aggregate review covers all seven commit patches plus the owner-selected heading
+change, with no tracked work/native/profile/key/device artifact or private-history
+merge found. A limited redacted-pattern patch scan finds zero candidates, not a
+full Gitleaks certification. Source sharing is permitted by the current owner
+request; public production remains **NO-GO**. Actual push/remote CI outcomes and
+the new heading's browser evidence are recorded in TEST_EVIDENCE, not assumed.
+
+## Earlier audit baseline (ceedb6a)
+
 Maintenance follow-up: this is the dated audit of `ceedb6a` before the approved
 dependency repair. SDK58_SECURITY_MAINTENANCE records intentional package/lock
 updates, fresh passing gates and unchanged implementation/history. Current

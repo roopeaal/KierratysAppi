@@ -1,5 +1,56 @@
 # Test evidence
 
+## October29 — fresh contributor recheck and owner-authorized main sharing
+
+- Actual origin is `https://github.com/roopeaal/KierratysAppi.git`; private
+  KeepItGreen remote/default push target is not used. Fresh fetch, independent
+  ls-remote heads and paginated GitHub main-author/PR metadata still confirm
+  main28e0f32, ITbes-dev1 commit, Rdotcom8 plus merged#37. All ten IDs remain
+  ancestors at efbf28b (0 behind/7 ahead). Two independent source/patch reviews
+  find no new contributor behavior loss or private-history merge. Native-only
+  address lookup and still-unwired material helper remain explicit pre-existing
+  limits; see CONTRIBUTOR_PRESERVATION_AUDIT for current vs dated baseline.
+- Rename only Home's four existing editorial-shortcut heading to **Suositut
+  haut / Popular searches**; no measured ranking/tracking/provider change.
+  New localized regression:8/8 localization cases pass. Full pinned
+  `pnpm validate` passes **431 unique cases (113 policy + 318 application)**,
+  boundaries/format/lint/types/all builds/16 routes. Mobile scope passes
+  **242 overlapping cases**. Independent contributor-focused24 mobile,
+  13 collection-contract and10 location-policy cases also pass; not new totals.
+- Fresh online Expo install check passes; pinned Doctor1.21.5 **20/20**;
+  unchanged live security policy passes with **0 high/critical**, twelve
+  moderate/six low records retained. No dependency update, exception or CI
+  gate bypass in this heading/sharing unit. Auto-install before diagnostic
+  commands is disabled; mandatory validation commands are unchanged.
+- Actual-Metro reference Home suite passes in FI/EN: new semantic heading,
+  four real shortcuts/local search/recovery, opt-out history protection and
+  explicit reopen, combined Identify entry, no implicit API/GPS and44pt targets.
+  Inspect FI/EN390px screenshots: heading fits and actions remain readable.
+  Strict integrated suite passes barcode/manual/AI entry/back, selected tabs,
+  direct-URL noGPS vs one-shot Points press/five sourced records, FI/EN/dark/
+  320/390/1280 and130% synthetic text. No actual barcode/photo/location/provider
+  or paid call. Earlier five-suite evidence remains separately dated above/below;
+  this unit reruns these two affected navigation/Home suites, not all five.
+- First new heading assertion fails because the long-running test Metro
+  serves **Selaa materiaaleja**; DOM diagnostic confirms stale text. Restart
+  only verified loopback8094 with cleared cache; unchanged heading assertion
+  passes. First concurrent cold integration sequence times out at direct
+  `/nearby`; isolated diagnostic returns200/no page errors/noGPS, and the same
+  complete strict suite passes alone after builds finish. No app workaround,
+  assertion loosening, added retries or hidden failure. Phone services untouched.
+- Aggregate selected history/path review finds no work/native/profile/key/
+  device artifacts or source deletions. Limited redacted-pattern scan across
+  all seven pending patches finds zero candidates, not full Gitleaks acceptance.
+  Roope explicitly authorizes the normal team-main source push; actual remote
+  SHA and GitHub CI outcomes are recorded after execution, not inferred here.
+  Public production remains NO-GO; no new external blocker or native/paid action.
+- Ignored receipts/screenshots: `work/team-push-2026-10-29.92TZOw/` contains
+  validate.log, validate-mobile.log, security-audit.log, expo-check.log,
+  expo-doctor.log, failed reference-home.log/integration.log, passing
+  reference-home-repaired.log/integration-recheck.log, local DOM diagnostics,
+  metro-8094.log, reference-home/ and integration/ fixture PNGs. No private
+  user/device data, credential values, signed app or generated native files in Git.
+
 ## October29 — patched iPhone build4 installed and started
 
 - Source baseline `e815522`; only iOS build4 metadata plus corresponding policy
