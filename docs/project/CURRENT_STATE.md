@@ -1,5 +1,12 @@
 # Current state
 
+## Zero-per-image-cost recognition feasibility research — 2026-11-03
+
+- Roope asks whether an own recognizer can avoid API charges and whether GPT-6.1 Sol can autonomously deliver a reliable finished system. Research official OpenAI/Apple/Google/runtime/model/dataset sources plus actual current code at8003ca0. Findings/procedures/assumptions are in `docs/research/free-vision-feasibility-2026-11-03.md`: a bounded on-device estimator using a cleared pretrained base is feasible to investigate, not yet implemented or empirically validated. General from-scratch recognition/verified materials is not promised.
+- Current OpenAI-only source/model wire literals and pre-camera server capability gate mean local/offline support needs explicit versioned native/contract/UI/availability work, not a one-function swap. Existing capture/cleanup/material confirmation/rule provenance can be reused without fabricating a brand/material/safety status. Current eight-image baseline/material error and PHOTO-003/004 remain; green code tests are not model accuracy.
+- Hardware-only read: M1/8GiB/about15GiB free, not a training/performance benchmark. Cost distinction: no per-inference API invoice is possible, not zero development/subscription/power/storage/maintenance/distribution cost. Research scope only: no model/image download, training/inference, credential read, paid request, app/runtime/phone change or GitHub write. Next action becomes the bounded offline-evaluation specification; existing native acceptance/release gaps remain separately pending.
+- Fresh full validation passes431 unique cases/all checks/builds/16 routes; independent code-boundary report review passes with one wording correction (capture-size/JPEG handling, not an existing crop feature). No model-quality benchmark or native integration pass. Research/control documentation is committed locally only; no push authority inferred.
+
 ## Phone Home heading refreshed and observed — 2026-10-29
 
 - Roope asks to update the phone after a targeted diagnostic proves native Metro8093 still serves **Selaa materiaaleja**, although source/browser/GitHub already have the new wording. Verify the exact process/cwd/current approved LAN, restart only loopback8093 with `--clear`, keep the existing address-only forwarder and API unchanged. No source/dependency/native build/sign/install/key or GitHub change.

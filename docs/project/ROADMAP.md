@@ -1,5 +1,12 @@
 # Roadmap
 
+## Free local recognition feasibility — November3
+
+- [x] Verify exact Sol documentation, local-training/runtime/model/data licence alternatives and current app's actual integration boundary; record cost/scope/accuracy/effort distinctions and primary sources.
+- [x] Preserve current photo safety/source/rules and separate the eight-image historical evaluation from any new recognition result. No app/model/dependency/runtime/device/credential/paid-call/publication action.
+- [ ] Draft the bounded offline-baseline class/licence/image-manifest/metric specification before any training or native integration; keep unknown/hazard refusal and product-group-held-out real-camera acceptance explicit.
+- [ ] Only after a licence/data/runtime choice and actual baseline evidence, assess a local native pilot; no promise of Android portability, improved accuracy or no new native build. Existing native acceptance/PHOTO/production gaps remain pending.
+
 ## Phone-only Home heading refresh — October29
 
 - [x] Confirm native8093 serves stale heading; validate exact process/current approved LAN and restart only that loopback Metro with cleared cache, leaving restricted forwarding/API/native installation intact.

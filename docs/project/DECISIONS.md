@@ -1,5 +1,13 @@
 # Decision log
 
+## D-061 — Investigate a bounded local recognizer without promising autonomous truth
+
+- Date: 2026-11-03. Authority: owner requests feasibility/effort research, not an implementation, model change, paid evaluation, image harvest, device update or push. Use official sources for the exact named GPT-6.1 Sol; distinguish documented coding tools from an unsupported guarantee that it can independently certify recognition quality.
+- Proposed direction, not accepted implementation: own small visual-object classifier on a licence-cleared pretrained base, local inference, explicit unknown/rejection and existing user material verification/source-backed rules. From-scratch general VLM, exact unknown SKU identity and hidden material composition are different problems. Sol writes/orchestrates the tooling; it need not run inside the delivered app.
+- Clear runtime, checkpoint and image/annotation rights separately. Use product/object/session-separated train/validation/held-out test data, independent labels, unknown/hazard negatives and actual phone evidence; internet catalogue images or the builder model's self-grading are insufficient. Differentiate shape classification, enrolled-product retrieval, material truth and sorting policy metrics.
+- Current OpenAI-fixed observation metadata/server-capability gate must be honestly redesigned/versioned before any local model is integrated; do not fill missing semantics with invented risk/parts/materials or silently fall back to paid upload. Native module compatibility/size/latency/memory/battery require actual iOS/Android checks. No existing PHOTO/release finding is closed.
+- Retain research with URLs/access date and explicitly assumption-bound time estimates. Do not buy compute/accounts, collect existing user photos, install packages/models, change source/runtime/signing or publish from this research request. The next local design action is a bounded free-baseline specification, not an already-authorized training run.
+
 ## D-060 — Refresh the phone's JS delivery, not its valid native installation
 
 - Date: 2026-10-29. Roope requests updating the phone's Home heading after the previous status check proves its dedicated Metro cache is stale. A source push/browser pass does not prove current phone content.

@@ -1,5 +1,15 @@
 # External blockers
 
+November3 local-recognition research is complete without a new credential,
+account, payment or device blocker. No local model/runtime/checkpoint/dataset is
+selected, acquired or validated yet. Engineering owns the next offline-baseline
+specification and native compatibility/evaluation work; independent data reviewers
+must establish labels/rights, and Roope supplies or authorizes future physical
+camera samples/settings actions. These are future acceptance prerequisites, not
+proof that training is blocked or completed. Existing PHOTO and release gates
+remain; this research request authorizes no paid inference, user-photo reuse,
+native installation, cleanup or GitHub publication.
+
 October29 phone heading refresh: no new external blocker. Same-app native
 relaunch and visible **Suositut haut** Home observation succeed after clearing
 only its Metro cache. No renewal/trust/account/key/payment/physical-owner action

@@ -1,5 +1,27 @@
 # Test evidence
 
+## November3 — free-recognition feasibility, no model experiment
+
+- Read-only source verification at8003ca0 confirms current OpenAI-only metadata,
+  server capability before camera, absent local inference runtime and reusable
+  camera/cleanup/material/rule safeguards. Independent source lane agrees.
+- Exact GPT-6.1 Sol official model documentation searched and fetched; official
+  Apple training/evaluation Markdown, ONNX/React Native licence/docs, LiteRT
+  platform limits, model card and OFF image/licence pages researched. Full URLs,
+  access date, scope/effort assumptions and future evaluation procedure:
+  `docs/research/free-vision-feasibility-2026-11-03.md`.
+- Only M1/RAM/free-storage metadata read. No benchmark, image/model download,
+  training/inference/accuracy run, package install, app/phone/runtime change,
+  server-key/account action, paid call or GitHub write. Prior eight-image
+  photo baseline is historical, not re-run or reinterpreted as representative.
+  This documentation creates no new model-quality, native or production pass.
+- Fresh full `pnpm validate` passes **431 unique cases (113 policy + 318
+  application)**, all boundaries/format/lint/strict types/builds and16 web routes.
+  Log remains ignored at `work/free-vision-research-2026-11-03.YXSL42/validate.log`.
+  Independent repository-scope report review passes after replacing an unsupported
+  reference to image cropping with the actual capture-size/JPEG-bound handling.
+  No new test cases or application changes are introduced by this research.
+
 ## October29 — actual iPhone Suositut haut heading refresh
 
 - Source baseline0293ce5; no app/test/config/dependency/native source change.

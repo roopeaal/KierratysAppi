@@ -1,5 +1,13 @@
 # Acceptance criteria
 
+## Proposed free local-recognition experiment (not implemented)
+
+1. Freeze bounded observation classes and success/rejection metrics before collecting/training; do not equate appearance, exact identity, true material and sourced sorting policy. Current PHOTO findings remain unless new representative evidence actually resolves them.
+2. Record separate runtime, checkpoint and image/annotation licences, source/hash/label provenance, product/object/session-separated splits and a held-out real-camera set. Same-image variants, answer-bearing filenames or the same builder model's unreviewed labels are not independent quality evidence.
+3. Measure per-class precision/recall, confusion, accepted coverage, unknown/hazard false acceptance and sample uncertainty. No arbitrary score equals calibrated factual confidence; no material/risk/hidden-part claim may be invented to fit an old provider schema.
+4. An eventual local path has truthful versioned model/source metadata, native availability/offline behavior, recipient-specific UI/privacy and no silent cloud/paid fallback. Preserve explicit user action, cleanup, material/conditions review and authoritative rule provenance.
+5. New native runtimes require actual matching iOS/Android builds, camera/preprocessing/quantization equivalence, latency/memory/battery/error/large-text/accessibility evidence. Research, software checks, catalogue pictures or an iOS-only export are not that evidence.
+
 ## Matching patched iPhone installation
 
 1. Preserve a verified prior binary and complete native-tree snapshot before generation; native lock/installed Manifest and JS package versions agree. Native/app/build identity and default/FI/EN camera/foreground-only location declarations are checked against source.
