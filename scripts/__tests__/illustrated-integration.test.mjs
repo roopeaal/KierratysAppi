@@ -102,8 +102,11 @@ test("new root pages lead to current camera/privacy/history routes, not old acco
     assert.doesNotMatch(source, /fetch\(|activitySummary|activityPoints|\/profile|\/map/);
   }
   const identify = readFileSync("mobile/app/src/app/identify.tsx", "utf8");
-  for (const path of ["scan", "manual", "photo"])
+  for (const path of ["scan", "manual", "local-photo"])
     assert.ok(identify.includes(`router.push("/${path}")`));
+  assert.ok(
+    readFileSync("mobile/app/src/app/local-photo.tsx", "utf8").includes('router.push("/photo")'),
+  );
   const settings = readFileSync("mobile/app/src/app/settings.tsx", "utf8");
   assert.match(settings, /isHistoryEnabled/);
   assert.match(settings, /aria-checked=\{language === item\}/);

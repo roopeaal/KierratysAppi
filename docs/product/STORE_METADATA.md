@@ -10,7 +10,7 @@ Final answers must be regenerated from the accepted signed Android/iOS binaries,
 - Finnish subtitle/short description candidate: `Pakkauksesta oikeaan paikkaan`
 - English subtitle/short description candidate: `Source-backed sorting guidance`
 - Android package / iOS bundle ID: `fi.roopeaaltonen.kierratysappi`
-- Source version/build: `0.1.0`, Android `versionCode=1`, iOS `buildNumber=1`; release owner must use monotonically increasing final store values.
+- Source version/build: `0.1.0`, Android `versionCode=2`, iOS `buildNumber=5` (November4 local-module source, not a signed store submission); release owner must verify final binary values and monotonically increase them.
 - Primary category candidate: Utilities; owner/store review required.
 - Launch locales candidate: Finnish and English only.
 
@@ -64,11 +64,11 @@ Reconfirm in App Store Connect from the final binary:
 
 - App Privacy: barcode/GTIN is transmitted to KeepItGreen API and OFF for app functionality; IP is necessarily processed by network/rate-limiting infrastructure. Exact Apple data-type/linkability/collection treatment requires controller/legal assessment and final vendor configuration.
 - Tracking/advertising: source implements none; verify all final SDKs and manifests.
-- Camera: barcode decoding only; frames not uploaded; verify signed behavior.
+- Camera: barcode decoding locally; new iOS-only Apple Vision image/OCR pilot also local, with no image/OCR history or automatic sorting. The separately named optional OpenAI path sends a consented image via the app server and retains its distinct provider/privacy/cost disclosure. Do not answer this questionnaire as barcode-only; verify signed final behavior and recipient/retention declarations.
 - Accounts: none in current scope.
 - Encryption/export: source declares only exempt standard transport (`ITSAppUsesNonExemptEncryption=false`); release owner must validate the final binary and answer.
 - Content/age rating, rights, primary/secondary category, DSA/trader status, Korea/China/Vietnam availability, reviewer contact/notes: **not finalized**.
-- Privacy manifest/reason APIs: clean source prebuild declares UserDefaults CA92.1 and no tracking/collected types; inspect final archive merge and App Store report.
+- Privacy manifest/reason APIs: source includes UserDefaults CA92.1 and local module SystemBootTime35F9.1 (elapsed in-app processing/deadline). Local module manifest is packaged in unsigned Debug build5; inspect the final signed archive, every SDK manifest and App Store report before declaring collection/tracking status.
 
 ## Google Play questionnaire worksheet
 

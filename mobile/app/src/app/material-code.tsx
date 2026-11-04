@@ -6,7 +6,7 @@ import {
 } from "@kierratysappi/domain";
 import { localizedText } from "@kierratysappi/localization";
 import type { SortingResult } from "@kierratysappi/recycling-engine";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import { Keyboard, Linking, StyleSheet, TextInput, View } from "react-native";
 import { SortingResultCard } from "@/components/sorting-result";
@@ -23,6 +23,7 @@ import {
   sharedStyles,
 } from "@/components/ui";
 import { announceAccessibility } from "@/features/accessibility/announcements";
+import { materialCodePrefill } from "@/features/material-code/prefill";
 import { sortRecognizedMaterialCode } from "@/features/material-code/sorting";
 import { useLanguage } from "@/i18n/language-context";
 import { codeFontFamily } from "@/theme/fonts";
@@ -32,7 +33,8 @@ export default function MaterialCodeScreen() {
   const router = useRouter();
   const { language, t } = useLanguage();
   const { palette } = useAppTheme();
-  const [value, setValue] = useState("");
+  const params = useLocalSearchParams<{ code?: string | string[] }>();
+  const [value, setValue] = useState(() => materialCodePrefill(params.code));
   const [attempt, setAttempt] = useState<MaterialCodeParseResult>();
   const [sorting, setSorting] = useState<SortingResult>();
   const [focused, setFocused] = useState(false);

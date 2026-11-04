@@ -1,3 +1,3 @@
 # Next action
 
-Draft a bounded offline-recognition baseline specification defining proposed visual-object classes, separately cleared runtime/model/image licences, product/object-group-separated train/validation/held-out manifests and unknown/hazard/real-camera acceptance metrics, without downloading data/models, training, changing the current app, using credentials/paid inference or publishing; retain the pending installed-client4 native acceptance separately in ROADMAP.
+Create one independently reviewable, licence-traced image/label manifest with object/product-group-separated train/validation/held-out allocations for bottle, jar, box/carton, bag, cup and unknown/hazard negatives, recording source URL, rights, hash, label evidence and reviewer status without training, reusing user photos, paid calls, phone actions or publication; do not count the eight seen development pictures as held-out data.

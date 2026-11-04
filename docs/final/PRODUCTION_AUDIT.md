@@ -1,5 +1,21 @@
 # Adversarial production-readiness audit
 
+## Scoped local-recognition implementation assessment — November4
+
+Not a repeated30-lane audit or a production GO. New strict native/shared/mobile
+paths receive independent source review plus software/browser/native compile
+checks; no new unresolved critical/high implementation defect found in that scope.
+That does not certify model quality or physical behavior.
+
+| ID | Severity | Evidence / affected flow | Reproduction | Required remediation / ownership / executability |
+| --- | --- | --- | --- | --- |
+| LV-001 | high | The first iOS local system-model pilot only proposes a bottle for1/8 seen public development images; seven abstain. Synthetic05PP is read with Cyrillic letters and safely rejected, a failed positive. `modules/local-vision`, shared local normalizer and `/local-photo` therefore do not establish useful general product recognition. Full per-case hashes/results: LOCAL_VISION_IMPLEMENTATION | Inspect frozen protocol and ignored `work/local-vision-implementation-2026-11-03.dDAJzz/v2-baseline/summary.json`; never turn catalogue images or synthetic text into held-out phone evidence | **Open; locally executable engineering work**, not a funding/account blocker: independently reviewable licence/label/group-split manifest, appropriate task-specific model and frozen class/unknown/hazard evaluation; then real-camera/OS/latency/memory/battery acceptance. Engineering owns implementation/evaluation; independent reviewer owns label/rights acceptance; Roope operates real physical prompts/samples under a separate device request. Conservative uncertainty/manual code recovery mitigates harm, not low coverage. No threshold tuning, fabricated material or severity reduction |
+
+PHOTO-003/004 remain unchanged. Unsupported Android/old native/web states are
+explicit, not feature completion. Signed/standalone/native-camera/store gates
+remain pending. No paid call, image/model acquisition, training, phone update,
+renewal or publication was performed in this unit.
+
 ## AUD-044 — Blocking SDK58-era dependency advisories, October29
 
 - Severity: **critical** aggregate (one critical/eleven high records), not

@@ -1,5 +1,22 @@
 # Security and privacy
 
+## November4 — separate local image path
+
+The iOS-only local pilot uses installed Apple Vision classification/OCR with
+bounded JPEG/pixel/output schemas, serial single-flight processing, deadlines
+and late-result rejection. No native URL/path/network/log/history is added.
+Local capture JPEG is deleted from the validated cache path; screen media/result
+clear on leave/background. No automatic material/safety/sorting inference or
+cloud fallback. OCR only prefills an editable code requiring Check+physical
+confirmation. The separately named paid OpenAI flow retains explicit recipient
+consent; in-app FI/EN privacy now clearly separates the paths.
+
+Native no-tracking manifest includes SystemBootTime35F9.1 for elapsed processing/
+deadline only, not boot fingerprinting. Actual unsigned iOS build5 contains the
+manifest byte-for-byte. Software/Mac/browser checks do not establish packet,
+physical camera, retention-after-crash, standalone release or store acceptance.
+Exact limits/procedures/failures: LOCAL_VISION_IMPLEMENTATION and TEST_EVIDENCE.
+
 The threat model covers malformed barcodes, untrusted provider data, SSRF, oversized/decompression/image attacks, prompt injection, credential exposure, authorization, scraping/DoS, supply chain, logs, analytics, location, deletion and backups.
 
 Implemented controls include strict GTIN checksum/length/character validation; fixed provider origins and one validated/rebuilt Open Facts sibling redirect; HTTPS image filtering; response timeout/size/redirect controls; a shared quota/deadline across routing; API request cap/rate limits/headers/CORS; no mobile secrets; runtime schemas; generic error envelopes; POST lookup boundary; no routine request logging; dependency lock/policy; dependency review/Dependabot/Gitleaks; PostgreSQL constraints, immutable rules, audit model and forced RLS for sensitive records. PostgreSQL remains schema/test-only, not runtime persistence. CodeQL is prepared but feature-gated because GitHub Code Security is not enabled for this private repository; enabling it may require an owner-approved paid entitlement.
@@ -8,6 +25,6 @@ Basic use requires no account. Camera frames are decoded locally and not uploade
 
 October 7: barcode recipients can include Open Beauty Facts, Open Pet Food Facts or Open Products Facts after the initial Open Food Facts lookup; FI/EN notices name each. No new persistent scan/product database is created. The point feature asks for foreground location only after a button press, uses a short balanced-accuracy watcher, calculates against bundled data, removes the watcher on result/error/cancel/timeout and clears results on leaving/backgrounding. Location/distance stays in device memory, not history, logs, analytics or API requests. Opening a source link sends only the public point ID, not user coordinates; ordinary external browser/IP processing still applies.
 
-The displayed privacy notice and terms are drafts. Before release, counsel must approve lawful basis, processor/data-transfer terms, retention/deletion, OFF licence/share-alike handling, store declarations and incident contacts. Photo/cloud OCR stays disabled until metadata stripping, consent, signed upload, validation, abuse moderation and lifecycle deletion are implemented.
+The displayed privacy notice and terms are drafts. Before public release, the release owner must approve lawful basis, processor/data-transfer terms, retention/deletion, OFF licence/share-alike handling, store declarations and incident contacts. The historical disabled-cloud statement is superseded by the separately consented server-mediated photo implementation and the November4 local pilot; neither closes PHOTO-003/004, provider/public-service abuse controls or public-production readiness.
 
 The historical image-size exceptions were removed under D-020. Every high/critical advisory and failed/malformed audit response fails the policy. September 10's live pass is historical, not a fresh October security-audit claim.

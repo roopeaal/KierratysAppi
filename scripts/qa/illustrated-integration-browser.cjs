@@ -212,7 +212,9 @@ async function main() {
     await page.getByTestId("manual-close-action").click();
     await page.getByTestId("identify-screen").waitFor();
     await page.getByTestId("identify-photo-action").click();
-    await page.getByTestId("photo-open-camera").waitFor();
+    await page.getByTestId("local-photo-unavailable").waitFor();
+    assert.equal(new URL(page.url()).pathname, "/local-photo");
+    assert.equal(await page.getByTestId("local-photo-open-camera").count(), 0);
     assert.equal(await page.getByTestId("bottom-navigation").count(), 0);
     assert.equal(await page.evaluate(() => window.qaCameraCalls), 0);
     await page.getByRole("button", { name: "Takaisin", exact: true }).click();
@@ -247,7 +249,7 @@ async function main() {
     for (const [action, screen, close] of [
       ["scan", "scanner-permission-screen", "scanner-close-action"],
       ["manual", "manual-entry-screen", "manual-close-action"],
-      ["photo", "photo-screen", null],
+      ["photo", "local-photo-screen", null],
     ]) {
       await page.getByTestId(`identify-${action}-action`).click();
       await page.getByTestId(screen).waitFor();

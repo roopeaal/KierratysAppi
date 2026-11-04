@@ -1,5 +1,13 @@
 # Decision log
 
+## D-062 — Separate free local observations from paid identity/material estimates
+
+- Date:2026-11-03–04. Roope authorizes implementation/continuation, not phone update, training, paid calls, cleanup or push. Use the installed Apple Vision framework in an iOS-first local module, no downloaded/relicensed checkpoint/new JS dependency. Describe pretrained-model pilot plus our logic, not an own-trained reliable product algorithm.
+- Separate strict `local-vision-v2` metadata from OpenAI identity/parts/material/risk. Default AI entry is local; unsupported clients fail honestly. Cloud stays explicitly separate/cost-disclosed/consented, never a local fallback. Add recipient-specific privacy sections.
+- Preserve failed V1 evidence. Apple primary documentation requires class-specific precision/recall curves, not score winner/margin/global comparisons. V2 nominal0.9 is not app field precision. Zero/multiple accepted kinds abstain. OCR whole consistent codes only, no cross-script confusable rewriting/auto-sorting (NFKC width normalization retained); keep Check+physical confirmation.
+- Bound JPEG/pixels/output/concurrency/time, ignore late/background work, delete cache captures and retain no image/OCR history/analytics. Include35F9.1 for elapsed/deadline only. Preserve verified native/app snapshots, bump iOS5 only and compile unsigned without renewing/installing.
+- Freeze diagnostic hashes and retain1/8 V2 coverage/PP failed positive; regression prevents unsafe lookalike acceptance. Quality/PHOTO/public NO-GO gates stay open. Next engineering work is independent licence/label/group-split data and task-specific evaluation; phone/Android/standalone/performance/store acceptance is separate.
+
 ## D-061 — Investigate a bounded local recognizer without promising autonomous truth
 
 - Date: 2026-11-03. Authority: owner requests feasibility/effort research, not an implementation, model change, paid evaluation, image harvest, device update or push. Use official sources for the exact named GPT-6.1 Sol; distinguish documented coding tools from an unsupported guarantee that it can independently certify recognition quality.

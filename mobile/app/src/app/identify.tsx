@@ -69,7 +69,7 @@ export default function IdentifyScreen() {
             label={t("identifyPhotoAction")}
             detail={t("identifyPhotoDetail")}
             leading={stackScan ? undefined : <IconDisc kind="photo" compact blue />}
-            onPress={() => router.push("/photo")}
+            onPress={() => router.push("/local-photo")}
             testID="identify-photo-action"
           />
         </Paper>

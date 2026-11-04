@@ -1,5 +1,21 @@
 # Release decision
 
+## November4 — local recognition remains a pilot: NO-GO
+
+First free iOS-only Apple Vision path is implemented; unsigned Debug build5 and
+packaged no-tracking/elapsed-time privacy manifest are verified. No phone install,
+renewed profile, signed Release, standalone offline launch, Android local engine
+or production release is established. Existing client4 cannot gain a native
+module through JS. Existing profile expires November4 at20:28:39 Helsinki.
+
+V2 development diagnostics cover only1/8 public pictures; PET1 synthetic passes,
+05PP is safely rejected after an OCR error. This is not reliable general product
+recognition or a new held-out accuracy pass. No automatic material/bin claim or
+paid fallback is added. LV-001 and PHOTO-003/004 stay open; quality improvement is
+locally executable engineering work, not an account/funding blocker. See
+LOCAL_VISION_IMPLEMENTATION and latest TEST_EVIDENCE. Existing infrastructure,
+privacy/licensing/store/device gates remain. **No GitHub sharing authorized here.**
+
 Actual owner-authorized source push succeeds **28e0f32..091d962**; independent
 remote SHA matches091d962389a56ec5c52386cfbaf4a8bddef6b013. Source CI40951228125
 and Security40951228098 initially in progress, not certified green. Publishing

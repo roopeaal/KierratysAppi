@@ -1,0 +1,7 @@
+{
+  "platforms": ["apple"],
+  "apple": {
+    "modules": ["LocalVisionModule"],
+    "podspecPath": ["ios/KierratysLocalVision.podspec"]
+  }
+}

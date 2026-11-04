@@ -1,5 +1,20 @@
 # External blockers
 
+## November4 local-recognition pilot
+
+No new account, credential, API-credit or paid-service blocker encountered. The
+first iOS system-model path compiles; low development coverage is **locally
+executable engineering/model/data work**, not externally blocked. Independent
+label/rights review is required before quality acceptance; manifest creation can
+proceed locally. Android and JS-bundled standalone acceptance remain unfinished.
+
+No phone update/renewal requested or performed here. Last verified client4
+profile expires November4 at20:28:39 Helsinki; client5 source/unsigned compilation
+do not extend it. Roope owns actual connection/unlock/trust/settings/camera or
+account prompts during a separately requested installation; engineering owns
+build/profile/resource checks and measurements. No new signing failure is
+inferred without attempting it. No secret read, paid call, cleanup or push.
+
 November3 local-recognition research is complete without a new credential,
 account, payment or device blocker. No local model/runtime/checkpoint/dataset is
 selected, acquired or validated yet. Engineering owns the next offline-baseline

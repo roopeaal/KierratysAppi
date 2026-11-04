@@ -1,10 +1,12 @@
 import type { Language, LocalizedText } from "@kierratysappi/domain";
 import { guideSearchEn, guideSearchFi } from "./guide-search";
+import { localVisionEn, localVisionFi } from "./local-vision";
 import { navigationEn, navigationFi } from "./navigation";
 import { nearbyEn, nearbyFi } from "./nearby";
 import { photoEn, photoFi } from "./photo";
 
 const fi = {
+  ...localVisionFi,
   ...guideSearchFi,
   ...navigationFi,
   ...photoFi,
@@ -216,6 +218,7 @@ const fi = {
 } as const;
 
 const en: Record<keyof typeof fi, string> = {
+  ...localVisionEn,
   ...guideSearchEn,
   ...navigationEn,
   ...photoEn,

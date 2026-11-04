@@ -1,5 +1,30 @@
 # Owner actions
 
+## November4 — free local-recognition pilot
+
+- **Engineering / next local action:** create the licence-traced independent
+  class/unknown/hazard group-split manifest in NEXT_ACTION. Reviewers must verify
+  rights/labels;1/8 development coverage is not a reliable finished recognizer.
+  Do not train on or relabel the held-out set to make it pass. No new account,
+  secret, payment or phone action is needed to create the manifest.
+- **Engineering / native delivery, not performed here:** only under a phone-update
+  request, preserve the verified old app/tree, generate from source build5,
+  verify matching pod locks/module/privacy resource and create a JS-bundled
+  signed binary. Inspect real profile dates/signatures/device binding before
+  replacement install, without uninstall/reset. Existing client4's last verified
+  expiry is **November4 at20:28:39 Helsinki**; this unsigned compile does not
+  renew it. Debug/Metro dependency is not standalone offline acceptance.
+- **Roope / physical actions when delivery is requested:** connect/unlock the
+  existing phone and handle only actual account/keychain/trust prompts yourself;
+  no password/code/photo in chat. Then camera-denied/restored, background/back,
+  airplane-mode launch/inference and larger-text/VoiceOver checks use ordinary
+  empty packaging without personal data. Do not select the separately paid
+  OpenAI path for local tests. Engineering records real outputs/performance and
+  failures; do not mark physical observations from browser/Mac fixtures.
+- **Engineering / Android** remains a separate native implementation and device
+  evaluation. **Release owner** retains final platform/licensing/privacy/store
+  obligations. No publication, API-key change or paid action is requested now.
+
 ## October29 — client4 installed, source remains local
 
 - **Engineering completed:** matching patched native build4, same app/version,

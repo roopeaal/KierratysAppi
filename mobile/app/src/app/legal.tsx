@@ -40,6 +40,13 @@ export default function LegalScreen() {
         <AppText>{t("nearbyPrivacy")}</AppText>
         <AppText>{t("nearbyLocationHint")}</AppText>
         <AppText>{t("nearbyAddressDisclosure")}</AppText>
+        <AppText variant="heading" accessibilityRole="header">
+          {t("localVisionTitle")}
+        </AppText>
+        <AppText>{t("localVisionPrivacy")}</AppText>
+        <AppText variant="heading" accessibilityRole="header">
+          {t("localVisionCloud")}
+        </AppText>
         <AppText>{t("photoPrivacy")}</AppText>
       </DocumentSection>
       <DocumentSection>

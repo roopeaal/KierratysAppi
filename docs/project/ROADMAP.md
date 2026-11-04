@@ -1,11 +1,21 @@
 # Roadmap
 
+## First local iOS recognition pilot — November3–4
+
+- [x] Freeze diagnostic protocol; implement optional iOS module/strict shared observations/local UI/explicit unavailable recovery without paid fallback or fabricated material/sorting.
+- [x] Preserve code Check+Confirm, local/cloud privacy, bounded cancellation/cleanup and barcode/manual/explicit cloud; add regressions and independent source/browser review.
+- [x] Run identical-engine diagnostics; retain V1/V2 failures including1/8 coverage and PP failed positive, fixed hashes/licensing and class-specific semantics. No training/download/API cost.
+- [x] Preserve verified prior app/native tree; generate/link local pod and pass both unsigned iOS Debug builds, actual linked symbols/build5 and packaged privacy byte equality. Full522/scoped322+154 checks/17 routes and final exact-copy browser suite pass. TEST_EVIDENCE distinguishes this from phone/signing/standalone acceptance.
+- [ ] Create independently reviewable licence-traced object/product-group-split class/unknown/hazard dataset manifest: the single NEXT_ACTION, not a credential blocker.
+- [ ] Under a phone-update request, build/sign/install matching JS-bundled iOS client and test real camera/permission recovery/background/airplane mode/large text/VoiceOver/latency/memory/battery. Client4 cannot gain the module through JS.
+- [ ] Implement/evaluate Android separately. Keep PHOTO-003/004/public-release/provider/privacy/store gates open.
+
 ## Free local recognition feasibility — November3
 
 - [x] Verify exact Sol documentation, local-training/runtime/model/data licence alternatives and current app's actual integration boundary; record cost/scope/accuracy/effort distinctions and primary sources.
 - [x] Preserve current photo safety/source/rules and separate the eight-image historical evaluation from any new recognition result. No app/model/dependency/runtime/device/credential/paid-call/publication action.
-- [ ] Draft the bounded offline-baseline class/licence/image-manifest/metric specification before any training or native integration; keep unknown/hazard refusal and product-group-held-out real-camera acceptance explicit.
-- [ ] Only after a licence/data/runtime choice and actual baseline evidence, assess a local native pilot; no promise of Android portability, improved accuracy or no new native build. Existing native acceptance/PHOTO/production gaps remain pending.
+- [x] Freeze `LOCAL_VISION_BASELINE_SPEC.md` before inference, distinguishing development diagnostics from future group-held-out real-camera quality acceptance.
+- [x] Implement/evaluate the first iOS system-model pilot above with explicit licence/runtime/accuracy boundaries; Android/representative quality/native-device acceptance remain pending.
 
 ## Phone-only Home heading refresh — October29
 

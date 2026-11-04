@@ -1,6 +1,15 @@
 # Acceptance criteria
 
-## Proposed free local-recognition experiment (not implemented)
+## First local iOS pilot — November4
+
+1. Actual optional native module/strict separate observations; no networking, fabricated identity/material/safety/bin or paid fallback. Old clients/Android/web explicitly recover as unavailable.
+2. Bounded validated native data and class-specific operating points, not cross-class probabilities/app accuracy. Invalid/conflicting/unsupported output fails conservatively; estimates retain inferred engine/revision/OS/time metadata.
+3. Complete consistent OCR codes only, no substrings or cross-script confusable rewriting. NFKC width normalization remains intentional/tested. Editable prefill then explicit Check and independent physical confirmation precede sourced sorting; local results never auto-authorize it.
+4. Explicit capture/recognition, blur/background clearing, late-result rejection and bounded concurrency/decode/deadline/cache cleanup. Privacy separates local/no-upload from distinct consented paid cloud.
+5. Shared/mobile/full tests, identical-engine diagnostics, actual iOS compilation and packaged privacy reason. Retain all failures/hashes/licences:1/8 seen-image coverage and PP miss are not reliable general recognition; independent quality gates remain open.
+6. Matching signed JS-bundled phone/camera/permissions/offline/accessibility/performance and separate Android implementation are mandatory before claiming those flows complete. Debug/Mac/browser evidence does not renew a profile or replace device acceptance.
+
+## Original free local-recognition research criteria (historical)
 
 1. Freeze bounded observation classes and success/rejection metrics before collecting/training; do not equate appearance, exact identity, true material and sourced sorting policy. Current PHOTO findings remain unless new representative evidence actually resolves them.
 2. Record separate runtime, checkpoint and image/annotation licences, source/hash/label provenance, product/object/session-separated splits and a held-out real-camera set. Same-image variants, answer-bearing filenames or the same builder model's unreviewed labels are not independent quality evidence.

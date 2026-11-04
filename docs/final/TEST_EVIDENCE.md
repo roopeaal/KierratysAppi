@@ -1,5 +1,60 @@
 # Test evidence
 
+## November3–4 — first free iOS-local recognition pilot
+
+Source starts atbf645ef; no new JS dependency or lock version, provider/rule/data
+change. Implementation/protocol/source references are in LOCAL_VISION_IMPLEMENTATION,
+LOCAL_VISION_BASELINE_SPEC and the Apple Vision research note. This is not a
+repeated production audit or an own-trained/quality/phone acceptance claim.
+
+| Lane | Actual result / receipt |
+| --- | --- |
+| Full mandatory `pnpm validate` | **PASS522 unique cases:124 Node policy +398 application**; boundaries, format, lint, strict types, every build and17 web routes. `validate-final.log`, exit0 |
+| Independent part validation | `validate:mobile` **322**, `validate:shared` **154**, both pass/overlap full; `validate-mobile-final.log`, `validate-shared-final.log`. No backend/source-policy bypass |
+| Focused shared/native-policy checks |69 local-contract tests;11 evaluator/local-policy cases; observed Cyrillic `05 РР` stays rejected. Mobile pure local recognizer/prefill/URI/lifecycle tests are included in160 app cases. Eight Swift invalid-input self-tests pass, no image inference |
+| Actual iOS compilation/link/resource | Initial serial unsigned Debug build and post-privacy-pod refresh build both **BUILD SUCCEEDED**, stable Xcode26.6/iPhoneOS SDK/generic iOS destination. Build5 Info.plist, matching Podfile.lock/Manifest, Expo provider registration, real linked LocalVision symbols and packaged manifest byte equality/plist lint verified. No signed Release/install/profile renewal |
+| V1 Mac development diagnostics |8/8 executions valid,8 abstentions. Preserve all raw/normalized inputs/results, source snapshot/hashes. Wrong cross-class score semantics are disclosed, not disguised as quality evidence |
+| V2 Mac development diagnostics |11/11 raw schemas/exits valid; eight reused public photos: Badoit→tentative bottle, other7 unknown; no material candidate. Synthetic PET1 passes;05PP is misread as Cyrillic and rejected (**failed positive**); date rejected. Fixed within-run hashes/no retries. `v2-baseline/summary.json` |
+| Current actual-Metro browser | Final exact-copy FI/EN local suite passes: unavailable-native recovery, no implicit API/camera/GPS, keyboard/44pt, dark/light320/390/1280 and synthetic130% text; strict code-prefill Check+Confirm, duplicate params rejected; separate local no-upload/privacy vs consented OpenAI retention. FI/EN narrow/dark/large screenshots visually inspected. `browser-final-2026-11-04/local-vision-final.log` |
+| Existing integrated navigation/browser | Home→selected Identify, barcode/manual/local entry/back and explicit cloud recovery remain, real tabs/points/keyboard/invalid-no-request and FI/EN layout pass. `browser/integration.log`; no live lookup/photo/GPS/paid call |
+| Independent focused source review | No new unresolved critical/high implementation defect found in new native/shared/mobile scope. Bounded invalid output, URI deletion, single-flight/late callbacks, inferred-only object estimate and manual sorting boundary checked. This is not model/device certification |
+
+All ignored receipts live under
+`work/local-vision-implementation-2026-11-03.dDAJzz/`. No user photos, new image/model
+downloads, training, paid calls, credential reads, phone installation or changes
+to phone-serving Metro/API, cleanup
+or GitHub writes occurred. Source iOS5 needs a new native client; Android stays2.
+The old signed client4 and complete native tree are preserved separately before
+prebuild. Native lock SHA256:
+`6670562481f2cf8e4b768ee59de45ab59d6b6546b358d41274bd3776e68b9e9c`.
+Final app debug-dylib SHA256:
+`1dc7305768a62804ad1a8da888e7b444133a53ebc8ea65705cbddfab4522f765`.
+Packaged local privacy resource matches source SHA256
+`0562b6e4331f1fcffb4d7b7e3e11c240ebbf6dbef84ec1b66318408d9f2d524b`;
+no tracking/collected data, SystemBootTime35F9.1 for elapsed in-app deadline only.
+
+Failures retained/repaired: initial ignored typed routes lacked `/local-photo`
+(regenerated from actual Metro); old integration source assertion expected direct
+cloud entry (updated to the intentional local route plus explicit cloud recovery);
+a test-helper typo and formatting failures repaired narrowly. First evaluator
+launch under `node --import tsx` failed module resolution before image calls;
+actual workspace tsx runner succeeded. V1 policy was semantically wrong, not a
+failed image transport. Final browser initially served stale8095 text: new exact
+copy assertions correctly fail, then only the verified loopback QA Metro is
+restarted with cleared cache; strict rerun passes. Failed log/screenshots remain
+in `browser-final-2026-11-04/strict-stale-failure.log` and earlier evidence.
+No assertions, thresholds, safety gates or sample selection were loosened to
+manufacture success.
+
+**Open:** LV-001 low utility/coverage, PHOTO-003/004, independent group-held-out
+quality, real-camera/permissions/background/airplane mode, large native text/
+VoiceOver, iPhone latency/memory/battery, Android, signed JS-bundled standalone
+release and existing production/store gates. Mac observed184–470ms engine times
+are not a controlled phone benchmark.1/8 accepted coverage is not accuracy and
+nominal model precision0.9 is not measured90% app precision. Last verified
+client4 profile remains November4 at20:28:39 Helsinki; unsigned compile does not
+extend it. Public production remains **NO-GO**; no new push authority inferred.
+
 ## November3 — free-recognition feasibility, no model experiment
 
 - Read-only source verification at8003ca0 confirms current OpenAI-only metadata,

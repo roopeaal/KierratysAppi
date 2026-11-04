@@ -47,7 +47,7 @@ test("Home retains the direct barcode shortcut and accessible manual fallback", 
   assert.match(manual, /role="button"/);
 });
 
-test("Identify prioritizes barcode, then manual entry, then separate AI photo recognition", () => {
+test("Identify prioritizes barcode, then manual entry, then local AI photo recognition", () => {
   const identify = screen("identify");
   const ids = ["identify-scan-action", "identify-manual-action", "identify-photo-action"];
   const positions = ids.map((id) => identify.indexOf(`testID="${id}"`));
@@ -56,10 +56,14 @@ test("Identify prioritizes barcode, then manual entry, then separate AI photo re
     positions,
     [...positions].sort((a, b) => a - b),
   );
-  for (const [index, path] of ["scan", "manual", "photo"].entries()) {
+  for (const [index, [method, path]] of [
+    ["scan", "scan"],
+    ["manual", "manual"],
+    ["photo", "local-photo"],
+  ].entries()) {
     const action = control(identify, index === 0 ? "Pressable" : "ActionRow", ids[index]);
     assert.match(action, new RegExp(`onPress=\\{\\(\\) => router\\.push\\("/${path}"\\)\\}`));
-    const key = `identify${path[0].toUpperCase()}${path.slice(1)}Action`;
+    const key = `identify${method[0].toUpperCase()}${method.slice(1)}Action`;
     assert.match(action, new RegExp(`(?:label|accessibilityLabel)=\\{t\\("${key}"\\)\\}`));
   }
   const primary = control(identify, "Pressable", ids[0]);
