@@ -1,3 +1,3 @@
 # Next action
 
-On installed client4, complete owner-assisted Home → Identify → barcode/manual/photo entry-and-back at normal and larger native text, keeping the camera covered/no barcode for any preview and recording only pass/fail without photos, GPS, uploads, paid inference or further GitHub publication; do not treat the observed native Home/Identify direct-link render as a button-flow or Dynamic Type pass.
+Run `pnpm dev:mobile --go --host lan --port 8081 --clear` in KierratysAppi with a phone-reachable API origin, then verify explicit Overview records, percentages, force-close/reopen persistence and confirmed deletion on the owner's phone.

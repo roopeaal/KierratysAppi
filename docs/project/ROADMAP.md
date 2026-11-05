@@ -1,5 +1,8 @@
 # Roadmap
 
+- [x] Apply the tested Overview implementation to the original repository with persistent material percentages and explicit recording.
+- [ ] Verify Overview recording, force-close/reopen persistence, larger text and confirmed deletion on the owner's phone.
+
 ## Owner-authorized preserved source sharing — October29
 
 - [x] Re-fetch actual team main, paginate contributor/PR metadata and independently trace all ten ITbes-dev/Rdotcom ancestor IDs/current behaviors; no new regression, no private-history merge. Keep native-only address/unwired filter qualifications visible.

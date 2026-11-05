@@ -86,6 +86,13 @@ export default function SettingsScreen() {
         </Paper>
         <Paper>
           <ActionRow
+            label={t("overviewTitle")}
+            detail={t("overviewHomeDetail")}
+            leading={<IconDisc kind="guide" compact />}
+            onPress={() => router.push("/overview")}
+            testID="settings-overview-action"
+          />
+          <ActionRow
             label={t("settingsHistory")}
             detail={t(
               history === "loading"

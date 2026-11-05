@@ -10,10 +10,11 @@ Kehityskäyttöön on lisäksi toteutettu **Tunnista kuvasta**: kamera → esika
 erillinen lupa lähettää kuva OpenAI:lle → tekoälyn arvio → pakkausosan vahvistus →
 lähteistetty lajitteluohje. Epävarmasta kuvasta ei päätellä keräystä. Avain kuuluu
 vain palvelimen ignored `.env.local`-tiedostoon; `PHOTO_AI_ENABLED=true` sallii
-toiminnon vain kehitysympäristössä. Tuotannossa se pysyy pois käytöstä. Vanha
-puhelinasennus tarvitsee uuden natiivin build 2:n kameran lupatekstin takia.
-Oikean AI-vastauksen testaus odottaa tällä hetkellä API-krediittejä; paikalliset
-testit eivät todista tunnistuksen tarkkuutta. Katso
+toiminnon vain kehitysympäristössä. Tuotannossa se pysyy pois käytöstä.
+Kuvatoiminto vaatii yhteensopivan natiivin kehitysbuildin; Expo Go ei tue sitä.
+Kuvantunnistuksen arviointi ja tunnetut rajoitukset on kirjattu tiedostoon
+[`PHOTO_PRODUCT_EVALUATION.md`](docs/final/PHOTO_PRODUCT_EVALUATION.md).
+Toteutuksen testievidenssi:
 [`PHOTO_RECOGNITION_EVIDENCE.md`](docs/final/PHOTO_RECOGNITION_EVIDENCE.md).
 
 ## Kolme selkeää osaa
@@ -54,6 +55,7 @@ Rootin työkalut, lockfile, CI ja dokumentaatio ovat yhteistä integraatioaluett
 ## What works
 
 - Expo SDK 58 app for Finnish and English, camera permission, barcode scanning, manual entry, offline recovery, opt-in app-local history, manual component confirmation, and correction drafts.
+- Local Overview with explicitly recorded recycled packaging parts, material percentages, persistent totals and removable recent records. Percentages describe packaging-part counts.
 - Fastify API with runtime validation, rate limits, secure headers, explicit CORS allowlist, OpenAPI output, privacy-conscious logging, and a POST lookup boundary.
 - Open Facts API v3 adapter with one allowlisted sibling hop, a shared deadline/quota, size limit, source-specific attribution/licence, selected fields and defensive packaging normalization.
 - Foreground-only lookup of up to five nearest points against a separately licensed, bundled OSM Finland directory (5,753 points). Distance is calculated on-device; explicit material reports and exclusions are labelled as community data, not verified reception. No GPS upload/background tracking or route claim. Latest native list/map acceptance remains pending.
@@ -69,7 +71,7 @@ Use Expo Go for SDK 58. Start it with `pnpm dev:mobile --go --clear`; keep the A
 
 ```bash
 pnpm install --frozen-lockfile
-cp backend/api/.env.example backend/api/.env
+cp backend/api/.env.example backend/api/.env.local
 cp mobile/app/.env.example mobile/app/.env
 pnpm dev:backend
 pnpm dev:mobile
@@ -94,7 +96,7 @@ The generated API contract is available at `GET /v1/openapi.json`; product looku
 
 ## Release boundary
 
-The release decision is NO-GO. No paid EAS build, store submission, database deployment, analytics/crash vendor, hosted map provider, GS1 data feed or production photo upload is activated. The separately consented development photo implementation is credit/native-acceptance blocked, not a production launch. Public release gates remain in `docs/final/OWNER_ACTIONS.md` and `docs/project/RELEASE_READINESS.md`.
+The release decision is NO-GO. No paid EAS build, store submission, database deployment, analytics/crash vendor, hosted map provider, GS1 data feed or production photo upload is activated. Development photo recognition has separate device-acceptance and recognition-accuracy gates. Public release gates remain in `docs/final/OWNER_ACTIONS.md` and `docs/project/RELEASE_READINESS.md`.
 
 The current school-project UI shows factual data-use/deletion information, not
 draft terms or a legal-review banner. Future public/store publication has separate

@@ -1,7 +1,14 @@
 import { useRouter } from "expo-router";
-import { useState } from "react";
-import { Alert } from "react-native";
-import { AppText, Button, DocumentSection, PageHeader, PageIntro, Screen } from "@/components/ui";
+import { useRef, useState } from "react";
+import {
+  AppText,
+  Button,
+  DocumentSection,
+  PageHeader,
+  PageIntro,
+  Paper,
+  Screen,
+} from "@/components/ui";
 import { announceAccessibility } from "@/features/accessibility/announcements";
 import { clearAllLocalData } from "@/features/history/storage";
 import { useLanguage } from "@/i18n/language-context";
@@ -12,21 +19,28 @@ export default function LegalScreen() {
   const { palette } = useAppTheme();
   const { t } = useLanguage();
   const [deleted, setDeleted] = useState(false);
+  const [confirming, setConfirming] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const locked = useRef(false);
 
-  const confirmDeletion = () => {
-    Alert.alert(t("deleteLocalDataConfirmTitle"), t("deleteLocalDataConfirmBody"), [
-      { text: t("cancel"), style: "cancel" },
-      {
-        text: t("deleteLocalDataConfirmAction"),
-        style: "destructive",
-        onPress: () => {
-          void clearAllLocalData().then(() => {
-            setDeleted(true);
-            announceAccessibility(t("localDataDeleted"), "high");
-          });
-        },
-      },
-    ]);
+  const deleteData = async () => {
+    if (locked.current) return;
+    locked.current = true;
+    setDeleting(true);
+    setFailed(false);
+    try {
+      await clearAllLocalData();
+      setDeleted(true);
+      setConfirming(false);
+      announceAccessibility(t("localDataDeleted"), "high");
+    } catch {
+      setFailed(true);
+      announceAccessibility(t("localDataDeleteError"), "high");
+    } finally {
+      locked.current = false;
+      setDeleting(false);
+    }
   };
   return (
     <Screen>
@@ -45,7 +59,44 @@ export default function LegalScreen() {
       <DocumentSection>
         <AppText variant="heading">{t("deleteLocalData")}</AppText>
         <AppText>{t("deleteLocalDataBody")}</AppText>
-        <Button label={t("deleteLocalData")} variant="danger" onPress={confirmDeletion} />
+        <Button
+          label={t("deleteLocalData")}
+          variant="danger"
+          disabled={deleting}
+          onPress={() => {
+            setConfirming(true);
+            setDeleted(false);
+            setFailed(false);
+          }}
+          testID="privacy-delete-action"
+        />
+        {confirming && (
+          <Paper testID="privacy-delete-confirm-panel">
+            <AppText variant="heading" accessibilityRole="header">
+              {t("deleteLocalDataConfirmTitle")}
+            </AppText>
+            <AppText>{t("deleteLocalDataConfirmBody")}</AppText>
+            {failed && (
+              <AppText accessibilityRole="alert" style={{ color: palette.statusError }}>
+                {t("localDataDeleteError")}
+              </AppText>
+            )}
+            <Button
+              label={t("deleteLocalDataConfirmAction")}
+              variant="danger"
+              busy={deleting}
+              onPress={() => void deleteData()}
+              testID="privacy-delete-confirm-action"
+            />
+            <Button
+              label={t("cancel")}
+              variant="secondary"
+              disabled={deleting}
+              onPress={() => setConfirming(false)}
+              testID="privacy-delete-cancel"
+            />
+          </Paper>
+        )}
         {deleted && (
           <AppText accessibilityRole="alert" style={{ color: palette.pine }}>
             {t("localDataDeleted")}

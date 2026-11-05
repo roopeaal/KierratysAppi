@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { withRecyclingStorageLock } from "../overview/storage";
 
 const HISTORY_ENABLED_KEY = "@kierratysappi/history-enabled/v1";
 const HISTORY_KEY = "@kierratysappi/history/v1";
@@ -45,8 +46,10 @@ export async function clearHistory(): Promise<void> {
 }
 
 export async function clearAllLocalData(): Promise<void> {
-  const appKeys = (await AsyncStorage.getAllKeys()).filter(isAppStorageKey);
-  if (appKeys.length > 0) await AsyncStorage.multiRemove(appKeys);
+  await withRecyclingStorageLock(async () => {
+    const appKeys = (await AsyncStorage.getAllKeys()).filter(isAppStorageKey);
+    if (appKeys.length > 0) await AsyncStorage.multiRemove(appKeys);
+  });
 }
 
 export function isAppStorageKey(key: string): boolean {

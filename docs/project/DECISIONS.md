@@ -1,5 +1,7 @@
 # Decision log
 
+2026-11-05: Promote the tested Overview implementation without unrelated runtime cleanup. Retain the app-local storage key and shared material type, explicit recycled-part confirmation, separate paper/carton and user-corrected photo materials, lifetime counts, 100 recent records and coordinated deletion. Percentages describe piece counts. Keep backend/shared rules, dependencies, native identity and the four tabs unchanged. Limit cleanup to verified README inaccuracies. Resolve only the confirmed historical Gitleaks documentation false positive with its exact immutable fingerprint; full-history and synthetic future-credential controls verify detection remains active. Keep the pinned scanner workflow and detection rules unchanged, with no credential rotation or history rewrite.
+
 ## D-059 — Share the preserved integration only under the owner's exact destination approval
 
 - Date: 2026-10-29. Roope explicitly authorizes KierratysAppi publication if the fresh contributor check passes and requests Home's Suositut haut heading. Verify actual origin URL/main, current author/PR history, all ten ancestor IDs and current call sites, not merely old audit prose. Current changes introduce no teammate-function loss; preserve the prior native-only address/unwired helper qualifications instead of claiming literal historical equivalence.

@@ -10,6 +10,7 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Keyboard, Linking, StyleSheet, TextInput, View } from "react-native";
 import { SortingResultCard } from "@/components/sorting-result";
+import { RecycleAction } from "@/components/recycle-action";
 import {
   AppText,
   Button,
@@ -24,6 +25,7 @@ import {
 } from "@/components/ui";
 import { announceAccessibility } from "@/features/accessibility/announcements";
 import { sortRecognizedMaterialCode } from "@/features/material-code/sorting";
+import { recyclingIntent } from "@/features/overview/recording";
 import { useLanguage } from "@/i18n/language-context";
 import { codeFontFamily } from "@/theme/fonts";
 import { radius, spacing, useAppTheme } from "@/theme/tokens";
@@ -36,6 +38,7 @@ export default function MaterialCodeScreen() {
   const [attempt, setAttempt] = useState<MaterialCodeParseResult>();
   const [sorting, setSorting] = useState<SortingResult>();
   const [focused, setFocused] = useState(false);
+  const [recordingScope] = useState(() => ({}));
 
   const parse = () => {
     Keyboard.dismiss();
@@ -130,6 +133,7 @@ export default function MaterialCodeScreen() {
               recognition={attempt}
               sorting={sorting}
               onConfirm={() => confirm(attempt)}
+              recordId={recyclingIntent(recordingScope, "material-code")}
             />
           ) : (
             <UnresolvedCode attempt={attempt} onManual={() => router.push("/component")} />
@@ -150,10 +154,12 @@ function RecognizedCode({
   recognition,
   sorting,
   onConfirm,
+  recordId,
 }: {
   readonly recognition: RecognizedMaterialCode;
   readonly sorting?: SortingResult;
   readonly onConfirm: () => void;
+  readonly recordId: string;
 }) {
   const { language, t } = useLanguage();
   const { palette } = useAppTheme();
@@ -194,7 +200,17 @@ function RecognizedCode({
         </View>
         {!sorting && <Button label={t("materialCodeConfirmAction")} onPress={onConfirm} />}
       </Paper>
-      {sorting && <SortingResultCard result={sorting} />}
+      {sorting && (
+        <>
+          <SortingResultCard result={sorting} />
+          <RecycleAction
+            sorting={sorting}
+            material={recognition.materialFamily}
+            recordId={recordId}
+            label={recognition.canonicalCode}
+          />
+        </>
+      )}
     </View>
   );
 }
