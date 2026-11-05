@@ -67,7 +67,7 @@ Rootin työkalut, lockfile, CI ja dokumentaatio ovat yhteistä integraatioaluett
 
 Requirements: Node 24 LTS and pnpm 11.16.
 
-Use Expo Go for SDK 58. Start it with `pnpm dev:mobile --go --clear`; keep the API origin reachable from your phone. Existing SDK 57 development clients need rebuilding. Photo capture retains its existing development-build requirement.
+Use Expo Go for SDK 58. Start it with `pnpm dev:mobile --go --clear`; keep the API origin reachable from your phone. Existing development clients need rebuilding after native-module updates. Photo capture retains its existing development-build requirement.
 
 ```bash
 pnpm install --frozen-lockfile

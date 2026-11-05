@@ -1,5 +1,8 @@
 # Roadmap
 
+- [x] Align the eight CI-reported SDK 58 package versions without application-source changes or compatibility exclusions.
+- [ ] Verify updated SDK 58 Expo Go on the owner's phone; rebuild a custom native client before using it with the changed native modules.
+
 - [x] Apply the tested Overview implementation to the original repository with persistent material percentages and explicit recording.
 - [ ] Verify Overview recording, force-close/reopen persistence, larger text and confirmed deletion on the owner's phone.
 

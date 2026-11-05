@@ -12,19 +12,21 @@ const cliManifestPath = expoRequire.resolve("@expo/cli/package.json");
 const cliRequire = createRequire(cliManifestPath);
 const serverPath = join(dirname(cliManifestPath), "build", "src", "start", "server");
 const { z } = cliRequire("zod");
+const { validate, ValidationError } = cliRequire("@expo/schema-utils");
 const { PluginSchema, DevToolsPluginOutputSchema } = cliRequire(
-  join(serverPath, "DevToolsPlugin.schema.js"),
+  join(serverPath, "devtools", "DevToolsPlugin.schema.js"),
 );
+const { DevToolsPlugin } = cliRequire(join(serverPath, "devtools", "DevToolsPlugin.js"));
 const { createMCPDevToolsExtensionSchema } = cliRequire(
-  join(serverPath, "createMCPDevToolsExtensionSchema.js"),
+  join(serverPath, "mcp", "createMCPDevToolsExtensionSchema.js"),
 );
 
 const plugin = {
   packageName: "fixture-devtools",
   packageRoot: "/fixture/devtools",
-  webpageRoot: "/fixture/web",
+  webpageRoot: "/fixture/devtools/web",
   bannerTitle: "Fixture tools",
-  serverEntryPoint: "server.js",
+  serverEntryPoint: "/fixture/devtools/server.js",
   cliExtensions: {
     description: "Local schema compatibility fixture; never executes a command.",
     entryPoint: "commands.js",
@@ -44,6 +46,28 @@ const plugin = {
   },
 };
 
+function validatePlugin(value) {
+  validate(PluginSchema, value);
+  return value;
+}
+
+function assertSchemaFailure(schema, value) {
+  assert.throws(
+    () => validate(schema, value),
+    (error) => {
+      assert.ok(error instanceof ValidationError);
+      assert.ok(error.errors.length > 0);
+      assert.ok(error.toErrorsMessage().join("").length > 0);
+      for (const issue of error.errors) {
+        assert.equal(typeof issue.path, "string");
+        assert.equal(typeof issue.message, "string");
+        assert.ok(issue.message.length > 0);
+      }
+      return true;
+    },
+  );
+}
+
 function assertIssues(result) {
   assert.equal(result.success, false);
   assert.ok(Array.isArray(result.error.issues));
@@ -53,31 +77,35 @@ function assertIssues(result) {
   for (const issue of result.error.issues) assert.ok(Array.isArray(issue.path));
 }
 
-test("Expo's installed CLI resolves Zod 4 and builds its own plugin/output schemas with it", () => {
+test("Expo's installed CLI resolves patched Zod and validates its actual plugin/output schemas", () => {
   assert.match(cliRequire("zod/package.json").version, /^4\./u);
-  assert.ok(PluginSchema instanceof z.ZodObject);
-  assert.ok(DevToolsPluginOutputSchema instanceof z.ZodArray);
-  assert.deepEqual(PluginSchema.parse(plugin), plugin);
+  assert.equal(PluginSchema.type, "object");
+  assert.equal(DevToolsPluginOutputSchema.type, "array");
+  assert.deepEqual(validatePlugin(plugin), plugin);
 });
 
-test("CLI plugin parsing accepts optional fields and preserves its readonly environment arrays", () => {
+test("CLI plugin validation accepts optional fields without mutating their values", () => {
   const input = structuredClone(plugin);
   const before = structuredClone(input);
-  const parsed = PluginSchema.parse(input);
+  const parsed = validatePlugin(input);
   assert.deepEqual(input, before);
-  assert.notEqual(parsed, input);
-  for (const command of parsed.cliExtensions.commands) {
-    assert.ok(Object.isFrozen(command.environments));
-    assert.throws(() => command.environments.push("cli"), TypeError);
+  assert.deepEqual(parsed.cliExtensions, before.cliExtensions);
+  const instance = new DevToolsPlugin(input, "/fixture");
+  assert.equal(instance.packageName, plugin.packageName);
+  assert.equal(instance.packageRoot, plugin.packageRoot);
+  assert.deepEqual(instance.cliExtensions, plugin.cliExtensions);
+  for (const change of [{ webpageRoot: "/outside" }, { serverEntryPoint: "/outside" }]) {
+    assert.throws(
+      () => new DevToolsPlugin({ ...input, ...change }, "/fixture"),
+      /is not inside packageRoot/u,
+    );
   }
-  // Only environments are declared readonly upstream; commands/parameters are not.
-  assert.equal(Object.isFrozen(parsed.cliExtensions.commands), false);
   for (const bannerTitle of [true, false, "Tools"])
-    assert.equal(PluginSchema.parse({ ...plugin, bannerTitle }).bannerTitle, bannerTitle);
-  assert.deepEqual(
-    PluginSchema.parse({ packageName: "minimal", packageRoot: "/fixture/minimal" }),
-    { packageName: "minimal", packageRoot: "/fixture/minimal" },
-  );
+    assert.equal(validatePlugin({ ...plugin, bannerTitle }).bannerTitle, bannerTitle);
+  assert.deepEqual(validatePlugin({ packageName: "minimal", packageRoot: "/fixture/minimal" }), {
+    packageName: "minimal",
+    packageRoot: "/fixture/minimal",
+  });
 });
 
 test("CLI plugin validation still rejects malformed descriptors with readable issue paths", () => {
@@ -106,13 +134,13 @@ test("CLI plugin validation still rejects malformed descriptors with readable is
       },
     },
   ])
-    assertIssues(PluginSchema.safeParse(value));
+    assertSchemaFailure(PluginSchema, value);
 });
 
 test("actual CLI MCP schemas accept optional typed parameters and refuse coercion or extra keys", () => {
-  const parsedPlugin = PluginSchema.parse(plugin);
+  const parsedPlugin = validatePlugin(plugin);
   const before = structuredClone(parsedPlugin);
-  const schema = createMCPDevToolsExtensionSchema(parsedPlugin);
+  const schema = createMCPDevToolsExtensionSchema(parsedPlugin, z);
   assert.ok(schema instanceof z.ZodObject);
   assert.deepEqual(parsedPlugin, before);
   for (const value of [
@@ -135,7 +163,7 @@ test("actual CLI MCP schemas accept optional typed parameters and refuse coercio
 });
 
 test("CLI MCP schema JSON conversion retains strict Draft 7 command and parameter types", () => {
-  const schema = createMCPDevToolsExtensionSchema(PluginSchema.parse(plugin));
+  const schema = createMCPDevToolsExtensionSchema(validatePlugin(plugin), z);
   const json = z.toJSONSchema(schema, { target: "draft-7", io: "input" });
   assert.equal(json.$schema, "http://json-schema.org/draft-07/schema#");
   assert.equal(json.type, "object");
@@ -153,7 +181,7 @@ test("CLI MCP schema creation still fails clearly when a plugin has no commands"
     { packageName: "no-extension", packageRoot: "/fixture" },
     { ...plugin, cliExtensions: { ...plugin.cliExtensions, commands: [] } },
   ])
-    assert.throws(() => createMCPDevToolsExtensionSchema(value), /has no commands defined/u);
+    assert.throws(() => createMCPDevToolsExtensionSchema(value, z), /has no commands defined/u);
 });
 
 test("CLI output schemas keep text/audio/image validation and readable failures", () => {
@@ -162,8 +190,10 @@ test("CLI output schemas keep text/audio/image validation and readable failures"
     { type: "audio", url: "https://example.test/fixture.mp3", text: "Fixture audio" },
     { type: "image", url: "https://example.test/fixture.png" },
   ];
-  assert.deepEqual(DevToolsPluginOutputSchema.parse(output), output);
-  assert.deepEqual(DevToolsPluginOutputSchema.parse([]), []);
+  const before = structuredClone(output);
+  validate(DevToolsPluginOutputSchema, output);
+  assert.deepEqual(output, before);
+  validate(DevToolsPluginOutputSchema, []);
   for (const value of [
     {},
     [{ type: "text", text: "Fixture", level: "debug" }],
@@ -171,5 +201,5 @@ test("CLI output schemas keep text/audio/image validation and readable failures"
     [{ type: "image", url: 42 }],
     [{ type: "unknown", text: "Fixture" }],
   ])
-    assertIssues(DevToolsPluginOutputSchema.safeParse(value));
+    assertSchemaFailure(DevToolsPluginOutputSchema, value);
 });

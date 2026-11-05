@@ -1,5 +1,7 @@
 # Decision log
 
+2026-11-05: Resolve the reported CI Doctor mismatch by updating only its eight listed direct dependencies within SDK 58. Retain the existing exact/tilde declaration style, other direct versions, patched CLI Zod override and minimum release-age policy. Do not exclude packages or skip the health check. Official package changes preserve the application's used APIs; native module changes require a new matching development build. Validate persistence, navigation, safe-area layouts and the installed CLI schemas against the updated dependency set.
+
 2026-11-05: Promote the tested Overview implementation without unrelated runtime cleanup. Retain the app-local storage key and shared material type, explicit recycled-part confirmation, separate paper/carton and user-corrected photo materials, lifetime counts, 100 recent records and coordinated deletion. Percentages describe piece counts. Keep backend/shared rules, dependencies, native identity and the four tabs unchanged. Limit cleanup to verified README inaccuracies. Resolve only the confirmed historical Gitleaks documentation false positive with its exact immutable fingerprint; full-history and synthetic future-credential controls verify detection remains active. Keep the pinned scanner workflow and detection rules unchanged, with no credential rotation or history rewrite.
 
 ## D-059 — Share the preserved integration only under the owner's exact destination approval
