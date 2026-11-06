@@ -1,5 +1,14 @@
 # Roadmap
 
+## Local recognition test/improvement — November6
+
+- [x] Freeze and run three-arm24-case OCR ablation plus separate18-case near-code challenge; adopt only measured C gain without a new false-code status, preserve safe PP0/PPO miss.
+- [x] Version raw/normalized OCR metadata, preserve strict older native response compatibility and unchanged classification/abstention/rules. Verify exact production42 synthetic cases,14 positive codes and all uncertainty/confirmation gates.
+- [x] Acquire rights-traced public-image seed, exclude3 unsuitable images before calls, freeze/evaluate9 new cases once with unchanged source/input hashes. Record1/9 coverage, human-review requirement and unfulfilled per-class/modern-packaging/training goals honestly.
+- [x] Improve camera guidance/retake/barcode recovery/denial/late callbacks; pass pure/source and actual FI/EN web recovery/layout tests. Preserve unsigned5, compile/link unsigned6 and verify metadata/privacy, not signing/device behavior.
+- [ ] Complete the modern-packaging seed corpus with independent object groups and explicit train/validation/held-out allocation before task-specific training. This is NEXT_ACTION; the current9 diagnostic pictures do not complete that dataset.
+- [ ] Separately request matching signed phone delivery/real-camera/permissions/retake/offline/accessibility/performance tests; Android remains unimplemented, generic recognition and public-production gates stay open.
+
 ## First local iOS recognition pilot — November3–4
 
 - [x] Freeze diagnostic protocol; implement optional iOS module/strict shared observations/local UI/explicit unavailable recovery without paid fallback or fabricated material/sorting.

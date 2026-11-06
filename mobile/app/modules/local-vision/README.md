@@ -27,15 +27,19 @@ answer. The app must retain user material/condition confirmation and rule source
   discards late results; busy remains until actual native work settles. JS must
   independently ignore results after cancellation/leave/background.
 - Classifier revision2 on iOS17+/macOS14+, else revision1. OCR revision3,
-  accurate recognition, no language correction/automatic language inference.
-  Actual supported subset of en-US/de-DE/sv-SE is recorded in `ocrLanguages`.
-  This is not a Finnish-specialized OCR accuracy claim.
+  accurate recognition, explicit `material-code-lexicon-v1` OCR policy: en-US,
+  language correction enabled, automatic language detection disabled, fixed
+  13-abbreviation dictionary (PET/HDPE/PVC/LDPE/PP/PS/PAP/FE/ALU/FOR/COT/TEX/GL).
+  The actual supported language is recorded in `ocrLanguages`; unavailable en-US
+  fails closed, never silently changes policy. Apple's dictionary mechanism
+  requires language correction. It can still misread text, so output is only a
+  candidate for independent confirmation, not material truth or Finnish OCR.
 - Output is bounded:the complete seven exact classification identifiers with
   finite scores and Apple per-class precision/recall operating-point flags,
   24 distinct OCR lines of at most64 UTF-16 code units, no controls/format chars,
   fixed engine/schema/revisions, OS version, timestamp and elapsed milliseconds.
   Scores are model confidence, **not calibrated packaging-accuracy percentages**.
-- Schema is `local-vision-v2`; `apple-class-operating-point-v1` fixes minimum
+- Schema is `local-vision-v3`; `apple-class-operating-point-v1` fixes minimum
   precision0.9/minimum recall0.01. A flag requires an available precision/recall
   curve and `hasMinimumRecall(0.01, forPrecision: 0.9)`. These are Apple's internal
   class operating points, not a measured90% precision guarantee for this app.
@@ -54,6 +58,7 @@ that file-reading code is not in the native app engine.
 
 - [VNClassifyImageRequest](https://developer.apple.com/documentation/vision/vnclassifyimagerequest)
 - [VNRecognizeTextRequest](https://developer.apple.com/documentation/vision/vnrecognizetextrequest)
+- [Custom OCR vocabulary and language-correction requirement](https://developer.apple.com/documentation/vision/vnrecognizetextrequest/customwords) (rechecked2026-11-06)
 - [VNObservation confidence](https://developer.apple.com/documentation/vision/vnobservation/confidence)
 - [Apple multi-label taxonomy and class-specific filtering,10:42–19:52](https://developer.apple.com/videos/play/wwdc2019/222/)
 - [Expo local modules](https://docs.expo.dev/modules/get-started/)

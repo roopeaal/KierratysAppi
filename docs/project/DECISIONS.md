@@ -1,5 +1,13 @@
 # Decision log
 
+## D-063 — Adopt measured OCR lexicon support without relaxing object uncertainty
+
+- Date:2026-11-06. Authority: test/improve locally. Freeze A/B/C OCR configurations and source/image hashes before calls. C/en-US+correction+13 existing material abbreviations fixes two PP misses; independent near-code challenge has no new unambiguous false-code status. Preserve the PP0/PPO safe miss and all failures. Synthetic seen-data gains do not establish real-camera quality or generic product recognition.
+- Version native wire/normalizer asV3 and expose `material-code-lexicon-v1`; keep actual language/revision/source metadata. Strict V2 native compatibility records its policy as unspecified, never falsely upgrades it. Class operating points/abstention remain unchanged; no cross-script repair, material guess, automatic sorting or cloud fallback.
+- Freeze new source/licence/group/label manifests before recognition, exclude unsuitable/privacy-caution images before any call, retain excluded originals without retaking/replacing failed results. Nine AI-reviewed cases are diagnostic, not accepted human ground truth/training or a representative benchmark.1/9 coverage keeps LV-001 open.
+- UX review adds precise capture guidance, explicit direct retake and barcode recovery, one denied-camera message and stale-callback rejection. Preserve cleanup, independent code Check+Confirm, localization/accessibility and no implicit capture/inference/networking. Source/browser tests are not native-device acceptance.
+- Build6 distinguishes changed native OCR configuration. Preserve unsigned5, align generated build metadata only, retain matching pod locks/graph and compile unsigned. No phone/signing renewal, secret, payment, training/model download, deletion or publication; expand the incomplete modern-packaging corpus next.
+
 ## D-062 — Separate free local observations from paid identity/material estimates
 
 - Date:2026-11-03–04. Roope authorizes implementation/continuation, not phone update, training, paid calls, cleanup or push. Use the installed Apple Vision framework in an iOS-first local module, no downloaded/relicensed checkpoint/new JS dependency. Describe pretrained-model pilot plus our logic, not an own-trained reliable product algorithm.

@@ -7,6 +7,7 @@ import {
   localVisionClassificationPolicy,
   localVisionMinimumPrecision,
   localVisionMinimumRecall,
+  localVisionOcrPolicy,
   localVisionSupportedIdentifiers,
   NativeLocalVisionResultSchema,
   normalizeLocalVisionResult,
@@ -69,6 +70,82 @@ function observation(overrides: Record<string, unknown> = {}) {
   return result;
 }
 
+function sampleV3(overrides: Record<string, unknown> = {}) {
+  return sample({
+    schemaVersion: "local-vision-v3",
+    ocrPolicy: localVisionOcrPolicy,
+    ocrLanguages: ["en-US"],
+    ...overrides,
+  });
+}
+
+describe("versioned material-lexicon OCR boundary", () => {
+  it("records V3 OCR policy separately from unchanged class abstention", () => {
+    const raw = sampleV3({ textLines: ["05 PP"] });
+    expect(NativeLocalVisionResultSchema.safeParse(raw).success).toBe(true);
+    const result = normalizeLocalVisionResult(raw);
+    expect(result.status).toBe("observed");
+    if (result.status !== "observed") return;
+    expect(result.schemaVersion).toBe("local-vision-v3");
+    expect(result.source).toMatchObject({
+      nativeSchemaVersion: "local-vision-v3",
+      ocrPolicy: "material-code-lexicon-v1",
+      ocrLanguages: ["en-US"],
+      normalizerVersion: "local-vision-normalizer-v3",
+      abstentionVersion: "local-vision-abstention-v2",
+      verificationStatus: "inferred",
+    });
+    expect(result.markings.status).toBe("candidates");
+    expect(result).not.toHaveProperty("material");
+    expect(result).not.toHaveProperty("destination");
+  });
+  it("accepts native V2 without inventing its unreported OCR policy", () => {
+    const result = observation();
+    expect(result.schemaVersion).toBe("local-vision-v3");
+    expect(result.source.nativeSchemaVersion).toBe("local-vision-v2");
+    expect(result.source.ocrPolicy).toBe("legacy-unspecified-v2");
+  });
+  it("keeps classification and marking decisions unchanged across metadata versions", () => {
+    const legacy = observation({ textLines: ["PET 1"] });
+    const current = normalizeLocalVisionResult(sampleV3({ textLines: ["PET 1"] }));
+    expect(current.status).toBe("observed");
+    if (current.status !== "observed") return;
+    expect(current.object).toEqual(legacy.object);
+    expect(current.markings).toEqual(legacy.markings);
+  });
+  for (const [name, overrides] of [
+    ["missing policy", { ocrPolicy: undefined }],
+    ["unknown policy", { ocrPolicy: "free-material-truth" }],
+    ["legacy policy on V3", { ocrPolicy: "legacy-unspecified-v2" }],
+    ["wrong language", { ocrLanguages: ["sv-SE"] }],
+    ["additional language", { ocrLanguages: ["en-US", "de-DE"] }],
+    ["unsupported OCR revision", { ocrRevision: 4 }],
+    ["dictionary override", { customWords: ["GL"] }],
+    ["correction override", { usesLanguageCorrection: false }],
+  ] as const) {
+    it(`rejects ${name} instead of guessing an OCR configuration`, () => {
+      expect(normalizeLocalVisionResult(sampleV3(overrides))).toEqual({
+        status: "unavailable",
+        reason: "invalid_response",
+      });
+    });
+  }
+  it("rejects a policy field on the old strict V2 wire", () => {
+    expect(normalizeLocalVisionResult(sample({ ocrPolicy: localVisionOcrPolicy })).status).toBe(
+      "unavailable",
+    );
+  });
+  it("rejects a forged normalized policy/native-version combination", () => {
+    const result = observation();
+    expect(
+      LocalVisionResultSchema.safeParse({
+        ...result,
+        source: { ...result.source, ocrPolicy: localVisionOcrPolicy },
+      }).success,
+    ).toBe(false);
+  });
+});
+
 describe("local vision V2 boundary", () => {
   it("records exact Apple class-operating-point policy without claiming measured app precision or custom training", () => {
     const result = observation();
@@ -82,9 +159,11 @@ describe("local vision V2 boundary", () => {
       classificationRevision: 2,
       ocrRevision: 3,
       ocrLanguages: ["en-US", "de-DE", "sv-SE"],
+      nativeSchemaVersion: "local-vision-v2",
+      ocrPolicy: "legacy-unspecified-v2",
       osVersion: "27.0",
       observedAt: "2026-11-03T10:00:00.000Z",
-      normalizerVersion: "local-vision-normalizer-v2",
+      normalizerVersion: "local-vision-normalizer-v3",
       abstentionVersion: "local-vision-abstention-v2",
       verificationStatus: "inferred",
     });

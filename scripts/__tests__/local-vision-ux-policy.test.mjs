@@ -1,0 +1,81 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import test from "node:test";
+
+const source = (path) => readFileSync(new URL(`../../${path}`, import.meta.url), "utf8");
+const screen = () => source("mobile/app/src/app/local-photo.tsx");
+
+function button(sourceText, id) {
+  const marker = sourceText.indexOf(`testID="${id}"`);
+  assert.ok(marker >= 0, `Missing ${id}`);
+  const start = sourceText.lastIndexOf("<Button", marker);
+  const end = sourceText.indexOf("/>", marker);
+  assert.ok(start >= 0 && end >= marker, `Invalid button ${id}`);
+  return sourceText.slice(start, end + 2);
+}
+
+// These source guards complement pure lifecycle tests and real browser recovery.
+// They do not execute an iPhone camera, infer image accuracy or prove native focus.
+test("capture guidance stays visible and localized without hiding long text", () => {
+  const text = screen();
+  assert.match(text, /testID="local-photo-capture-guidance"/);
+  assert.match(text, /t\("localVisionCaptureGuidance"\)/);
+  const copy = source("mobile/localization/src/local-vision.ts");
+  for (const phrase of [
+    "Kuvaa yksi pakkaus",
+    "vältä heijastuksia",
+    "Photograph one package",
+    "avoid reflections",
+  ])
+    assert.ok(copy.includes(phrase), phrase);
+  assert.doesNotMatch(
+    text,
+    /numberOfLines=|maxFontSizeMultiplier=|allowFontScaling=\{false\}|adjustsFontSizeToFit/,
+  );
+});
+
+test("permanent camera denial renders one recovery alert without hiding unrelated errors", () => {
+  const text = screen();
+  assert.match(text, /localPhotoPresentation/);
+  assert.match(text, /presentation\.inlineError &&/);
+  assert.match(text, /presentation\.permanentDenied \?/);
+  assert.match(text, /testID="local-photo-permission-denied"/);
+  assert.equal([...text.matchAll(/t\("cameraDenied"\)/gu)].length, 1);
+  const presentation = source("mobile/app/src/features/local-vision/presentation.ts");
+  assert.match(
+    presentation,
+    /inlineError: permanentDenied && input\.error === "cameraDenied" \? undefined : input\.error/u,
+  );
+});
+
+test("late camera-ready, mount-error and size callbacks cannot update a newer generation", () => {
+  const text = screen();
+  assert.match(text, /const cameraGeneration = generation\.current/u);
+  assert.equal(
+    [...text.matchAll(/if \(cameraGeneration !== generation\.current\) return;/gu)].length,
+    2,
+  );
+  assert.match(
+    text,
+    /if \(cameraGeneration === generation\.current\)\s*setPictureSize\(choosePhotoSize\(sizes\)\)/u,
+  );
+});
+
+test("retake explicitly clears the previous image then opens a fresh camera without recognition", () => {
+  const text = screen();
+  const handler = text.match(/const retake = (?:async )?\(\) => \{([\s\S]*?)\n  \};/u)?.[1];
+  assert.ok(handler, "Missing explicit retake handler");
+  assert.ok(handler.indexOf("clear()") >= 0);
+  assert.ok(handler.indexOf("open()") > handler.indexOf("clear()"));
+  assert.doesNotMatch(handler, /recognize|takePicture|capture\(/u);
+  for (const id of ["local-photo-retake", "local-photo-reset"])
+    assert.match(button(text, id), /onPress=\{(?:retake|\(\) => void retake\(\))\}/u);
+});
+
+test("local failure has an explicit barcode recovery that clears sensitive view state", () => {
+  const recovery = button(screen(), "local-photo-barcode-action");
+  assert.match(recovery, /clear\(\)/u);
+  assert.match(recovery, /router\.push\("\/scan"\)/u);
+  assert.ok(recovery.indexOf("clear()") < recovery.indexOf('router.push("/scan")'));
+  assert.doesNotMatch(recovery, /requestPermission|recognizeLocalPhoto|takePicture/u);
+});

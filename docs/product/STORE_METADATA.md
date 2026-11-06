@@ -10,7 +10,7 @@ Final answers must be regenerated from the accepted signed Android/iOS binaries,
 - Finnish subtitle/short description candidate: `Pakkauksesta oikeaan paikkaan`
 - English subtitle/short description candidate: `Source-backed sorting guidance`
 - Android package / iOS bundle ID: `fi.roopeaaltonen.kierratysappi`
-- Source version/build: `0.1.0`, Android `versionCode=2`, iOS `buildNumber=5` (November4 local-module source, not a signed store submission); release owner must verify final binary values and monotonically increase them.
+- Source version/build: `0.1.0`, Android `versionCode=2`, iOS `buildNumber=6` (November6 OCR-policy source/unsigned Debug, not a signed store submission); release owner must verify final binary values and monotonically increase them.
 - Primary category candidate: Utilities; owner/store review required.
 - Launch locales candidate: Finnish and English only.
 
@@ -68,7 +68,7 @@ Reconfirm in App Store Connect from the final binary:
 - Accounts: none in current scope.
 - Encryption/export: source declares only exempt standard transport (`ITSAppUsesNonExemptEncryption=false`); release owner must validate the final binary and answer.
 - Content/age rating, rights, primary/secondary category, DSA/trader status, Korea/China/Vietnam availability, reviewer contact/notes: **not finalized**.
-- Privacy manifest/reason APIs: source includes UserDefaults CA92.1 and local module SystemBootTime35F9.1 (elapsed in-app processing/deadline). Local module manifest is packaged in unsigned Debug build5; inspect the final signed archive, every SDK manifest and App Store report before declaring collection/tracking status.
+- Privacy manifest/reason APIs: source includes UserDefaults CA92.1 and local module SystemBootTime35F9.1 (elapsed in-app processing/deadline). Local module manifest is packaged in unsigned Debug build6; inspect the final signed archive, every SDK manifest and App Store report before declaring collection/tracking status.
 
 ## Google Play questionnaire worksheet
 

@@ -22,7 +22,16 @@ test("native recognition uses local bounded Vision work and per-class operating 
   assert.match(engine, /hasPrecisionRecallCurve/);
   assert.match(engine, /hasMinimumRecall\(/);
   assert.match(engine, /apple-class-operating-point-v1/);
-  assert.match(engine, /local-vision-v2/);
+  assert.match(engine, /local-vision-v3/);
+  assert.match(engine, /material-code-lexicon-v1/);
+  assert.match(engine, /text\.usesLanguageCorrection = true/);
+  assert.match(engine, /text\.customWords =/);
+  const lexicon = engine.match(/materialCodeAbbreviations = \[([\s\S]*?)\]/u)?.[1];
+  assert.ok(lexicon);
+  assert.deepEqual(
+    [...lexicon.matchAll(/"([A-Z]+)"/gu)].map((match) => match[1]),
+    ["PET", "HDPE", "PVC", "LDPE", "PP", "PS", "PAP", "FE", "ALU", "FOR", "COT", "TEX", "GL"],
+  );
   assert.match(engine, /maxBytes = 1_500_000/);
   assert.match(engine, /16_000_000/);
   assert.match(engine, /inFlight/);

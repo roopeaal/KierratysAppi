@@ -5,10 +5,12 @@ import {
 } from "@kierratysappi/domain";
 import { z } from "zod";
 
-export const localVisionSchemaVersion = "local-vision-v2" as const;
-export const localVisionNormalizerVersion = "local-vision-normalizer-v2" as const;
+export const localVisionSchemaVersion = "local-vision-v3" as const;
+export const localVisionNormalizerVersion = "local-vision-normalizer-v3" as const;
 export const localVisionAbstentionVersion = "local-vision-abstention-v2" as const;
 export const localVisionClassificationPolicy = "apple-class-operating-point-v1" as const;
+/** Fixed OCR3/en-US/correction-enabled material-abbreviation lexicon, not material truth. */
+export const localVisionOcrPolicy = "material-code-lexicon-v1" as const;
 
 /** Fixed Apple class-curve query parameters, not measured application precision/recall. */
 export const localVisionMinimumPrecision = 0.9;
@@ -54,9 +56,8 @@ const OcrLanguagesSchema = z
   .refine((languages) => new Set(languages).size === languages.length);
 
 /** The private native response is untrusted until this bounded boundary accepts it. */
-export const NativeLocalVisionResultSchema = z
+const NativeLocalVisionBaseSchema = z
   .object({
-    schemaVersion: z.literal(localVisionSchemaVersion),
     engine: z.literal("apple-vision"),
     classificationPolicy: z.literal(localVisionClassificationPolicy),
     minimumPrecision: z.literal(localVisionMinimumPrecision),
@@ -78,6 +79,19 @@ export const NativeLocalVisionResultSchema = z
     durationMs: z.number().finite().min(0).max(60_000),
   })
   .strict();
+const NativeLocalVisionV2Schema = NativeLocalVisionBaseSchema.extend({
+  schemaVersion: z.literal("local-vision-v2"),
+});
+const NativeLocalVisionV3Schema = NativeLocalVisionBaseSchema.extend({
+  schemaVersion: z.literal(localVisionSchemaVersion),
+  ocrPolicy: z.literal(localVisionOcrPolicy),
+  ocrLanguages: z.tuple([z.literal("en-US")]),
+});
+/** Older pilot binaries remain readable without inventing their unreported OCR settings. */
+export const NativeLocalVisionResultSchema = z.discriminatedUnion("schemaVersion", [
+  NativeLocalVisionV2Schema,
+  NativeLocalVisionV3Schema,
+]);
 export type NativeLocalVisionResult = z.infer<typeof NativeLocalVisionResultSchema>;
 
 /** Visible object kinds only; these are not materials, products or packaging/safety claims. */
@@ -167,13 +181,22 @@ export const LocalVisionResultSchema = z.discriminatedUnion("status", [
           classificationRevision: RevisionSchema,
           ocrRevision: z.literal(3),
           ocrLanguages: OcrLanguagesSchema,
+          nativeSchemaVersion: z.enum(["local-vision-v2", "local-vision-v3"]),
+          ocrPolicy: z.enum(["legacy-unspecified-v2", localVisionOcrPolicy]),
           osVersion: OsVersionSchema,
           observedAt: z.iso.datetime(),
           normalizerVersion: z.literal(localVisionNormalizerVersion),
           abstentionVersion: z.literal(localVisionAbstentionVersion),
           verificationStatus: z.literal("inferred"),
         })
-        .strict(),
+        .strict()
+        .refine((source) =>
+          source.nativeSchemaVersion === "local-vision-v2"
+            ? source.ocrPolicy === "legacy-unspecified-v2"
+            : source.ocrPolicy === localVisionOcrPolicy &&
+              source.ocrLanguages.length === 1 &&
+              source.ocrLanguages[0] === "en-US",
+        ),
       object: LocalObjectGuessSchema,
       markings: LocalMaterialMarkingsSchema,
       durationMs: z.number().finite().min(0).max(60_000),
@@ -296,6 +319,8 @@ export function normalizeLocalVisionResult(input: unknown): LocalVisionResult {
       classificationRevision: raw.classificationRevision,
       ocrRevision: raw.ocrRevision,
       ocrLanguages: raw.ocrLanguages,
+      nativeSchemaVersion: raw.schemaVersion,
+      ocrPolicy: raw.schemaVersion === "local-vision-v3" ? raw.ocrPolicy : "legacy-unspecified-v2",
       osVersion: raw.osVersion,
       observedAt: raw.observedAt,
       normalizerVersion: localVisionNormalizerVersion,

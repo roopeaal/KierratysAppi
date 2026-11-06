@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "independent-visual-review-v1",
+  "reviewStatus": "ai_visual_review_human_review_required",
+  "reviewedBeforeInference": true,
+  "eligibleIds": [
+    "bottle-water",
+    "jar-museum",
+    "box-decoder",
+    "box-contacts",
+    "bag-wcdonalds",
+    "cup-takeaway",
+    "cup-chashka",
+    "control-ball",
+    "control-batteries"
+  ],
+  "excluded": [
+    {
+      "id": "bottle-empty",
+      "reason": "Background contains a handwritten notebook; exclude from inference as a privacy precaution without reading/transcribing it."
+    },
+    {
+      "id": "jar-ball",
+      "reason": "Only an extreme macro of embossed texture is visible; source title does not establish a scorable whole-jar image."
+    },
+    {
+      "id": "bag-lawn",
+      "reason": "Tight logo/texture crop lacks enough whole-object boundary for the intended bag reference; exclude from object scoring."
+    }
+  ],
+  "limitations": "Nine eligible images: seven visible-object positives and two unknown controls, three validation and six policy-heldout. The original two-per-class goal is not met. Museum jar and reusable cups are domain-shift diagnostics, not packaging/material/hazard ground truth. No independent human label acceptance or real-camera evidence."
+}

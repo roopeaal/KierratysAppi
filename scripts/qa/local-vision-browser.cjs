@@ -109,6 +109,14 @@ async function main() {
         })
         .waitFor();
       await page.getByTestId("local-photo-unavailable").waitFor();
+      await page.getByTestId("local-photo-capture-guidance").waitFor();
+      assert.equal(
+        await page.getByTestId("local-photo-capture-guidance").innerText(),
+        language === "fi"
+          ? "Kuvaa yksi pakkaus kerrallaan. Materiaalikoodia varten ota lähikuva koko numero–kirjainparista, esimerkiksi 05 PP. Pidä teksti suorassa ja vältä heijastuksia."
+          : "Photograph one package at a time. For a material code, take a close-up of the full number–letter pair, such as 05 PP. Keep the text straight and avoid reflections.",
+        "The current localized capture instructions must render; stale bundles cannot pass",
+      );
       for (const text of language === "fi"
         ? [
             "Tuetussa iPhonessa kuva käsitellään laitteessa. Voit etsiä pakkauksen materiaalikoodia ja arviota esineen tyypistä.",
@@ -129,6 +137,8 @@ async function main() {
       assert.equal(await page.getByTestId("local-photo-open-camera").count(), 0);
       assert.equal(await page.getByTestId("local-photo-recognize").count(), 0);
       assert.equal(await page.getByTestId("local-photo-object").count(), 0);
+      assert.equal(await page.getByTestId("local-photo-retake").count(), 0);
+      assert.equal(await page.getByTestId("local-photo-reset").count(), 0);
       await page.getByTestId("local-photo-cloud-action").filter({ hasText: "OpenAI" }).waitFor();
       const assertPassive = async () => {
         assert.deepEqual(requests, [], "Local entry/recovery must not request an API");
@@ -136,6 +146,23 @@ async function main() {
         assert.equal(await page.evaluate(() => window.qaGpsCalls), 0);
       };
       await assertPassive();
+      // Unavailable or inconclusive local recognition has a useful barcode
+      // recovery. Opening its permission explanation is not permission/capture.
+      const barcodeRecovery = page.getByTestId("local-photo-barcode-action");
+      await barcodeRecovery.focus();
+      assert.notEqual(
+        await barcodeRecovery.evaluate((el) => getComputedStyle(el).boxShadow),
+        "none",
+        "Barcode recovery keeps a visible keyboard-focus ring",
+      );
+      await barcodeRecovery.press("Enter");
+      await page.getByTestId("scanner-permission-screen").waitFor();
+      assert.equal(new URL(page.url()).pathname, "/scan");
+      assert.equal(await page.getByTestId("scanner-camera").count(), 0);
+      await assertPassive();
+      await page.getByTestId("scanner-close-action").click();
+      await page.getByTestId("local-photo-screen").waitFor();
+      await page.getByTestId("local-photo-capture-guidance").waitFor();
       await page.getByTestId("local-photo-marking-action").focus();
       assert.notEqual(
         await page
@@ -254,7 +281,7 @@ async function main() {
       await context.close();
     }
     console.log(
-      "PASS: actual FI/EN web final supported-iPhone/limited-recognition/paid-cloud copy, explicit unsupported-native state (no fake estimate), zero implicit API/camera/GPS, keyboard manual-marking recovery, separate named cloud consent entry/back without capture/send, 44pt controls, dark/light 320/390/1280 and 130% synthetic text; public-code prefill requires explicit check and confirmation, duplicate route values are rejected; Privacy distinctly describes local no-upload/clearing and separately consented OpenAI retention. No native image inference or accuracy claim.",
+      "PASS: actual FI/EN web final supported-iPhone/limited-recognition/paid-cloud copy and capture guidance, explicit unsupported-native state (no fake estimate/retake), zero implicit API/camera/GPS, keyboard barcode permission-explanation/back and manual-marking recovery, separate named cloud consent entry/back without capture/send, 44pt controls, dark/light 320/390/1280 and 130% synthetic text; public-code prefill requires explicit check and confirmation, duplicate route values are rejected; Privacy distinctly describes local no-upload/clearing and separately consented OpenAI retention. Native capture/retake, image inference and accuracy remain unverified.",
     );
   } finally {
     await browser.close();

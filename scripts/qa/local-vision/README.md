@@ -58,3 +58,28 @@ Never change a gate to make the diagnostic set pass. Version and preserve a
 semantic correction separately and evaluate genuinely independent real-camera
 and unknown/hazard examples before any reliability claim. The original eight
 development images remain known development data even after another version.
+
+## Reproduce material-code OCR ablation
+
+`ocr-diagnostic-cases.json` contains39 **already-seen owned synthetic text**
+cases, not held-out product/camera evidence. The historical first and adversarial
+protocols were separately frozen before their calls; this combined manifest is
+for reproduction only, with that distinction in its metadata. It defines fixed
+current-multilingual/no-correction, en-US/no-correction and en-US/finite-material-
+lexicon/correction arms. No classifier threshold or Unicode rewriting is used.
+
+Compile `ocr-diagnostics.swift` into a fresh ignored `work/` directory with the
+same explicit stable Xcode and Swift6 command pattern above. Copy the JSON to
+that directory as `protocol.json`, then call the binary with `generate` and the
+directory path. This creates new owned JPEGs and refuses existing image targets.
+Only an explicit `run` command performs OCR, once per image/arm. Paths, protocol
+size, fixture count, language/dictionary settings and image size are bounded to
+the checkout's work tree. It never runs in the app or downloads anything.
+
+Before `run`, record the protocol/source/binary/input SHA256 hashes and exclusive
+attempt marker; retain every raw line and normalize through the public
+`extractLocalMaterialCodeCandidates` export. Expected labels/case IDs are not
+given to Vision, only pixels. Do not substitute results for a missing model call
+or overwrite a previous run. The main `evaluate.mjs` exact-engine procedure is
+still required after integrating a selected arm; an isolated OCR ablation does
+not prove the app/native combined pipeline. No inference is part of CI.

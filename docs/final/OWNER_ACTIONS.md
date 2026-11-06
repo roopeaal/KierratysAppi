@@ -1,5 +1,28 @@
 # Owner actions
 
+## November6 — OCR improvement / seed corpus
+
+- **Engineering next:** complete the modern-packaging seed manifest in NEXT_ACTION,
+  with at least three independent object groups per class, explicit disjoint
+  train/validation/held-out allocation and outside-kind controls. Existing nine
+  evaluated pictures stay seen diagnostics, never newly held-out training data.
+  Do not train or tune against held-out results to manufacture a gain.
+- **Roope/team label reviewer:** inspect candidate images and original source/
+  licence pages without model predictions, record eligible object kind, modern
+  packaging suitability, privacy/rights concern and accept/reject reason per
+  group. Do not certify composition/safety/bin from shape or treat AI-reviewed
+  museum/reusable-object labels as human-approved packaging truth.
+- **Engineering + Roope under a separate phone-update request:** build/sign a
+  matching JS-bundled client6, inspect real profile/resource/signatures, install
+  without reset and test ordinary nonprivate package/code capture, explicit
+  retake, denied/restored permission, background/back, airplane mode and larger
+  text/VoiceOver/performance. Last verified client4 expiry November4 is past;
+  no current phone/profile state was checked or renewed. Roope handles actual
+  account/keychain/trust/unlock prompts himself; no secrets/photos in chat and
+  no paid cloud selection for the local test.
+- **Release owner:** Android, general accuracy, store/privacy/operations remain
+  open. No GitHub publication or paid service is requested for this work unit.
+
 ## November4 — free local-recognition pilot
 
 - **Engineering / next local action:** create the licence-traced independent

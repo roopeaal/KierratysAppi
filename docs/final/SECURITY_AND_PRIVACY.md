@@ -1,5 +1,23 @@
 # Security and privacy
 
+## November6 — versioned local OCR / public diagnostic data
+
+V3 enables only the fixed13 material abbreviations/en-US lexicon with correction;
+explicit policy metadata and strict older-response compatibility prevent false
+source upgrades. Text remains untrusted, confirmation/manual sorting boundary
+unchanged; no raw OCR/photo persistence, paid fallback, new analytics or service
+secret. Cancellation/cleanup now also guard stale camera mount/ready/size events.
+Denial recovery avoids duplicate alerts; retake is explicit, never auto-inference.
+
+Twelve public licensed JPEGs are rights-traced in QA only; before inference,
+exclude a handwritten-background privacy caution and two unsuitable crops.
+Nine eligible cases run locally; pixels are not committed/bundled/uploaded.
+Manifest validation bounds inputs, refuses linked/oversized JSON, locks origins,
+hashes/groups/licences and separates AI review from human acceptance. No user
+photos reused. New image-data tooling is not production provider persistence.
+Unsigned6/resource checks do not establish signed-release/device/network-packet
+or general model-quality acceptance. Details: LOCAL_VISION_IMPROVEMENT.
+
 ## November4 — separate local image path
 
 The iOS-only local pilot uses installed Apple Vision classification/OCR with

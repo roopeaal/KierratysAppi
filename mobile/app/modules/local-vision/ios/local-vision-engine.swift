@@ -19,13 +19,14 @@ struct LocalVisionClassification: Encodable, Sendable {
 }
 
 struct LocalVisionResult: Encodable, Sendable {
-  let schemaVersion = "local-vision-v2"
+  let schemaVersion = "local-vision-v3"
   let engine = "apple-vision"
   let classificationPolicy = "apple-class-operating-point-v1"
   let minimumPrecision = 0.9
   let minimumRecall = 0.01
   let classificationRevision: Int
   let ocrRevision = 3
+  let ocrPolicy = "material-code-lexicon-v1"
   let ocrLanguages: [String]
   let osVersion: String
   let observedAt: String
@@ -63,6 +64,11 @@ final class LocalVisionEngine: @unchecked Sendable {
   static let deadlineSeconds: TimeInterval = 12
   static let classificationIdentifiers = [
     "bottle", "wine_bottle", "jar", "carton", "cardboard_box", "paper_bag", "cup",
+  ]
+  // The finite material-code lexicon is not a brand/product dictionary. Outputs
+  // remain untrusted OCR candidates and require independent user confirmation.
+  static let materialCodeAbbreviations = [
+    "PET", "HDPE", "PVC", "LDPE", "PP", "PS", "PAP", "FE", "ALU", "FOR", "COT", "TEX", "GL",
   ]
 
   private let stateLock = NSLock()
@@ -119,7 +125,8 @@ final class LocalVisionEngine: @unchecked Sendable {
     let text = VNRecognizeTextRequest()
     text.revision = VNRecognizeTextRequestRevision3
     text.recognitionLevel = .accurate
-    text.usesLanguageCorrection = false
+    text.usesLanguageCorrection = true
+    text.customWords = materialCodeAbbreviations
     text.automaticallyDetectsLanguage = false
     guard VNClassifyImageRequest.supportedRevisions.contains(classifier.revision),
           VNRecognizeTextRequest.supportedRevisions.contains(text.revision) else {
@@ -130,7 +137,7 @@ final class LocalVisionEngine: @unchecked Sendable {
       throw LocalVisionFailure.unavailable
     }
     let supportedLanguages = try text.supportedRecognitionLanguages()
-    let languages = ["en-US", "de-DE", "sv-SE"].filter { supportedLanguages.contains($0) }
+    let languages = ["en-US"].filter { supportedLanguages.contains($0) }
     guard !languages.isEmpty else { throw LocalVisionFailure.unavailable }
     text.recognitionLanguages = languages
 

@@ -1,0 +1,118 @@
+{
+  "schemaVersion": "independent-case-spec-v1",
+  "purpose": "Visible-object diagnostics only; not product, material, hazard or sorting ground truth.",
+  "trainingIncluded": false,
+  "pretrainingMembership": "unknown",
+  "labelReviewStatus": "ai_reviewed_human_review_required",
+  "cases": [
+    {
+      "id": "bottle-empty",
+      "title": "File:Empty Plastic Bottle.jpg",
+      "group": "commons-empty-bottle-tracy",
+      "split": "validation",
+      "expectedKind": "bottle",
+      "license": "CC0-1.0",
+      "labelEvidence": "Source describes one bottle; visible-object label requires visual/human review, not emptiness or material verification."
+    },
+    {
+      "id": "bottle-water",
+      "title": "File:PET bottle.jpg",
+      "group": "commons-water-bottle-gnu-bricoleur",
+      "split": "heldout",
+      "expectedKind": "bottle",
+      "license": "CC-BY-4.0",
+      "labelEvidence": "Source describes a water bottle; only bottle form is a reference, not PET/deposit truth."
+    },
+    {
+      "id": "jar-ball",
+      "title": "File:Macro Image of Ball jar.jpg",
+      "group": "commons-ball-jar-jyncarecat",
+      "split": "validation",
+      "expectedKind": "jar",
+      "license": "CC-BY-4.0",
+      "labelEvidence": "Source describes a close-up of a Ball jar; crop and visible form require review."
+    },
+    {
+      "id": "jar-museum",
+      "title": "File:Glass jar with lid MET DP109360.jpg",
+      "group": "met-object-245162",
+      "split": "heldout",
+      "expectedKind": "jar",
+      "license": "CC0-1.0",
+      "creditOverride": "The Metropolitan Museum of Art; photographer not supplied",
+      "labelEvidence": "Museum source identifies a jar with lid. Domain-shift stress case, not modern packaging or recycling truth."
+    },
+    {
+      "id": "box-decoder",
+      "title": "File:Box of MYTV Free Decoder Unit.jpg",
+      "group": "commons-mytv-box-mnh48",
+      "split": "validation",
+      "expectedKind": "box",
+      "license": "CC-BY-4.0",
+      "labelEvidence": "Source describes a product box; only visible box form is referenced."
+    },
+    {
+      "id": "box-contacts",
+      "title": "File:1 Satz Unterbrecherkontakte, SahiFa Braunschweig, AP3Q0084 edit.jpg",
+      "group": "commons-vw-contacts-box-braun",
+      "split": "heldout",
+      "expectedKind": "box",
+      "license": "CC0-1.0",
+      "labelEvidence": "Source describes a small spare-parts box; contents/material/safety are not established."
+    },
+    {
+      "id": "bag-wcdonalds",
+      "title": "File:WcDonalds bag - 1.jpg",
+      "group": "commons-wcdonalds-bag-rightcowleftcoast",
+      "split": "validation",
+      "expectedKind": "bag",
+      "license": "CC-BY-4.0",
+      "labelEvidence": "Source describes a food-service bag; do not infer contents or actual composition."
+    },
+    {
+      "id": "bag-lawn",
+      "title": "File:Benny's lawn bag.jpg",
+      "group": "commons-bennys-lawn-bag-waz8",
+      "split": "heldout",
+      "expectedKind": "bag",
+      "license": "CC0-1.0",
+      "labelEvidence": "Source describes a lawn bag; a bag form reference, not nationwide collection guidance."
+    },
+    {
+      "id": "cup-takeaway",
+      "title": "File:Coffeecup.jpg",
+      "group": "commons-coffee-cup-sprinno",
+      "split": "validation",
+      "expectedKind": "cup",
+      "license": "CC0-1.0",
+      "labelEvidence": "Source describes a coffee cup; no material or empty/clean condition is verified."
+    },
+    {
+      "id": "cup-chashka",
+      "title": "File:Chashka.jpg",
+      "group": "commons-cup-doniyorovich",
+      "split": "heldout",
+      "expectedKind": "cup",
+      "license": "CC0-1.0",
+      "labelEvidence": "Source describes a handled drinking vessel; reusable-object stress case, not packaging truth."
+    },
+    {
+      "id": "control-ball",
+      "title": "File:Tennis ball.jpg",
+      "group": "commons-tennis-ball-dhankhar",
+      "split": "heldout",
+      "expectedKind": "unknown",
+      "license": "CC-BY-4.0",
+      "labelEvidence": "Source describes a tennis ball, outside the five supported object kinds; not a safety assessment."
+    },
+    {
+      "id": "control-batteries",
+      "title": "File:Mignon Stack (3576288651).jpg",
+      "group": "commons-aa-stack-pascal",
+      "split": "heldout",
+      "expectedKind": "unknown",
+      "license": "CC0-1.0",
+      "labelEvidence": "Source describes AA cells, outside supported kinds. Battery-related negative must never gain a material/bin/safety claim from this recognizer."
+    }
+  ]
+}

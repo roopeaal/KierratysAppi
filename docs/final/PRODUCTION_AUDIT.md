@@ -1,5 +1,24 @@
 # Adversarial production-readiness audit
 
+## Scoped OCR/data/UX follow-up — November6
+
+Not a repeated30-lane audit. **LV-001 stays high/open:** new frozen nine-case
+public-image diagnostic gives one tentative bottle/eight unknown, not useful
+general product recognition or representative accuracy. No classifier gate is
+relaxed. Synthetic OCR improvement (PP misses fixed, no new unambiguous code on
+the adversarial controls) does not close this finding or PHOTO-003/004.
+
+Locally repaired UX defects: missing close-up guidance, result retake returning
+to an extra intro, duplicate permanent-denial text and stale camera callbacks.
+Pure/source/browser regressions pass; actual native retake/permissions and
+recognition-quality acceptance remain unrun. The new rights/hash/group validator
+rejects malformed/linked/oversized manifests, duplicates and old seen images
+masquerading as held-out. Three unsuitable images are excluded **before** calls;
+labels explicitly await human review. Evidence: LOCAL_VISION_IMPROVEMENT and
+LOCAL_VISION_INDEPENDENT_CORPUS. No severity reduction, paid inference, phone
+action, profile renewal or publication. Modern-packaging dataset completion is
+engineering-owned locally executable work, not an external credit blocker.
+
 ## Scoped local-recognition implementation assessment — November4
 
 Not a repeated30-lane audit or a production GO. New strict native/shared/mobile

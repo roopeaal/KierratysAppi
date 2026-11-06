@@ -1,5 +1,22 @@
 # Release decision
 
+## November6 — measured OCR improvement, still NO-GO
+
+V3's fixed material lexicon improves the frozen synthetic PP cases without a new
+unambiguous false-code status in the separate near-code challenge. Final engine
+41/42 expected synthetic outcomes/14 positive codes is not real-camera accuracy.
+The new nine licensed pictures yield one tentative bottle/eight unknown results;
+generic object quality/LV-001 remains **high/open**, not repaired by green tests.
+No automatic material/safety/bin or paid fallback. Exact evidence:
+LOCAL_VISION_IMPROVEMENT and LOCAL_VISION_INDEPENDENT_CORPUS.
+
+Unsigned Debug6 links the new policy and packages its privacy resource; this is
+not signed Release, phone installation, renewal, standalone offline, VoiceOver,
+energy or Android acceptance. Last verified client4 profile's November4 expiry
+is past; current phone state unqueried. Independent human labels, complete modern
+packaging/training data and existing release/store/privacy/operations gates remain.
+No push or production publication authorized/performed by this test/improve task.
+
 ## November4 — local recognition remains a pilot: NO-GO
 
 First free iOS-only Apple Vision path is implemented; unsigned Debug build5 and

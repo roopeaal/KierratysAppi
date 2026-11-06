@@ -11,6 +11,9 @@ export const localVisionFi = {
   localVisionCamera: "Avaa kamera",
   localVisionOpening: "Avataan kameraa…",
   localVisionCapture: "Ota kuva",
+  localVisionCaptureGuidance:
+    "Kuvaa yksi pakkaus kerrallaan. Materiaalikoodia varten ota lähikuva koko numero–kirjainparista, esimerkiksi 05 PP. Pidä teksti suorassa ja vältä heijastuksia.",
+  localVisionBarcodeRecovery: "Kokeile viivakoodia",
   localVisionCameraLabel: "Paikallisen tunnistuksen kamera",
   localVisionPreview: "Tarkista kuva",
   localVisionRecognize: "Tunnista tässä laitteessa",
@@ -57,6 +60,9 @@ export const localVisionEn: { readonly [Key in keyof typeof localVisionFi]: stri
   localVisionCamera: "Open camera",
   localVisionOpening: "Opening camera…",
   localVisionCapture: "Take a picture",
+  localVisionCaptureGuidance:
+    "Photograph one package at a time. For a material code, take a close-up of the full number–letter pair, such as 05 PP. Keep the text straight and avoid reflections.",
+  localVisionBarcodeRecovery: "Try a barcode",
   localVisionCameraLabel: "On-device recognition camera",
   localVisionPreview: "Review the image",
   localVisionRecognize: "Recognize on this device",

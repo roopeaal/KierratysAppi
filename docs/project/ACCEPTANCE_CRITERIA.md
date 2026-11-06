@@ -1,5 +1,13 @@
 # Acceptance criteria
 
+## OCR improvement / recovery — November6
+
+1. Fixed material lexicon policy/language/revision/source metadata is explicit; strict older native inputs remain readable without invented settings. Do not change class thresholds/abstention/parser/rules to inflate coverage.
+2. Freeze positives/negative/conflict/near-code controls and hashes before calls; retain every failure. Synthetic PP improvements alone are not real-camera accuracy. No cross-script replacement, automatic material/bin or paid fallback.
+3. Public-image sources/licences/groups/bytes/labels and exclusions are auditable before inference. No user photos, label leakage, hidden retakes, false human-review status or comparison across different sets as accuracy improvement. Low9-case coverage keeps the quality finding open.
+4. Explicit retake clears prior media/late callbacks before opening camera, never auto-captures/recognizes. Capture guidance, denied-permission recovery and barcode fallback stay localized/readable/44pt. Pure/source/browser tests do not establish native camera behavior.
+5. Full/scoped validation, actual unsigned6 link/resource/metadata and browser checks pass. Signed/standalone/real-camera/VoiceOver/energy/Android and production readiness remain separate unrun gates.
+
 ## First local iOS pilot — November4
 
 1. Actual optional native module/strict separate observations; no networking, fabricated identity/material/safety/bin or paid fallback. Old clients/Android/web explicitly recover as unavailable.

@@ -1,5 +1,21 @@
 # External blockers
 
+## November6 OCR improvement / corpus testing
+
+No new account, API credit, secret, paid compute or infrastructure blocker. Local
+OCR improves on frozen synthetic diagnostics; general object coverage remains
+low on the new9 pictures. Data expansion/training design remain locally
+executable engineering work, not a funding problem. Current seed lacks enough
+eligible modern-packaging groups; AI labels await Roope/team reviewer acceptance,
+not invented independent human approval. Corpus/rights evidence is documented.
+
+Unsigned build6 is compiled, not installed/signed. Last verified client4 profile
+expired November4; no current phone state was read and no renewal was attempted.
+Engineering owns matching signed/bundled delivery and device-test preparation;
+Roope owns actual account/keychain/trust/unlock/camera/settings actions under a
+separately requested phone update. No new signing failure is inferred. Android,
+accuracy, release/store/operations gates remain. No cleanup or publication.
+
 ## November4 local-recognition pilot
 
 No new account, credential, API-credit or paid-service blocker encountered. The

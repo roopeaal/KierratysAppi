@@ -1,0 +1,272 @@
+{
+  "protocolVersion": "local-material-ocr-reproduction-v1",
+  "purpose": "Reproduction of already-seen owned synthetic diagnostics, not held-out real-camera or material accuracy. Original pre-inference protocols and all outcomes are retained in the November6 evidence.",
+  "heldOut": false,
+  "licence": "Original plain-text diagnostic content; no external images, model weights, font files or user photos redistributed.",
+  "arms": [
+    {
+      "id": "a-current",
+      "languages": ["en-US", "de-DE", "sv-SE"],
+      "languageCorrection": false,
+      "customWords": []
+    },
+    {
+      "id": "b-latin",
+      "languages": ["en-US"],
+      "languageCorrection": false,
+      "customWords": []
+    },
+    {
+      "id": "c-lexicon",
+      "languages": ["en-US"],
+      "languageCorrection": true,
+      "customWords": [
+        "PET",
+        "HDPE",
+        "PVC",
+        "LDPE",
+        "PP",
+        "PS",
+        "PAP",
+        "FE",
+        "ALU",
+        "FOR",
+        "COT",
+        "TEX",
+        "GL"
+      ]
+    }
+  ],
+  "constantSettings": {
+    "revision": 3,
+    "recognitionLevel": "accurate",
+    "automaticallyDetectsLanguage": false,
+    "topCandidates": 1,
+    "maxTextLines": 24,
+    "maxLineLength": 64
+  },
+  "rendering": {
+    "width": 1200,
+    "height": 600,
+    "font": "Helvetica-Bold",
+    "fontSize": 96,
+    "background": "white",
+    "ink": "black",
+    "jpegQuality": 0.9
+  },
+  "cases": [
+    {
+      "id": "pet-compact",
+      "lines": ["PET1"],
+      "expectedStatus": "candidates",
+      "expectedCode": "PET 1"
+    },
+    {
+      "id": "hdpe-reverse",
+      "lines": ["02 HDPE"],
+      "expectedStatus": "candidates",
+      "expectedCode": "HDPE 2"
+    },
+    {
+      "id": "pvc",
+      "lines": ["PVC 3"],
+      "expectedStatus": "candidates",
+      "expectedCode": "PVC 3"
+    },
+    {
+      "id": "ldpe-reverse",
+      "lines": ["04 LDPE"],
+      "expectedStatus": "candidates",
+      "expectedCode": "LDPE 4"
+    },
+    {
+      "id": "pp-forward",
+      "lines": ["PP 5"],
+      "expectedStatus": "candidates",
+      "expectedCode": "PP 5"
+    },
+    {
+      "id": "ps-reverse",
+      "lines": ["06 PS"],
+      "expectedStatus": "candidates",
+      "expectedCode": "PS 6"
+    },
+    {
+      "id": "pap",
+      "lines": ["PAP 21"],
+      "expectedStatus": "candidates",
+      "expectedCode": "PAP 21"
+    },
+    {
+      "id": "fe-reverse",
+      "lines": ["40 FE"],
+      "expectedStatus": "candidates",
+      "expectedCode": "FE 40"
+    },
+    {
+      "id": "alu",
+      "lines": ["ALU 41"],
+      "expectedStatus": "candidates",
+      "expectedCode": "ALU 41"
+    },
+    {
+      "id": "gl-reverse",
+      "lines": ["70 GL"],
+      "expectedStatus": "candidates",
+      "expectedCode": "GL 70"
+    },
+    {
+      "id": "pp-small",
+      "lines": ["05 PP"],
+      "fontSize": 64,
+      "expectedStatus": "candidates",
+      "expectedCode": "PP 5"
+    },
+    {
+      "id": "composite",
+      "lines": ["C/PAP 84"],
+      "expectedStatus": "candidates",
+      "expectedCode": "C/PAP 84"
+    },
+    {
+      "id": "date",
+      "lines": ["2026 11"],
+      "expectedStatus": "none"
+    },
+    {
+      "id": "bare-number",
+      "lines": ["05"],
+      "expectedStatus": "none"
+    },
+    {
+      "id": "bare-abbreviation",
+      "lines": ["PP"],
+      "expectedStatus": "none"
+    },
+    {
+      "id": "prose",
+      "lines": ["LOT 05 PP"],
+      "expectedStatus": "none"
+    },
+    {
+      "id": "mismatch",
+      "lines": ["PET 05"],
+      "expectedStatus": "ambiguous"
+    },
+    {
+      "id": "gtin",
+      "lines": ["3017620422003"],
+      "expectedStatus": "none"
+    },
+    {
+      "id": "hazard-prose",
+      "lines": ["DANGER"],
+      "expectedStatus": "none"
+    },
+    {
+      "id": "incomplete-composite",
+      "lines": ["C/PAP"],
+      "expectedStatus": "none"
+    },
+    {
+      "id": "conflicting-codes",
+      "lines": ["PP 5", "PET 1"],
+      "expectedStatus": "ambiguous"
+    },
+    {
+      "id": "near-rr",
+      "lines": ["05 RR"],
+      "expectedStatus": "none"
+    },
+    {
+      "id": "near-pr",
+      "lines": ["05 PR"],
+      "expectedStatus": "none"
+    },
+    {
+      "id": "near-rp",
+      "lines": ["05 RP"],
+      "expectedStatus": "none"
+    },
+    {
+      "id": "near-pb",
+      "lines": ["05 PB"],
+      "expectedStatus": "none"
+    },
+    {
+      "id": "near-p-eight",
+      "lines": ["05 P8"],
+      "expectedStatus": "none"
+    },
+    {
+      "id": "near-ppt",
+      "lines": ["05 PPT"],
+      "expectedStatus": "none"
+    },
+    {
+      "id": "near-pa",
+      "lines": ["05 PA"],
+      "expectedStatus": "none"
+    },
+    {
+      "id": "near-pe",
+      "lines": ["PE 5"],
+      "expectedStatus": "none"
+    },
+    {
+      "id": "near-pft",
+      "lines": ["PFT 1"],
+      "expectedStatus": "none"
+    },
+    {
+      "id": "near-petrol",
+      "lines": ["PETROL 1"],
+      "expectedStatus": "none"
+    },
+    {
+      "id": "zero-number",
+      "lines": ["PP 0"],
+      "expectedStatus": "ambiguous"
+    },
+    {
+      "id": "mismatch-pvc",
+      "lines": ["PVC 05"],
+      "expectedStatus": "ambiguous"
+    },
+    {
+      "id": "mismatch-pap",
+      "lines": ["PAP 01"],
+      "expectedStatus": "ambiguous"
+    },
+    {
+      "id": "near-composite",
+      "lines": ["C/PAB 84"],
+      "expectedStatus": "none"
+    },
+    {
+      "id": "prefix-prose",
+      "lines": ["AA 05 PP"],
+      "expectedStatus": "none"
+    },
+    {
+      "id": "suffix-prose",
+      "lines": ["05 PP LOT"],
+      "expectedStatus": "none"
+    },
+    {
+      "id": "two-codes",
+      "lines": ["ALU 41", "PAP 21"],
+      "expectedStatus": "ambiguous"
+    },
+    {
+      "id": "mixed-mismatch",
+      "lines": ["PET 1", "PVC 05"],
+      "expectedStatus": "ambiguous"
+    }
+  ],
+  "knownDevelopmentInputs": [],
+  "executionsPerImagePerArm": 1,
+  "retries": 0,
+  "paidCalls": 0,
+  "noSortingWithoutConfirmation": true
+}

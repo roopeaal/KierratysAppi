@@ -24,6 +24,7 @@ import {
 import { announceAccessibility } from "@/features/accessibility/announcements";
 import { isLocalVisionAvailable, recognizeLocalPhoto } from "@/features/local-vision/native";
 import { isLocalCaptureUri } from "@/features/local-vision/recognizer";
+import { type LocalPhotoPhase, localPhotoPresentation } from "@/features/local-vision/presentation";
 import { canUsePhotoCapture, choosePhotoSize } from "@/features/photo/sorting";
 import { useLanguage } from "@/i18n/language-context";
 import { radius } from "@/theme/tokens";
@@ -46,9 +47,7 @@ export default function LocalPhotoScreen() {
   const router = useRouter();
   const { t, language } = useLanguage();
   const [permission, requestPermission] = useCameraPermissions();
-  const [phase, setPhase] = useState<"intro" | "camera" | "preview" | "processing" | "result">(
-    "intro",
-  );
+  const [phase, setPhase] = useState<LocalPhotoPhase>("intro");
   const [jpeg, setJpeg] = useState<string>();
   const [observation, setObservation] = useState<LocalVisionObservation>();
   const [error, setError] = useState<MessageKey>();
@@ -61,6 +60,8 @@ export default function LocalPhotoScreen() {
   const permissionPrompt = useRef(false);
   const pending = useRef<AbortController | undefined>(undefined);
   const available = isLocalVisionAvailable();
+  const presentation = localPhotoPresentation({ phase, available, permission, error });
+  const cameraGeneration = generation.current;
 
   const clear = useCallback(() => {
     generation.current++;
@@ -154,6 +155,11 @@ export default function LocalPhotoScreen() {
     }
   };
 
+  const retake = () => {
+    clear();
+    void open();
+  };
+
   const recognize = async () => {
     if (locked.current || !jpeg || phase !== "preview") return;
     locked.current = true;
@@ -201,19 +207,24 @@ export default function LocalPhotoScreen() {
         {...(phase === "intro" ? { body: t("localVisionIntro") } : {})}
       />
       <View style={sharedStyles.stack}>
-        {error && (
+        {presentation.inlineError && (
           <AppText accessibilityRole="alert" testID="local-photo-error">
-            {t(error)}
+            {t(presentation.inlineError)}
           </AppText>
+        )}
+        {presentation.showCaptureGuidance && (
+          <AppText testID="local-photo-capture-guidance">{t("localVisionCaptureGuidance")}</AppText>
         )}
         {phase === "intro" && (
           <>
             <AppText>{t("localVisionLimit")}</AppText>
             {!available ? (
               <AppText testID="local-photo-unavailable">{t("localVisionUnavailable")}</AppText>
-            ) : permission?.canAskAgain === false && !permission.granted ? (
+            ) : presentation.permanentDenied ? (
               <>
-                <AppText>{t("cameraDenied")}</AppText>
+                <AppText accessibilityRole="alert" testID="local-photo-permission-denied">
+                  {t("cameraDenied")}
+                </AppText>
                 <Button label={t("openSettings")} onPress={() => void Linking.openSettings()} />
               </>
             ) : (
@@ -237,14 +248,19 @@ export default function LocalPhotoScreen() {
               accessibilityLabel={t("localVisionCameraLabel")}
               testID="local-photo-camera"
               onMountError={() => {
+                if (cameraGeneration !== generation.current) return;
                 clear();
                 setError("localVisionError");
               }}
               onCameraReady={() => {
+                if (cameraGeneration !== generation.current) return;
                 setReady(true);
                 void camera.current
                   ?.getAvailablePictureSizesAsync()
-                  .then((sizes) => setPictureSize(choosePhotoSize(sizes)))
+                  .then((sizes) => {
+                    if (cameraGeneration === generation.current)
+                      setPictureSize(choosePhotoSize(sizes));
+                  })
                   .catch(() => undefined);
               }}
             />
@@ -270,6 +286,12 @@ export default function LocalPhotoScreen() {
               onPress={() => void recognize()}
               disabled={busy}
               testID="local-photo-recognize"
+            />
+            <Button
+              label={t("localVisionAgain")}
+              variant="secondary"
+              onPress={retake}
+              testID="local-photo-retake"
             />
           </>
         )}
@@ -330,7 +352,7 @@ export default function LocalPhotoScreen() {
               {t("localVisionSourceDetail")} · Vision {observation.source.classificationRevision} /
               OCR {observation.source.ocrRevision} · {observation.source.osVersion} ·{" "}
               {observation.source.normalizerVersion} · {observation.source.abstentionVersion} ·{" "}
-              {observation.source.ocrLanguages.join(", ")} ·{" "}
+              {observation.source.ocrPolicy} · {observation.source.ocrLanguages.join(", ")} ·{" "}
               {new Date(observation.source.observedAt).toLocaleString(
                 language === "fi" ? "fi-FI" : "en-GB",
               )}
@@ -338,10 +360,21 @@ export default function LocalPhotoScreen() {
             <Button
               label={t("localVisionAgain")}
               variant="secondary"
-              onPress={clear}
+              onPress={retake}
               testID="local-photo-reset"
             />
           </>
+        )}
+        {presentation.showBarcodeRecovery && (
+          <Button
+            label={t("localVisionBarcodeRecovery")}
+            variant="secondary"
+            onPress={() => {
+              clear();
+              router.push("/scan");
+            }}
+            testID="local-photo-barcode-action"
+          />
         )}
         <Button
           label={t("materialCodeAction")}

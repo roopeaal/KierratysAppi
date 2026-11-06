@@ -1,5 +1,60 @@
 # Test evidence
 
+## November6 — OCR improvement, new corpus and camera recovery
+
+Start clean447c853; no JS dependency/lock/provider/rule change. D-063 and
+LOCAL_VISION_IMPROVEMENT document the fixed ablation/selection rule and exact
+source/binary hashes. No phone/push authority inferred from “test and improve”.
+
+| Evidence lane | Result |
+| --- | --- |
+|Full `pnpm validate` | **PASS578 unique cases:156 policy +422 application**, boundaries/format/lint/strict types/every build/17 web routes; `work/local-vision-improvement-2026-11-06.7YOrWW/validate-final.log`, exit0 |
+|Independent part checks | Mobile346/shared167 overlapping cases pass; `validate-mobile.log`, `validate-shared.log` in that root. Contracts107/mobile app171 include13 metadata/legacy regressions and11 pure recovery-presentation cases |
+|New QA source/data guards | Five UX-policy, three OCR-diagnostic and24 independent-corpus cases pass. Include pinned13-word dictionary, V3 exact-language/policy, strict legacy compatibility, denial/retake/late callbacks, rights/bytes/group/old-hash rejection and bounded no-follow JSON reads |
+|Frozen OCR ablation |72 local OCR calls:24 cases×3 predefined arms. A current22/24 expected statuses; B en-US only22/24; C correction+material lexicon24/24. Same references/source/input hashes, no retakes |
+|Separate adversarial challenge |36 local OCR calls:18 near-code cases×A/C. Both17/18 expected statuses; PP0→PPO safely returns none rather than expected ambiguity. C introduces no new unambiguous false-code status; no gate/label tuning |
+|Exact final native-engine verification |42/42 combined classifier/OCR executions and raw schemas succeed;41/42 expected statuses,14/14 complete-code positives;28 negative/mismatch/conflict controls give no unambiguous candidate status. Synthetic engineering data, not real-camera/product accuracy |
+|New licensed public pictures |12 JPEGs acquired,3 excluded by pre-inference privacy/eligibility review. Frozen9 execute once: one tentative water bottle/eight unknown, no material codes. Three validation all abstain; six policy-held-out give one estimate/five unknown. AI-reviewed labels/human review pending, coverage1/9 not accuracy. Every source/author/licence/hash/group/outcome: LOCAL_VISION_INDEPENDENT_CORPUS |
+|Actual iOS compile/resource | Stable Xcode26.6 serial generic-iOS **unsigned Debug BUILD SUCCEEDED**. Prior unsigned5 snapshot retained; source/generated build6 agree, native locks unchanged/equal Manifest. Linked actual OCR policy/lexicon symbols and packaged privacy byte equality/plist lint pass. No native generation/dependency upgrade/signing/Release/install/renewal or standalone startup claim |
+|Actual web/browser/visual | Final FI/EN guide/limitation/cloud copy; keyboard barcode→permission-intro→back with0 camera/GPS/API; marking Check+Confirm/duplicate params; local/cloud privacy;44pt/dark/light320/390/1280/synthetic130% text pass. Narrow/light/dark/large screenshots inspected. This is explicit unsupported-native recovery, not fake camera/retake/recognition evidence |
+
+Root validation/native receipts:
+`work/local-vision-improvement-2026-11-06.7YOrWW/`.
+OCR protocols/raw outputs/42-case final summary:
+`work/local-ocr-ablation-2026-11-06.mf32q8/` and
+`work/local-ocr-adversarial-2026-11-06.XKfnXt/`.
+Independent images/manifests/all9 outputs:
+`work/local-vision-independent-2026-11-06.otSaGF/`.
+Browser:
+`work/local-vision-improvement-2026-11-04.Es0SaQ/browser-2026-11-06/`.
+Reproduction driver and seen-case protocols are committed, not image pixels.
+
+Native engine SHA256d77d287a1aa241abdadfb4b0fce8244cc0f4d53e9917fef68f6425dccb7ba904;
+CLI622a898cf789889d7380d27b80e9fa8837b0b01c456cb2d04a3e524b7fab9e37;
+normalizerf3da222d8b84ca508ac7c2daa5bb764d66a7847ba7a9572bf0182200ead92544.
+Final iOS debug-dylib SHA256
+cb91a8ba3b016ad03b3358b55af67888b45d79106807417109ce9d9014aa4e69.
+Every actual image run verifies source/input hashes before/after. Subsequent QA
+reader hardening preserves the old run's validator/protocol snapshot; it does
+not rewrite its source hash or rerun images.
+
+Retained failures: A/B PP misses; all-arm PP0/PPO over-abstention; generic new-set
+low coverage; three excluded data candidates. First new-corpus preflight fails
+**before any image call** because committed JSON adds a final newline: equivalent
+JSON plus separate immutable file hashes fixes preflight, not model/reference
+selection. Two new file-reader tests initially fail on macOS `/var`→`/private/var`
+temporary-path alias; canonicalize the test-owned directory, preserve no-follow
+file rejection and rerun24 tests. First full576-case pass preceded those two new
+guards; final578 passes. No sampling/score/safety assertion was weakened.
+
+No paid API request, service secret read, model download/training, user-photo
+reuse, phone-delivery/API service change, physical phone action, cleanup or GitHub
+write. Only isolated loopback QA8095 starts. Last verified client4 profile's
+November4 expiry is past; current phone/profile state unqueried. **Open:** LV-001/
+PHOTO-003/004, modern-packaging/group/training data, human labels, native camera/
+retake/permissions/offline/VoiceOver/energy, Android and public release/store/
+operations gates. No representative accuracy or production GO follows.
+
 ## November3–4 — first free iOS-local recognition pilot
 
 Source starts atbf645ef; no new JS dependency or lock version, provider/rule/data
