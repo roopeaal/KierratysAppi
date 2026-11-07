@@ -174,7 +174,7 @@ test("resource override exists only in QA and is absent from shipping bridge con
   const bridge = source(`${ios}local-vision-module.swift`);
   assert.deepEqual(
     [...bridge.matchAll(/AsyncFunction\("([^"]+)"\)/gu)].map((match) => match[1]),
-    ["recognize"],
+    ["inspectReadiness", "recognize"],
   );
   assert.doesNotMatch(bridge, /resourcesURL|modelPath|proxy|configureResources|process\.env/);
 });

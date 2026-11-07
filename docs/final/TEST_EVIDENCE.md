@@ -1,5 +1,26 @@
 # Test evidence
 
+## November7 — no-image readiness and failed broader veto experiment
+
+LOCAL_VISION_READINESS_AND_ROBUSTNESS records the exact source boundaries,
+rights/data pins and retained failures. Full checkpoint **832 unique cases
+(310 policy+522 application)**/all builds/17 routes pass. Native contracts40,
+client13, native lifecycle8 and actual no-image outputs4 pass; original native
+malformed8/cascade6 and source/UI policy tests remain green. Browser FI/EN on
+loopback8096, keyboard/privacy/recovery/44pt/narrow/dark/large screenshots pass.
+Unsigned iOS8 actual link/pins/notices/privacy and absent QA overrides pass,
+not signed Release/install/renewal or physical camera/energy evidence.
+
+New32-case comparison executes80 processes once (validation48, baseline-only
+held-out32), all stages observed/hash-stable. Validation baseline10correct/1wrong
+control, A same, B8correct/1wrong+two lost positives: **neither qualifies**. Lock
+null before held-out, whose baseline7correct/3unknown positives/1wrong mixed
+control/5safe controls confirms a real mixed-scene gap. No fitted/selected
+candidate on held-out, no retakes, no model/gate/prompt change. AI-reviewed
+catalogue references do not establish representative reliability. Separate
+spatial work remains in progress and needs its own final evidence/full run.
+Root receipts: `work/local-reliability-2026-11-07.kbWGyb/`.
+
 ## November7 — actual local classifier upgrade and native integration
 
 Start cleane127052. D-064/LOCAL_CLASSIFIER_UPGRADE document the pinned original2024

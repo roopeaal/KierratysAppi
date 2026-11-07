@@ -49,7 +49,33 @@ if args.count >= 2, args[0] == "--resources" {
   args.removeFirst(2)
 }
 #endif
-if args == ["--self-test"] {
+if args == ["--readiness"] {
+  let signal = DispatchSemaphore(value: 0)
+  let lock = NSLock()
+  nonisolated(unsafe) var readiness: LocalVisionReadiness?
+  LocalVisionEngine.shared.inspectReadiness { result in
+    lock.lock()
+    readiness = result
+    lock.unlock()
+    signal.signal()
+  }
+  guard signal.wait(timeout: .now() + LocalVisionEngine.deadlineSeconds + 2) == .success else {
+    fail("readiness_delivery_failed")
+  }
+  lock.lock()
+  let result = readiness
+  lock.unlock()
+  guard let result else { fail("readiness_delivery_failed") }
+  emit(try JSONEncoder().encode(result))
+} else if args == ["--readiness-self-test"] {
+  #if LOCAL_VISION_QA
+  guard let cases = LocalVisionEngine.readinessLifecycleSelfTest() else { fail("readiness_self_test_failed") }
+  emit(try JSONSerialization.data(withJSONObject: ["passed": cases.count, "cases": cases,
+    "imageRequestsPerformed": 0, "supplementRequestsPerformed": 0], options: [.sortedKeys]))
+  #else
+  fail("qa_only_command")
+  #endif
+} else if args == ["--self-test"] {
   let invalid: [String] = [
     "",
     "data:image/jpeg;base64,/9j/2Q==",

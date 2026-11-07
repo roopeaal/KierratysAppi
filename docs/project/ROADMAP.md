@@ -1,5 +1,12 @@
 # Roadmap
 
+## Reliability loop — November7, in progress
+
+- [x] Implement truthful no-image pre-camera readiness/integrity, strict public/native contracts, FI/EN recovery and abort/background/single-flight guards. Full832/scoped446+254, native/no-image/client/source checks and actual unsigned8 compile/resource/link pass; later spatial files require another final full run.
+- [x] Freeze32 new public cases; test A/B original algorithms without retuning. Retain failed validation/null choice and baseline-only held-out audit, including both mixed-scene false accepts; do not deploy either loser.
+- [ ] Finish the separate frozen spatial-disagreement development/prospective experiment, with original failures intact and no new quality claim from AI-labelled catalogue images.
+- [ ] Independently human-review references and accept representative real-camera/offline/permission/accessibility/latency/memory/battery/platform behavior on a separately requested matching signed installation.
+
 ## Local classifier upgrade — November7
 
 - [x] Independently diagnose low domain coverage/API semantics; retain bounded family-only1/9→2/9 experiment without claiming held-out accuracy or loosening the primary gate.
@@ -7,7 +14,7 @@
 - [x] Pin permissive original2024 model/notice/bytes; implement bounded acquisition, training-compatible ASCII tokenizer,28 text prototypes/18 groups and raw local comparison tooling. No new Python/npm runtime or paid service.
 - [x] Freeze prompt/data/three gates, record original validation failure and reviewed pre-held-out accounting amendment, then observe2/5→4/5 held-out correct positives/no new errors. Preserve failed bottle, flat box unknown, all raw/source hashes and no-retake policy.
 - [x] Integrate image-only native supplement/wireV4/legacy compatibility/source UI, privacy/cache/failure behavior, full notices and resource integrity. Full711/scoped393+214 tests/17 routes/browser pass; unsigned7 actual model/link/graph/weight/proto/privacy/notice/QA-symbol checks pass.
-- [ ] Add bounded truthful pre-camera readiness/integrity preflight, without image processing/network or silently upgrading old clients: the single NEXT_ACTION.
+- [x] Add bounded truthful pre-camera readiness/integrity preflight without image processing/network or silently upgrading old clients; reliability-loop follow-up above now owns NEXT_ACTION.
 - [ ] Separately request matching signed/bundled phone delivery, real camera/unknown/hazard/permissions/offline/VoiceOver/latency/memory/energy and broader human-labelled quality. Android/public release remain open.
 
 ## Local recognition test/improvement — November6

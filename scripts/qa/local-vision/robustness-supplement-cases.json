@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "robustness-cases-v1",
+  "purpose": "Broader visible-form robustness diagnostic, not material, identity, safety, packaging or sorting truth.",
+  "labelReviewStatus": "ai_reviewed_human_review_required",
+  "pretrainingMembership": "unknown",
+  "trainingExecuted": false,
+  "inferenceExecuted": false,
+  "maximumNewImages": 60,
+  "maximumNewBytes": 35000000,
+  "cases": [
+    {
+      "id": "bottle-republic",
+      "title": "File:BlueRepublicBottles.jpg",
+      "expectedKind": "bottle",
+      "split": "validation",
+      "group": "blue-republic-bottles",
+      "license": "CC-BY-3.0",
+      "contextChallenge": true,
+      "requiresNoSortingTruth": true,
+      "labelEvidence": "Source describes two reusable water bottles; whole-form and privacy eligibility require visual review."
+    },
+    {
+      "id": "bottle-metal",
+      "title": "File:Metal Water Bottles.jpeg",
+      "expectedKind": "bottle",
+      "split": "heldout",
+      "group": "metal-water-bottles",
+      "license": "CC0-1.0",
+      "contextChallenge": true,
+      "requiresNoSortingTruth": true,
+      "labelEvidence": "Source describes reusable water bottles; visible form only, not material or packaging verification."
+    },
+    {
+      "id": "bottle-classic",
+      "title": "File:Classic glass bottle of Třebíč ZON apple lemonade in Třebíč, Třebíč District.jpg",
+      "expectedKind": "bottle",
+      "split": "validation",
+      "group": "zon-apple-lemonade",
+      "license": "CC-BY-3.0",
+      "contextChallenge": false,
+      "requiresNoSortingTruth": true,
+      "labelEvidence": "Source describes a retail lemonade bottle; visual eligibility required, no deposit or composition truth."
+    },
+    {
+      "id": "jar-modern",
+      "title": "File:Jars (49326380837).jpg",
+      "expectedKind": "jar",
+      "split": "heldout",
+      "group": "jars-49326380837",
+      "license": "CC0-1.0",
+      "contextChallenge": true,
+      "requiresNoSortingTruth": true,
+      "labelEvidence": "Source describes jars; visual eligibility required before inference."
+    },
+    {
+      "id": "jar-peanut-six",
+      "title": "File:Six different types of peanut butter on a counter.jpg",
+      "expectedKind": "jar",
+      "split": "validation",
+      "group": "six-peanut-counter",
+      "license": "CC0-1.0",
+      "contextChallenge": false,
+      "requiresNoSortingTruth": true,
+      "labelEvidence": "Source describes six retail peanut-butter jars, distinct from prior Shisma source series; whole-object eligibility required."
+    },
+    {
+      "id": "jar-lid",
+      "title": "File:Placing Lid on Jar with Magnetic Lid Wand.jpg",
+      "expectedKind": "jar",
+      "split": "heldout",
+      "group": "magnetic-lid-wand",
+      "license": "CC0-1.0",
+      "contextChallenge": true,
+      "requiresNoSortingTruth": true,
+      "labelEvidence": "Source describes canning jar; visual eligibility and privacy required."
+    }
+  ]
+}

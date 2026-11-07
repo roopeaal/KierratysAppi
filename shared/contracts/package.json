@@ -12,7 +12,8 @@
     "./photo-recognition": "./src/photo-recognition.ts",
     "./photo-image": "./src/photo-image.ts",
     "./local-vision": "./src/local-vision.ts",
-    "./packaging-classifier": "./src/packaging-classifier.ts"
+    "./packaging-classifier": "./src/packaging-classifier.ts",
+    "./local-vision-readiness": "./src/local-vision-readiness.ts"
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts --clean",

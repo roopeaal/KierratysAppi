@@ -1,5 +1,13 @@
 # Acceptance criteria
 
+## Reliability loop — November7
+
+1. No-image readiness reports actual integrity/interface only; strict pinned native results cannot forge client-only legacy states or quality certification. Check before permission, preserve partial/old-client recovery, and suppress cancelled/stale camera opening while retaining native single-flight until actual settlement.
+2. Own decision algorithms use explicit frozen models/prompts/views/gates, exact source/input hashes, pre-inference reference review and validation-only selection. Required-stage failures stay in denominators and never count as safe abstentions or removed errors. Never qualify an always-unknown or excessively lossy candidate.
+3. Retain failed A/B experiments/null choice and baseline-only held-out audit. A new spatial experiment uses seen development data openly and a separately frozen prospective set; no outcome-driven relabel, retake or held-out policy choice.
+4. Do not claim reliable materials/SKUs/safety/sorting or general camera quality from a finite AI-labelled form test. Human references, representative field/unknown/mixed/hazard cases, signed matching native offline/permission/accessibility/latency/memory/energy and Android evidence remain mandatory.
+5. Final full/scoped validation, actual native compiled-resource/link/privacy checks and documentation must match the completed source. Current unsigned8/source and no-image/browser checks alone are not production GO.
+
 ## Supplemental classifier — November7
 
 1. Primary class gate/uncertainty/OCR stay unchanged. Only true no-match may use supplemental image scores; primary match/conflict/error is not replaced. Similarity is uncalibrated, never material/SKU/safety/bin truth.

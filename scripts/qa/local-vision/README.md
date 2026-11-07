@@ -15,6 +15,7 @@ env DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcrun swiftc \
   scripts/qa/local-vision/main.swift -o work/FRESH_ROOT/local-vision
 work/FRESH_ROOT/local-vision --self-test
 work/FRESH_ROOT/local-vision --cascade-self-test
+work/FRESH_ROOT/local-vision --readiness-self-test
 ```
 
 The eight malformed/noncanonical/oversized/non-JPEG self-tests perform no image
@@ -30,6 +31,22 @@ The single-flight gate and total12s deadline cover both models. These are not
 separate restartable time budgets.
 
 The six cascade self-tests exercise pure grouping without image/model calls.
+The eight readiness lifecycle self-tests use a controlled no-model job on the
+actual serial worker. They check busy recognition/preflight, a bounded timeout,
+retaining the gate until real settlement, late-result suppression and retry.
+The controlled hook/duration exists only with `LOCAL_VISION_QA`.
+
+`--readiness` performs **no image inference**, camera permission or networking.
+It checks the primary Vision revision/identifier/OCR language interfaces, then
+the exact bundled model integrity, load and input/output interface. Pass the
+same QA-only `--resources work/VERIFIED/KierratysLocalVisionModels.bundle`
+argument to test a verified CLI bundle. Its full/primary-only/unavailable
+snapshot is not model accuracy, latency, energy or physical-device evidence.
+The same12s deadline bounds delivery; an uncancellable load retains the native
+single-flight gate until its actual settlement even after timeout. The app
+uses only its signed bundle, never a JS resource path. Missing/invalid resources
+produce primary-only; missing primary interfaces produce unavailable.
+
 For a separately specified functional V4 check with a verified local model
 bundle, the QA-only CLI configuration is:
 

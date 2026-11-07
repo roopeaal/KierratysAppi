@@ -1,5 +1,13 @@
 # Decision log
 
+## D-065 — Measure selective reliability before deploying original veto algorithms
+
+- Date:2026-11-07. Roope requests continued reliability work and original algorithms when useful. Use fixed pretrained representations plus our own explicit decision logic; do not pretend8 training references can support a from-scratch universal recognizer. Preserve independent material confirmation/source-backed rules and all uncertainty.
+- Implement no-image readiness/integrity/interface preflight before permission, bounded on the same native serial worker/gate. Full means resources/interface only, never accuracy. Legacy missing entry means readiness unreported, not proof a supplement is absent. Retain strict V2/V3/V4 observations, explicit partial support, cancellation/late-result suppression and no network/paid fallback.
+- Preregister new32-case corpus, A cross-model veto and B two-view agreement, validation-only selection, required-stage failure accounting and nontrivial coverage. Both fail validation; lock null and audit baseline only on held-out. Preserve all80 executions and two mixed-scene false accepts; no new release/quality pass or severity reduction.
+- Investigate a separate original spatial-disagreement guard with fixed left/right/top/bottom60% crops, unchanged model/prompts/gates and explicit region metadata. Develop only on seen validation, lock before new prospective data predictions; never retune on a failed held-out set or deploy a loser. Human labels, representative physical/offline/latency/energy/platform evidence remain separate, not replaceable by green unit tests.
+- No secret/account/payment, phone renewal/install, cleanup or GitHub action is authorized by this local improvement request. Unsigned build8 and QA evidence do not renew the past verified profile or establish store readiness.
+
 ## D-064 — Add a pinned supplemental image model after a locked comparison
 
 - Date:2026-11-07. Owner requests further improvement, not publishing/phone/signing/paid inference. Diagnose current weak domain coverage; family expansion alone yields1/9→2/9 seen-case coverage. Evaluate a different local representation, not lower Apple's existing confidence gate.

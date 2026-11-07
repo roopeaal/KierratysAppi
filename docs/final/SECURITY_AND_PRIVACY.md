@@ -1,5 +1,18 @@
 # Security and privacy
 
+## November7 — pre-camera integrity and broader public QA
+
+Readiness checks no image or camera permission and uses the same serial native
+worker/gate;12s native/15s UI deadlines deliver once without releasing pending
+work early. Strict pinned metadata cannot certify inference quality or forge a
+legacy state. FI/EN partial recovery and cancellation/stale guards are implemented;
+throwing SDK/error accessors are contained. No new network/key/permission/photo
+history or paid fallback. Source model/prediction and sorting logic are unchanged.
+Thirty-two separately rights/privacy/group-reviewed public pictures are QA-only,
+not app assets/user photos. Their errors remain in evidence and no failed veto
+candidate is deployed. Actual unsigned8 model/privacy/notices/QA-symbol checks
+pass, not device/network-packet, signed-release or general-quality certification.
+
 ## November7 — bundled supplemental local image model
 
 Only a primary no-match invokes the pinned CPU-only MobileCLIP image encoder;

@@ -1,5 +1,17 @@
 # Release decision
 
+## November7 — readiness fixed, broader reliability still NO-GO
+
+No-image readiness/strict legacy and partial support now precede permission.
+Checkpoint832 tests/all builds/17 routes, native lifecycle and actual unsigned8
+link/resources pass; not phone/standalone/release acceptance. The fresh32-case
+audit exposes two mixed-scene false accepts; both original veto candidates fail
+validation and are not deployed. **LV-001 remains high/open.** Spatial follow-up
+is locally executable work in progress, not a funding blocker or a quality pass.
+Independent human references/physical-platform and existing store/privacy/
+operations release gates remain. No paid call, signing/install or GitHub write.
+Evidence: LOCAL_VISION_READINESS_AND_ROBUSTNESS and TEST_EVIDENCE.
+
 ## November7 — local supplemental classifier integrated, still NO-GO
 
 Pinned2024 MobileCLIP-S0 now supplements only a true Apple Vision no-match;

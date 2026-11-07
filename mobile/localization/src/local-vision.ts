@@ -9,6 +9,19 @@ export const localVisionFi = {
   localVisionUnavailable:
     "Paikallinen tunnistus tarvitsee sitä tukevan iPhone-asennuksen. Tässä versiossa voit käyttää viivakoodia tai materiaalimerkintää.",
   localVisionCamera: "Avaa kamera",
+  localVisionChecking: "Tarkistetaan tunnistusta…",
+  localVisionReadinessLegacy:
+    "Tämä asennus ei ilmoita täydentävän mallin valmiutta. Tunnistus voi olla rajattu.",
+  localVisionReadinessPlatform:
+    "Tämä iOS-versio tukee vain perustunnistusta. Voit silti etsiä kuvasta materiaalikoodia.",
+  localVisionReadinessPartial:
+    "Täydentävä malli ei ole käytettävissä. Käytössä on perustunnistus ja materiaalikoodin luku.",
+  localVisionReadinessBusy:
+    "Tunnistuksen valmistelu on vielä kesken. Odota hetki ja yritä uudelleen.",
+  localVisionReadinessTimeout:
+    "Tunnistuksen valmistelu kesti liian pitkään. Yritä hetken kuluttua uudelleen.",
+  localVisionReadinessError:
+    "Paikallista tunnistusta ei voitu valmistella. Yritä uudelleen tai käytä viivakoodia.",
   localVisionOpening: "Avataan kameraa…",
   localVisionCapture: "Ota kuva",
   localVisionCaptureGuidance:
@@ -64,6 +77,17 @@ export const localVisionEn: { readonly [Key in keyof typeof localVisionFi]: stri
   localVisionUnavailable:
     "Local recognition needs an iPhone installation that supports it. In this version you can use a barcode or material marking.",
   localVisionCamera: "Open camera",
+  localVisionChecking: "Checking recognition…",
+  localVisionReadinessLegacy:
+    "This installation does not report supplemental-model readiness. Recognition may be limited.",
+  localVisionReadinessPlatform:
+    "This iOS version supports primary recognition only. You can still look for a material code in the image.",
+  localVisionReadinessPartial:
+    "The supplemental model is unavailable. Primary recognition and material-code reading are available.",
+  localVisionReadinessBusy:
+    "Recognition preparation is still running. Wait a moment and try again.",
+  localVisionReadinessTimeout: "Recognition preparation took too long. Try again in a moment.",
+  localVisionReadinessError: "Local recognition could not be prepared. Try again or use a barcode.",
   localVisionOpening: "Opening camera…",
   localVisionCapture: "Take a picture",
   localVisionCaptureGuidance:

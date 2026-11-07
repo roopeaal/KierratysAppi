@@ -6,6 +6,7 @@ import {
 
 export type LocalVisionNativeReader = {
   recognize(jpegBase64: string): Promise<unknown>;
+  inspectReadiness?(): Promise<unknown>;
 };
 export type LocalPhotoResponse =
   | { readonly status: "observed"; readonly observation: LocalVisionObservation }

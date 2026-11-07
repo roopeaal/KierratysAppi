@@ -3,6 +3,7 @@ import type {
   LocalObjectKind,
   LocalVisionObservation,
 } from "@kierratysappi/contracts/local-vision";
+import type { LocalVisionReadiness } from "@kierratysappi/contracts/local-vision-readiness";
 import type { MessageKey } from "@kierratysappi/localization";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import Constants from "expo-constants";
@@ -22,7 +23,12 @@ import {
   sharedStyles,
 } from "@/components/ui";
 import { announceAccessibility } from "@/features/accessibility/announcements";
-import { isLocalVisionAvailable, recognizeLocalPhoto } from "@/features/local-vision/native";
+import {
+  inspectLocalVisionReadiness,
+  isLocalVisionAvailable,
+  recognizeLocalPhoto,
+} from "@/features/local-vision/native";
+import { localReadinessMessage } from "@/features/local-vision/readiness";
 import { isLocalCaptureUri } from "@/features/local-vision/recognizer";
 import { type LocalPhotoPhase, localPhotoPresentation } from "@/features/local-vision/presentation";
 import { canUsePhotoCapture, choosePhotoSize } from "@/features/photo/sorting";
@@ -52,6 +58,8 @@ export default function LocalPhotoScreen() {
   const [observation, setObservation] = useState<LocalVisionObservation>();
   const [error, setError] = useState<MessageKey>();
   const [busy, setBusy] = useState(false);
+  const [checking, setChecking] = useState(false);
+  const [readiness, setReadiness] = useState<LocalVisionReadiness>();
   const [ready, setReady] = useState(false);
   const [pictureSize, setPictureSize] = useState<string>();
   const camera = useRef<CameraView>(null);
@@ -72,6 +80,8 @@ export default function LocalPhotoScreen() {
     setObservation(undefined);
     setError(undefined);
     setBusy(false);
+    setChecking(false);
+    setReadiness(undefined);
     setReady(false);
     setPhase("intro");
   }, []);
@@ -97,7 +107,18 @@ export default function LocalPhotoScreen() {
     setBusy(true);
     setError(undefined);
     const ticket = ++generation.current;
+    const controller = new AbortController();
+    pending.current = controller;
     try {
+      setChecking(true);
+      const inspected = await inspectLocalVisionReadiness(controller.signal);
+      if (ticket !== generation.current || controller.signal.aborted) return;
+      setChecking(false);
+      setReadiness(inspected);
+      if (inspected.status === "unavailable") {
+        setError(localReadinessMessage(inspected));
+        return;
+      }
       permissionPrompt.current = true;
       let granted: boolean;
       try {
@@ -115,8 +136,10 @@ export default function LocalPhotoScreen() {
       if (ticket === generation.current) setError("localVisionError");
     } finally {
       if (ticket === generation.current) {
+        pending.current = undefined;
         locked.current = false;
         setBusy(false);
+        setChecking(false);
       }
     }
   };
@@ -212,6 +235,11 @@ export default function LocalPhotoScreen() {
             {t(presentation.inlineError)}
           </AppText>
         )}
+        {readiness?.status === "primary_only" && (
+          <AppText accessibilityLiveRegion="polite" testID="local-photo-readiness-partial">
+            {t(localReadinessMessage(readiness) ?? "localVisionReadinessPartial")}
+          </AppText>
+        )}
         {presentation.showCaptureGuidance && (
           <AppText testID="local-photo-capture-guidance">{t("localVisionCaptureGuidance")}</AppText>
         )}
@@ -229,7 +257,13 @@ export default function LocalPhotoScreen() {
               </>
             ) : (
               <Button
-                label={t(busy ? "localVisionOpening" : "localVisionCamera")}
+                label={t(
+                  checking
+                    ? "localVisionChecking"
+                    : busy
+                      ? "localVisionOpening"
+                      : "localVisionCamera",
+                )}
                 onPress={() => void open()}
                 busy={busy}
                 disabled={busy}

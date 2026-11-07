@@ -1,5 +1,25 @@
 # Adversarial production-readiness audit
 
+## Broader reliability/readiness follow-up — November7
+
+**LV-001 stays high/open and locally executable:** frozen new32-case audit
+exposes two multi-supported-kind scenes wrongly reduced to one inferred form.
+Validation A removes no error; B loses two correct results without fixing the
+error. Both are rejected, never deployed. Held-out is baseline-only after null
+selection. Required remediation is a measured ambiguity/OOD improvement with
+fresh independent references and real-camera confirmation; the separate spatial
+experiment is in progress, not a completed repair. Source/evidence/reproduction:
+LOCAL_VISION_READINESS_AND_ROBUSTNESS, case `control-mixed-takeaway` and
+`control-mixed-beach` under the frozen manifest. Current code still does not infer
+material/safety/bin from a form, containing but not removing this quality gap.
+
+Locally repaired readiness issues: missing integrity/interface preflight before
+permission; stale/aborted opening risk guarded with generation/cancellation and
+shared-worker deadline; two **low** throwing SDK/error accessor failures now
+return typed recovery (13 client regressions). Native contracts/lifecycle and
+actual unsigned8 build pass. No re-audit of all30 lanes, no device/store/quality
+GO or severity reduction. See TEST_EVIDENCE for832-case checkpoint and limits.
+
 ## Scoped supplemental-classifier follow-up — November7
 
 This is not a repeated30-lane production audit. **LV-001 remains high/open**:

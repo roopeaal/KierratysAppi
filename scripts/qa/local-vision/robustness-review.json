@@ -1,0 +1,314 @@
+{
+  "schemaVersion": "robustness-review-v1",
+  "reviewStatus": "ai_visual_review_human_review_required",
+  "reviewedBeforeInference": true,
+  "limitations": "AI visual review only, requiring independent human review; source pretraining membership unknown. Fixed models are compared without training. Public catalogue/search acquisition is not representative real-camera sampling. Reusable containers/tableware, same-kind multi-object scenes, top-down cups, partial tote handles and historical transistor boxes are disclosed domain challenges. Historical transistor object groups share a source-era family and both stay validation-only. All 48 public candidates, including excluded/reserve cases, were inspected before predictions; 32 references are frozen without selecting on model performance. Licence metadata does not establish all third-party rights, physical composition, safety, packaging status or sorting truth.",
+  "cases": [
+    {
+      "id": "bottle-blue",
+      "eligible": true,
+      "split": "validation",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "One horizontal bottle has neck, closed cap, body and base visible against a plain background. Contents, real composition and deposit status are not verified."
+    },
+    {
+      "id": "bottle-limonade",
+      "eligible": true,
+      "split": "heldout",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "One complete long-neck retail bottle stands upright; original source already obscures label details. Bottle form only, not product identity or composition."
+    },
+    {
+      "id": "bottle-cacaolat",
+      "eligible": false,
+      "reason": "Privacy exclusion: an identifiable child and other people are visible. Public copyright permission is not used as a privacy clearance."
+    },
+    {
+      "id": "bottle-cirkul",
+      "eligible": false,
+      "reason": "Reserve not evaluated: the top and base are clipped; four clearer whole-form bottle groups were selected before any inference."
+    },
+    {
+      "id": "bottle-attached-cap",
+      "eligible": false,
+      "reason": "Eligibility exclusion: cap/neck close-up lacks the full bottle body and base. Do not derive whole-form label from filename."
+    },
+    {
+      "id": "jar-screw",
+      "eligible": true,
+      "split": "validation",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "One complete broad-mouth screw-top storage jar is visible, including lid, body and base. Reusable storage-container context; not composition or packaging truth."
+    },
+    {
+      "id": "jar-polish",
+      "eligible": true,
+      "split": "heldout",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "One complete short wide-mouth food jar with a red lid is visible. No person is visible; printed lid/product text is not a material or identity verification."
+    },
+    {
+      "id": "jar-family",
+      "eligible": true,
+      "split": "validation",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "Several complete open screw-rim storage jars are visible on a cloth. All foreground objects share jar form; reused storage context does not imply packaging."
+    },
+    {
+      "id": "jar-cookie",
+      "eligible": false,
+      "reason": "Eligibility exclusion: jar rim and top are outside the frame; food dominates the macro. No whole-jar reference."
+    },
+    {
+      "id": "jar-jams",
+      "eligible": false,
+      "reason": "Reserve not evaluated: retail jar row is usable in principle but partial red container at the right and label business contact text add ambiguity; four cleaner groups selected before inference."
+    },
+    {
+      "id": "box-netgear",
+      "eligible": true,
+      "split": "heldout",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "A complete closed retail box is visible, including depth and outer edges. Printed product imagery is not an actual second object and is not verified identity."
+    },
+    {
+      "id": "box-wii",
+      "eligible": true,
+      "split": "heldout",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "A complete shallow open cardboard-looking box surrounds a toy accessory in a transparent sleeve. Box boundaries are visible; interior toy is outside the five supported forms, not another supported-kind target."
+    },
+    {
+      "id": "box-bulbs",
+      "eligible": false,
+      "reason": "Privacy/eligibility exclusion: a shipping label is visible and full box bounds are clipped. Public business/product labels do not justify assuming a delivery address is non-private."
+    },
+    {
+      "id": "box-transistors100",
+      "eligible": true,
+      "split": "validation",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "sourceFamily": "soviet-transistor-box-series",
+      "reason": "One complete closed rectangular product box is visible on a plain surface. Historical printed packaging is a domain limitation. Distinct physical product from 1T305, same source-era family kept wholly in validation."
+    },
+    {
+      "id": "box-transistors200",
+      "eligible": true,
+      "split": "validation",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "sourceFamily": "soviet-transistor-box-series",
+      "reason": "One complete closed rectangular product box is visible on a plain surface. Different physical model/package from 1T308; historical source-era family is kept in validation only."
+    },
+    {
+      "id": "bag-train",
+      "eligible": true,
+      "split": "validation",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "A reusable tote bag body and portions of both handles are visible on a train seat. Topmost handles leave the frame; the bag outline remains interpretable. Reuse and partial-handle viewpoint are explicit context challenges."
+    },
+    {
+      "id": "bag-canvas",
+      "eligible": true,
+      "split": "heldout",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "One complete reusable tote body and handles are visible against white; only a non-identifying hand and sleeved forearm hold it. No face, identifying marking or private text is observed."
+    },
+    {
+      "id": "bag-mesh",
+      "eligible": false,
+      "reason": "Eligibility exclusion: transparent mesh carrier exposes multiple cartons/containers; supported kinds compete in the same scene."
+    },
+    {
+      "id": "bag-kenya",
+      "eligible": true,
+      "split": "heldout",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "Several tied coffee sacks show whole bag bodies and necks. All prominent foreground forms are bags; public commodity print does not verify contents or composition."
+    },
+    {
+      "id": "bag-ystad",
+      "eligible": true,
+      "split": "validation",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "Several whole coffee-sack bodies are visible in a stack. Same coarse bag form, distinct source/object group from Kenya sacks; no material or food-safety truth."
+    },
+    {
+      "id": "cup-coffee493",
+      "eligible": false,
+      "reason": "Reserve not evaluated: a cup dominates but a tall condiment container and several other vessels occur behind it. Cleaner cup groups selected before inference."
+    },
+    {
+      "id": "cup-hanoi",
+      "eligible": true,
+      "split": "heldout",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "A drinking cup with a small handle is visible from above on a table. Viewpoint hides depth; source and visible handle support cup form, not contents or real composition."
+    },
+    {
+      "id": "cup-butter",
+      "eligible": true,
+      "split": "validation",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "One handled drinking-cup form on a saucer is visible obliquely, with rim, body and base. Reusable tableware context; composition and packaging status remain unverified."
+    },
+    {
+      "id": "cup-yokohama",
+      "eligible": true,
+      "split": "validation",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "One complete handled drinking cup on a saucer is visible. Background is defocused and person-free; reusable tableware is a coarse cup positive, never packaging truth."
+    },
+    {
+      "id": "cup-park",
+      "eligible": false,
+      "reason": "Eligibility exclusion: overhead rim-only coffee vessel has little depth/handle evidence, making cup-vs-bowl reference unnecessarily ambiguous."
+    },
+    {
+      "id": "cup-latte",
+      "eligible": true,
+      "split": "heldout",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "Two drinking-cup forms are visible from above, one on a saucer. Same coarse kind; top-down viewpoint and reused tableware are disclosed context challenges, not packaging or material labels."
+    },
+    {
+      "id": "control-battery-single",
+      "eligible": true,
+      "split": "validation",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "One cylindrical consumer battery with terminals is visible, not any supported bottle, jar, box, bag or cup form. Must abstain; chemistry and safety are not verified."
+    },
+    {
+      "id": "control-battery-ikea",
+      "eligible": true,
+      "split": "heldout",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "Several cylindrical rechargeable-looking consumer batteries with terminals are visible. Outside all five supported forms; public labels do not verify chemistry or safety."
+    },
+    {
+      "id": "control-aerosol-french",
+      "eligible": true,
+      "split": "validation",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "A capped aerosol-style can with actuator is visible. Aerosol can is outside the five supported forms; do not silently label it a bottle. Printed hazard text is not verified safety or sorting guidance."
+    },
+    {
+      "id": "control-aerosol-contact",
+      "eligible": true,
+      "split": "heldout",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "An aerosol-style metal can with integrated straw/actuator is visible. Outside current supported forms; must abstain without inferring hazard status or bin."
+    },
+    {
+      "id": "control-usb-bad",
+      "eligible": true,
+      "split": "validation",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "USB connector ends and cable are visible, with no supported container form. Must abstain as electronics/cable outside-kind control."
+    },
+    {
+      "id": "control-usb-huawei",
+      "eligible": true,
+      "split": "heldout",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "An electronic dongle and USB cable are visible, not a supported container. Must abstain; no identity, electronics safety or sorting truth is inferred."
+    },
+    {
+      "id": "control-bulb-filament",
+      "eligible": false,
+      "reason": "Reserve not evaluated: many hanging bulbs provide an eligible outside-kind example, but six per-split controls were selected in advance to cover battery/aerosol/electronics/bowl/food/mixed challenges."
+    },
+    {
+      "id": "control-bulb-dark",
+      "eligible": false,
+      "reason": "Reserve not evaluated: lit bulb is an eligible outside-kind reference, but balanced six-control held-out budget prioritizes harder packaging-like confusions."
+    },
+    {
+      "id": "control-bowl-rice",
+      "eligible": true,
+      "split": "validation",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "A broad low bowl holding loose rice is visible, with no cup handle or drinking-cup proportions. Outside supported forms; bowl-vs-cup confusion is a deliberate hard control."
+    },
+    {
+      "id": "control-bowl-simple",
+      "eligible": true,
+      "split": "heldout",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "One wide open shallow bowl is visible from an oblique angle, without a cup handle or narrow drinking-cup body. Must abstain; tableware composition remains unverified."
+    },
+    {
+      "id": "control-keyboard-black",
+      "eligible": false,
+      "reason": "Reserve not evaluated: a whole keyboard is eligible outside-kind, but the six-control validation budget already includes electronic cable plus five other distinct challenge categories."
+    },
+    {
+      "id": "control-keyboard-stock",
+      "eligible": false,
+      "reason": "Reserve not evaluated: keyboard macro is eligible outside-kind, but the six-control held-out budget already includes electronics plus five other challenge categories."
+    },
+    {
+      "id": "control-food-bread",
+      "eligible": true,
+      "split": "validation",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "Bread in a woven basket is foreground, with partial drinking vessels and bottle behind. No exclusive single supported-kind whole-image target; mixed/food scene must abstain."
+    },
+    {
+      "id": "control-food-pepper",
+      "eligible": true,
+      "split": "heldout",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "Loose vegetables in open trays/basins form a mixed food scene, not an exclusive supported-kind target. Must abstain; contents and container composition are not sorting truth."
+    },
+    {
+      "id": "control-mixed-takeaway",
+      "eligible": true,
+      "split": "validation",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "Whole paper-looking bag and multiple boxes share the scene. Multiple supported kinds are present, so a single kind answer must abstain; real materials are unverified."
+    },
+    {
+      "id": "control-mixed-beach",
+      "eligible": true,
+      "split": "heldout",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "A discarded drinking cup and bottle share the beach foreground. Multiple supported kinds are present; must abstain rather than pick one or infer litter safety/material."
+    },
+    {
+      "id": "bottle-republic",
+      "eligible": false,
+      "reason": "Eligibility exclusion: the small round lidded container beside the tall bottle is jar-like, making exclusive bottle truth ambiguous."
+    },
+    {
+      "id": "bottle-metal",
+      "eligible": true,
+      "split": "validation",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "Two complete reusable water-bottle forms with necks, closed caps and bodies are visible. Same coarse kind in one source group; reusable context is not packaging or sorting truth."
+    },
+    {
+      "id": "bottle-classic",
+      "eligible": true,
+      "split": "heldout",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "One complete retail beverage bottle is visible on a table. Background is defocused with no identifiable person; label text is public product print, not verified identity."
+    },
+    {
+      "id": "jar-modern",
+      "eligible": true,
+      "split": "heldout",
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "A group of small complete storage jars with screw-top lids is visible on a plain surface, with no other supported form. Jar form only; no contents or material verification."
+    },
+    {
+      "id": "jar-peanut-six",
+      "eligible": false,
+      "reason": "Eligibility exclusion: several bottles, jars and other vessels share the kitchen scene; source title alone is not an exclusive jar reference."
+    },
+    {
+      "id": "jar-lid",
+      "eligible": false,
+      "reason": "Eligibility exclusion: prominent jar plus several bowls and canning tools, and only a partial person torso/hand; not a clean exclusive whole-image jar reference."
+    }
+  ]
+}

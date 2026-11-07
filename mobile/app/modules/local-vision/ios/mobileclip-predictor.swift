@@ -86,6 +86,19 @@ final class LocalMobileClipPredictor: @unchecked Sendable {
   #endif
   private init() {}
 
+  /// Integrity/load/interface preflight only. No image, pixel buffer or prediction.
+  /// The caller must use the same serial worker as predict; the cache is shared.
+  func inspectReadiness() throws {
+    #if os(iOS)
+    guard #available(iOS 17.2, *) else { throw LocalMobileClipFailure.unsupportedPlatform }
+    #elseif os(macOS)
+    guard #available(macOS 14.0, *) else { throw LocalMobileClipFailure.unsupportedPlatform }
+    #else
+    throw LocalMobileClipFailure.unsupportedPlatform
+    #endif
+    _ = try load()
+  }
+
   func predict(image: CGImage, orientation: CGImagePropertyOrientation) throws -> [LocalMobileClipScore] {
     #if os(iOS)
     guard #available(iOS 17.2, *) else { throw LocalMobileClipFailure.unsupportedPlatform }

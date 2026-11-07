@@ -1,3 +1,3 @@
 # Next action
 
-Implement one bounded native-to-app readiness/integrity preflight for local recognition before camera entry, truthfully distinguishing full, primary-only legacy/unsupported and unavailable model states without processing images, requesting camera permission, networking or paid fallback; preserve V2/V3 compatibility and add contract/lifecycle/FI-EN recovery tests with full validation.
+Finish the frozen spatial-disagreement algorithm experiment: develop only on the seen sixteen validation cases, lock one qualifying veto rule before fresh twenty-case prospective predictions, retain every failed/unknown result, and integrate only if its registered quality and native/contract/regression gates actually pass.

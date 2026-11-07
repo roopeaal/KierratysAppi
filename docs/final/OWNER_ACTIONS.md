@@ -1,5 +1,22 @@
 # Owner actions
 
+## November7 — reliability work continuing
+
+- **Engineering:** finish the separate frozen spatial development/prospective
+  experiment in NEXT_ACTION. Do not deploy failed A/B or label original held-out
+  as fresh. Preserve all errors/raw hashes and run final mandatory validation.
+- **Roope/team independent label reviewer:** review frozen source pictures and
+  exact licences without predictions, recording coarse visible kind versus
+  mixed/unclear/outside scene. Do not certify materials, identity or safety.
+- **Engineering/Roope under a separately requested phone update:** verify/sign
+  and install matching JS-bundled client8, then have Roope operate real unlock/
+  trust/camera/settings and record ordinary nonprivate capture/retake/denial/
+  background/offline/VoiceOver/larger-text/latency/memory/energy. Current phone
+  state is unqueried, prior verified expiry is past. Do not send secrets/photos.
+- **Release owner:** unchanged Android/privacy/store/operations/legal/source
+  approval procedures below still apply. No production GO, account/payment or
+  publication is inferred from local tests or an unsigned compile.
+
 ## November7 — supplemental local classifier
 
 - **Engineering next:** implement the single bounded pre-camera readiness/

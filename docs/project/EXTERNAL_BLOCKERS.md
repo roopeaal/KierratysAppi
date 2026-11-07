@@ -1,5 +1,16 @@
 # External blockers
 
+## November7 reliability loop
+
+No new credential, API-credit, account or paid-compute blocker. Readiness source/
+unsigned8 integration is implemented; local spatial algorithm/data work is in
+progress, not externally blocked. The first32-case comparison exposes mixed-scene
+false accepts and rejects both candidate algorithms; engineering owns further
+safe improvements rather than describing a funding problem. Independent human
+reference review and actual matching-binary physical-camera/platform acceptance
+remain required before reliability claims. No phone/account state was queried
+or profile renewed; no cleanup, paid call, install or publication occurred.
+
 ## November7 supplemental local classifier
 
 No new credential/account/API-credit/paid-compute blocker. Pinned2024 ASCL image

@@ -88,6 +88,101 @@ struct LocalVisionResult: Encodable, Sendable {
   }
 }
 
+enum LocalVisionReadinessPartialReason: String, Encodable, Sendable {
+  case unsupportedModelPlatform = "unsupported_model_platform"
+  case modelUnavailable = "model_unavailable"
+}
+
+enum LocalVisionReadinessFailureReason: String, Encodable, Sendable {
+  case primaryUnavailable = "primary_unavailable"
+  case busy, timeout
+  case processingFailed = "processing_failed"
+}
+
+/// A no-image capability snapshot. This must never be described as an accuracy test.
+enum LocalVisionReadiness: Encodable, Sendable {
+  case full
+  case primaryOnly(LocalVisionReadinessPartialReason)
+  case unavailable(LocalVisionReadinessFailureReason)
+
+  private enum CodingKeys: String, CodingKey {
+    case schemaVersion, status, reason, evidence, modelId, modelRevision
+    case imageWeightSha256, prototypesSha256, promptsSha256, promptPolicy, preprocessing, computeUnits
+  }
+
+  func encode(to encoder: Encoder) throws {
+    var values = encoder.container(keyedBy: CodingKeys.self)
+    try values.encode("local-vision-readiness-v1", forKey: .schemaVersion)
+    switch self {
+    case .full:
+      try values.encode("full", forKey: .status)
+      try values.encode("integrity_and_interface_only", forKey: .evidence)
+      try values.encode(LocalMobileClipPredictor.modelId, forKey: .modelId)
+      try values.encode(LocalMobileClipPredictor.modelRevision, forKey: .modelRevision)
+      try values.encode(LocalMobileClipPredictor.imageWeightSha256, forKey: .imageWeightSha256)
+      try values.encode(LocalMobileClipPredictor.prototypesSha256, forKey: .prototypesSha256)
+      try values.encode(LocalMobileClipPredictor.promptsSha256, forKey: .promptsSha256)
+      try values.encode(LocalMobileClipPredictor.promptPolicy, forKey: .promptPolicy)
+      try values.encode(LocalMobileClipPredictor.preprocessing, forKey: .preprocessing)
+      try values.encode(LocalMobileClipPredictor.computeUnitsName, forKey: .computeUnits)
+    case .primaryOnly(let reason):
+      try values.encode("primary_only", forKey: .status)
+      try values.encode(reason, forKey: .reason)
+      try values.encode("integrity_and_interface_only", forKey: .evidence)
+    case .unavailable(let reason):
+      try values.encode("unavailable", forKey: .status)
+      try values.encode(reason, forKey: .reason)
+    }
+  }
+
+  func bridgeValue() throws -> [String: Any] {
+    let data = try JSONEncoder().encode(self)
+    guard let value = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+      throw LocalVisionFailure.failed
+    }
+    return value
+  }
+}
+
+/// Timeout resolves the caller once, but cannot release a still-running model load.
+private final class LocalVisionReadinessDelivery: @unchecked Sendable {
+  private let lock = NSLock()
+  private var completion: (@Sendable (LocalVisionReadiness) -> Void)?
+
+  init(_ completion: @escaping @Sendable (LocalVisionReadiness) -> Void) {
+    self.completion = completion
+  }
+
+  func resolve(_ result: LocalVisionReadiness) {
+    lock.lock()
+    let callback = completion
+    completion = nil
+    lock.unlock()
+    callback?(result)
+  }
+}
+
+#if LOCAL_VISION_QA
+private final class LocalVisionReadinessQARecorder: @unchecked Sendable {
+  private let lock = NSLock()
+  private var results: [LocalVisionReadiness] = []
+  let signal = DispatchSemaphore(value: 0)
+
+  func record(_ result: LocalVisionReadiness) {
+    lock.lock()
+    results.append(result)
+    lock.unlock()
+    signal.signal()
+  }
+
+  func snapshot() -> [LocalVisionReadiness] {
+    lock.lock()
+    defer { lock.unlock() }
+    return results
+  }
+}
+#endif
+
 // VNRequest.cancel() is the only operation performed by the deadline queue.
 // Request setup, perform and result reads remain on the serial worker.
 private struct CancellableVisionRequests: @unchecked Sendable {
@@ -131,7 +226,143 @@ final class LocalVisionEngine: @unchecked Sendable {
     guard !inFlight else { throw LocalVisionFailure.busy }
     supplementalPredictor = LocalMobileClipPredictor(resourcesURL: url)
   }
+
+  /// Tests the real worker/gate/deadline with a controlled no-image/no-model job.
+  /// This hook and its alternate duration do not exist in shipping builds.
+  static func readinessLifecycleSelfTest() -> [String]? {
+    let engine = LocalVisionEngine()
+    let entered = DispatchSemaphore(value: 0)
+    let release = DispatchSemaphore(value: 0)
+    defer { release.signal() }
+    let slow = LocalVisionReadinessQARecorder()
+    engine.enqueueReadiness(deadlineSeconds: 0.03, inspection: { _ in
+      entered.signal()
+      release.wait()
+      return .full
+    }, completion: slow.record)
+    guard entered.wait(timeout: .now() + 2) == .success else { return nil }
+
+    let busy = LocalVisionReadinessQARecorder()
+    engine.inspectReadiness(completion: busy.record)
+    guard case .unavailable(.busy)? = busy.snapshot().first else { return nil }
+    let imageBusy = LocalVisionReadinessQARecorder()
+    engine.recognize(jpegBase64: "YWJjZA==") { outcome in
+      if case .failure(.busy) = outcome { imageBusy.record(.unavailable(.busy)) }
+      else { imageBusy.record(.unavailable(.processingFailed)) }
+    }
+    guard case .unavailable(.busy)? = imageBusy.snapshot().first else { return nil }
+    guard slow.signal.wait(timeout: .now() + 2) == .success,
+          case .unavailable(.timeout)? = slow.snapshot().first else { return nil }
+
+    let afterTimeout = LocalVisionReadinessQARecorder()
+    engine.inspectReadiness(completion: afterTimeout.record)
+    guard case .unavailable(.busy)? = afterTimeout.snapshot().first else { return nil }
+    do {
+      try engine.configureQAResources(URL(fileURLWithPath: "/unused-qa-only"))
+      return nil
+    } catch LocalVisionFailure.busy {} catch { return nil }
+    release.signal()
+    // Barrier waits for the original synchronous job, not merely its UI timeout.
+    engine.worker.sync {}
+    guard slow.snapshot().count == 1,
+          case .unavailable(.timeout)? = slow.snapshot().first else { return nil }
+
+    let retry = LocalVisionReadinessQARecorder()
+    engine.enqueueReadiness(deadlineSeconds: 1, inspection: { _ in
+      .primaryOnly(.modelUnavailable)
+    }, completion: retry.record)
+    guard retry.signal.wait(timeout: .now() + 2) == .success,
+          case .primaryOnly(.modelUnavailable)? = retry.snapshot().first else { return nil }
+
+    let once = LocalVisionReadinessQARecorder()
+    let delivery = LocalVisionReadinessDelivery(once.record)
+    delivery.resolve(.full)
+    delivery.resolve(.unavailable(.timeout))
+    guard once.snapshot().count == 1, case .full? = once.snapshot().first else { return nil }
+    return [
+      "pending_readiness_busy", "recognition_busy_before_deadline", "bounded_timeout",
+      "gate_retained_after_timeout", "configuration_busy_after_timeout", "late_result_suppressed_once",
+      "gate_released_after_actual_settle", "completion_delivered_once",
+    ]
+  }
   #endif
+
+  func inspectReadiness(completion: @escaping @Sendable (LocalVisionReadiness) -> Void) {
+    // Capture the predictor only while owning the shared gate. No work is done
+    // on the caller/JS thread and no image request is created or performed.
+    enqueueReadiness(deadlineSeconds: Self.deadlineSeconds, inspection: Self.inspectCapabilities,
+                     completion: completion)
+  }
+
+  private func enqueueReadiness(
+    deadlineSeconds: TimeInterval,
+    inspection: @escaping @Sendable (LocalMobileClipPredictor) -> LocalVisionReadiness,
+    completion: @escaping @Sendable (LocalVisionReadiness) -> Void
+  ) {
+    let started = ProcessInfo.processInfo.systemUptime
+    stateLock.lock()
+    guard !inFlight else {
+      stateLock.unlock()
+      completion(.unavailable(.busy))
+      return
+    }
+    inFlight = true
+    let predictor = supplementalPredictor
+    stateLock.unlock()
+    let delivery = LocalVisionReadinessDelivery(completion)
+    let deadline = DispatchSource.makeTimerSource(queue: .global(qos: .utility))
+    deadline.schedule(deadline: .now() + deadlineSeconds)
+    deadline.setEventHandler { delivery.resolve(.unavailable(.timeout)) }
+    deadline.resume()
+    worker.async { [self] in
+      let outcome = autoreleasepool { inspection(predictor) }
+      let onTime = ProcessInfo.processInfo.systemUptime - started < deadlineSeconds
+      deadline.setEventHandler {}
+      deadline.cancel()
+      // A timed-out synchronous Core ML load is not cancellable. Only its real
+      // settlement releases the gate shared by readiness and image recognition.
+      stateLock.lock()
+      inFlight = false
+      stateLock.unlock()
+      delivery.resolve(onTime ? outcome : .unavailable(.timeout))
+    }
+  }
+
+  private static func inspectCapabilities(predictor: LocalMobileClipPredictor) -> LocalVisionReadiness {
+    do {
+      let classifier = VNClassifyImageRequest()
+      if #available(iOS 17.0, macOS 14.0, *) {
+        classifier.revision = VNClassifyImageRequestRevision2
+      } else {
+        classifier.revision = VNClassifyImageRequestRevision1
+      }
+      let text = VNRecognizeTextRequest()
+      text.revision = VNRecognizeTextRequestRevision3
+      text.recognitionLevel = .accurate
+      text.usesLanguageCorrection = true
+      text.customWords = materialCodeAbbreviations
+      text.automaticallyDetectsLanguage = false
+      guard VNClassifyImageRequest.supportedRevisions.contains(classifier.revision),
+            VNRecognizeTextRequest.supportedRevisions.contains(text.revision) else {
+        return .unavailable(.primaryUnavailable)
+      }
+      let identifiers = Set(try classifier.supportedIdentifiers())
+      guard classificationIdentifiers.allSatisfy({ identifiers.contains($0) }),
+            try text.supportedRecognitionLanguages().contains("en-US") else {
+        return .unavailable(.primaryUnavailable)
+      }
+    } catch {
+      return .unavailable(.primaryUnavailable)
+    }
+    do {
+      try predictor.inspectReadiness()
+      return .full
+    } catch LocalMobileClipFailure.unsupportedPlatform {
+      return .primaryOnly(.unsupportedModelPlatform)
+    } catch {
+      return .primaryOnly(.modelUnavailable)
+    }
+  }
 
   func recognize(
     jpegBase64: String,
