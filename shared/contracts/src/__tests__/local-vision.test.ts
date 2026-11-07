@@ -86,13 +86,13 @@ describe("versioned material-lexicon OCR boundary", () => {
     const result = normalizeLocalVisionResult(raw);
     expect(result.status).toBe("observed");
     if (result.status !== "observed") return;
-    expect(result.schemaVersion).toBe("local-vision-v3");
+    expect(result.schemaVersion).toBe("local-vision-v4");
     expect(result.source).toMatchObject({
       nativeSchemaVersion: "local-vision-v3",
       ocrPolicy: "material-code-lexicon-v1",
       ocrLanguages: ["en-US"],
-      normalizerVersion: "local-vision-normalizer-v3",
-      abstentionVersion: "local-vision-abstention-v2",
+      normalizerVersion: "local-vision-normalizer-v4",
+      abstentionVersion: "local-vision-abstention-v3",
       verificationStatus: "inferred",
     });
     expect(result.markings.status).toBe("candidates");
@@ -101,7 +101,7 @@ describe("versioned material-lexicon OCR boundary", () => {
   });
   it("accepts native V2 without inventing its unreported OCR policy", () => {
     const result = observation();
-    expect(result.schemaVersion).toBe("local-vision-v3");
+    expect(result.schemaVersion).toBe("local-vision-v4");
     expect(result.source.nativeSchemaVersion).toBe("local-vision-v2");
     expect(result.source.ocrPolicy).toBe("legacy-unspecified-v2");
   });
@@ -161,10 +161,11 @@ describe("local vision V2 boundary", () => {
       ocrLanguages: ["en-US", "de-DE", "sv-SE"],
       nativeSchemaVersion: "local-vision-v2",
       ocrPolicy: "legacy-unspecified-v2",
+      supplement: { status: "legacy_not_reported" },
       osVersion: "27.0",
       observedAt: "2026-11-03T10:00:00.000Z",
-      normalizerVersion: "local-vision-normalizer-v3",
-      abstentionVersion: "local-vision-abstention-v2",
+      normalizerVersion: "local-vision-normalizer-v4",
+      abstentionVersion: "local-vision-abstention-v3",
       verificationStatus: "inferred",
     });
     expect(result.object).toEqual({
@@ -466,7 +467,8 @@ describe("local independent class operating points", () => {
         object: { ...valid.object, kind: "jar" },
       }).success,
     ).toBe(false);
-    if (valid.object.status !== "estimated") throw new Error("fixture");
+    if (valid.object.status !== "estimated" || !("matches" in valid.object))
+      throw new Error("fixture");
     expect(
       LocalVisionResultSchema.safeParse({
         ...valid,
@@ -476,7 +478,7 @@ describe("local independent class operating points", () => {
   });
 
   it("fixes documented class-curve parameters without calling them measured app quality", () => {
-    expect(localVisionAbstentionVersion).toBe("local-vision-abstention-v2");
+    expect(localVisionAbstentionVersion).toBe("local-vision-abstention-v3");
     expect(localVisionClassificationPolicy).toBe("apple-class-operating-point-v1");
     expect(localVisionMinimumPrecision).toBe(0.9);
     expect(localVisionMinimumRecall).toBe(0.01);

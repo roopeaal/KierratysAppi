@@ -16,8 +16,15 @@ Pod::Spec.new do |s|
   s.swift_version = '5.9'
   s.source_files = '*.swift'
   s.resource_bundles = {
-    'KierratysLocalVisionPrivacy' => ['PrivacyInfo.xcprivacy']
+    'KierratysLocalVisionPrivacy' => ['PrivacyInfo.xcprivacy'],
+    'KierratysLocalVisionModels' => [
+      'Resources/mobileclip_s0_image.mlpackage',
+      'Resources/mobileclip-prototypes.bin',
+      'Resources/mobileclip-source-spec.bin',
+      'Resources/mobileclip-source-manifest.bin',
+      'Resources/Notices/*.txt'
+    ]
   }
-  s.frameworks = 'Vision', 'ImageIO', 'CoreGraphics', 'UniformTypeIdentifiers'
+  s.frameworks = 'Vision', 'ImageIO', 'CoreGraphics', 'UniformTypeIdentifiers', 'CoreML', 'CoreImage', 'CoreVideo', 'CryptoKit'
   s.dependency 'ExpoModulesCore'
 end

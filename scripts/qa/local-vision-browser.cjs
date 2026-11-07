@@ -268,6 +268,15 @@ async function main() {
           ? "Paikallinen tunnistus ei lähetä kuvaa tai kuvasta luettua tekstiä palvelimelle. Kuvaa ja tulosta ei lisätä historiaan. Näkymästä poistuminen tai sovelluksen siirtäminen taustalle tyhjentää tämän näkymän kuvan ja tuloksen."
           : "Local recognition does not send the image or recognized text to a server. The image and result are not added to history. Leaving this screen or putting the app in the background clears this screen's image and result.";
       assert.equal(await page.getByText(localPrivacy, { exact: true }).count(), 1);
+      const modelAttribution = page.getByText(
+        language === "fi"
+          ? "Täydentävä esinetyyppiarvio käyttää Applen MobileCLIP-S0-mallia (2024). Malli ja lisenssihuomautukset sisältyvät sitä tukevaan iPhone-asennukseen. Tämä ei tarkoita Applen hyväksyntää sovellukselle. Tulos ei varmista materiaalia tai tuotetta."
+          : "The supplemental object-type estimate uses Apple's MobileCLIP-S0 model (2024). The model and licence notices are included in supporting iPhone installations. This does not imply Apple's endorsement of the app. The estimate does not verify material or product identity.",
+        { exact: true },
+      );
+      assert.equal(await modelAttribution.count(), 1);
+      await modelAttribution.scrollIntoViewIfNeeded();
+      await inspect(page, `${language}-privacy-model-attribution`);
       const cloudPrivacy = page.getByText(
         language === "fi"
           ? /^Kuva lähetetään vain hyväksynnälläsi tämän sovelluksen palvelimen kautta OpenAI:lle\./u
@@ -281,7 +290,7 @@ async function main() {
       await context.close();
     }
     console.log(
-      "PASS: actual FI/EN web final supported-iPhone/limited-recognition/paid-cloud copy and capture guidance, explicit unsupported-native state (no fake estimate/retake), zero implicit API/camera/GPS, keyboard barcode permission-explanation/back and manual-marking recovery, separate named cloud consent entry/back without capture/send, 44pt controls, dark/light 320/390/1280 and 130% synthetic text; public-code prefill requires explicit check and confirmation, duplicate route values are rejected; Privacy distinctly describes local no-upload/clearing and separately consented OpenAI retention. Native capture/retake, image inference and accuracy remain unverified.",
+      "PASS: actual FI/EN web final supported-iPhone/limited-recognition/paid-cloud copy and capture guidance, explicit unsupported-native state (no fake estimate/retake), zero implicit API/camera/GPS, keyboard barcode permission-explanation/back and manual-marking recovery, separate named cloud consent entry/back without capture/send, 44pt controls, dark/light 320/390/1280 and 130% synthetic text; public-code prefill requires explicit check and confirmation, duplicate route values are rejected; Privacy distinctly describes local no-upload/clearing, conditional MobileCLIP-S0/2024 attribution with no endorsement/material-certainty claim, and separately consented OpenAI retention. Native capture/retake, image inference and accuracy remain unverified.",
     );
   } finally {
     await browser.close();

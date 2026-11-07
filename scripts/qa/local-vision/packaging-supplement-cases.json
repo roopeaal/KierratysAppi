@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "packaging-case-spec-v1",
+  "purpose": "Pre-inference supplemental modern-container candidates replacing unsuitable source-title matches; no inference or tuning has occurred.",
+  "labelReviewStatus": "ai_reviewed_human_review_required",
+  "pretrainingMembership": "unknown",
+  "maximumNewImages": 40,
+  "maximumNewBytes": 25000000,
+  "cases": [
+    {
+      "id": "bag-mysterious",
+      "title": "File:A mysterious bag... (4253123919).jpg",
+      "expectedKind": "bag",
+      "split": "heldout",
+      "group": "mysterious-chocolate-bag",
+      "license": "CC-BY-2.0",
+      "labelEvidence": "Source describes a paper food-service bag; verify visible whole bag and privacy before eligibility."
+    },
+    {
+      "id": "bag-grey",
+      "title": "File:Shopping bags grey color.jpg",
+      "expectedKind": "bag",
+      "split": "validation",
+      "group": "grey-shopping-bags",
+      "license": "CC-BY-2.0",
+      "labelEvidence": "Source describes shopping bags; actual photo and whole outlines require review."
+    },
+    {
+      "id": "bag-coffee-2023",
+      "title": "File:Kaffepåse - 2023.jpg",
+      "expectedKind": "bag",
+      "split": "train",
+      "group": "coffee-pack-bags-martin-grimm",
+      "license": "CC-BY-3.0",
+      "labelEvidence": "Source describes an ordinary zipped coffee retail pouch with one-way valve; no material truth."
+    },
+    {
+      "id": "cup-red-stack",
+      "title": "File:Set of red cups Danilovsky Market, Moscow, Russia (25840011917).jpg",
+      "expectedKind": "cup",
+      "split": "train",
+      "group": "red-market-cups",
+      "license": "CC-BY-2.0",
+      "labelEvidence": "Source describes stacked cups; verify disposable whole cup forms rather than reusable cups."
+    },
+    {
+      "id": "cup-drink",
+      "title": "File:Drink (15585468530).jpg",
+      "expectedKind": "cup",
+      "split": "heldout",
+      "group": "drink-cup-15585468530",
+      "license": "CC-BY-2.0",
+      "labelEvidence": "Source search links a drink cup; reject any privacy/unclear vessel issue before inference."
+    },
+    {
+      "id": "jar-peanut-alt",
+      "title": "File:Peanut butter glass 3.jpg",
+      "expectedKind": "jar",
+      "split": "heldout",
+      "group": "peanut-butter-shisma",
+      "license": "CC-BY-4.0",
+      "labelEvidence": "Same physical jar/source series as excluded peanut image; retain one split only, accept only without visible people."
+    },
+    {
+      "id": "jar-cacao",
+      "title": "File:Cacao in Jar.jpg",
+      "expectedKind": "jar",
+      "split": "train",
+      "group": "cacao-jar-airtight",
+      "license": "CC0-1.0",
+      "labelEvidence": "Source identifies a contemporary airtight food jar; visual geometry only, not material/packaging safety."
+    }
+  ],
+  "reuseTrainOnly": []
+}

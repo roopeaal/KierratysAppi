@@ -22,7 +22,7 @@ test("native recognition uses local bounded Vision work and per-class operating 
   assert.match(engine, /hasPrecisionRecallCurve/);
   assert.match(engine, /hasMinimumRecall\(/);
   assert.match(engine, /apple-class-operating-point-v1/);
-  assert.match(engine, /local-vision-v3/);
+  assert.match(engine, /local-vision-v4/);
   assert.match(engine, /material-code-lexicon-v1/);
   assert.match(engine, /text\.usesLanguageCorrection = true/);
   assert.match(engine, /text\.customWords =/);

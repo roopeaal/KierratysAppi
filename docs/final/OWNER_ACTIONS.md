@@ -1,5 +1,32 @@
 # Owner actions
 
+## November7 — supplemental local classifier
+
+- **Engineering next:** implement the single bounded pre-camera readiness/
+  integrity preflight in NEXT_ACTION, distinguishing full/legacy-primary-only/
+  unavailable support without inference, permission, network or paid fallback.
+- **Roope/team label reviewer:** inspect the22 eligible seed cases and original
+  licence pages without model predictions; record kind/eligibility/rights/privacy
+  decisions by object group. AI labels are not independent human acceptance;
+  never infer actual composition, hazards or sorting from visible form alone.
+- **Engineering + Roope, only under a separately requested phone update:** build
+  a matching JS-bundled client7, verify current profile, signatures, resources
+  and version, then install without reset. Roope operates real account/keychain/
+  trust/unlock prompts. Current phone state is unqueried; the last verified
+  profile's November4 expiry is past. Do not send secrets or private photos.
+- **Roope as physical-device operator:** after that install, exercise an ordinary
+  nonprivate package, retake/back/background, denied/restored camera, airplane
+  mode, larger text/VoiceOver and capture-to-result latency/memory/battery. Record
+  exact version/conditions/result; do not select the separate paid cloud path
+  when accepting local inference. These checks have not been performed here.
+- **Release owner:** preserve the original2024 weight and all software/component
+  notices, qualified FI/EN attribution and no endorsement in final signed
+  artifacts. Complete Android, representative unknown/hazard quality and the
+  existing store/privacy/operations procedures below before production GO.
+
+No GitHub publication, paid inference or signing/install renewal occurred in
+this unit. Engineering work remains locally executable, not credit-blocked.
+
 ## November6 — OCR improvement / seed corpus
 
 - **Engineering next:** complete the modern-packaging seed manifest in NEXT_ACTION,

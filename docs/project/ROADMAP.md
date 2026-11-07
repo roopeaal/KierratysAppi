@@ -1,12 +1,22 @@
 # Roadmap
 
+## Local classifier upgrade — November7
+
+- [x] Independently diagnose low domain coverage/API semantics; retain bounded family-only1/9→2/9 experiment without claiming held-out accuracy or loosening the primary gate.
+- [x] Complete rights/group/privacy-traced22-case modern seed (8train/7validation/7heldout), with all kinds and controls in fresh evaluation. No training; jar/cup supervised-training depth and human acceptance remain incomplete.
+- [x] Pin permissive original2024 model/notice/bytes; implement bounded acquisition, training-compatible ASCII tokenizer,28 text prototypes/18 groups and raw local comparison tooling. No new Python/npm runtime or paid service.
+- [x] Freeze prompt/data/three gates, record original validation failure and reviewed pre-held-out accounting amendment, then observe2/5→4/5 held-out correct positives/no new errors. Preserve failed bottle, flat box unknown, all raw/source hashes and no-retake policy.
+- [x] Integrate image-only native supplement/wireV4/legacy compatibility/source UI, privacy/cache/failure behavior, full notices and resource integrity. Full711/scoped393+214 tests/17 routes/browser pass; unsigned7 actual model/link/graph/weight/proto/privacy/notice/QA-symbol checks pass.
+- [ ] Add bounded truthful pre-camera readiness/integrity preflight, without image processing/network or silently upgrading old clients: the single NEXT_ACTION.
+- [ ] Separately request matching signed/bundled phone delivery, real camera/unknown/hazard/permissions/offline/VoiceOver/latency/memory/energy and broader human-labelled quality. Android/public release remain open.
+
 ## Local recognition test/improvement — November6
 
 - [x] Freeze and run three-arm24-case OCR ablation plus separate18-case near-code challenge; adopt only measured C gain without a new false-code status, preserve safe PP0/PPO miss.
 - [x] Version raw/normalized OCR metadata, preserve strict older native response compatibility and unchanged classification/abstention/rules. Verify exact production42 synthetic cases,14 positive codes and all uncertainty/confirmation gates.
 - [x] Acquire rights-traced public-image seed, exclude3 unsuitable images before calls, freeze/evaluate9 new cases once with unchanged source/input hashes. Record1/9 coverage, human-review requirement and unfulfilled per-class/modern-packaging/training goals honestly.
 - [x] Improve camera guidance/retake/barcode recovery/denial/late callbacks; pass pure/source and actual FI/EN web recovery/layout tests. Preserve unsigned5, compile/link unsigned6 and verify metadata/privacy, not signing/device behavior.
-- [ ] Complete the modern-packaging seed corpus with independent object groups and explicit train/validation/held-out allocation before task-specific training. This is NEXT_ACTION; the current9 diagnostic pictures do not complete that dataset.
+- [x] Complete the bounded modern seed under November7 above, not using prior9 as held-out. More varied human-reviewed data is still needed before reliable task-specific training/general quality claims.
 - [ ] Separately request matching signed phone delivery/real-camera/permissions/retake/offline/accessibility/performance tests; Android remains unimplemented, generic recognition and public-production gates stay open.
 
 ## First local iOS recognition pilot — November3–4

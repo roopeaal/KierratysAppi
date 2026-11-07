@@ -1,0 +1,182 @@
+{
+  "schemaVersion": "packaging-case-spec-v1",
+  "purpose": "Visible modern packaging/container kinds only, never composition, safety or sorting truth.",
+  "labelReviewStatus": "ai_reviewed_human_review_required",
+  "pretrainingMembership": "unknown",
+  "maximumNewImages": 40,
+  "maximumNewBytes": 25000000,
+  "cases": [
+    {
+      "id": "bottle-dove",
+      "title": "File:Dove shampoo bottle.jpg",
+      "expectedKind": "bottle",
+      "split": "train",
+      "group": "dove-shampoo-ranjima",
+      "license": "CC0-1.0",
+      "labelEvidence": "Source identifies a retail shampoo bottle; visual eligibility is reviewed before inference."
+    },
+    {
+      "id": "bottle-dreamworld",
+      "title": "File:Bottle of Coca-Cola Dreamworld.jpg",
+      "expectedKind": "bottle",
+      "split": "validation",
+      "group": "coca-cola-dreamworld-undamaged",
+      "license": "CC-BY-4.0",
+      "labelEvidence": "Source identifies a packaged beverage bottle, not its true material or deposit eligibility."
+    },
+    {
+      "id": "bottle-water-new",
+      "title": "File:Bottle of Water.jpg",
+      "expectedKind": "bottle",
+      "split": "heldout",
+      "group": "water-bottle-jiafei",
+      "license": "CC0-1.0",
+      "labelEvidence": "Source identifies a water bottle; physical/source group differs from the prior seen water photo."
+    },
+    {
+      "id": "jar-peanut",
+      "title": "File:Peanut butter glass.jpg",
+      "expectedKind": "jar",
+      "split": "train",
+      "group": "peanut-butter-shisma",
+      "license": "CC-BY-4.0",
+      "labelEvidence": "Source identifies a peanut-butter jar/container; whole-object eligibility requires visual review."
+    },
+    {
+      "id": "jar-hagelslag",
+      "title": "File:Jar filled with hagelslag, 2025, Singapore.jpg",
+      "expectedKind": "jar",
+      "split": "train",
+      "group": "hagelslag-jar-kloowee",
+      "license": "CC0-1.0",
+      "labelEvidence": "Source identifies a food jar. Composition, contents and packaging suitability are not physical verification."
+    },
+    {
+      "id": "jar-shatta",
+      "title": "File:Jar of Red Shatta Paste.jpg",
+      "expectedKind": "jar",
+      "split": "validation",
+      "group": "shatta-jar-2kb",
+      "license": "CC0-1.0",
+      "labelEvidence": "Source identifies a store-bought paste jar, a different product/source group."
+    },
+    {
+      "id": "jar-ajvar",
+      "title": "File:Ajvar jars in a Viva Fresh supermarket in Vitomiricë, Peja, 2025.jpg",
+      "expectedKind": "jar",
+      "split": "heldout",
+      "group": "ajvar-bdx-market",
+      "license": "CC0-1.0",
+      "labelEvidence": "Source identifies retail ajvar jars; a one-kind multi-object scene, not a single-package identity claim."
+    },
+    {
+      "id": "box-kees",
+      "title": "File:Brouwerij Kees box.jpg",
+      "expectedKind": "box",
+      "split": "validation",
+      "group": "kees-box-mitsjol",
+      "license": "CC-BY-4.0",
+      "labelEvidence": "Source describes a retail beverage box; verify visible box boundaries before acceptance."
+    },
+    {
+      "id": "box-xerox",
+      "title": "File:1990s Rank Xerox A4 75gsm copier paper cardboard box and A4 paper made in Sweden.jpg",
+      "expectedKind": "box",
+      "split": "heldout",
+      "group": "xerox-paper-box-nilsson",
+      "license": "CC-BY-4.0",
+      "labelEvidence": "Source describes ordinary printed retail paper packaging, not an ancient/art container; source-era/domain limitation retained."
+    },
+    {
+      "id": "bag-stack",
+      "title": "File:Stack of brown paper bags beneath a counter.jpg",
+      "expectedKind": "bag",
+      "split": "train",
+      "group": "grocery-bags-tessa",
+      "license": "CC-BY-4.0",
+      "labelEvidence": "Source describes stacked retail paper bags; whole-form eligibility must be visually checked."
+    },
+    {
+      "id": "bag-crepe",
+      "title": "File:TW 台灣 Taiwan 台北 Taipei 永康街 YongKang Street 天津蔥抓餅 food shop bag March 2024 R12S.jpg",
+      "expectedKind": "bag",
+      "split": "validation",
+      "group": "crepe-bag-ounfs",
+      "license": "CC0-1.0",
+      "labelEvidence": "Source describes a food-service bag; shape only, not actual polymer/paper or safe-food status."
+    },
+    {
+      "id": "bag-groceries",
+      "title": "File:Groceries at a door.jpg",
+      "expectedKind": "bag",
+      "split": "heldout",
+      "group": "grocery-door-tkarcher",
+      "license": "CC0-1.0",
+      "labelEvidence": "Source describes groceries at a door; reject if visible private text/people or mixed object labels make scoring unsuitable."
+    },
+    {
+      "id": "cup-coffee-go",
+      "title": "File:CoffeeToGo.jpg",
+      "expectedKind": "cup",
+      "split": "train",
+      "group": "coffee-go-sessler",
+      "license": "CC-BY-4.0",
+      "labelEvidence": "Source search describes a takeaway cup; reject if crushed/occluded or not identifiable whole form."
+    },
+    {
+      "id": "cup-buffet-tea",
+      "title": "File:Tea bought from the buffet car 2025-07-27.jpg",
+      "expectedKind": "cup",
+      "split": "validation",
+      "group": "buffet-tea-andy-li",
+      "license": "CC0-1.0",
+      "labelEvidence": "Source describes buffet-car tea; verify disposable cup rather than reusable vessel visually."
+    },
+    {
+      "id": "cup-noodles",
+      "title": "File:Tom yum kung flavored noodles.jpg",
+      "expectedKind": "cup",
+      "split": "heldout",
+      "group": "noodle-cup-aiaikz",
+      "license": "CC0-1.0",
+      "labelEvidence": "Source identifies an instant-noodle cup; verify that the image is a scorable cup rather than bowl/food-only scene."
+    },
+    {
+      "id": "control-mouse",
+      "title": "File:ComputerMouseCloseup3.jpg",
+      "expectedKind": "unknown",
+      "split": "validation",
+      "group": "control-mouse-closeup",
+      "license": "CC0-1.0",
+      "labelEvidence": "Computer mouse is outside the five supported kinds; not a safety assessment."
+    },
+    {
+      "id": "control-battery",
+      "title": "File:Batteries-a27-0.jpg",
+      "expectedKind": "unknown",
+      "split": "heldout",
+      "group": "control-a27-battery",
+      "license": "CC-BY-4.0",
+      "labelEvidence": "Unpackaged batteries are outside supported visible kinds; no chemical/hazard/bin fact may be inferred."
+    },
+    {
+      "id": "control-bananas",
+      "title": "File:Bananas - Flickr - gerriet.jpg",
+      "expectedKind": "unknown",
+      "split": "heldout",
+      "group": "control-bananas-gerriet",
+      "license": "CC-BY-2.0",
+      "labelEvidence": "Unpackaged fruit is outside supported kinds, not sorting or edibility truth."
+    },
+    {
+      "id": "control-spoons",
+      "title": "File:SpoonCollection.jpg",
+      "expectedKind": "unknown",
+      "split": "validation",
+      "group": "control-spoons-collection",
+      "license": "CC-BY-2.0",
+      "labelEvidence": "Spoons are outside supported visible packaging kinds; no material/safety claim."
+    }
+  ],
+  "reuseTrainOnly": ["bottle-water", "box-decoder", "box-contacts", "bag-wcdonalds", "cup-takeaway"]
+}

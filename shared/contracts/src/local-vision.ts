@@ -4,10 +4,19 @@ import {
   parseMaterialIdentificationCode,
 } from "@kierratysappi/domain";
 import { z } from "zod";
+import {
+  decidePackagingScores,
+  NativePackagingSupplementSchema,
+  packagingDeployedGate,
+  packagingGateVersion,
+  packagingGatePolicies,
+  packagingPositiveGroups,
+  PackagingModelSourceSchema,
+} from "./packaging-classifier";
 
-export const localVisionSchemaVersion = "local-vision-v3" as const;
-export const localVisionNormalizerVersion = "local-vision-normalizer-v3" as const;
-export const localVisionAbstentionVersion = "local-vision-abstention-v2" as const;
+export const localVisionSchemaVersion = "local-vision-v4" as const;
+export const localVisionNormalizerVersion = "local-vision-normalizer-v4" as const;
+export const localVisionAbstentionVersion = "local-vision-abstention-v3" as const;
 export const localVisionClassificationPolicy = "apple-class-operating-point-v1" as const;
 /** Fixed OCR3/en-US/correction-enabled material-abbreviation lexicon, not material truth. */
 export const localVisionOcrPolicy = "material-code-lexicon-v1" as const;
@@ -83,19 +92,26 @@ const NativeLocalVisionV2Schema = NativeLocalVisionBaseSchema.extend({
   schemaVersion: z.literal("local-vision-v2"),
 });
 const NativeLocalVisionV3Schema = NativeLocalVisionBaseSchema.extend({
+  schemaVersion: z.literal("local-vision-v3"),
+  ocrPolicy: z.literal(localVisionOcrPolicy),
+  ocrLanguages: z.tuple([z.literal("en-US")]),
+});
+const NativeLocalVisionV4Schema = NativeLocalVisionBaseSchema.extend({
   schemaVersion: z.literal(localVisionSchemaVersion),
   ocrPolicy: z.literal(localVisionOcrPolicy),
   ocrLanguages: z.tuple([z.literal("en-US")]),
+  supplement: NativePackagingSupplementSchema,
 });
 /** Older pilot binaries remain readable without inventing their unreported OCR settings. */
 export const NativeLocalVisionResultSchema = z.discriminatedUnion("schemaVersion", [
   NativeLocalVisionV2Schema,
   NativeLocalVisionV3Schema,
+  NativeLocalVisionV4Schema,
 ]);
 export type NativeLocalVisionResult = z.infer<typeof NativeLocalVisionResultSchema>;
 
 /** Visible object kinds only; these are not materials, products or packaging/safety claims. */
-export const LocalObjectKindSchema = z.enum(["bottle", "jar", "box", "bag", "cup"]);
+export const LocalObjectKindSchema = z.enum(packagingPositiveGroups);
 export type LocalObjectKind = z.infer<typeof LocalObjectKindSchema>;
 
 const identifierKinds = new Map<string, LocalObjectKind>([
@@ -108,7 +124,7 @@ const identifierKinds = new Map<string, LocalObjectKind>([
   ["cup", "cup"],
 ]);
 
-const LocalObjectGuessSchema = z.discriminatedUnion("status", [
+const SystemObjectGuessSchema = z.discriminatedUnion("status", [
   z
     .object({
       status: z.literal("estimated"),
@@ -139,7 +155,43 @@ const LocalObjectGuessSchema = z.discriminatedUnion("status", [
     })
     .strict(),
 ]);
+const MobileClipObjectGuessSchema = z
+  .object({
+    status: z.literal("estimated"),
+    kind: LocalObjectKindSchema,
+    method: z.literal("mobileclip-s0"),
+    cosine: z.number().finite().min(-1).max(1),
+    runnerUpCosine: z.number().finite().min(-1).max(1),
+    policy: z.literal(packagingDeployedGate),
+    scoreMeaning: z.literal("cosine_similarity_not_probability"),
+  })
+  .strict()
+  .refine(
+    (value) =>
+      value.cosine >= packagingGatePolicies[packagingDeployedGate].minimumCosine &&
+      value.cosine - value.runnerUpCosine >=
+        packagingGatePolicies[packagingDeployedGate].minimumLead,
+  );
+const LocalObjectGuessSchema = z.union([SystemObjectGuessSchema, MobileClipObjectGuessSchema]);
 export type LocalObjectGuess = z.infer<typeof LocalObjectGuessSchema>;
+
+const SupplementSourceSchema = z.union([
+  PackagingModelSourceSchema.extend({
+    status: z.literal("observed"),
+    gateVersion: z.literal(packagingGateVersion),
+    gate: z.literal(packagingDeployedGate),
+  }),
+  z
+    .object({ status: z.literal("skipped"), reason: z.enum(["primary_match", "primary_conflict"]) })
+    .strict(),
+  z
+    .object({
+      status: z.literal("unavailable"),
+      reason: z.enum(["model_unavailable", "processing_failed"]),
+    })
+    .strict(),
+  z.object({ status: z.literal("legacy_not_reported") }).strict(),
+]);
 
 const MarkCandidateSchema = z
   .object({ text: z.string().min(1).max(32), canonicalCode: z.string().min(1).max(32) })
@@ -181,8 +233,9 @@ export const LocalVisionResultSchema = z.discriminatedUnion("status", [
           classificationRevision: RevisionSchema,
           ocrRevision: z.literal(3),
           ocrLanguages: OcrLanguagesSchema,
-          nativeSchemaVersion: z.enum(["local-vision-v2", "local-vision-v3"]),
+          nativeSchemaVersion: z.enum(["local-vision-v2", "local-vision-v3", "local-vision-v4"]),
           ocrPolicy: z.enum(["legacy-unspecified-v2", localVisionOcrPolicy]),
+          supplement: SupplementSourceSchema,
           osVersion: OsVersionSchema,
           observedAt: z.iso.datetime(),
           normalizerVersion: z.literal(localVisionNormalizerVersion),
@@ -196,12 +249,31 @@ export const LocalVisionResultSchema = z.discriminatedUnion("status", [
             : source.ocrPolicy === localVisionOcrPolicy &&
               source.ocrLanguages.length === 1 &&
               source.ocrLanguages[0] === "en-US",
+        )
+        .refine((source) =>
+          source.nativeSchemaVersion === "local-vision-v4"
+            ? source.supplement.status !== "legacy_not_reported"
+            : source.supplement.status === "legacy_not_reported",
         ),
       object: LocalObjectGuessSchema,
       markings: LocalMaterialMarkingsSchema,
       durationMs: z.number().finite().min(0).max(60_000),
     })
-    .strict(),
+    .strict()
+    .refine((result) => {
+      const extra = result.source.supplement;
+      const fromClip = result.object.status === "estimated" && "method" in result.object;
+      if (fromClip) return extra.status === "observed";
+      if (extra.status === "observed" || extra.status === "unavailable")
+        return (
+          result.object.status === "unknown" && result.object.reason === "no_operating_point_match"
+        );
+      if (extra.status === "skipped")
+        return extra.reason === "primary_match"
+          ? result.object.status === "estimated"
+          : result.object.status === "unknown" && result.object.reason === "conflicting_kinds";
+      return true;
+    }),
   z
     .object({
       status: z.literal("unavailable"),
@@ -306,7 +378,32 @@ export function normalizeLocalVisionResult(input: unknown): LocalVisionResult {
   const parsed = NativeLocalVisionResultSchema.safeParse(input);
   if (!parsed.success) return { status: "unavailable", reason: "invalid_response" };
   const raw = parsed.data;
-  return LocalVisionResultSchema.parse({
+  const primary = normalizeObjectGuess(raw.classifications);
+  let object: LocalObjectGuess = primary;
+  let supplement: z.infer<typeof SupplementSourceSchema> = { status: "legacy_not_reported" };
+  if (raw.schemaVersion === "local-vision-v4") {
+    const extra = raw.supplement;
+    if (extra.status === "skipped") {
+      const correct =
+        extra.reason === "primary_match"
+          ? primary.status === "estimated"
+          : primary.status === "unknown" && primary.reason === "conflicting_kinds";
+      if (!correct) return { status: "unavailable", reason: "invalid_response" };
+      supplement = extra;
+    } else {
+      if (primary.status !== "unknown" || primary.reason !== "no_operating_point_match")
+        return { status: "unavailable", reason: "invalid_response" };
+      if (extra.status === "unavailable") supplement = extra;
+      else {
+        const { scores, ...source } = extra;
+        supplement = { ...source, gate: packagingDeployedGate, gateVersion: packagingGateVersion };
+        const decision = decidePackagingScores(scores, packagingDeployedGate);
+        if (decision.status === "estimated")
+          object = { ...decision, policy: packagingDeployedGate, method: "mobileclip-s0" };
+      }
+    }
+  }
+  const normalized = LocalVisionResultSchema.safeParse({
     status: "observed",
     schemaVersion: localVisionSchemaVersion,
     source: {
@@ -320,15 +417,19 @@ export function normalizeLocalVisionResult(input: unknown): LocalVisionResult {
       ocrRevision: raw.ocrRevision,
       ocrLanguages: raw.ocrLanguages,
       nativeSchemaVersion: raw.schemaVersion,
-      ocrPolicy: raw.schemaVersion === "local-vision-v3" ? raw.ocrPolicy : "legacy-unspecified-v2",
+      ocrPolicy: raw.schemaVersion === "local-vision-v2" ? "legacy-unspecified-v2" : raw.ocrPolicy,
+      supplement,
       osVersion: raw.osVersion,
       observedAt: raw.observedAt,
       normalizerVersion: localVisionNormalizerVersion,
       abstentionVersion: localVisionAbstentionVersion,
       verificationStatus: "inferred",
     },
-    object: normalizeObjectGuess(raw.classifications),
+    object,
     markings: extractLocalMaterialCodeCandidates(raw.textLines),
     durationMs: raw.durationMs,
   });
+  return normalized.success
+    ? normalized.data
+    : { status: "unavailable", reason: "invalid_response" };
 }

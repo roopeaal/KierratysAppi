@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "packaging-review-v1",
+  "reviewStatus": "ai_visual_review_human_review_required",
+  "reviewedBeforeInference": true,
+  "eligibleIds": [
+    "bottle-dove",
+    "bottle-dreamworld",
+    "bottle-water-new",
+    "jar-hagelslag",
+    "jar-shatta",
+    "box-kees",
+    "box-xerox",
+    "cup-coffee-go",
+    "cup-buffet-tea",
+    "control-mouse",
+    "control-battery",
+    "control-bananas",
+    "control-spoons",
+    "seen-bottle-water",
+    "seen-box-decoder",
+    "seen-box-contacts",
+    "seen-bag-wcdonalds",
+    "bag-mysterious",
+    "bag-grey",
+    "bag-coffee-2023",
+    "cup-red-stack",
+    "jar-peanut-alt"
+  ],
+  "excluded": [
+    {
+      "id": "jar-peanut",
+      "reason": "A person is visible in the background. Exclude as a privacy precaution; the alternate source-series view is the sole eligible held-out member."
+    },
+    {
+      "id": "jar-ajvar",
+      "reason": "Mixed retail shelf includes boxes and bottles as well as many jars; no exclusive one-kind whole-image reference."
+    },
+    {
+      "id": "bag-stack",
+      "reason": "Flattened stack lacks a scorable whole-bag form; avoid source-title-only labels."
+    },
+    {
+      "id": "bag-crepe",
+      "reason": "Close-up of printed menu/logo surface lacks the whole bag outline."
+    },
+    {
+      "id": "bag-groceries",
+      "reason": "Visible shopping carrier is a woven basket, not a supported bag; source title alone was insufficient."
+    },
+    {
+      "id": "cup-noodles",
+      "reason": "Actual vessel reads as a bowl from this angle, not a reliable cup reference."
+    },
+    {
+      "id": "seen-cup-takeaway",
+      "reason": "Previously labelled cup-shaped item is a reusable travel mug, not the intended packaging seed. Keep prior diagnostic unchanged; exclude here."
+    },
+    {
+      "id": "cup-drink",
+      "reason": "Only a drink lid/straw macro is visible; whole cup form is absent."
+    },
+    {
+      "id": "jar-cacao",
+      "reason": "Mixed food/preparation scene is dominated by a bowl and several containers, unsuitable as one-kind jar reference."
+    }
+  ],
+  "splitOverrides": [
+    {
+      "id": "cup-red-stack",
+      "from": "train",
+      "to": "heldout",
+      "reason": "Before any model call, reserve the eligible fresh whole-cup group for held-out coverage after the lid-only candidate was excluded; no member of this group is used in train/validation."
+    }
+  ],
+  "caseNotes": {
+    "cup-coffee-go": "Training-only crushed-cup/litter stress case. Cup rim/body are visible; no clean/intact/safe status is implied. Shoes appear but no identifiable person/face is present.",
+    "jar-hagelslag": "Contemporary food-service/storage jar; reusable-container domain shift, not verified retail packaging.",
+    "jar-peanut-alt": "Contemporary food jar alternate view without the person visible in the excluded series member. This group is held-out only.",
+    "box-xerox": "Ordinary printed paper-box form photographed recently, but historical packaging artwork is a domain limitation.",
+    "bag-grey": "Several whole shopping bags are visible, all of the same coarse kind; item composition is not inferred.",
+    "cup-red-stack": "Several whole disposable-looking cup stacks are visible, all of the same coarse kind; true material/packaging status remains unverified."
+  },
+  "limitations": "Small AI-reviewed seed, not representative accuracy/human acceptance. Contains contemporary storage-container and crushed-litter training stress cases. Jar/cup have one train group each, below the two-group target. Fresh validation and held-out each cover all five kinds plus two outside-kind controls. Pretraining membership unknown; no training or inference performed in this data lane."
+}

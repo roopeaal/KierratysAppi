@@ -40,6 +40,12 @@ export const localVisionFi = {
   localVisionConflicting:
     "Kuvassa on useita tai ristiriitaisia merkintöjä. Tarkista yksi pakkauksen osa kerrallaan.",
   localVisionSource: "Arvion lähde: Apple Vision · laitteessa · ei varmennettu tuotetieto",
+  localVisionSourceMobileClip:
+    "Arvion lähteet: Apple Vision ja MobileCLIP-S0 · laitteessa · ei varmennettu tuotetieto",
+  localVisionModelAttribution:
+    "Täydentävä esinetyyppiarvio käyttää Applen MobileCLIP-S0-mallia (2024). Malli ja lisenssihuomautukset sisältyvät sitä tukevaan iPhone-asennukseen. Tämä ei tarkoita Applen hyväksyntää sovellukselle. Tulos ei varmista materiaalia tai tuotetta.",
+  localVisionSupplementUnavailable:
+    "Täydentävä paikallinen malli ei ollut käytettävissä. Voit kokeilla viivakoodia tai tarkistaa materiaalimerkinnän käsin.",
   localVisionSourceDetail: "Malliversio ja havainnon aika",
   localVisionCloud: "Erillinen OpenAI-kuvatunnistus",
   localVisionCloudHint: "Avaa verkkotunnistuksen tietojen lähetyksen hyväksyntä",
@@ -90,6 +96,12 @@ export const localVisionEn: { readonly [Key in keyof typeof localVisionFi]: stri
   localVisionConflicting:
     "The image contains multiple or conflicting markings. Check one packaging part at a time.",
   localVisionSource: "Estimate source: Apple Vision · on device · not verified product data",
+  localVisionSourceMobileClip:
+    "Estimate sources: Apple Vision and MobileCLIP-S0 · on device · not verified product data",
+  localVisionModelAttribution:
+    "The supplemental object-type estimate uses Apple's MobileCLIP-S0 model (2024). The model and licence notices are included in supporting iPhone installations. This does not imply Apple's endorsement of the app. The estimate does not verify material or product identity.",
+  localVisionSupplementUnavailable:
+    "The supplemental local model was unavailable. Try a barcode or check the material marking manually.",
   localVisionSourceDetail: "Model revision and observation time",
   localVisionCloud: "Separate OpenAI image recognition",
   localVisionCloudHint: "Open the network recognition and image-sharing consent",

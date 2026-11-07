@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "mobileclip-prompts-v1",
+  "policy": "packaging-visible-form-v1",
+  "frozenBeforeImageInference": true,
+  "purpose": "Visible form only. No product identity, material, safety, deposit or sorting assertion. Cosine scores are not probabilities.",
+  "groups": [
+    {
+      "identifier": "bottle",
+      "role": "supported",
+      "prompts": [
+        "a photo of a bottle",
+        "a photo of a product bottle",
+        "a photo of a bottle with a cap"
+      ]
+    },
+    {
+      "identifier": "jar",
+      "role": "supported",
+      "prompts": ["a photo of a jar", "a photo of a jar with a lid", "a photo of a food jar"]
+    },
+    {
+      "identifier": "box",
+      "role": "supported",
+      "prompts": [
+        "a photo of a product box",
+        "a photo of a closed box",
+        "a photo of a rectangular carton package"
+      ]
+    },
+    {
+      "identifier": "bag",
+      "role": "supported",
+      "prompts": ["a photo of a bag", "a photo of a shopping bag", "a photo of a food package bag"]
+    },
+    {
+      "identifier": "cup",
+      "role": "supported",
+      "prompts": ["a photo of a cup", "a photo of a takeaway cup", "a photo of a drinking mug"]
+    },
+    {
+      "identifier": "other-battery",
+      "role": "outside",
+      "prompts": ["a photo of batteries"]
+    },
+    {
+      "identifier": "other-phone",
+      "role": "outside",
+      "prompts": ["a photo of a smartphone"]
+    },
+    {
+      "identifier": "other-book",
+      "role": "outside",
+      "prompts": ["a photo of a book"]
+    },
+    {
+      "identifier": "other-food",
+      "role": "outside",
+      "prompts": ["a photo of food"]
+    },
+    {
+      "identifier": "other-person",
+      "role": "outside",
+      "prompts": ["a photo of a person"]
+    },
+    {
+      "identifier": "other-animal",
+      "role": "outside",
+      "prompts": ["a photo of an animal"]
+    },
+    {
+      "identifier": "other-leaf",
+      "role": "outside",
+      "prompts": ["a photo of a leaf"]
+    },
+    {
+      "identifier": "other-clothes",
+      "role": "outside",
+      "prompts": ["a photo of clothes"]
+    },
+    {
+      "identifier": "other-electronics",
+      "role": "outside",
+      "prompts": ["a photo of an electronic device"]
+    },
+    {
+      "identifier": "other-tools",
+      "role": "outside",
+      "prompts": ["a photo of tools"]
+    },
+    {
+      "identifier": "other-plate",
+      "role": "outside",
+      "prompts": ["a photo of a plate"]
+    },
+    {
+      "identifier": "other-aerosol",
+      "role": "outside",
+      "prompts": ["a photo of an aerosol spray can"]
+    },
+    {
+      "identifier": "other-drink-can",
+      "role": "outside",
+      "prompts": ["a photo of a drink can"]
+    }
+  ]
+}

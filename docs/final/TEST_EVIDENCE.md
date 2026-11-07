@@ -1,5 +1,68 @@
 # Test evidence
 
+## November7 — actual local classifier upgrade and native integration
+
+Start cleane127052. D-064/LOCAL_CLASSIFIER_UPGRADE document the pinned original2024
+MobileCLIP-S0 model,18 groups/28 prompts, validation-only gate selection and
+primary-no-match cascade. No model training, JS dependency-version change,
+provider/rule change, paid inference or user-photo use. iOS source7/Android2.
+
+| Evidence lane | Result |
+| --- | --- |
+| Mandatory full validation | **PASS711 unique tests:242 Node policy +469 application**, boundaries/format/lint/strict types/all builds/17 exported routes; `work/packaging-classifier-2026-11-06.VMqCIE/validate-final.log`, exit0 |
+| Independent part validation | **PASS mobile393/shared214 overlapping cases**; `validate-mobile.log` and `validate-shared.log` in that root. Shared contracts154 include27 gate and20 supplemental/legacy regressions; mobile app171 |
+| QA/runtime regression guards | Corpus41, evaluator17, asset10, native-policy9, family-evaluation7 and attribution2 cases included in the242. Exact runtime pins,18 finite unique scores, primary precedence/conflict/error, strict legacy metadata, missing-model recovery and public exports covered |
+| Candidate setup, before picture inference | Seven no-image tokenizer checks,28 fixed text embeddings and one owned uniform-RGB interface probe pass. All512 embedding values finite/unit-normalized,18 group scores; ASCII tokens bounded/validated with the48,894-merge prefix. No probe counted as recognition quality |
+| Frozen source/data |22 eligible cases:8 train-only/7 validation/7 held-out, with disjoint object groups and3+ groups per supported class overall.26 fresh JPEGs/5,230,170B acquired,9 excluded before inference. Four seen references train-only; jar/cup training depth limited. AI-reviewed labels require human review, pretraining membership unknown; source/author/licence/bytes traced, no weights trained |
+| Validation, seven cases × two engines once |14 calls. Baseline6/7 observed, one defined processing failure at15491ms stays unknown; all7 supplemental outputs valid. Five positives: baseline0 correct accepted, cascade3; both controls unknown. Strict0/medium1/loose3 gains, no new wrong/lost correct result |
+| Disclosed accounting correction, before held-out | Original evaluator/null selection/raw envelopes retained. Only exact known exit1/no-spawn-error failure envelopes become well-formed failures, never success/no-match. Offline recalculation makes **zero model calls**, retains operational6/7/all denominators and proves every policy decision/metric unchanged. This is an **amended**, not unamended preregistration pass; PACKAGING_ACCOUNTING_AMENDMENT/QA-001 |
+| Locked held-out, seven cases × two engines once |14 calls/all observed/source hashes stable. Five positives: **baseline2 correct accepted→cascade4**; both controls unknown, new errors0/lost correct0. Bottle/jar retain primary; bag/cup gain; flat box stays unknown. Only locked loose gate evaluated; no threshold/prompt/data retuning or retakes. Tiny diagnostic, not representative accuracy |
+| Separate family-only experiment |18 calls on9 already-seen pictures, original7 versus added bag/sack/mug:1/9→2/9 tentative estimates, only mug gains. QA-only, not deployed, not fresh held-out evidence; final tool explicitly refuses incompatibleV4 source |
+| Full native engine | Swift6 QA/shipping-flags compilation and14 no-image checks pass. Five functional calls cover primary-skip, actual supplement, absent resources, retained PET1 OCR and bit-exact bag scores; one post-cache-change equivalence call and two valid-model text-only regressions also pass. Eight calls total, not extra quality samples. All18 bag cosines exactly match candidate; PET1 remains unconfirmed/object unknown, date no-code/unknown |
+| Actual iOS artifact | Xcode26.6 stable, serial generic-iOS **unsigned Debug BUILD SUCCEEDED** (`ios-build7.log`, line28909). Actual Info7/linked predictor/equal pod locks/privacy bytes pass. Model bundle **23,378,043B/13 files**, graph/weight/prototype pins and four complete notices pass; no text model/tokenizer. Full app-symbol inspection finds0 QA resource-override symbols. Source/local pod graph only; no JS/native dependency-version upgrade |
+| Actual browser/visual regression | Fresh loopback8095 FI/EN keyboard/barcode/manual recovery, cloud consent/no upload,44pt,320/390/1280, dark/light/synthetic130% text and actual qualified MobileCLIP attribution pass. Representative screenshots inspected without horizontal clipping. Unsupported web is not fake native inference; no camera/GPS/API/device calls |
+
+Full application breakdown: domain52/database5/localization8/recycling-engine8/
+contracts154/providers42/mobile171/application8/API21 =469. Scoped counts overlap
+the mandatory run and are not added to711. No fresh remote CI, security audit or
+ExpoDoctor pass is claimed.
+
+Final read-only code review finds no new blocker/critical/high issue in the
+native/shared boundary, fail-closed cascade, licences or report claims; the
+reviewer independently matches actual app7 graph/weight/prototype pins. This is
+another engineering lane, not independent human labels or store acceptance.
+Final focused resource/attribution11 tests, formatting and staged diff checks
+also pass after documentation updates; these overlap711, not extra unique tests.
+
+Artifact hashes and exact licence/source pins are retained in
+LOCAL_CLASSIFIER_UPGRADE and `scripts/qa/local-vision/mobileclip-README.md`.
+Built dylib SHA256 `63312602aa95dc0e601c179fae5a571133b716424cde68113278bc3c4d9a2b33`;
+pod lock `6b0253d9036009436fb87c28a15874edc3e0ffae352deb96be229f971ec44013`.
+Prior unsigned6 app/native snapshots retained, copied Info6 and old matching
+locks verified; this is not a signed/launchable rollback guarantee.
+
+Retained evidence roots (ignored local artifacts, not committed pictures):
+
+- Protocol/raw comparison/amended selection/held-out/native build/full checks:
+  `work/packaging-classifier-2026-11-06.VMqCIE/`.
+- Assets/prototypes/tokenizer/probe: `work/mobileclip-candidate-2026-11-06.M305AS/`.
+- Seed acquisition/review: `work/packaging-seed-2026-11-06.Jh0o1C/`.
+- Native5+1+2 and symbols: `work/native-cascade-2026-11-07.4uGrPr/`.
+- Browser: `work/native-cascade-browser-2026-11-07.GgN2iM/`.
+- Family-only seen diagnostic: `work/system-family-2026-11-07.50fgVf/`.
+
+Initial acquisition redirected-host/gzip byte-length failures, validation
+null-selection, TypeScript tuple/literal errors and format failures remain in
+receipts. Exact-host/decoded-bound/hash checks, strict typed fixes and narrow
+format repairs pass without relaxing classification/sorting safety. Vendor
+mlpackage alone is excluded from formatting so original bytes stay pinned.
+
+No secret read, paid call, new account, cleanup, signing/renewal, phone install,
+standalone offline launch or GitHub write occurred. Last verified profile's
+November4 expiry is past; current phone state unqueried. **Production NO-GO and
+LV-001/PHOTO-003/004 stay open** for representative human/physical-camera/platform
+and release evidence. NEXT_ACTION is a locally executable readiness preflight.
+
 ## November6 — OCR improvement, new corpus and camera recovery
 
 Start clean447c853; no JS dependency/lock/provider/rule change. D-063 and

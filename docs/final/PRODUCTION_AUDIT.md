@@ -1,5 +1,26 @@
 # Adversarial production-readiness audit
 
+## Scoped supplemental-classifier follow-up — November7
+
+This is not a repeated30-lane production audit. **LV-001 remains high/open**:
+the frozen fresh held-out result improves2/5→4/5 accepted correct forms, but
+AI-reviewed labels, tiny control coverage and no physical-camera acceptance
+cannot establish general product/material/safety recognition. PHOTO-003/004
+remain open; no severity reduction for green tests. Primary classification/OCR,
+manual confirmation and sorting provenance are preserved. Runtime model source,
+weight/prototype integrity, licences, unavailable recovery and strict legacy
+contracts are implemented and regression-tested; unsigned Debug7 is not a signed
+release or phone test. Evidence: LOCAL_CLASSIFIER_UPGRADE and TEST_EVIDENCE.
+
+| ID / severity / state | Evidence and affected flow | Reproduction | Required remediation / owner |
+| --- | --- | --- | --- |
+| QA-001 / medium / locally repaired | First validation evaluator calls the pre-existing native CLI's exact exit1 `{status:unavailable,reason:failed}` envelope malformed. Original null-selection summary/raw bytes remain in `work/packaging-classifier-2026-11-06.VMqCIE/validation/`. Affects QA operational accounting, not production inference. | Feed that exact two-key known failure envelope, exit1/no spawn error, to the pre-amendment captured adapter; it returns invalid_response. | Engineering: exact failure-schema/exit guards, unknown rather than no-match, retain operational6/7 and all denominators, offline-only fresh artifact with every decision/metric identical. Implemented before held-out calls;17 evaluator regressions pass. Disclosed amended validation, never an unamended preregistration claim. |
+
+Next locally executable improvement is model-readiness/integrity preflight before
+camera entry. Independent human labels and physical tests require the named
+reviewer/device operator in OWNER_ACTIONS; no new paid provider or account is
+needed for local inference. Existing release/store/operations blockers remain.
+
 ## Scoped OCR/data/UX follow-up — November6
 
 Not a repeated30-lane audit. **LV-001 stays high/open:** new frozen nine-case

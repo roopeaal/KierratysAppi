@@ -1,3 +1,3 @@
 # Next action
 
-Complete one licence-traced modern-packaging seed manifest with at least three eligible distinct object groups per bottle, jar, box/carton, bag and cup plus outside-kind controls, nonoverlapping train/validation/held-out allocations and explicit label/privacy/human-review status, without training, user-photo reuse, paid calls, phone actions or publication; keep the old eight and new nine evaluated pictures labelled seen diagnostics, never fresh held-out data.
+Implement one bounded native-to-app readiness/integrity preflight for local recognition before camera entry, truthfully distinguishing full, primary-only legacy/unsupported and unavailable model states without processing images, requesting camera permission, networking or paid fallback; preserve V2/V3 compatibility and add contract/lifecycle/FI-EN recovery tests with full validation.

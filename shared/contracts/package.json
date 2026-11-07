@@ -11,7 +11,8 @@
     "./collection-points": "./src/collection-points.ts",
     "./photo-recognition": "./src/photo-recognition.ts",
     "./photo-image": "./src/photo-image.ts",
-    "./local-vision": "./src/local-vision.ts"
+    "./local-vision": "./src/local-vision.ts",
+    "./packaging-classifier": "./src/packaging-classifier.ts"
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts --clean",

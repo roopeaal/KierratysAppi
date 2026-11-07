@@ -1,5 +1,26 @@
 # Security and privacy
 
+## November7 — bundled supplemental local image model
+
+Only a primary no-match invokes the pinned CPU-only MobileCLIP image encoder;
+primary conflicts/errors never fall through. The app bundles fixed vectors,
+provenance and notices, not the text encoder/tokenizer or runtime prompt service.
+No new image recipient, API key, download, photo/embedding history, permission
+or paid fallback is added. Existing optional cloud consent is a separate flow.
+
+Source/compiled-graph/weight/prototype hashes fail closed to an explicit
+unavailable supplement; bounded JPEG/pixels, strict raw/normalized contracts,
+single-flight processing and one total12s deadline remain. Cache intermediates
+are disabled and context caches cleared on success/error, **not a cryptographic
+pixel-wipe guarantee**. QA resource overrides are absent from shipping/app
+symbols. Actual unsigned Debug7 resources/privacy/four notices are verified;
+this is not a final signed archive, device privacy/network or quality pass.
+
+Public QA JPEGs are licence/hash/group traced, AI-reviewed and outside the app;
+no user photos or new personal-data collection were used. Tiny benchmark gains
+do not close unknown/hazard/general quality risks. Details and retained failures:
+LOCAL_CLASSIFIER_UPGRADE, PACKAGING_ACCOUNTING_AMENDMENT and TEST_EVIDENCE.
+
 ## November6 — versioned local OCR / public diagnostic data
 
 V3 enables only the fixed13 material abbreviations/en-US lexicon with correction;

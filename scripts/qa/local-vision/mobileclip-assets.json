@@ -1,0 +1,82 @@
+{
+  "schemaVersion": "mobileclip-assets-v1",
+  "modelId": "apple-mobileclip-s0-coreml-2024",
+  "modelRevision": "55c8098c12ba8f928e37e26b2e1dd097777c3f98",
+  "softwareRevision": "1140b8d197e4ed7d56b3a92216ded98bb1c2ac87",
+  "weightLicence": "Apple Sample Code License, original 2024 MobileCLIP V1 release; not 2025 MobileCLIP2 research-only terms",
+  "maximumTotalBytes": 150000000,
+  "assets": [
+    {
+      "path": "mobileclip_s0_image.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+      "bytes": 153260,
+      "sha256": "2c1afa132c41c6535817cc67894bd7484bc2cbd084ed5e2f12b24f611af17591",
+      "origin": "model"
+    },
+    {
+      "path": "mobileclip_s0_image.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "bytes": 22717696,
+      "sha256": "87d8f63997bbd2f38ba7defeaaa2c571928bdece56aa9629542198b3ce906ed6",
+      "origin": "model"
+    },
+    {
+      "path": "mobileclip_s0_image.mlpackage/Manifest.json",
+      "bytes": 617,
+      "sha256": "fe07dde983dae92c1799132816ce55f9ff8487f2681b530abf7222025aa27fa4",
+      "origin": "model"
+    },
+    {
+      "path": "mobileclip_s0_text.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+      "bytes": 57953,
+      "sha256": "81eba836ff4dbc8ae021d70006288b533ba7eed3c2973d245b0d5ea047305bfd",
+      "origin": "model"
+    },
+    {
+      "path": "mobileclip_s0_text.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "bytes": 84871616,
+      "sha256": "34723e51445b2630106e94e1fdbebed80e7676b404fb839f4eb9bec97bdcad68",
+      "origin": "model"
+    },
+    {
+      "path": "mobileclip_s0_text.mlpackage/Manifest.json",
+      "bytes": 617,
+      "sha256": "a7cb0864a627468a953afd107262097ad74a0fcf82e49df7e00b9c86385bb7db",
+      "origin": "model"
+    },
+    {
+      "path": "clip-merges.txt",
+      "bytes": 3194958,
+      "sha256": "7e0847f6fced8bd28a736dcaeab20e64ac19010771700197ba479a0a8e517d4f",
+      "origin": "resource"
+    },
+    {
+      "path": "clip-vocab.json",
+      "bytes": 1197317,
+      "sha256": "7aeb221a2a93047170070379743b49204c13d6993d9947323cd94b75c1f657ba",
+      "origin": "resource"
+    },
+    {
+      "path": "licences/apple-weights-2024.txt",
+      "bytes": 2791,
+      "sha256": "a94a7a9c59509751580a31fa1ab3b418a97b01304549d382b8b96ca8fa85a179",
+      "origin": "weight-licence"
+    },
+    {
+      "path": "licences/apple-software-mit.txt",
+      "bytes": 1529,
+      "sha256": "7be983907ac2fa52c53e29ad8eca89d67d1e77bcc46a0271702845d0a1f4114d",
+      "origin": "software-licence"
+    },
+    {
+      "path": "licences/apple-acknowledgements.txt",
+      "bytes": 22903,
+      "sha256": "1fdf63aae2e325e2efde1aed1d3cc9addb063ea60a31f40d2a564bd7c29ac283",
+      "origin": "acknowledgements"
+    },
+    {
+      "path": "licences/huggingface-tokenizer-apache2.txt",
+      "bytes": 11357,
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "origin": "tokenizer-licence"
+    }
+  ]
+}

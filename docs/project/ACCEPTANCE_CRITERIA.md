@@ -1,5 +1,13 @@
 # Acceptance criteria
 
+## Supplemental classifier — November7
+
+1. Primary class gate/uncertainty/OCR stay unchanged. Only true no-match may use supplemental image scores; primary match/conflict/error is not replaced. Similarity is uncalibrated, never material/SKU/safety/bin truth.
+2. Model/prompt/prototype/data/gate hashes freeze before comparison; only validation selects registered gates. Preserve accounting amendment, failed-case denominator and all raw results; held-out is not used for retuning. No claim of human acceptance or representative accuracy from tiny seed data.
+3. NativeV4 and strict legacy compatibility retain actual model/source/policy metadata. Invalid/missing/unsupported resources fail to an explicit partial state while preserving primary/OCR; legacy models are not silently upgraded. Runtime artifact/compiled graph/weights/proto integrity, size/notices and source hash tests pass.
+4. App ships only image encoder/prototypes/notices, no text-model/tokenizer/network/key. One deadline/single-flight/cleanup, explicit user actions and independent material Check+Confirm remain. No cryptographic memory-wipe claim.
+5. Full711/scoped393+214, actual web and unsigned iOS7 compile/link/resource checks pass. Signed Release/install/standalone launch, camera/unknown/hazard/VoiceOver/energy, human labels, Android and production release are separate unrun gates.
+
 ## OCR improvement / recovery — November6
 
 1. Fixed material lexicon policy/language/revision/source metadata is explicit; strict older native inputs remain readable without invented settings. Do not change class thresholds/abstention/parser/rules to inflate coverage.

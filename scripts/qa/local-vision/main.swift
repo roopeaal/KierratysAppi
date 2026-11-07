@@ -35,7 +35,20 @@ func emitOutcome(_ base64: String) throws {
   }
 }
 
-let args = Array(CommandLine.arguments.dropFirst())
+var args = Array(CommandLine.arguments.dropFirst())
+#if LOCAL_VISION_QA
+if args.count >= 2, args[0] == "--resources" {
+  let directory = URL(fileURLWithPath: FileManager.default.currentDirectoryPath, isDirectory: true)
+  let work = directory.appendingPathComponent("work", isDirectory: true).resolvingSymlinksInPath()
+  let resource = URL(fileURLWithPath: args[1], relativeTo: directory).standardizedFileURL
+  guard resource.path.hasPrefix(work.path + "/"),
+        resource.resolvingSymlinksInPath() == resource,
+        let values = try? resource.resourceValues(forKeys: [.isDirectoryKey, .isSymbolicLinkKey]),
+        values.isDirectory == true, values.isSymbolicLink != true else { fail("invalid_qa_resources") }
+  try LocalVisionEngine.shared.configureQAResources(resource)
+  args.removeFirst(2)
+}
+#endif
 if args == ["--self-test"] {
   let invalid: [String] = [
     "",
@@ -51,6 +64,21 @@ if args == ["--self-test"] {
     guard case .failure(.invalidImage) = run(value) else { fail("self_test_failed") }
   }
   emit(try JSONSerialization.data(withJSONObject: ["passed": invalid.count, "imageRequestsPerformed": 0], options: [.sortedKeys]))
+} else if args == ["--cascade-self-test"] {
+  func values(_ identifiers: [String]) -> [LocalVisionClassification] {
+    LocalVisionEngine.classificationIdentifiers.map { identifier in
+      LocalVisionClassification(identifier: identifier, score: 0.1, hasPrecisionRecallCurve: true, passesOperatingPoint: identifiers.contains(identifier))
+    }
+  }
+  let cases: [([String], LocalVisionSupplementSkipReason?)] = [
+    ([], nil), (["bottle"], .primaryMatch), (["bottle", "wine_bottle"], .primaryMatch),
+    (["carton", "cardboard_box"], .primaryMatch), (["cup", "jar"], .primaryConflict),
+    (["paper_bag", "cup"], .primaryConflict),
+  ]
+  for (identifiers, expected) in cases {
+    guard LocalVisionEngine.supplementalSkipReason(values(identifiers)) == expected else { fail("cascade_self_test_failed") }
+  }
+  emit(try JSONSerialization.data(withJSONObject: ["passed": cases.count, "imageRequestsPerformed": 0, "supplementRequestsPerformed": 0], options: [.sortedKeys]))
 } else if args == ["--base64-stdin"] {
   var input = Data()
   while let chunk = try FileHandle.standardInput.read(upToCount: min(65_536, LocalVisionEngine.maxBase64Length + 1 - input.count)), !chunk.isEmpty {

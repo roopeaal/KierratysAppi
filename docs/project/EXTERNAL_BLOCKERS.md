@@ -1,5 +1,21 @@
 # External blockers
 
+## November7 supplemental local classifier
+
+No new credential/account/API-credit/paid-compute blocker. Pinned2024 ASCL image
+model/prototypes run locally, unsigned iOS7/resource integration and finite fresh
+comparison gates pass. General quality remains unaccepted: tiny AI-labelled data
+is not human/representative/camera evidence. Next model-readiness preflight is
+locally executable engineering work. Android remains a separate implementation.
+
+No phone/signing/renewal attempt here. Last verified profile expiry November4 is
+past; no current device/account state was read. Under a separately requested
+update, engineering owns matching signed JS-bundled build/resource/profile checks
+and measurements, Roope operates connection/unlock/trust/camera/settings and any
+actual account/keychain prompt. Do not infer a missing account from no attempt.
+Full ASCL/component/image rights are accounted for; release owner still owns
+distribution/other-rights/privacy/store approval. No new paid action or push.
+
 ## November6 OCR improvement / corpus testing
 
 No new account, API credit, secret, paid compute or infrastructure blocker. Local

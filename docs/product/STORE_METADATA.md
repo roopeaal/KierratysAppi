@@ -10,7 +10,7 @@ Final answers must be regenerated from the accepted signed Android/iOS binaries,
 - Finnish subtitle/short description candidate: `Pakkauksesta oikeaan paikkaan`
 - English subtitle/short description candidate: `Source-backed sorting guidance`
 - Android package / iOS bundle ID: `fi.roopeaaltonen.kierratysappi`
-- Source version/build: `0.1.0`, Android `versionCode=2`, iOS `buildNumber=6` (November6 OCR-policy source/unsigned Debug, not a signed store submission); release owner must verify final binary values and monotonically increase them.
+- Source version/build: `0.1.0`, Android `versionCode=2`, iOS `buildNumber=7` (November7 supplemental local-model source/unsigned Debug, not a signed store submission); release owner must verify final binary values and monotonically increase them.
 - Primary category candidate: Utilities; owner/store review required.
 - Launch locales candidate: Finnish and English only.
 
@@ -64,11 +64,11 @@ Reconfirm in App Store Connect from the final binary:
 
 - App Privacy: barcode/GTIN is transmitted to KeepItGreen API and OFF for app functionality; IP is necessarily processed by network/rate-limiting infrastructure. Exact Apple data-type/linkability/collection treatment requires controller/legal assessment and final vendor configuration.
 - Tracking/advertising: source implements none; verify all final SDKs and manifests.
-- Camera: barcode decoding locally; new iOS-only Apple Vision image/OCR pilot also local, with no image/OCR history or automatic sorting. The separately named optional OpenAI path sends a consented image via the app server and retains its distinct provider/privacy/cost disclosure. Do not answer this questionnaire as barcode-only; verify signed final behavior and recipient/retention declarations.
+- Camera: barcode decoding locally; iOS-only Apple Vision image/OCR plus pinned2024 MobileCLIP-S0 no-match supplement also local, with no image/OCR history or automatic sorting. The bundled model retains original2024 weight/software/component notices and qualified no-endorsement attribution; similarity is not factual/material confidence. The separately named optional OpenAI path sends a consented image via the app server and retains its distinct provider/privacy/cost disclosure. Do not answer this questionnaire as barcode-only; verify signed final behavior and recipient/retention declarations.
 - Accounts: none in current scope.
 - Encryption/export: source declares only exempt standard transport (`ITSAppUsesNonExemptEncryption=false`); release owner must validate the final binary and answer.
 - Content/age rating, rights, primary/secondary category, DSA/trader status, Korea/China/Vietnam availability, reviewer contact/notes: **not finalized**.
-- Privacy manifest/reason APIs: source includes UserDefaults CA92.1 and local module SystemBootTime35F9.1 (elapsed in-app processing/deadline). Local module manifest is packaged in unsigned Debug build6; inspect the final signed archive, every SDK manifest and App Store report before declaring collection/tracking status.
+- Privacy manifest/reason APIs: source includes UserDefaults CA92.1 and local module SystemBootTime35F9.1 (elapsed in-app processing/deadline). Local module manifest is packaged in unsigned Debug build7; inspect the final signed archive, every SDK manifest and App Store report before declaring collection/tracking status.
 
 ## Google Play questionnaire worksheet
 
@@ -83,7 +83,7 @@ Reconfirm in Play Console from the final AAB:
 
 ## Reviewer notes candidate
 
-The camera is used only for local barcode decoding. Users see an explanation before the operating-system permission prompt and can use manual entry instead. No account, photo upload, OCR, cloud AI, public correction submission or advertising is present. Product data is community-sourced from the four named Open Facts databases; Finnish packaging guidance shows sources and uncertainty. Foreground-only location is optional and used in memory against bundled OSM points, with no GPS upload/storage/background tracking. Verify all of this on the final native builds; current source changes have no new phone acceptance. Replace this candidate with exact final URLs/build behavior and credentials-free review steps.
+Camera flows include local barcode decoding and a separate iOS-only local image/OCR estimator, with a bundled MobileCLIP-S0 supplement on supported installations. Estimates do not establish exact product/material identity or automatic sorting; extracted markings require confirmation. Users see a permission explanation and can choose manual entry. The separately named optional OpenAI photo path requires explicit recipient/upload consent and an available configured server; it is not the local path or a silent fallback. There is no account or advertising. Product data is community-sourced from the four named Open Facts databases; Finnish packaging guidance shows sources and uncertainty. Foreground-only location is optional and processed locally against bundled OSM points, without GPS upload/storage/background tracking. Verify final binary behavior, cloud service access/retention and all review paths; current changes have no new phone acceptance. Replace this candidate with final URLs and exact credentials-free steps or approved reviewer access. This draft is not ready for submission.
 
 October 7 questionnaire delta (OWNER/LEGAL/STORE REVIEW REQUIRED): classify all
 four potential external barcode recipients, not OFF alone. Evaluate foreground

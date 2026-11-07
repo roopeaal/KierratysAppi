@@ -1,5 +1,14 @@
 # Decision log
 
+## D-064 — Add a pinned supplemental image model after a locked comparison
+
+- Date:2026-11-07. Owner requests further improvement, not publishing/phone/signing/paid inference. Diagnose current weak domain coverage; family expansion alone yields1/9→2/9 seen-case coverage. Evaluate a different local representation, not lower Apple's existing confidence gate.
+- Pin original2024 MobileCLIP-S0 Core ML upload55c8098c and corresponding2024 ASCL grant/notices; software MIT is not the weight licence and newer research-only checkpoints are not substituted. Use image-only runtime and28 offline ASCII prompt encodings/18 prototypes. Preserve full notices/hash-chain, no endorsement/patent/production approval claim.
+- Freeze data/prompts/three engineering gates before image calls. Select via validation only, then lock before fresh held-out. Disclose consequential expected-CLI-failure accounting correction before held-out: failed bottle remains unknown, one operational failure retained, zero recapture/inference during recalculation; all decisions/metrics identical. Original null selection remains, not called an unamended preregistered pass.
+- Selected cosine0.20/lead0.020 is not probability. Cascade supplements only true primary no-match; preserve primary matches/conflicts/errors. Fresh held-out positives2/5→4/5, controls unknown/no new errors; tiny AI-reviewed data does not establish representative reliability. No weights trained; seen references TRAIN-only, modern seed and all exclusions/rights documented.
+- Version wire/normalizerV4 and abstentionV3 with strict older raw compatibility and actual source provenance. Native model/proto/graph checks fail closed; unavailable supplement retains OCR/primary. One existing12s deadline/single-flight/media lifecycle; disable intermediate cache/clear caches without cryptographic-wipe promise. Source iOS7; exact compiled app resource/symbol/privacy checks before claiming native integration.
+- Full/scoped/browser/software/native evidence is separate from signed Release, phone/camera/VoiceOver/energy/Android/general quality. No push/training/secret/payment/cleanup. Next local pre-camera readiness preflight; independent human/physical release acceptance remains open.
+
 ## D-063 — Adopt measured OCR lexicon support without relaxing object uncertainty
 
 - Date:2026-11-06. Authority: test/improve locally. Freeze A/B/C OCR configurations and source/image hashes before calls. C/en-US+correction+13 existing material abbreviations fixes two PP misses; independent near-code challenge has no new unambiguous false-code status. Preserve the PP0/PPO safe miss and all failures. Synthetic seen-data gains do not establish real-camera quality or generic product recognition.

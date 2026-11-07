@@ -9,16 +9,43 @@ directories; they are documentation placeholders, not directories to overwrite.
 
 ```sh
 env DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcrun swiftc \
-  -swift-version 6 -module-cache-path work/FRESH_ROOT/module-cache \
+  -swift-version 6 -D LOCAL_VISION_QA -module-cache-path work/FRESH_ROOT/module-cache \
+  mobile/app/modules/local-vision/ios/mobileclip-predictor.swift \
   mobile/app/modules/local-vision/ios/local-vision-engine.swift \
   scripts/qa/local-vision/main.swift -o work/FRESH_ROOT/local-vision
 work/FRESH_ROOT/local-vision --self-test
+work/FRESH_ROOT/local-vision --cascade-self-test
 ```
 
 The eight malformed/noncanonical/oversized/non-JPEG self-tests perform no image
 inference. Actual image diagnostics require a frozen specification and cleared
 local image/licence/ground-truth manifest first. Do not train/test on private
 photos or download an arbitrary executable/model to satisfy the command.
+
+V4 keeps the primary seven-class/OCR path and adds an optional bundled image
+model only after a genuine primary no-match. Matches and conflicting primary
+kinds skip it. Missing/invalid resources preserve the primary/OCR observation
+with a typed unavailable supplement; a primary error never invokes a fallback.
+The single-flight gate and total12s deadline cover both models. These are not
+separate restartable time budgets.
+
+The six cascade self-tests exercise pure grouping without image/model calls.
+For a separately specified functional V4 check with a verified local model
+bundle, the QA-only CLI configuration is:
+
+```sh
+work/FRESH_ROOT/local-vision --resources work/VERIFIED/KierratysLocalVisionModels.bundle --base64-stdin
+```
+
+Only validated JPEG base64 is supplied on stdin. The model-resource directory
+must be canonical, unlinked and inside the checkout's work tree. Resource paths
+are not image paths and are never supplied by JS or environment variables.
+`LOCAL_VISION_QA` and `configureQAResources` are absent from shipping app builds;
+the app instead uses its signed resource bundle automatically. The general
+`evaluate.mjs` command below does not pass this extra QA resource argument: do
+not mistake a model-unavailable result from that command for supplemental-model
+execution. Functional model verification must explicitly inspect the V4
+supplement status, model/prototype hashes and score shape.
 
 From the checkout root, use the installed `tsx` CLI (no automatic installation):
 
@@ -58,6 +85,11 @@ Never change a gate to make the diagnostic set pass. Version and preserve a
 semantic correction separately and evaluate genuinely independent real-camera
 and unknown/hazard examples before any reliability claim. The original eight
 development images remain known development data even after another version.
+
+`system-family-protocol.json` belongs to the earlier frozen V3 experiment. Its
+source-transform tool deliberately fails closed after a native identifier/schema
+change; reproduce it from the recorded revision/source snapshots, not by
+silently adapting it or rerunning its18 calls against V4 as new held-out evidence.
 
 ## Reproduce material-code OCR ablation
 

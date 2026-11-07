@@ -346,8 +346,23 @@ export default function LocalPhotoScreen() {
                 ))}
             </Paper>
             <AppText variant="small" muted>
-              {t("localVisionSource")}
+              {t(
+                observation.source.supplement.status === "observed"
+                  ? "localVisionSourceMobileClip"
+                  : "localVisionSource",
+              )}
             </AppText>
+            {observation.source.supplement.status === "unavailable" && (
+              <AppText testID="local-photo-supplement-unavailable">
+                {t("localVisionSupplementUnavailable")}
+              </AppText>
+            )}
+            {observation.source.supplement.status === "observed" && (
+              <AppText variant="small" muted>
+                MobileCLIP-S0 · {observation.source.supplement.modelRevision.slice(0, 12)} ·{" "}
+                {observation.source.supplement.gateVersion}
+              </AppText>
+            )}
             <AppText variant="small" muted>
               {t("localVisionSourceDetail")} · Vision {observation.source.classificationRevision} /
               OCR {observation.source.ocrRevision} · {observation.source.osVersion} ·{" "}

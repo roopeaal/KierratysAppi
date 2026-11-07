@@ -18,8 +18,52 @@ struct LocalVisionClassification: Encodable, Sendable {
   let passesOperatingPoint: Bool
 }
 
+enum LocalVisionSupplementSkipReason: String, Encodable, Sendable {
+  case primaryMatch = "primary_match"
+  case primaryConflict = "primary_conflict"
+}
+
+enum LocalVisionSupplementFailureReason: String, Encodable, Sendable {
+  case modelUnavailable = "model_unavailable"
+  case processingFailed = "processing_failed"
+}
+
+enum LocalVisionSupplement: Encodable, Sendable {
+  case skipped(LocalVisionSupplementSkipReason)
+  case unavailable(LocalVisionSupplementFailureReason)
+  case observed([LocalMobileClipScore])
+
+  private enum CodingKeys: String, CodingKey {
+    case status, reason, modelId, modelRevision, imageWeightSha256
+    case prototypesSha256, promptsSha256, promptPolicy, preprocessing, computeUnits, scores
+  }
+
+  func encode(to encoder: Encoder) throws {
+    var values = encoder.container(keyedBy: CodingKeys.self)
+    switch self {
+    case .skipped(let reason):
+      try values.encode("skipped", forKey: .status)
+      try values.encode(reason, forKey: .reason)
+    case .unavailable(let reason):
+      try values.encode("unavailable", forKey: .status)
+      try values.encode(reason, forKey: .reason)
+    case .observed(let scores):
+      try values.encode("observed", forKey: .status)
+      try values.encode(LocalMobileClipPredictor.modelId, forKey: .modelId)
+      try values.encode(LocalMobileClipPredictor.modelRevision, forKey: .modelRevision)
+      try values.encode(LocalMobileClipPredictor.imageWeightSha256, forKey: .imageWeightSha256)
+      try values.encode(LocalMobileClipPredictor.prototypesSha256, forKey: .prototypesSha256)
+      try values.encode(LocalMobileClipPredictor.promptsSha256, forKey: .promptsSha256)
+      try values.encode(LocalMobileClipPredictor.promptPolicy, forKey: .promptPolicy)
+      try values.encode(LocalMobileClipPredictor.preprocessing, forKey: .preprocessing)
+      try values.encode(LocalMobileClipPredictor.computeUnitsName, forKey: .computeUnits)
+      try values.encode(scores, forKey: .scores)
+    }
+  }
+}
+
 struct LocalVisionResult: Encodable, Sendable {
-  let schemaVersion = "local-vision-v3"
+  let schemaVersion = "local-vision-v4"
   let engine = "apple-vision"
   let classificationPolicy = "apple-class-operating-point-v1"
   let minimumPrecision = 0.9
@@ -32,6 +76,7 @@ struct LocalVisionResult: Encodable, Sendable {
   let observedAt: String
   let classifications: [LocalVisionClassification]
   let textLines: [String]
+  let supplement: LocalVisionSupplement
   let durationMs: Int
 
   func bridgeValue() throws -> [String: Any] {
@@ -56,7 +101,7 @@ private struct CancellableVisionRequests: @unchecked Sendable {
 }
 
 /// No networking, URLs, file writes, image history or model download.
-/// The sole mutable field is protected by stateLock; Vision runs off the JS/main thread.
+/// Mutable state is protected by stateLock; inference runs off the JS/main thread.
 final class LocalVisionEngine: @unchecked Sendable {
   static let shared = LocalVisionEngine()
   static let maxBytes = 1_500_000
@@ -73,9 +118,20 @@ final class LocalVisionEngine: @unchecked Sendable {
 
   private let stateLock = NSLock()
   private var inFlight = false
+  private var supplementalPredictor = LocalMobileClipPredictor.shared
   private let worker = DispatchQueue(label: "fi.roopeaaltonen.kierratysappi.local-vision", qos: .userInitiated)
 
   private init() {}
+
+  #if LOCAL_VISION_QA
+  // CLI-only model-resource configuration; this API does not exist in the app build.
+  func configureQAResources(_ url: URL) throws {
+    stateLock.lock()
+    defer { stateLock.unlock() }
+    guard !inFlight else { throw LocalVisionFailure.busy }
+    supplementalPredictor = LocalMobileClipPredictor(resourcesURL: url)
+  }
+  #endif
 
   func recognize(
     jpegBase64: String,
@@ -93,12 +149,13 @@ final class LocalVisionEngine: @unchecked Sendable {
       return
     }
     inFlight = true
+    let predictor = supplementalPredictor
     stateLock.unlock()
 
     worker.async { [self] in
       let outcome: Result<LocalVisionResult, LocalVisionFailure> = autoreleasepool {
         do {
-          return .success(try Self.perform(jpegBase64: jpegBase64))
+          return .success(try Self.perform(jpegBase64: jpegBase64, predictor: predictor))
         } catch let failure as LocalVisionFailure {
           return .failure(failure)
         } catch {
@@ -113,7 +170,7 @@ final class LocalVisionEngine: @unchecked Sendable {
     }
   }
 
-  private static func perform(jpegBase64: String) throws -> LocalVisionResult {
+  private static func perform(jpegBase64: String, predictor: LocalMobileClipPredictor) throws -> LocalVisionResult {
     let start = ProcessInfo.processInfo.systemUptime
     let image = try decodeJPEG(jpegBase64: jpegBase64)
     let classifier = VNClassifyImageRequest()
@@ -152,9 +209,10 @@ final class LocalVisionEngine: @unchecked Sendable {
     }
     let handler = VNImageRequestHandler(cgImage: image.pixels, orientation: image.orientation, options: [:])
     try handler.perform([classifier, text])
-    let elapsed = ProcessInfo.processInfo.systemUptime - start
     // cancel is best effort; the single-flight gate stays locked until perform really settles.
-    guard elapsed < deadlineSeconds else { throw LocalVisionFailure.failed }
+    guard ProcessInfo.processInfo.systemUptime - start < deadlineSeconds else {
+      throw LocalVisionFailure.failed
+    }
 
     // Vision is multi-label with a hierarchical taxonomy. Its independent scores
     // must not be ranked against different labels or treated as a softmax.
@@ -187,6 +245,38 @@ final class LocalVisionEngine: @unchecked Sendable {
             seen.insert(line).inserted else { return nil }
       return line
     }
+    // A failed primary never reaches this point. Preserve a match or a conflict;
+    // only a genuine no-match may ask the separate visible-form estimator.
+    let supplement: LocalVisionSupplement
+    if let reason = supplementalSkipReason(classifications) {
+      supplement = .skipped(reason)
+    } else {
+      guard ProcessInfo.processInfo.systemUptime - start < deadlineSeconds else {
+        throw LocalVisionFailure.failed
+      }
+      do {
+        let scores = try predictor.predict(image: image.pixels, orientation: image.orientation)
+        let groups = ["bottle", "jar", "box", "bag", "cup", "other-battery", "other-phone", "other-book", "other-food", "other-person", "other-animal", "other-leaf", "other-clothes", "other-electronics", "other-tools", "other-plate", "other-aerosol", "other-drink-can"]
+        if scores.map(\.group) == groups,
+           scores.allSatisfy({ $0.cosine.isFinite && $0.cosine >= -1 && $0.cosine <= 1 }) {
+          supplement = .observed(scores)
+        } else {
+          supplement = .unavailable(.processingFailed)
+        }
+      } catch LocalMobileClipFailure.unsupportedPlatform {
+        supplement = .unavailable(.modelUnavailable)
+      } catch LocalMobileClipFailure.unavailable {
+        supplement = .unavailable(.modelUnavailable)
+      } catch LocalMobileClipFailure.invalidModel {
+        supplement = .unavailable(.modelUnavailable)
+      } catch {
+        supplement = .unavailable(.processingFailed)
+      }
+    }
+    let elapsed = ProcessInfo.processInfo.systemUptime - start
+    // Core ML prediction is not cancellable; never release the single-flight
+    // gate or return its late output merely because the UI deadline elapsed.
+    guard elapsed < deadlineSeconds else { throw LocalVisionFailure.failed }
     let formatter = ISO8601DateFormatter()
     formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
     let version = ProcessInfo.processInfo.operatingSystemVersion
@@ -198,8 +288,26 @@ final class LocalVisionEngine: @unchecked Sendable {
       classifications: Array(classifications),
       // Too much text must not hide a conflicting code outside the output bound.
       textLines: lines.count <= 24 ? lines : [],
+      supplement: supplement,
       durationMs: max(0, Int((elapsed * 1_000).rounded()))
     )
+  }
+
+  static func supplementalSkipReason(_ classifications: [LocalVisionClassification]) -> LocalVisionSupplementSkipReason? {
+    let kinds = Set(classifications.compactMap { value -> String? in
+      guard value.hasPrecisionRecallCurve && value.passesOperatingPoint else { return nil }
+      switch value.identifier {
+      case "bottle", "wine_bottle": return "bottle"
+      case "jar": return "jar"
+      case "carton", "cardboard_box": return "box"
+      case "paper_bag": return "bag"
+      case "cup": return "cup"
+      default: return nil
+      }
+    })
+    if kinds.count == 1 { return .primaryMatch }
+    if kinds.count > 1 { return .primaryConflict }
+    return nil
   }
 
   private static func decodeJPEG(jpegBase64: String) throws -> (pixels: CGImage, orientation: CGImagePropertyOrientation) {

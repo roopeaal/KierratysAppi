@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "system-family-experiment-v1",
+  "purpose": "Compare visible-object family coverage without lowering class-specific operating points; no product/material/safety/sorting claim.",
+  "dataStatus": "previously-seen-development-not-heldout",
+  "fixtureManifest": "scripts/qa/local-vision/independent-manifest.json",
+  "fixtureCount": 9,
+  "executionsPerImagePerArm": 1,
+  "retries": 0,
+  "minimumPrecision": 0.9,
+  "minimumRecall": 0.01,
+  "groupPolicy": "zero accepted kinds => unknown; multiple accepted kinds => unknown; one accepted kind => tentative visible form only",
+  "arms": [
+    {
+      "id": "baseline",
+      "identifiers": ["bottle", "wine_bottle", "jar", "carton", "cardboard_box", "paper_bag", "cup"]
+    },
+    {
+      "id": "expanded",
+      "identifiers": [
+        "bottle",
+        "wine_bottle",
+        "jar",
+        "carton",
+        "cardboard_box",
+        "paper_bag",
+        "cup",
+        "bag",
+        "sack",
+        "mug"
+      ]
+    }
+  ],
+  "kindMapping": {
+    "bottle": "bottle",
+    "wine_bottle": "bottle",
+    "jar": "jar",
+    "carton": "box",
+    "cardboard_box": "box",
+    "paper_bag": "bag",
+    "cup": "cup",
+    "bag": "bag",
+    "sack": "bag",
+    "mug": "cup"
+  },
+  "fixedControls": "Exact production engine and CLI; only the static identifier list differs. Image bytes/decoder/orientation/revisions/OCR/cancellation remain identical.",
+  "interpretation": "Report every score/curve/pass flag and coarse result. New accepted coverage is not independent accuracy or permission to deploy. No retakes, score tuning or source changes during execution."
+}

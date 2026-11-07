@@ -13,6 +13,7 @@
       "!mobile/app/ios",
       "!mobile/app/expo-env.d.ts",
       "!mobile/app/assets/expo.icon",
+      "!mobile/app/modules/local-vision/ios/Resources/mobileclip_s0_image.mlpackage",
       "!work",
       "!outputs"
     ]

@@ -1,5 +1,29 @@
 # Release decision
 
+## November7 — local supplemental classifier integrated, still NO-GO
+
+Pinned2024 MobileCLIP-S0 now supplements only a true Apple Vision no-match;
+primary matches/conflicts/errors and material confirmation remain unchanged.
+Fresh held-out five packaging forms improve2→4 accepted correct estimates, with
+both outside-kind controls unknown and no new error/lost correct result. This
+tiny AI-reviewed set is not representative accuracy. The validation accounting
+amendment is disclosed, applied before held-out calls, and changes no decisions
+or metrics; it is not an unamended preregistration pass.
+
+Full711 tests/all builds/17 routes, scoped mobile393/shared214, native regression
+and FI/EN browser checks pass. Unsigned Debug7 includes the hash-checked23,378,043B
+image-model bundle/prototypes/four notices; text encoder/tokenizer are absent.
+Original2024 weight/software/component licences and no-endorsement attribution
+are accounted for, not a blanket IP or store approval.
+
+**NO-GO:** LV-001/PHOTO-003/004 remain high/open for representative human-labelled,
+real-camera/unknown/hazard/platform quality evidence. Signed Release, matching
+phone installation/offline launch, physical accessibility/energy, Android and
+existing store/privacy/operations gates remain unverified. Last verified profile
+expired November4; current phone state unqueried. NEXT_ACTION is local readiness/
+integrity preflight, not an external funding blocker. No push or production
+publication occurred. Details: LOCAL_CLASSIFIER_UPGRADE and TEST_EVIDENCE.
+
 ## November6 — measured OCR improvement, still NO-GO
 
 V3's fixed material lexicon improves the frozen synthetic PP cases without a new
