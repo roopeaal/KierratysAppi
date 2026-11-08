@@ -1,5 +1,29 @@
 # Adversarial production-readiness audit
 
+## Reliability continuation — November8
+
+Scoped local recognition/QA follow-up, **not a fresh30-lane audit or GO**.
+Details, unchanged model/settings, frozen source/reference hashes, retained
+failures and reproduction tooling: `LOCAL_VISION_RELIABILITY_RESULTS.md`.
+Actual unsigned iOS9 build/resource/link evidence is separate from physical
+camera/signing/Release/energy acceptance. No GitHub or device action occurred.
+
+| ID / severity / state | Evidence / affected files or flow | Reproduction | Required remediation / execution boundary |
+| --- | --- | --- | --- |
+| LV-001 / high / OPEN | S2 fresh20 leaves1 wrong mixed control with4 correct positives; F1 separately fresh20 leaves2 wrong mixed controls with8 correct positives. `spatial-main.swift`, `foreground-main.swift` are QA-only; app's current form cascade still has demonstrated ambiguity errors. | Frozen `mixed-lagavulin`, `mixed-rostov`, `mixed-bagcontainers`; inspect locked summary hashes in results report, not new retakes. | Engineering/local: task-specific data/learning and unknown rejection with frozen independent validation. Do not deploy failed guards or invent material/safety. Human labels/representative device evidence need named reviewers/operators, but do not externalize model engineering as an account/credit blocker. |
+| LV-002 / high / locally REPAIRED, device evidence pending | Prior native12s cancel could leave promise pending during blocking decode/Vision/CoreML; captured primary runs to45s. `local-vision-engine.swift`, Expo bridge, `recognizer.ts`. UI15s timeout did not settle native work. | Actual-worker QA-controlled blocked job in `--recognition-self-test`; timeout must resolve once while recognition/readiness/configuration stay busy until release. | Outer once-only delivery deadline + one total monotonic budget/remaining request budget; gate retained until actual settlement; typed timeout maps to existing recovery. Nine native no-image lifecycle checks and JS/policy regressions pass, actual unsigned9 links it. Physical latency/energy remain unverified, not a guarantee of forcible OS cancellation. |
+| QA-002 / high / locally REPAIRED before foreground pictures | First new primary-only adapter rejected legitimate V4 primary match/conflict with `supplement.skipped`, despite requiring actual V4 for confirmation. Affects `foreground-evaluate.mjs`, not app's existing adapter. | Exact V4 primary match/primary_match and conflict/primary_conflict fixtures; no-match must have unavailable supplement, observed CLIP cannot masquerade as primary. | Strict matching raw/normalized branches and regression tests; repaired before source freeze/any foreground picture call, no retakes or outcome change. |
+| QA-003 / medium / locally REPAIRED before pictures | Mask encoding formerly accepted arbitraryUInt32 format; extracted crop format likewise needed exact formats. `foreground-policy.mjs`. | Mutate valid mask/crop fixtures to mismatched encoding/pixel constants; reject. | Bind8-bit/float mask and ARGB/BGRA crop constants, stride/finite integer label/index/dimension bounds. Regression checks pass. |
+| QA-004 / medium / locally REPAIRED before pictures | New evaluator's initial source receipt omitted transitive baseline cascade/domain source-tree dependencies. | Compare receipt with imported helper/package/lock/runtime dependencies. | Include transitive cascade, domain source tree, package/lock and Node/native-platform hashes; source-stable receipts retained for both phases. |
+| LV-003 / high / locally REPAIRED | Actual static web export shows query-prefilled05 PP but keeps Check disabled: first client state differs from query-free server HTML. `mobile/app/src/app/material-code.tsx`; local recognition's manual recovery. | Serve exported files, open `/material-code?code=05%20PP`; original `browser.log` retains disabled-button timeout. | Start hydration with matching empty state, apply validated editable prefill in effect, clear stale parse/sorting without auto-check/confirm. Source guard plus rebuilt actual-export FI/EN browser regression, including enabled Check and separate confirmation; no native/schema change. |
+
+F2's extra positive recoveries do not excuse its introduced required mask failure.
+No failed reference was relabelled, omitted, retried or counted as successful
+abstention. Combining F1/S2 alone cannot remove their shared Lagavulin error:
+both captured decisions retain bottle. No new inference or quality claim was
+made from that logical observation. Existing PHOTO-003/004 and all broader
+privacy/store/operations/platform findings remain open at their original severity.
+
 ## Broader reliability/readiness follow-up — November7
 
 **LV-001 stays high/open and locally executable:** frozen new32-case audit

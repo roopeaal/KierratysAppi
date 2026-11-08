@@ -1,5 +1,12 @@
 # Acceptance criteria
 
+## Reliability continuation — November8
+
+1. Preserve S2/F1 failed prospective results, F2 introduced operational failure, source/reference pins and all denominators. No failed candidate deployment, retake, outcome-based relabel or severity reduction. All72 cases are seen development now; new training protocols must state this explicitly.
+2. Recognition delivers timeout once independently of blocking decode/Vision/CoreML, uses one monotonic budget including setup, and retains shared busy/configuration/readiness exclusion until actual work settles. Late success cannot redeliver; native typed timeout reaches localized UI recovery. QA alternate durations/jobs must be absent from shipping symbols.
+3. Native source9/actual unsigned Debug9 metadata/link/resources/privacy/notices/locks and full/scoped regressions must agree. These do not establish signing renewal, phone/offline/permission/latency/energy/Android quality.
+4. Independent blinded human reference review and representative real-camera unknown/mixed/hazard/platform acceptance remain required. No exact identity/composition/safety/bin claim follows from inferred form. Existing material confirmation and sourced sorting remain unchanged.
+
 ## Reliability loop — November7
 
 1. No-image readiness reports actual integrity/interface only; strict pinned native results cannot forge client-only legacy states or quality certification. Check before permission, preserve partial/old-client recovery, and suppress cancelled/stale camera opening while retaining native single-flight until actual settlement.

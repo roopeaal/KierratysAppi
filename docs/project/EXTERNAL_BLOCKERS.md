@@ -1,5 +1,19 @@
 # External blockers
 
+## November8 reliability continuation
+
+No new account/key/credit/paid service is required for the completed native
+deadline repair or QA algorithms. Both S2 and F1 fail fresh confirmation and
+remain undeployed; model/data improvements remain engineering-owned **locally
+executable**, not externally blocked. Independent labels require a human
+reviewer, and physical camera/OS permission/VoiceOver/energy acceptance requires
+Roope/device access under a separately requested matching signed installation.
+Those evidence lanes cannot be replaced by AI labels or an unsigned build9.
+Last verified profile expiry was November4; current account/device/profile state
+is unqueried, not a newly reproduced signing failure. No renewal/install, paid
+request, cleanup or push is authorized/performed by this continuation. Existing
+Android/Release/privacy/store/operations owner gates remain unchanged.
+
 ## November7 reliability loop
 
 No new credential, API-credit, account or paid-compute blocker. Readiness source/

@@ -7,7 +7,7 @@ import {
 import { localizedText } from "@kierratysappi/localization";
 import type { SortingResult } from "@kierratysappi/recycling-engine";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Keyboard, Linking, StyleSheet, TextInput, View } from "react-native";
 import { SortingResultCard } from "@/components/sorting-result";
 import {
@@ -34,10 +34,21 @@ export default function MaterialCodeScreen() {
   const { language, t } = useLanguage();
   const { palette } = useAppTheme();
   const params = useLocalSearchParams<{ code?: string | string[] }>();
-  const [value, setValue] = useState(() => materialCodePrefill(params.code));
+  const prefill = materialCodePrefill(params.code);
+  // Static HTML has no request query. Keep its first render identical to the
+  // hydration render, then apply the validated suggestion as editable state.
+  // Otherwise React can retain the server's disabled Check button even while
+  // the controlled input shows the client query value.
+  const [value, setValue] = useState("");
   const [attempt, setAttempt] = useState<MaterialCodeParseResult>();
   const [sorting, setSorting] = useState<SortingResult>();
   const [focused, setFocused] = useState(false);
+
+  useEffect(() => {
+    setValue(prefill);
+    setAttempt(undefined);
+    setSorting(undefined);
+  }, [prefill]);
 
   const parse = () => {
     Keyboard.dismiss();

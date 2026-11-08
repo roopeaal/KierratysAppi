@@ -24,6 +24,7 @@ public final class LocalVisionModule: Module {
             promise.reject("ERR_LOCAL_VISION_FAILED", "failed")
           }
         case .failure(let failure):
+          // Includes the bounded outer watchdog's ERR_LOCAL_VISION_TIMEOUT.
           let code = failure.rawValue.uppercased()
           promise.reject("ERR_LOCAL_VISION_\(code)", failure.rawValue)
         }

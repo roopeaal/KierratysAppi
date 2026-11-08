@@ -223,6 +223,7 @@ async function main() {
         exact: true,
       });
       await codeField.waitFor();
+      await page.waitForFunction((el) => el.value === "05 PP", await codeField.elementHandle());
       assert.equal(await codeField.inputValue(), "05 PP");
       const confirm = page.getByRole("button", {
         name:
@@ -231,14 +232,21 @@ async function main() {
       });
       assert.equal(await confirm.count(), 0);
       assert.equal(await page.locator('[data-testid^="sorting-result-"]').count(), 0);
-      await page
-        .getByRole("button", {
-          name: language === "fi" ? "Tarkista koodi" : "Check code",
-          exact: true,
-        })
-        .click();
+      const checkCode = page.getByRole("button", {
+        name: language === "fi" ? "Tarkista koodi" : "Check code",
+        exact: true,
+      });
+      assert.equal(await checkCode.isEnabled(), true, "Hydrated query enables explicit Check");
+      await codeField.fill("");
+      assert.equal(await checkCode.isEnabled(), false, "Editable empty code disables Check");
+      await codeField.fill("05 PP");
+      assert.equal(await checkCode.isEnabled(), true, "Typing enables Check without parsing");
+      assert.equal(await confirm.count(), 0);
+      await inspect(page, `${language}-material-prefill-editable`);
+      await checkCode.click();
       await confirm.waitFor();
       assert.equal(await page.locator('[data-testid^="sorting-result-"]').count(), 0);
+      await inspect(page, `${language}-material-requires-confirmation`);
       await confirm.click();
       await page.locator('[data-testid^="sorting-result-"]').waitFor();
       await page.goto(`${base}/material-code?code=05%20PP&code=01%20PET`);

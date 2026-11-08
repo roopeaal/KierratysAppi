@@ -79,3 +79,16 @@ test("local failure has an explicit barcode recovery that clears sensitive view 
   assert.ok(recovery.indexOf("clear()") < recovery.indexOf('router.push("/scan")'));
   assert.doesNotMatch(recovery, /requestPermission|recognizeLocalPhoto|takePicture/u);
 });
+
+test("material-code query prefill waits for hydration without checking or confirming", () => {
+  const text = source("mobile/app/src/app/material-code.tsx");
+  assert.match(text, /const \[value, setValue\] = useState\(""\)/u);
+  assert.match(text, /const prefill = materialCodePrefill\(params\.code\)/u);
+  const effect = text.match(/useEffect\(\(\) => \{([\s\S]*?)\}, \[prefill\]\)/u)?.[1];
+  assert.ok(effect);
+  assert.match(effect, /setValue\(prefill\)/u);
+  assert.match(effect, /setAttempt\(undefined\)/u);
+  assert.match(effect, /setSorting\(undefined\)/u);
+  assert.doesNotMatch(effect, /parseMaterial|sortRecognized|confirm\(/u);
+  assert.match(text, /disabled=\{value\.trim\(\)\.length === 0\}/u);
+});

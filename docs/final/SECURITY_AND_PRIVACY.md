@@ -1,5 +1,24 @@
 # Security and privacy
 
+## November8 — bounded delivery, experimental data kept out of app
+
+Native recognition now delivers typed timeout once independently of blocked
+decode/Vision/CoreML. A single total monotonic12s budget covers setup and
+inference; the busy gate remains until actual work settles. Best-effort cancel
+is not forced termination or a memory/battery bound. Late success is suppressed,
+SDK method/error accessors contained, and UI uses existing localized recovery.
+No model/prompt/rule/permission/recipient/history/analytics/network change.
+
+Spatial and foreground candidates fail prospective gates and are QA-only, not
+app behavior. Seventy-two audit references are publicly sourced/rights-traced
+and AI-reviewed, not user captures or independent human labels; model outputs
+must be withheld from independent review. Source/licence attribution remains
+with any local review copy. No new image/model download occurs at runtime and
+no paid fallback is added. Actual unsigned9 links only the deadline repair;
+unchanged model/notices/privacy and absent QA hooks pass. No signing/install,
+packet-level device privacy or performance certification. Evidence and failed
+data-accounting/acquisition attempts: LOCAL_VISION_RELIABILITY_RESULTS.
+
 ## November7 — pre-camera integrity and broader public QA
 
 Readiness checks no image or camera permission and uses the same serial native

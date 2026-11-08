@@ -75,6 +75,14 @@ if args == ["--readiness"] {
   #else
   fail("qa_only_command")
   #endif
+} else if args == ["--recognition-self-test"] {
+  #if LOCAL_VISION_QA
+  guard let cases = LocalVisionEngine.recognitionLifecycleSelfTest() else { fail("recognition_self_test_failed") }
+  emit(try JSONSerialization.data(withJSONObject: ["passed": cases.count, "cases": cases,
+    "imageRequestsPerformed": 0, "supplementRequestsPerformed": 0], options: [.sortedKeys]))
+  #else
+  fail("qa_only_command")
+  #endif
 } else if args == ["--self-test"] {
   let invalid: [String] = [
     "",

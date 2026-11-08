@@ -1,10 +1,20 @@
 # Roadmap
 
+## Reliability continuation — November8
+
+- [x] Complete frozen S1/S2 development and locked fresh20; retain failed integration gate/one remaining wrong control/two primary failures. No deployment or outcome-driven retake.
+- [x] Implement bounded foreground-subject QA and original F1/F2; review reference/source/interface pins before inference. F1 qualifies on explicitly seen52 but fails fresh20 with two mixed-scene false accepts. F2 required failure retained; neither deployed.
+- [x] Repair native once-only recognition deadline and remaining-budget cancellation without prematurely releasing busy work; add actual-worker no-image/JS/policy regressions. Preserve native/app8 and verify actual unsigned iOS9 build/resources/symbols/privacy.
+- [x] Repair actual static-export material-code prefill hydration while retaining separate Check+Confirm; original failed browser evidence and new source/browser assertions retained.
+- [x] Generate72-case blinded independent human review copies/blank forms, separate rights/source key and mandatory discrepancy/orientation adjudication.18 regressions/all-copy verification pass; generation is not human acceptance. Final full974/all builds/17 routes/browser checks pass.
+- [ ] Freeze a group-disjoint task-specific learning experiment on openly seen data, retaining unknown/mixed controls and independent human/real-camera acceptance; do not repeat fresh20 guard loops or call seen data held-out.
+- [ ] Obtain independent reference review and separately requested matching signed native camera/offline/permissions/accessibility/latency/memory/energy/platform acceptance. LV-001/PHOTO/release gates remain open.
+
 ## Reliability loop — November7, in progress
 
 - [x] Implement truthful no-image pre-camera readiness/integrity, strict public/native contracts, FI/EN recovery and abort/background/single-flight guards. Full832/scoped446+254, native/no-image/client/source checks and actual unsigned8 compile/resource/link pass; later spatial files require another final full run.
 - [x] Freeze32 new public cases; test A/B original algorithms without retuning. Retain failed validation/null choice and baseline-only held-out audit, including both mixed-scene false accepts; do not deploy either loser.
-- [ ] Finish the separate frozen spatial-disagreement development/prospective experiment, with original failures intact and no new quality claim from AI-labelled catalogue images.
+- [x] Finish the separate frozen spatial-disagreement development/prospective experiment; its failed result and foreground follow-up are recorded above, without a quality pass from AI-labelled catalogue images.
 - [ ] Independently human-review references and accept representative real-camera/offline/permission/accessibility/latency/memory/battery/platform behavior on a separately requested matching signed installation.
 
 ## Local classifier upgrade — November7

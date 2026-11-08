@@ -1,5 +1,127 @@
 # Test evidence
 
+## November8 — failed spatial/foreground confirmation and deadline repair
+
+Scope, exact protocols/frozen choices/source/reference/model pins, all acquisition
+and processing failures: `LOCAL_VISION_RELIABILITY_RESULTS.md`. Not a general
+accuracy pass, phone acceptance or repeated30-lane audit. Start4495917 after its
+readiness/A/B work; new experiments and native repair remain separate.
+
+| Evidence lane | Result / retained evidence |
+| --- | --- |
+| Spatial no-image/source checks |25 Node cases and25 native geometry/input checks; actual fixed regions/EXIF/gray/aspect bounds and veto semantics, no synthetic case counted as real-image accuracy |
+| Spatial seen development |16 executions/64 region predictions, captured primary/center reused. S1/S2:10 correct/1wrong baseline→10/0;0 correct loss/failures. Tie locks S2 before fresh calls |
+| Spatial prospective20 |47 processes =40 primary/center+7 spatial/28 region predictions. S2:4 correct positives,1 wrong mixed control; removes2 errors,0 correct loss. Original45s process timeout/17s defined primary failure retained in20 denominators. **FAIL**, no deployment/retake |
+| Foreground preflight |15 no-image synthetic layout/budget/input checks, pinned model/prototype preflight. One owned uniform512RGB probe:1 completed mask,0 CLIP, no subjects,3193ms native/3206ms wall. Interface available only, not accuracy/warmed/phone timing |
+| Foreground seen52 |50 foreground processes/56 completed subject predictions; two old failed primaries skipped but retained in52. F1:21 correct positives/3 wrong controls versus21/5 baseline,0 new required failures/correct loss. F2:24 correct/3 wrong but1 introduced required mask failure→ineligible. Lock F1 before fresh20 |
+| Foreground prospective20 |50 processes =40 primary/center+10 foreground/11 subject predictions. Baseline and F1 both8 correct/2 positive unknown/2 wrong mixed controls,0 operational failures. **FAIL**, no deployment, retakes, policy choice, relabel or new image-based tuning |
+| Native deadline lifecycle |9 actual-worker QA checks,30ms controlled blocked no-image job,0 image/supplement requests: outer timeout once, shared recognition/readiness/configuration exclusion retained, late result suppressed and retry after settlement. Prior readiness8/input8/cascade6 no-image checks remain green |
+| Native compile |Swift6 QA and shipping-flags compile; engine SHA139a9fc8d99f6f399768b6ce5cf60cc68b879add598c5a8663d0551ccce65286. New3 JS and3 Node timeout regressions; no model/gate/OCR/observation/schema/rule change |
+| Actual iOS artifact |Unsigned generic-iOS Debug9 **BUILD SUCCEEDED**; native/app8 preserved beforehand. Actual Info9/linked watchdog-worker/model graph+weight+prototype/four complete notices/privacy/equal native locks pass; full symbol inspection shows0 QA hooks. No prebuild/pod/dependency upgrade/signing/install/profile/device action |
+| Full mandatory checkpoint |**PASS955 unique cases =430 Node policy+525 application**, boundaries/format/lint/strict types/all package/API builds/17 exported web routes, exit0; `work/recognition-timeout-2026-11-08.dSyBP8/validate-current.log`. This precedes any later blind-review tooling and is not its final validation |
+
+Application breakdown at955 checkpoint: domain52/database5/localization8/
+recycling8/contracts194/providers42/mobile187/application8/API21 =525. Scoped
+checks overlap the full run; never add them to the unique total. No new live
+dependency-security/Doctor/remote-CI/Android/Release pass is inferred.
+
+Actual build receipt: `work/recognition-timeout-2026-11-08.dSyBP8/ios-build9.log`
+and `artifact-checks.json`. Debug dylib SHA256
+`8eafd6f8a3422f4fa57270efe181df17c0e3848c251f29918b9677c055826826`;
+unchanged pod lock
+`6b0253d9036009436fb87c28a15874edc3e0ffae352deb96be229f971ec44013`.
+`app-symbols.log` initial query missed private-context symbol names; corrected
+`app-symbols-repaired.log` establishes real link and absent QA hooks, not a new
+build. Initial format failure and repaired922-case intermediate run remain in
+`validate.log`/`validate-repaired.log`, not hidden behind the955-case pass.
+Two attempted later parallel source reviews stopped at agent usage limits;
+they are **not completed independent reviews or a product credit blocker**.
+Root read-through finds no new deadline/cascade boundary defect; earlier frozen
+foreground adapter/pixel-format/source-hash findings and repairs are in the audit.
+
+No user pictures, training, paid API, secret, cleanup, phone/profile or GitHub
+action. LV-001/PHOTO-003/004 and existing public-release findings remain open.
+Last verified profile expired November4; current state unqueried.
+
+### Actual static-export recovery and visual checks
+
+Unlike earlier Metro-only checks, this run serves freshly exported files on
+loopback8096. First current browser run **FAILS** on the genuinely disabled Check
+button despite05 PP prefill; original `browser.log`/`browser/` retained. Fix
+hydration parity, add a source guard and strengthen rather than weaken browser
+assertions. `web-hydration-build.log` records the repaired17-route export.
+
+Rebuilt actual FI/EN browser run passes (`browser-repaired.log`), then the same
+suite with explicit editable/empty/retyped Check-state and two new prefill/
+confirmation screenshots also passes (`browser-final.log`, `browser-final/`).
+Both require separate Check and physical-code confirmation, reject duplicated
+query values and allow no API/camera/GPS call. They cover keyboard recovery,
+local/cloud privacy/attribution,44pt,320/390/1280 light/dark and130% synthetic
+text. Representative FI390, EN320-large, attribution, enabled prefill and
+unconfirmed material screenshots are visually inspected: no observed horizontal
+clipping; vertical content remains scrollable, not all captured in one viewport.
+Browser native-unavailable is honest, not simulated camera/inference evidence.
+This JS-only repair does not change the already verified native build9 hashes.
+
+Narrow policy run first fails the old literal initializer/no-effect source guards
+(`recovery-policy.log`, `recovery-policy-repaired.log`). Replace those obsolete
+implementation assertions with the exact three allowed prefill/reset assignments
+and prohibit auto-parse/confirm in the effect; do not remove the safety invariant.
+All18 narrow cases then pass (`recovery-policy-final.log`). The actual exported
+browser confirms the functional behavior, not just matching source strings.
+
+Independent scoped `validate:mobile` **449** and `validate:shared` **254**
+overlapping cases pass with strict types/builds/boundaries, logs in the same
+evidence root. These precede new blind-review tooling and the final full run.
+
+### Blinded reference packet and final software validation
+
+Actual generation succeeds at `work/blind-human-review-72-2026-11-08-r2/`:
+**72 copies/11,460,868bytes**, opaque names,18 passing workflow/attack tests,
+blank two-human forms, source/AI key withheld from reviewer view and accompanied
+separate licence attribution. No network/inference, new source acquisition or
+human acceptance. Root independently verifies all72 copy hashes, tool hash,
+blank dates/codes/attestations/labels and no source-ID/title leakage in reviewer
+forms. Generation and `blind-review-verified.json` receipts are in the evidence
+root. The original references/labels/predictions remain untouched.
+
+Retain first safe failures: synthetic temp-path canonicalization fails on
+macOS `/var`→`/private/var`, fixed without relaxing link rejection; real planning
+initially rejects a legitimate thumbnail host, fixed through the existing
+public checkedImageUrl helper. Root's first actual generation stops **before
+creating output** at cup-five EXIF: big-endian LONG/type4,count1,value0, not valid
+EXIF direction. `blind-review-attempt1.json` and first CLI output remain. New
+documented copy policy strips only this exact invalid-unset shape, leaves pixels
+unrotated and flags direction unverified in both reviewer and owner views;
+human source-comparison adjudication is mandatory even on agreement. Other
+malformed/conflicting values reject. All72 sanitizer preflight passes before
+the new explicit r2 output, with one flagged case. No model retake/relabel or
+post-hoc quality pass; ICC removal may change colour rendering.
+
+Packet SHA256
+`d8d9f4ba2c15798e841728635ca4baec3ac50a26bdb2f9e9cd494bc3c63db38d`;
+owner-key SHA256
+`211ba61179101cc562bf19341a96cc44f214f3b4d094c045bcd6b0975dcea3db`;
+generator SHA256
+`4f943218af76fdea8c41c14dcb20e33c17da00cc1b6376d0e7eb325475267a04`.
+Exact manifest/validator/helper/public sanitizer/tsx/runtime hashes remain in
+`owner-only/generation-receipt.json`. All generated photos/completed forms stay
+ignored/private; source instructions are in `blind-review-README.md`. No human
+form is completed and no reference has become independently accepted.
+
+**Final `pnpm validate` PASS974 unique tests:449 Node policy+525 application**,
+all boundaries/format/lint/strict types/package/API builds/17 exported routes,
+exit0: `work/recognition-timeout-2026-11-08.dSyBP8/validate-final.log`.
+Final independent mobile449/shared254 overlapping scopes also pass in
+`validate-mobile-final.log`/`validate-shared-final.log`. Existing pinned pnpm11.16
+shims, Node26.4, CI/no-telemetry/no-dotenv environment, no package installation.
+Production Node24/remoteCI/Doctor/live audit/Android/Release/device quality are
+not newly verified. Root's repeated nine actual-worker no-image timeout checks
+also pass; the local loopback8096 QA server alone is stopped after testing.
+Later changes are control/evidence documentation only; post-documentation
+format and diff-whitespace checks pass (`format-post-docs.log`). No push,
+phone update or release GO.
+
 ## November7 — no-image readiness and failed broader veto experiment
 
 LOCAL_VISION_READINESS_AND_ROBUSTNESS records the exact source boundaries,

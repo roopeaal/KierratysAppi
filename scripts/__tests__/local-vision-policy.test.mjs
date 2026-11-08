@@ -150,10 +150,19 @@ test("local estimates do not infer sorting, and marking navigation still require
     /sortPackagingComponent|sortRecognizedMaterialCode|SortingResultCard|canConfirmPhotoPart|PhotoEstimate/,
   );
   const markingScreen = source("mobile/app/src/app/material-code.tsx");
-  assert.match(markingScreen, /useState\(\(\) => materialCodePrefill\(params\.code\)\)/);
+  assert.match(markingScreen, /const prefill = materialCodePrefill\(params\.code\)/);
+  assert.match(markingScreen, /useState\(""\)/);
+  assert.match(markingScreen, /useEffect\(\(\) => \{\s*setValue\(prefill\);/);
   assert.match(markingScreen, /materialCodeParseAction/);
   assert.match(markingScreen, /materialCodeConfirmAction/);
-  assert.doesNotMatch(markingScreen, /useEffect|useFocusEffect/);
+  const prefillEffect = markingScreen.match(
+    /useEffect\(\(\) => \{([\s\S]*?)\}, \[prefill\]\)/,
+  )?.[1];
+  assert.match(
+    prefillEffect ?? "",
+    /^\s*setValue\(prefill\);\s*setAttempt\(undefined\);\s*setSorting\(undefined\);\s*$/,
+  );
+  assert.doesNotMatch(markingScreen, /useFocusEffect/);
 });
 
 test("FI and EN local copy keep image inference, material checking, unavailable recovery and cloud recipient explicit", () => {

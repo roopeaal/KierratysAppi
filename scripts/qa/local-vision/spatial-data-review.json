@@ -1,0 +1,173 @@
+{
+  "schemaVersion": "spatial-data-review-v1",
+  "reviewStatus": "ai_visual_review_human_review_required",
+  "reviewedBeforeInference": true,
+  "limitations": "AI visual review of all29 downloaded candidates before predictions; independent human review remains required and pretraining membership is unknown. Public catalogue and selected outdoor/still-life photographs are not representative real-camera samples. Final20 references contain ten visible-form positives, five mixed supported-kind scenes and five outside-kind controls; the historical tonic bottle-and-box is an explicit domain limitation. Reusable containers, partial tote straps and saucers are disclosed context challenges, never packaging, composition, hazard or sorting truth. All earlier acquired, evaluated, rejected and reserved source/hash groups are excluded, including all48 robustness candidates; the Meanwell Packaging stock-photo series is excluded as a conservative source-family precaution. No model results were used to select or replace images.",
+  "cases": [
+    {
+      "id": "bottle-chimay",
+      "eligible": true,
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "One complete bottle shows mouth, neck, body and base. Public product print does not establish identity, composition or deposit status."
+    },
+    {
+      "id": "bottle-banks",
+      "eligible": true,
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "One complete bottle is visible; its loose cap is not another supported form. No person or private text is observed."
+    },
+    {
+      "id": "bottle-plain",
+      "eligible": false,
+      "reason": "Unused reserve selected before predictions: bottle plus separate preform/comparison scene is less exclusive than the two simpler complete bottle references."
+    },
+    {
+      "id": "jar-swear",
+      "eligible": true,
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "A complete open wide-mouth jar is visible. Generic handwritten label and contents do not establish composition, identity or packaging status."
+    },
+    {
+      "id": "jar-katmon",
+      "eligible": false,
+      "reason": "Eligibility exclusion: overhead food and jar-rim close-up lacks the whole jar body and base; filename is not whole-form evidence."
+    },
+    {
+      "id": "jar-saffron",
+      "eligible": true,
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "A complete short-neck, broad-body storage jar with stopper is visible. No identifying person or private text is observed; contents and composition remain unverified."
+    },
+    {
+      "id": "box-covid",
+      "eligible": false,
+      "reason": "Eligibility exclusion: unfolded carton net or sheet with clipped edges, not a clear whole three-dimensional box."
+    },
+    {
+      "id": "box-moving",
+      "eligible": true,
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "One complete closed rectangular box stands on a plain background. No shipping address or private text is visible; actual composition is not verified."
+    },
+    {
+      "id": "box-juul",
+      "eligible": true,
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "A complete retail box is visible. The printed device illustration is not another physical object; public product print is not verified identity."
+    },
+    {
+      "id": "bag-cloth",
+      "eligible": false,
+      "reason": "Eligibility exclusion: flat textile and strap crop lacks sufficiently clear whole-bag form and would rely excessively on the source title."
+    },
+    {
+      "id": "bag-coffee",
+      "eligible": true,
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "One complete flexible pouch includes sealed top, body and base. Public commercial print does not establish contents, material or sorting truth."
+    },
+    {
+      "id": "bag-bilum",
+      "eligible": false,
+      "reason": "Unused reserve selected before predictions: complete bag form is valid, but the historical museum/reusable-object context is less relevant than the contemporary pouch and tote references."
+    },
+    {
+      "id": "bag-wikimedia",
+      "eligible": true,
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "A clear reusable tote body and strap portions are visible with pencils as outside-kind props. Handles leave the frame, but the bag body is complete; no second supported kind is observed."
+    },
+    {
+      "id": "cup-mug",
+      "eligible": true,
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "One complete handled drinking vessel shows rim, body and base. Reusable tableware context does not imply packaging or composition."
+    },
+    {
+      "id": "cup-tandem",
+      "eligible": false,
+      "reason": "Unused reserve selected before predictions: whole dual-handle mug is valid but ordinary handled mug and teacup references were selected for this finite budget."
+    },
+    {
+      "id": "cup-coffee2025",
+      "eligible": true,
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "A clear handled teacup stands on a saucer. Saucer is not another supported kind; contents, tableware composition and safety are unverified."
+    },
+    {
+      "id": "mixed-lagavulin",
+      "eligible": true,
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "A complete retail bottle and its tall complete box share the foreground. Two supported kinds are present, so a single-form answer must abstain; public labels are not identity or material truth."
+    },
+    {
+      "id": "mixed-estradiol",
+      "eligible": true,
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "A complete dispenser bottle and its complete rectangular box are side by side. Two supported kinds require abstention. Public product print is not a person's medical information or verified identity."
+    },
+    {
+      "id": "mixed-birch",
+      "eligible": true,
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "A capped beverage bottle and a lidded drinking cup dominate the scene. Bottle base is partly out of frame, but both distinct supported forms are clear; single-kind output must abstain."
+    },
+    {
+      "id": "mixed-blueyellow",
+      "eligible": true,
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "A whole blue narrow-neck bottle and a short open yellow drinking cup appear in a still life. Different supported forms require abstention; illustrated writing is not private text or verified contents."
+    },
+    {
+      "id": "mixed-bag-bottle",
+      "eligible": false,
+      "reason": "Eligibility exclusion: bag is visible but the alleged bottle is heavily obscured by vegetation and cannot establish a clear two-supported-kind reference without trusting the title."
+    },
+    {
+      "id": "mixed-litter",
+      "eligible": false,
+      "reason": "Privacy exclusion: bottles and cups are visible but people and body parts occupy the stage scene. No-person candidates are preferred; public copyright permission does not supply privacy clearance."
+    },
+    {
+      "id": "mixed-hamburg",
+      "eligible": false,
+      "reason": "Privacy exclusion: a mixed litter scene includes several people/body parts. Do not treat a public licence as clearance to reuse them for this diagnostic."
+    },
+    {
+      "id": "mixed-antique",
+      "eligible": true,
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "A whole narrow-neck tonic bottle and whole rectangular box share a clean museum foreground. Two supported kinds require abstention. Historical source is a disclosed domain limitation; printed artwork is not an identifiable person."
+    },
+    {
+      "id": "outside-battery",
+      "eligible": true,
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "One cylindrical consumer battery with terminals is visible, outside all five supported forms. Chemistry and safety are not verified."
+    },
+    {
+      "id": "outside-aerosol",
+      "eligible": true,
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "A whole aerosol-style can with actuator and straw is visible. Aerosol can is outside supported forms; label and hazard text are not verified safety or sorting guidance."
+    },
+    {
+      "id": "outside-cable",
+      "eligible": true,
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "USB-C and barrel connector ends with cables are visible. No supported container form is present; must abstain without identity or electrical-safety inference."
+    },
+    {
+      "id": "outside-bowl",
+      "eligible": true,
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "A shallow wide open bowl or plate-like vessel is visible, without a cup handle or tall drinking-cup body. Outside supported forms; actual composition is unverified."
+    },
+    {
+      "id": "outside-sealer",
+      "eligible": true,
+      "privacyReview": "no_identifiable_person_or_private_text_observed",
+      "reason": "A whole capped aerosol-style pressure can is visible. It is outside current supported forms; printed product and danger text do not verify hazard status, composition or bin."
+    }
+  ]
+}

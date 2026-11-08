@@ -1,5 +1,28 @@
 # Release decision
 
+## November8 — deadline repaired; recognition still NO-GO
+
+**NO-GO. LV-001 remains high/open and locally executable.** Spatial S2 and
+foreground F1 both fail separate locked prospective tests and are not deployed.
+Latest20-case confirmation gives8/10 correct accepted positive forms,2 positive
+unknowns and2 wrong mixed-control acceptances; this is not reliable general
+recognition, material/identity/safety evidence or human acceptance. No severity
+is lowered to obtain a green status. Next local work is a bounded group-aware
+task-specific learning protocol, not another relabelled catalogue holdout.
+
+Native once-only timeout delivery/shared-gate repair and actual unsigned Debug9
+compile/link/model/notices/privacy checks pass; they do not establish matching
+signed Release/phone installation/standalone/offline/camera/accessibility/energy
+or Android behavior. Last verified profile expired November4; current state
+unqueried. Independent reference review and existing privacy/licensing/content/
+operations/store signoffs remain mandatory and assigned in OWNER_ACTIONS.
+Full974 software tests/all builds/17 routes and actual exported-browser checks
+pass. A72-case blinded review packet is prepared, not human-reviewed; this does
+not resolve LV-001 or any physical/Release/store gate.
+No paid API, profile/device action or GitHub publication. Exact failed results,
+software/build evidence and limitations: LOCAL_VISION_RELIABILITY_RESULTS and
+TEST_EVIDENCE. Historical checkpoints below are not current release approval.
+
 ## November7 — readiness fixed, broader reliability still NO-GO
 
 No-image readiness/strict legacy and partial support now precede permission.

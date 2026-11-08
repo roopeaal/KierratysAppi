@@ -1,0 +1,962 @@
+{
+  "schemaVersion": "foreground-data-prior-v1",
+  "purpose": "Exclude all123 earlier acquired/evaluated/rejected/reserved sources plus known physical/source-family variants before this prospective set.",
+  "sourceFamilyTitlePatterns": [
+    "Peanut butter glass",
+    "WcDonalds bag",
+    "Coffee bag 2023",
+    "Coffee bag 2024",
+    "Dirty Coffee to go",
+    "Coffee to go",
+    "Mysterious Chocolate",
+    "Bottle of Coca-Cola Dreamworld",
+    "Jar filled with hagelslag",
+    "DirtyCoffeeToGo",
+    "Soviet 1Т308",
+    "Soviet 1T305",
+    "Box of 200 Soviet",
+    "Schlagermove Müllproblem",
+    "Chimay",
+    "Banks Caribbean lager",
+    "Swear jar",
+    "Katmon jam",
+    "Viora Saffron",
+    "Juul",
+    "Moving Box",
+    "CXLT Coffee",
+    "WP Give aways",
+    "Tandem Mug",
+    "Lagavulin",
+    "Estradiol",
+    "Birch beer",
+    "Blue bottle with yellow cup",
+    "Plastic Bag and Plastic Bottle",
+    "Schlagermove",
+    "Bottle and box (AM 629298",
+    "spray congelante",
+    "Edge-Sealer",
+    "USB-C and Barrel",
+    "Ceramic Bowl (154256",
+    "Mug image",
+    "Cup of Coffee 13.05.2025",
+    "Bag (AM 1990.253",
+    "String bag (bilum)"
+  ],
+  "excludedPublishers": ["Meanwell Packaging"],
+  "fixtures": [
+    {
+      "sha256": "56d48570eeac647c4eef1bf4497c926df7e9984a729b58ae01f7ed04cc47f28e",
+      "sourceManifest": "work/photo-products-2026-10-15.KstrPe/fixtures.json"
+    },
+    {
+      "sha256": "ac29a4e84a2373f638e5dc623d4d24fe2dc717a68aae4b53e8cba5c6a0d029b0",
+      "sourceManifest": "work/photo-products-2026-10-15.KstrPe/fixtures.json"
+    },
+    {
+      "sha256": "92f7102fceecbe14b840e1cd4e70fcad7cc48107346aad2180383980552873ff",
+      "sourceManifest": "work/photo-products-2026-10-15.KstrPe/fixtures.json"
+    },
+    {
+      "sha256": "27bc772faef3a1b1ae6341393ccdea2c459abd94b76d428cbf4687f8888991ce",
+      "sourceManifest": "work/photo-products-2026-10-15.KstrPe/fixtures.json"
+    },
+    {
+      "sha256": "129ccffa2f027f447f7a1ce6dcbc19a88c1606a427aa59cd271de0ada519f929",
+      "sourceManifest": "work/photo-products-2026-10-15.KstrPe/fixtures.json"
+    },
+    {
+      "sha256": "6f29967b2a243aebc5134705edaddea3cd6ddb41df344e3987fdd69da58a3293",
+      "sourceManifest": "work/photo-products-2026-10-15.KstrPe/fixtures.json"
+    },
+    {
+      "sha256": "77e955757628796367c6fb30e878c484154a352005a4c5952765aabac4cb482b",
+      "sourceManifest": "work/photo-products-2026-10-15.KstrPe/fixtures.json"
+    },
+    {
+      "sha256": "88cb731a5f974c3685d3bb401ed330088bf10d6a5209e305f494414182faf867",
+      "sourceManifest": "work/photo-products-2026-10-15.KstrPe/fixtures.json"
+    },
+    {
+      "sha256": "6ec639c03b4dd88d2be00ac24d2196c70a4822c4d7a9da0820dbddaf2905b097",
+      "sourceSha1": "91b6504b4bd5846c1cfbeabd38af50aabc4b85cb",
+      "title": "File:Empty Plastic Bottle.jpg",
+      "group": "commons-empty-bottle-tracy",
+      "sourceManifest": "work/local-vision-independent-2026-11-06.otSaGF/corpus/fixtures.json"
+    },
+    {
+      "sha256": "9b626a4186cfe6ef38947fb3513ea74cb7a9e269c444e35ae574675468b394d1",
+      "sourceSha1": "00a83adfd335544cf509fb7456344f53edda3baa",
+      "title": "File:PET bottle.jpg",
+      "group": "commons-water-bottle-gnu-bricoleur",
+      "sourceManifest": "work/local-vision-independent-2026-11-06.otSaGF/corpus/fixtures.json"
+    },
+    {
+      "sha256": "579f846fc844700161fac6966a4bf771f3c81bc0fd0b315af5dd13da551a0ffb",
+      "sourceSha1": "d1fa682553590f632d0cd419b72991ee54e3a8be",
+      "title": "File:Macro Image of Ball jar.jpg",
+      "group": "commons-ball-jar-jyncarecat",
+      "sourceManifest": "work/local-vision-independent-2026-11-06.otSaGF/corpus/fixtures.json"
+    },
+    {
+      "sha256": "97c7c999205f7022963714586d1d32f7cc4c5c819da8a2dd93cff03ff426cc28",
+      "sourceSha1": "711be71fdd9a6f94e669ad4726701eaf778f66bb",
+      "title": "File:Glass jar with lid MET DP109360.jpg",
+      "group": "met-object-245162",
+      "sourceManifest": "work/local-vision-independent-2026-11-06.otSaGF/corpus/fixtures.json"
+    },
+    {
+      "sha256": "528abc9682fd59870844579f24d43c196b01d9e51fb12d98318d98334e5787fb",
+      "sourceSha1": "0017373f26f4fb756dfca38b0173581d886ea5c5",
+      "title": "File:Box of MYTV Free Decoder Unit.jpg",
+      "group": "commons-mytv-box-mnh48",
+      "sourceManifest": "work/local-vision-independent-2026-11-06.otSaGF/corpus/fixtures.json"
+    },
+    {
+      "sha256": "26b57cb4e7865f7c0718523d7995d3813ba01ea22e374cb998998db38dd9926e",
+      "sourceSha1": "7b99bacbbf21e2ccdb736e9acf476d03de75c944",
+      "title": "File:1 Satz Unterbrecherkontakte, SahiFa Braunschweig, AP3Q0084 edit.jpg",
+      "group": "commons-vw-contacts-box-braun",
+      "sourceManifest": "work/local-vision-independent-2026-11-06.otSaGF/corpus/fixtures.json"
+    },
+    {
+      "sha256": "61be7f826322b4e57d27f26d18600c9c7f4b221291490d953ddf99b56312b057",
+      "sourceSha1": "b4e0e4aed440c2736e95e1696bd896d07e7c7939",
+      "title": "File:WcDonalds bag - 1.jpg",
+      "group": "commons-wcdonalds-bag-rightcowleftcoast",
+      "sourceManifest": "work/local-vision-independent-2026-11-06.otSaGF/corpus/fixtures.json"
+    },
+    {
+      "sha256": "ab53d912cd854de4746a0f169db7a7596ea632af4e4bfd0d050e617f39003b4a",
+      "sourceSha1": "9cf5ac5ed4de1756254d80479595c8ef72e06c4f",
+      "title": "File:Benny's lawn bag.jpg",
+      "group": "commons-bennys-lawn-bag-waz8",
+      "sourceManifest": "work/local-vision-independent-2026-11-06.otSaGF/corpus/fixtures.json"
+    },
+    {
+      "sha256": "e4a5dc848baac414f12b08ad01207ff0feddad4bfd81513f7e50fec0985671d7",
+      "sourceSha1": "ae74f471fbd609e653bcae1d2d90c7227dd002a3",
+      "title": "File:Coffeecup.jpg",
+      "group": "commons-coffee-cup-sprinno",
+      "sourceManifest": "work/local-vision-independent-2026-11-06.otSaGF/corpus/fixtures.json"
+    },
+    {
+      "sha256": "8c9a7114fdabe4135ce56d4821afb36804a3e364c71b7a4e9d9c4e3f85849d5c",
+      "sourceSha1": "3938a65a3313188107b3722f2fda7cb1ed8f1370",
+      "title": "File:Chashka.jpg",
+      "group": "commons-cup-doniyorovich",
+      "sourceManifest": "work/local-vision-independent-2026-11-06.otSaGF/corpus/fixtures.json"
+    },
+    {
+      "sha256": "1ec41cbf96def82fc075a1a6b345a91a17fa3796913c694efdbbe5896235c4ac",
+      "sourceSha1": "4165a877bfcabd97ab4967f67a850e5fd81ee2a1",
+      "title": "File:Tennis ball.jpg",
+      "group": "commons-tennis-ball-dhankhar",
+      "sourceManifest": "work/local-vision-independent-2026-11-06.otSaGF/corpus/fixtures.json"
+    },
+    {
+      "sha256": "c050aed264ec3a9f783e427d79c2fa84435777a6c6a9eca8bb6b20adcf0a717d",
+      "sourceSha1": "3b707ae2961d0faeed28499789ac3c0ee1c4f386",
+      "title": "File:Mignon Stack (3576288651).jpg",
+      "group": "commons-aa-stack-pascal",
+      "sourceManifest": "work/local-vision-independent-2026-11-06.otSaGF/corpus/fixtures.json"
+    },
+    {
+      "sha256": "05413709bcbeb9630ab841038bb0c2685755e4c5817050c7e2a4c74501f6d1fb",
+      "sourceSha1": "b21c4a009d154eb44f6a57b0339d457eb38be09a",
+      "title": "File:Dove shampoo bottle.jpg",
+      "group": "dove-shampoo-ranjima",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/candidates/fixtures.json"
+    },
+    {
+      "sha256": "7c9524ce0f6220cdd82a0b900272c277a2546f9ae1d7e3ab4b5f93bbb9fa93fd",
+      "sourceSha1": "05c95cf90b2427f5488c59c76e803c292a85c5e1",
+      "title": "File:Bottle of Coca-Cola Dreamworld.jpg",
+      "group": "coca-cola-dreamworld-undamaged",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/candidates/fixtures.json"
+    },
+    {
+      "sha256": "ded0a9897fcd81ee5db0f47b34aa6d868b71e1ed831e3642c3503244e8f44fa1",
+      "sourceSha1": "689fb776e8b3a575a2e1e54e4afaca5164b7f9b2",
+      "title": "File:Bottle of Water.jpg",
+      "group": "water-bottle-jiafei",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/candidates/fixtures.json"
+    },
+    {
+      "sha256": "7f6ef9bcf621af10126353953fc06fb29eca0e951c25be6bedb74255a580634c",
+      "sourceSha1": "8984b94e31ccf0f22cedb968eee09aeba44d8057",
+      "title": "File:Peanut butter glass.jpg",
+      "group": "peanut-butter-shisma",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/candidates/fixtures.json"
+    },
+    {
+      "sha256": "547151c890edab73aab7c91b1c61d881963e59981aa46e1f24c14eac519df112",
+      "sourceSha1": "d32817b9a4cb521f7ef0a5a6e489ffa86761efa0",
+      "title": "File:Jar filled with hagelslag, 2025, Singapore.jpg",
+      "group": "hagelslag-jar-kloowee",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/candidates/fixtures.json"
+    },
+    {
+      "sha256": "eee3b3b19f6481927f6ccab7866fefd01141316a6ad67c83c90ad6c5944c54c9",
+      "sourceSha1": "ad7e5906d1f830673f5a322a29b46d9c96d5447e",
+      "title": "File:Jar of Red Shatta Paste.jpg",
+      "group": "shatta-jar-2kb",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/candidates/fixtures.json"
+    },
+    {
+      "sha256": "0ea90cbdd7b8e7b8195bec53aa786e55615190c8db09b208d2438d9686446685",
+      "sourceSha1": "7e1e7b365be1c55306f8d1292b0a117d3e826a2b",
+      "title": "File:Ajvar jars in a Viva Fresh supermarket in Vitomiricë, Peja, 2025.jpg",
+      "group": "ajvar-bdx-market",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/candidates/fixtures.json"
+    },
+    {
+      "sha256": "6981623631a34f283bf2394c2f8443ff31efe01131d929f10ac10bcb75bacf4a",
+      "sourceSha1": "1864158663a72388e135a0116f1a91b0e07e4aab",
+      "title": "File:Brouwerij Kees box.jpg",
+      "group": "kees-box-mitsjol",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/candidates/fixtures.json"
+    },
+    {
+      "sha256": "3d046fe49c74741218c1abd36088433eeac427de876120d8600d2de90e102ca8",
+      "sourceSha1": "aab58fb0075a6c4d618c566589b9de148a33cf25",
+      "title": "File:1990s Rank Xerox A4 75gsm copier paper cardboard box and A4 paper made in Sweden.jpg",
+      "group": "xerox-paper-box-nilsson",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/candidates/fixtures.json"
+    },
+    {
+      "sha256": "41661712f4ecc07b0e5fea5fa03ce434312ce155e335cb654189dc50a05761f1",
+      "sourceSha1": "c6a1da01903d87d487489e2f4bc64ea725db1b3b",
+      "title": "File:Stack of brown paper bags beneath a counter.jpg",
+      "group": "grocery-bags-tessa",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/candidates/fixtures.json"
+    },
+    {
+      "sha256": "37084a6d5b7e794b61732b2649ec79b2daf251f20ae530115246decb286e7e15",
+      "sourceSha1": "5341b3a601d1d77398dc35ac3975f049c024081c",
+      "title": "File:TW 台灣 Taiwan 台北 Taipei 永康街 YongKang Street 天津蔥抓餅 food shop bag March 2024 R12S.jpg",
+      "group": "crepe-bag-ounfs",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/candidates/fixtures.json"
+    },
+    {
+      "sha256": "e9518199833655b1ebf83b49f805c39e3303b103cf22181eebdf0cd141b155d9",
+      "sourceSha1": "64d2a723bf8d32eaf040d532ccc688694ed9f626",
+      "title": "File:Groceries at a door.jpg",
+      "group": "grocery-door-tkarcher",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/candidates/fixtures.json"
+    },
+    {
+      "sha256": "46a71175086c35acddbb401f9a878497e1538337dbe388c9eaca19ffa09a67be",
+      "sourceSha1": "2e6f32cec413ca0c98af85bdd3eb69f183a6a159",
+      "title": "File:CoffeeToGo.jpg",
+      "group": "coffee-go-sessler",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/candidates/fixtures.json"
+    },
+    {
+      "sha256": "ce39c84373f2a02c9acac9e57332d82d0a61180cec2fe95f044b30e0e3eb15b8",
+      "sourceSha1": "2606d1490d50202dd9329b92bc8d28ff2eaadfbb",
+      "title": "File:Tea bought from the buffet car 2025-07-27.jpg",
+      "group": "buffet-tea-andy-li",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/candidates/fixtures.json"
+    },
+    {
+      "sha256": "26881e51e976932ae7889839f9d0a149394fc2c0b370b8aa6e82803054681591",
+      "sourceSha1": "ec72eab0d66fb16cbfeb70898aa74d798de28e37",
+      "title": "File:Tom yum kung flavored noodles.jpg",
+      "group": "noodle-cup-aiaikz",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/candidates/fixtures.json"
+    },
+    {
+      "sha256": "25d68d6af467fc0e6482e0873fdf1df9ed02140bf23822db18c63fc553141fb0",
+      "sourceSha1": "909a23a3bcc6a580602de43fb193ada3eb25edbe",
+      "title": "File:ComputerMouseCloseup3.jpg",
+      "group": "control-mouse-closeup",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/candidates/fixtures.json"
+    },
+    {
+      "sha256": "5229933ac6e74233d8f94d7ab75da003a8284b929bd1f2556968dc7e122c8972",
+      "sourceSha1": "ee0c2387a8e8df97c25a64d7f1dc47e2b9e19757",
+      "title": "File:Batteries-a27-0.jpg",
+      "group": "control-a27-battery",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/candidates/fixtures.json"
+    },
+    {
+      "sha256": "f18b270aff92947f85236404256bb620c983410819f1d346a841ca32de9d2986",
+      "sourceSha1": "b796cd86dc4eeb9a452857d1ad137b8a5a8730c2",
+      "title": "File:Bananas - Flickr - gerriet.jpg",
+      "group": "control-bananas-gerriet",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/candidates/fixtures.json"
+    },
+    {
+      "sha256": "cae98a41a74ab3748be17f046bff2566c4a8efd76c738e061b246f19fa527095",
+      "sourceSha1": "91572801d525fd5607d45c86b6b89aaf8ed78b32",
+      "title": "File:SpoonCollection.jpg",
+      "group": "control-spoons-collection",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/candidates/fixtures.json"
+    },
+    {
+      "sha256": "66c4c1630407de847ee459542d4c6735c6fed784b2d75bed66c1bc55078d5872",
+      "sourceSha1": "c4741016e8d36b5b73f2a8ca0b25fefbca9db02b",
+      "title": "File:A mysterious bag... (4253123919).jpg",
+      "group": "mysterious-chocolate-bag",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/supplement/fixtures.json"
+    },
+    {
+      "sha256": "0cdc3ff24b8a4cbae89e7313401b01d9a055c33a628da9a76cf7756b99fe49d3",
+      "sourceSha1": "4651b55885033cb5bd845fef09d9c329b32e5c48",
+      "title": "File:Shopping bags grey color.jpg",
+      "group": "grey-shopping-bags",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/supplement/fixtures.json"
+    },
+    {
+      "sha256": "c01cf6d2f3a2100990b07e36369b5cc6ec078782edc12e38e542ec33258f153d",
+      "sourceSha1": "4fa79a196f630cb9a4f05047e0172e6fcec5ae08",
+      "title": "File:Kaffepåse - 2023.jpg",
+      "group": "coffee-pack-bags-martin-grimm",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/supplement/fixtures.json"
+    },
+    {
+      "sha256": "a4365c10acaee99b542dce2a26824be5e67ed30ce1e276a5b1c6aca63ec267b1",
+      "sourceSha1": "b6bd99115aafe3ee8189cb17bea22da37cb7c4a7",
+      "title": "File:Set of red cups Danilovsky Market, Moscow, Russia (25840011917).jpg",
+      "group": "red-market-cups",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/supplement/fixtures.json"
+    },
+    {
+      "sha256": "5bfc9d9ed3c00741ad416ee4012ab68573a5cc5524d634905b2e4379129b9913",
+      "sourceSha1": "c886028c36dd02a913e8ef2bfda6ce134e0a2f91",
+      "title": "File:Drink (15585468530).jpg",
+      "group": "drink-cup-15585468530",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/supplement/fixtures.json"
+    },
+    {
+      "sha256": "9e64d3019102f5431099c71e24f1e0c68ffc4caa1a0336e813a9bf2674c5300c",
+      "sourceSha1": "ca8b344a6a653b921f05163287a6e5acb7eee56a",
+      "title": "File:Peanut butter glass 3.jpg",
+      "group": "peanut-butter-shisma",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/supplement/fixtures.json"
+    },
+    {
+      "sha256": "c791c060ca5c2d868d45e409d2b6fe6d26e52f731edf4f7ec452b272ecb59aec",
+      "sourceSha1": "b5771d94d0368b9a88af9906ab7c6a49b2193dab",
+      "title": "File:Cacao in Jar.jpg",
+      "group": "cacao-jar-airtight",
+      "sourceManifest": "work/packaging-seed-2026-11-06.Jh0o1C/supplement/fixtures.json"
+    },
+    {
+      "title": "File:Blue Waters bottle no label.jpg",
+      "group": "blue-waters-nolabel",
+      "sourceFamily": "blue-waters-nolabel",
+      "sourceSha1": "438e945754f13bafc6fc5d558052f2ea94a3c40b",
+      "sha256": "77977b687802f2e3b91af7ab40c17ed5d452fc0d54748d59746f76c2f0863c3c",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Limonadenflasche.JPG",
+      "group": "limonadenflasche",
+      "sourceFamily": "limonadenflasche",
+      "sourceSha1": "afc09d9ebcaaf7b3b5b434712231556b98e1a109",
+      "sha256": "91f20fe2f31cd57bc766ce357732e4bbccca2660002667ca0ca71bbd51b5eb39",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Cacaolat maniac.jpg",
+      "group": "cacaolat-maniac",
+      "sourceFamily": "cacaolat-maniac",
+      "sourceSha1": "071a58278d4512a22e172c9d455bf98d37112146",
+      "sha256": "92f1c5432e8a826b0a476cc4d28152c20a9c9c0a7c15f099cec873d2306dafc9",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Cirkulbottle.jpg",
+      "group": "cirkul-reusable",
+      "sourceFamily": "cirkul-reusable",
+      "sourceSha1": "8f36a2a674a52960e1bb75f35fc3362890608a13",
+      "sha256": "5038dd1b082bc9450422264e11e7dfa79f131f0c358b9ab56cb42f5564833a4c",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Plastic Bottle with Attached Cap in Europe (53926339908).jpg",
+      "group": "attached-cap-europe",
+      "sourceFamily": "attached-cap-europe",
+      "sourceSha1": "469126b4db653dd2af182e7c6c03c1972f4b7c27",
+      "sha256": "42bbc4a80ab05cb12945822395d1abe2bc04cb16ef90df839153723751c22260",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Mason Jar with Screw Top.JPG",
+      "group": "golden-harvest-mason",
+      "sourceFamily": "golden-harvest-mason",
+      "sourceSha1": "20e7a830f64ac9cebdd6074832a40300b5ffd97f",
+      "sha256": "610abda51faecedb623863c249e55657d6d233679c58f8a3edf4cf1784d611ed",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Mason jar 01.JPG",
+      "group": "polish-mason-series",
+      "sourceFamily": "polish-mason-series",
+      "sourceSha1": "517c3aee915b272ac3bcabecb1191f68281bd572",
+      "sha256": "d617e181cd06a57f204c0cb1127304f433d100f10717f4270b075e8621d381e9",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Mason jar family.jpg",
+      "group": "mason-family",
+      "sourceFamily": "mason-family",
+      "sourceSha1": "5aa2b7b066a67f24076f5720ee01d604c22fdef9",
+      "sha256": "b05d3ad4a09b3409c8c219d138e19129d26a962677897c5320fd44687dba3678",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Feffernous in a glass jar.jpg",
+      "group": "feffernous-cookie",
+      "sourceFamily": "feffernous-cookie",
+      "sourceSha1": "87457e0cf328f113b1464a34d77893e6c10d0f8f",
+      "sha256": "cb164a2ed607feb821bd35c3a68716e29cc147d277464d35577be9fea4d25d5b",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Hawthorn Lodge Jams (25386297420).jpg",
+      "group": "hawthorn-jams",
+      "sourceFamily": "hawthorn-jams",
+      "sourceSha1": "6b2ef6501d79d4163cd9ef685be2197e4caec2e7",
+      "sha256": "dd46ec10e7f4d61d6857c2e8912b25df9023f25fbcd5be86a9f00be8e3d98f4b",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Netgear WG111v3 box.jpg",
+      "group": "netgear-wg111",
+      "sourceFamily": "netgear-wg111",
+      "sourceSha1": "8338f2d00e0a7aec428d647056b00fcc4f6d660e",
+      "sha256": "6971f45d095481bab00006203110480870c4fa2fad7af3718fba1c55a68cec21",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Wii Zapper in box.jpg",
+      "group": "wii-zapper",
+      "sourceFamily": "wii-zapper",
+      "sourceSha1": "d350fad88517b019c2b968d9db5a6f5562a2a3cf",
+      "sha256": "5159bb988f1b05924c0bf840d1d629db70a3891496073f7e9bf4d808233940c4",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Colorblends wholesale flower bulbs cardboard box.jpg",
+      "group": "colorblends-bulbs",
+      "sourceFamily": "colorblends-bulbs",
+      "sourceSha1": "e00bc4b3fb40760c814100a7eb13fd460483f751",
+      "sha256": "1fbd74beb6d8bf7491ea9ff1693526c2c16b9fafd27c5a05184974c7cae98a3b",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Soviet 1Т308 transistors factory box of 100 01.jpg",
+      "group": "soviet-1t308",
+      "sourceFamily": "soviet-1t308",
+      "sourceSha1": "4a94806160b3308580f012ee741d7bbe029f3842",
+      "sha256": "ee8a3dc0b2bbbb4d38b8b1b15b8e44b1488f6bc204cce23983e1b4e76746d4fa",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Box of 200 Soviet 1T305 transistors, made in Minsk, 1986 01.jpg",
+      "group": "soviet-1t305",
+      "sourceFamily": "soviet-1t305",
+      "sourceSha1": "d13affdc41666e2dbb89776ede6e7907a05a8b00",
+      "sha256": "8941bdb0dda8b36ec5595936e2657605425b405b77908c04e706da5deeacb7f9",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:会いに行こうトートバッグ.jpg",
+      "group": "shinkansen-tote",
+      "sourceFamily": "shinkansen-tote",
+      "sourceSha1": "5328797a814499c1f11e5fe1c3aa4410a1eadf63",
+      "sha256": "ab4ffb04dee5919cf5c368d9f6356a5e8610b7a0e9fdafb98855e5eff1949a8a",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Baghashtag-Kanvas-Bez-Canta.jpg",
+      "group": "baghashtag-tote",
+      "sourceFamily": "baghashtag-tote",
+      "sourceSha1": "0cd1cb8b737fc6cbbc92140b08d7234e70a0d67d",
+      "sha256": "35cc11fcc1b28e8ae2f4cf575ecd9d2bb988a2642479b1675b798c6a55a93876",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Blue-green meshwork bag (1091182610).jpg",
+      "group": "bluegreen-meshwork",
+      "sourceFamily": "bluegreen-meshwork",
+      "sourceSha1": "15dfd4ebd080af8cc6fb878847f2b6211a71cb2f",
+      "sha256": "ae525b8594257c3a6e2d09684bd7bf3e344f06549eb027ffbe30800b3f44db03",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Kenya coffee bags.jpg",
+      "group": "kenya-coffee-sacks",
+      "sourceFamily": "kenya-coffee-sacks",
+      "sourceSha1": "8ee34ab029865b5425475896944d87d8be82bfe2",
+      "sha256": "f610baa0b2bc9c306d5b744a25689e8142865fe416c15dbfe0d105fb4fa1e149",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Kaffesäckar - Coffee bags - Ystad-2024.jpg",
+      "group": "ystad-coffee-sacks",
+      "sourceFamily": "ystad-coffee-sacks",
+      "sourceSha1": "5c85470862f85a7828cbb249c46b0efc56dc64f6",
+      "sha256": "a70f487d718ea55a7784c76e087a68d12d7adf81ab5ffad5676e4721265b7eab",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Cup of coffee (49326822972).jpg",
+      "group": "coffee-49326822972",
+      "sourceFamily": "coffee-49326822972",
+      "sourceSha1": "3408b126dfd9b77fd5d2087f8f1f30677115c1fe",
+      "sha256": "3650d9c743c3cc607cd55c058811b59851100c0a901369a8f90731227b871dbe",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Coffee cup in Hanoi, Vietnam.jpg",
+      "group": "hanoi-coffee",
+      "sourceFamily": "hanoi-coffee",
+      "sourceSha1": "0af4de07482113145dfa411f159b1261832927ae",
+      "sha256": "84ace7da43b501999018ca0ac2fa603736b150a4cedd5269447dca00bd22b5fb",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Cup of coffee in Café Butter - Prenzlauer Berg, Berlin.jpg",
+      "group": "cafe-butter",
+      "sourceFamily": "cafe-butter",
+      "sourceSha1": "e32d72906edb40b8b0ea2836f473b1d31dd913eb",
+      "sha256": "48539393758b882b109a72670f7068fbf85504ea10ad54c8ee1839543d914512",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:A time for a cup of coffee.jpg",
+      "group": "yokohama-coffee",
+      "sourceFamily": "yokohama-coffee",
+      "sourceSha1": "1b3bb1965dd941454ec927165444f22b18f390a4",
+      "sha256": "8cc9a60e021740c26813b0acb95fa297330218d95b53d1f32be0ea5b0c0d9f0e",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Huai Nam Dang National Park, Espresso coffee cup, Tree stump, Thailand.jpg",
+      "group": "huainamdang-coffee",
+      "sourceFamily": "huainamdang-coffee",
+      "sourceSha1": "ca24331936f991bf10ed36f15af093b72022910f",
+      "sha256": "00e05a1978f2e208e093c90553d58f4ba638a7ad570216fd31e80c35468e2c00",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Latte and dark coffee.jpg",
+      "group": "latte-darkcoffee",
+      "sourceFamily": "latte-darkcoffee",
+      "sourceSha1": "0e32cda28a2477f1bb019fdafe409c5047abeced",
+      "sha256": "f12ec73e564ab5a58aa2ef89d9b89987b64d3b8b512d0e8a5b5bbb53b16f28c2",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:02 - Single Energizer Battery.jpg",
+      "group": "single-energizer",
+      "sourceFamily": "single-energizer",
+      "sourceSha1": "36925ee22232a8b95a78b2c96cce9ed64e24eff9",
+      "sha256": "cf1d221ad45acda482907879b5734bda0afc3495ff6bc0057f95c2102531d8b9",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:IKEA LADDA rechargeable AA-batteries.jpg",
+      "group": "ikea-ladda",
+      "sourceFamily": "ikea-ladda",
+      "sourceSha1": "c13541170e01278833a3a774fc5984aee7dfe693",
+      "sha256": "8e0f25d4dc5e7b1eb80eb85b30054fee236bcffc0c8f1aa4675db51c7eae4a3a",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Bombe aérosol 0852b.JPG",
+      "group": "bombe-aerosol",
+      "sourceFamily": "bombe-aerosol",
+      "sourceSha1": "817a067843be5b0e120400bdfbcf30bd695b4092",
+      "sha256": "d4b481f67416e85b03a574eb8442db2baad298caaa1ecf517ec68d69a2e0e0a0",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:WD40 Specialist Contact Cleaner aerosol can.jpg",
+      "group": "wd40-contact-cleaner",
+      "sourceFamily": "wd40-contact-cleaner",
+      "sourceSha1": "3d9a67c17af83e64e8d30b3b8819aecd3a6b8a0d",
+      "sha256": "2994db7c6b81dd5a61501247278066ac1caf0f5532fb25c103176eacf0afcbd7",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Bad USB-C cable.agr.jpg",
+      "group": "bad-usbc-agr",
+      "sourceFamily": "bad-usbc-agr",
+      "sourceSha1": "92756f08ba7d9087d5d645ea0b01c8ea8453ae3f",
+      "sha256": "9c82a689ae9aab8836eebd574cc4561f44e20de6b3682176c395d7d816410f74",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Huawei EC226 with USB cable (3384718751).jpg",
+      "group": "huawei-ec226",
+      "sourceFamily": "huawei-ec226",
+      "sourceSha1": "bdb6368c486810ff754e7995f663bc2c808400aa",
+      "sha256": "b970ed1acba1f02e60d36f74a8a9a0ae76bd3e1faf1e7413804f71b2b7762c68",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Filament-bulbs hg.jpg",
+      "group": "filament-bulbs-hg",
+      "sourceFamily": "filament-bulbs-hg",
+      "sourceSha1": "714f1af4a0c77914f4343bb015d18ba07a72fbeb",
+      "sha256": "e89be79e847cc0f132154095450613296cc85ee9a710c9c8b8117361a87ca536",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Light Bulb in the dark.jpg",
+      "group": "bulb-dark",
+      "sourceFamily": "bulb-dark",
+      "sourceSha1": "7f5a7e28095e824f5963794f84ec9e1faba26aed",
+      "sha256": "16d8f68633a7eac4c9dac797a6a338522752a8485b6cd7241d4bf6a443ef4780",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Ceramic bowl full of white rice.jpg",
+      "group": "ceramic-rice-bowl",
+      "sourceFamily": "ceramic-rice-bowl",
+      "sourceSha1": "7f025171b7448c0f184a8954b11c31a54ce5f5f2",
+      "sha256": "9554ed81c4371ac1c6a976d4c0c3add1595857a7f5e1bb7615dc5765ef08d6c4",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Simple-ceramic-bowl (cropped).jpg",
+      "group": "simple-ceramic-bowl",
+      "sourceFamily": "simple-ceramic-bowl",
+      "sourceSha1": "23064f62fc55d3f5a9f4533cd77be0965a6459fd",
+      "sha256": "58388208e8436c5e243723a11c1a7f12153c66ff76044755f84bc061d573b2b6",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Black Computer keyboard.jpg",
+      "group": "black-keyboard",
+      "sourceFamily": "black-keyboard",
+      "sourceSha1": "8e84e7f3d7eaa7bb688c96806587627c49b352ec",
+      "sha256": "7b3dece23f24ba6be6b008af1402ffbe1ef9648beced5db5e223d633dbe176da",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Computer Keyboard - stock photo.jpg",
+      "group": "keyboard-stock",
+      "sourceFamily": "keyboard-stock",
+      "sourceSha1": "094e6f57b934b6c80033e06e8f5a91d2f89b1fd2",
+      "sha256": "e6ef488958b0c9b53eedd271f05d74fe92b4cfd00aa5aa623c0effea0178d468",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Bread (4984305554).jpg",
+      "group": "bread-4984305554",
+      "sourceFamily": "bread-4984305554",
+      "sourceSha1": "7918444c4c0ffcd73fe79a9282653241b8b705e4",
+      "sha256": "c37d257de35b0d8ec01e86d6c52b5eaaeac98bba3f9608aff0b64010889535b8",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Picture of yellow bell pepper and green beans.jpg",
+      "group": "pepper-beans",
+      "sourceFamily": "pepper-beans",
+      "sourceSha1": "fd8254b70d7d95bac3adace7b5f4ba514e0e0c58",
+      "sha256": "c051049040c9a9e576de6a1e543066e1f5c97f84dddd137a3f3675241349592a",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Eco-friendly cardboard packaging for takeaways.jpg",
+      "group": "takeaway-mixed-cardboard",
+      "sourceFamily": "takeaway-mixed-cardboard",
+      "sourceSha1": "2390ce8f70931241513be192fbc6b46707e8008c",
+      "sha256": "7a284756f749826c9ca6059e5a9727438450c53f9a7e4a437b3902b5f4554d11",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:202606 PET bottle and paper cup on Shalun beach.jpg",
+      "group": "shalun-beach-mixed",
+      "sourceFamily": "shalun-beach-mixed",
+      "sourceSha1": "39c33e541ba2d215117f5bff587c4025734bfa42",
+      "sha256": "f7e6aa208fbee00c0e37529fb71311e97106486d4971a33fa8af170612b2403c",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:BlueRepublicBottles.jpg",
+      "group": "blue-republic-bottles",
+      "sourceFamily": "blue-republic-bottles",
+      "sourceSha1": "5e070721c82ac36c8a7a97091f5eddbeb65f7352",
+      "sha256": "5e1a0be897a99dce57157c7f766417888598f8c549a9f3bc78c50243c158a596",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Metal Water Bottles.jpeg",
+      "group": "metal-water-bottles",
+      "sourceFamily": "metal-water-bottles",
+      "sourceSha1": "e8e79e3c14b199a9d29fb22ef5bb0705c11f5d45",
+      "sha256": "5a3d64374bd9eeb3d195768bab4987a394abec6c2fb4bfdfd21763d3ed4d2546",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Classic glass bottle of Třebíč ZON apple lemonade in Třebíč, Třebíč District.jpg",
+      "group": "zon-apple-lemonade",
+      "sourceFamily": "zon-apple-lemonade",
+      "sourceSha1": "cbc1d592c3838d40d0ec76376b9383b7305d970a",
+      "sha256": "9ba0ce046f8a0cecae44234386288e7d5b8df4298f904c0a958b92f9d979105d",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Jars (49326380837).jpg",
+      "group": "jars-49326380837",
+      "sourceFamily": "jars-49326380837",
+      "sourceSha1": "58fd811f47a33518386edac838b969b71d775dcc",
+      "sha256": "ac6eb84ca7f595d15fb4889d87a952a60a8e0609e89fd9091a9d353f22bb46cf",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Six different types of peanut butter on a counter.jpg",
+      "group": "six-peanut-counter",
+      "sourceFamily": "six-peanut-counter",
+      "sourceSha1": "09914d20d602ab89b4b8c955a75b7d5f9ba23abc",
+      "sha256": "81b6e11d7bfcb8f4f9f0bcd35577fe1341d34271f309c409efbe4376419e8542",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Placing Lid on Jar with Magnetic Lid Wand.jpg",
+      "group": "magnetic-lid-wand",
+      "sourceFamily": "magnetic-lid-wand",
+      "sourceSha1": "9d3205de8bcccbd3ba9610190d6e70fd2fcf6c36",
+      "sha256": "5ca93ffb03c01e98c9f199c38c7c1623766de617620b197aff9cfcce63d80c94",
+      "sourceManifest": "work/robustness-corpus-2026-11-07.93wuSo/all-candidates/fixtures.json"
+    },
+    {
+      "title": "File:Chimay2020.jpg",
+      "group": "chimay2020",
+      "sourceFamily": "chimay2020",
+      "sourceSha1": "cddf6921cb22dfebe2cca1deea21b7a487b30690",
+      "sha256": "f59feb5854c267ebcdc4c9eca48f7aa3cf174953c204ce437d2bb5d1ded32f3b",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:A bottle of Banks Caribbean lager.jpg",
+      "group": "banks-lager",
+      "sourceFamily": "banks-lager",
+      "sourceSha1": "0d45125eca75763d0fb6516718b9b4cfe78e0dcc",
+      "sha256": "a08b61095f1f5eb119b80bb3a0241a313a950bb7ddd1b8b1fd1fcc04c3c99e57",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Plastic bottle.jpg",
+      "group": "plastic-bottle-plain",
+      "sourceFamily": "plastic-bottle-plain",
+      "sourceSha1": "40492f29860e22c2770d17e747fad36c9b3e84ca",
+      "sha256": "e07b7b1d6319e1c347df43e7fa796f0aadefaf10e78804ab2860aec5a02943f9",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Swear jar 2.jpg",
+      "group": "swearjar2",
+      "sourceFamily": "swearjar2",
+      "sourceSha1": "117cb6cbb0b2151e50b6d7484b8ada21044a3aaf",
+      "sha256": "fa589fc00427abfd651d0603bf06899a01603b5b7967431f70c8718537856501",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Katmon jam October 3 2026 glass jar.jpg",
+      "group": "katmon2026",
+      "sourceFamily": "katmon2026",
+      "sourceSha1": "271fa478b41102203b8ebc82fe241b5cd2a4c3fb",
+      "sha256": "1d01f901b9176163dba4dbc6235ef19bd11bee3096fb886deee8f7b7dba30dd2",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Saffron threads in a glass jar ( Viora Saffron packaging).jpg",
+      "group": "viora-saffron",
+      "sourceFamily": "viora-saffron",
+      "sourceSha1": "3ee87047454df16838b394d95cda2d11767c8406",
+      "sha256": "b8345a8dabda6919899a460c6cdd02c8457167e15166f09a2072bb4746f35f82",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Unwrapped Covid Test Box, Orange.jpg",
+      "group": "covidtest-orange",
+      "sourceFamily": "covidtest-orange",
+      "sourceSha1": "2030f3ac33c26b04419432ce8786385962245a26",
+      "sha256": "6f4bf8f7a93f80e635b6944fe7ec3a4dc67542c017472546493270371216190d",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Large Cardboard Moving Box Taped Closed (32067345357).jpg",
+      "group": "movingboxclosed",
+      "sourceFamily": "movingboxclosed",
+      "sourceSha1": "b20a124e5cee88c1449ed6a4b293b8be06b4d378",
+      "sha256": "1b548a45d97b21aab88e25eb9d9a55bd58580ef8b863a6430680d9df37a49430",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Juul product box (cropped).jpg",
+      "group": "juul-productbox",
+      "sourceFamily": "juul-productbox",
+      "sourceSha1": "473312fed3406340e0c06b800012c37353b3aecf",
+      "sha256": "4e459308250cb634ebd098d56c00ab968adbdaff4927500a4f6a897d61f4ede2",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Bag (AM 1990.253-8).jpg",
+      "group": "clothbag-AM1990253",
+      "sourceFamily": "clothbag-AM1990253",
+      "sourceSha1": "7dbc843f36560caa0632805b33ef17212f476777",
+      "sha256": "6253f751a53dd64cabf1732c19ecb159ccae9db446c6f613fac9933bb2314a66",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:CXLT Coffee.jpg",
+      "group": "cxlt-coffee",
+      "sourceFamily": "cxlt-coffee",
+      "sourceSha1": "e8da30ad33a92bd710e894f817edc268c1bc8a96",
+      "sha256": "63f9387ce1dccea27316e3222d6c67fde840533e69ac15163fe8f8ecb6132500",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:String bag (bilum) from Papua New Guinea, Honolulu Museum of Art.JPG",
+      "group": "bilum-honolulu-2007194",
+      "sourceFamily": "bilum-honolulu-2007194",
+      "sourceSha1": "0e9286fe2baa8a59984891b66b176a25d3f1d3c7",
+      "sha256": "d41622fabe764b529879a7d21d0bb67452cd055db36ae1c63f8b6e491467795d",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:WP Give aways3.jpg",
+      "group": "wp-giveaways3",
+      "sourceFamily": "wp-giveaways3",
+      "sourceSha1": "b7b0425ab7c21c3269b7c58bdecf414d62c9d2f6",
+      "sha256": "4f12a9ca4f6db833210e661f4396e0007ac12a75760ef6e156265d663f857fd2",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Mug image.jpg",
+      "group": "mug-image",
+      "sourceFamily": "mug-image",
+      "sourceSha1": "f6059ba70211d748ae1a658e26bd414721e9bdae",
+      "sha256": "f46f6bc74eb235b489bcd75430f31f66a7ff4a84a87ed239f9bc8aa47b163a5f",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Tandem Mug with Redundant Handles.jpg",
+      "group": "tandem-mug",
+      "sourceFamily": "tandem-mug",
+      "sourceSha1": "dfc02c08c2fb4d3ec6f8ecda8d5ad63e0906f35e",
+      "sha256": "0249c652ae29ad6cf982ebe6ead7f3b1e00692dc8e272dee5a1bca82797c7ee9",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Cup of Coffee 13.05.2025 01.jpg",
+      "group": "coffee2025",
+      "sourceFamily": "coffee2025",
+      "sourceSha1": "5da14ac25036904a4607e65d5da6b992de4e3027",
+      "sha256": "61c4ca3d95d11687b984579299cc82b1cc66c119bf689e185553a8ad7478d8bc",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Lagavulin Single Malt Scotch Whisky Aged 16 Years.jpg",
+      "group": "lagavulin-bottlebox",
+      "sourceFamily": "lagavulin-bottlebox",
+      "sourceSha1": "874d9b16cf87c4dc91afe03a7ce65674aea0fb5e",
+      "sha256": "ba0e9430b501893a06aa0137413bea9452a8752502cfe87e6f5cd5a13c4d181f",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Estradiol gel bottle and packaging.jpg",
+      "group": "estradiol-bottlebox",
+      "sourceFamily": "estradiol-bottlebox",
+      "sourceSha1": "f321c7470f018cb3841aec4298a715db65b754c5",
+      "sha256": "e04af9db2ee2145e6f5e34ec31c9cc5ce1a65668119f7dcdf234812104e86bdc",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Bottle of Birch beer.jpg",
+      "group": "birchbeer-cup",
+      "sourceFamily": "birchbeer-cup",
+      "sourceSha1": "bdd5193421b3e4a0d088349bb01e9a51812fea05",
+      "sha256": "b6e5bba01622aff91338bf3837583aeea2ac5d3792866c2b4919753ce8d34aa5",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:„Blue bottle with yellow cup on red table“.jpg",
+      "group": "blueyellow-cupbottle",
+      "sourceFamily": "blueyellow-cupbottle",
+      "sourceSha1": "2bcda8deed6c9fe48adf47be8655047451e53f3b",
+      "sha256": "8b99150f14e3bce4557ef9967c1a4316b30425df43c2471c2d3432c965075fd6",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Plastic Bag and Plastic Bottle (33270517683).jpg",
+      "group": "plasticbag-bottle",
+      "sourceFamily": "plasticbag-bottle",
+      "sourceSha1": "7081843c815e23fec291f5ef3086a0f2a8126748",
+      "sha256": "534d562a05104fc9286f45980e45fae8930b412742e5387fa047cf511c79c421",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Litter (17876402085).jpg",
+      "group": "litter-17876402085",
+      "sourceFamily": "litter-17876402085",
+      "sourceSha1": "f5d3b2458afd81ade229c076331eef61a1bab2e1",
+      "sha256": "b7e59675be26b2bddda1ca67fb600f41e7bae7170f8a5e1094e3b67d5841e396",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Schlagermove Müll 01.jpg",
+      "group": "schlagermove-muell-2019",
+      "sourceFamily": "schlagermove-muell-2019",
+      "sourceSha1": "8240434bbc0febbc11968fa4b6d02690d0cb9a24",
+      "sha256": "d1db67584a778b076a9ed89ecfbd8c4ea93d4147b1bc604623f15b1dfb99335e",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Bottle and box (AM 629298-1).jpg",
+      "group": "royles-tonic-AM629298",
+      "sourceFamily": "royles-tonic-AM629298",
+      "sourceSha1": "1a208cb50589912464e17b9362464b0a0ff57a18",
+      "sha256": "736cab6879b38378ba266b0b1bb7f8c95c984ad787bc553eac27340bf8709e2f",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Battery AA horizontal.jpg",
+      "group": "battery-aa-horizontal",
+      "sourceFamily": "battery-aa-horizontal",
+      "sourceSha1": "1651d5266a6d88d05dd93232d1b41c17be9a17c3",
+      "sha256": "b1aae6ca36b7314bff6efb54966384ec721347dff0ba18ad0417f4ffd75fe266",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Lata de spray congelante.jpg",
+      "group": "spray-congelante",
+      "sourceFamily": "spray-congelante",
+      "sourceSha1": "49bc9b63671749a2263515382373bcb136aa7c09",
+      "sha256": "f53e3c7e85fb7cb042ae7a8e8173222fda5bffe2a59116725aafac391a68374b",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:USB-C and Barrel Plug.jpg",
+      "group": "usbc-barrel-plug",
+      "sourceFamily": "usbc-barrel-plug",
+      "sourceSha1": "e785b25c1637d5b869aeaa02d783e8c631d45d9d",
+      "sha256": "a2ae867cb100c97cf1d91b13b1a1e03cf5c5653d094921e8e788464c3cda9ae1",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Ceramic Bowl (15425639911).jpg",
+      "group": "bowl15425639911",
+      "sourceFamily": "bowl15425639911",
+      "sourceSha1": "ee1fd1fdd4835419b8e7081fe63ff77fc3525ec8",
+      "sha256": "ee36f0bad6749d0f7eafbd6915d956d819cbb9cb96021f055a440f66e54befae",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    },
+    {
+      "title": "File:Edge-Sealer, in a 14 oz aerosol can (15331832695).jpg",
+      "group": "edge-sealer",
+      "sourceFamily": "edge-sealer",
+      "sourceSha1": "fe94c0331455a7392c1932198774dd91ca2bbb26",
+      "sha256": "bda9448c7c8ae5ee78070e4c226cbb8926bd11c3de411054bd78d61551be08ac",
+      "sourceManifest": "work/spatial-data-2026-11-07.P8gFzP/candidates/fixtures.json"
+    }
+  ]
+}

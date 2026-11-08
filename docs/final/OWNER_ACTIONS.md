@@ -1,5 +1,37 @@
 # Owner actions
 
+## November8 — reliability and independent acceptance
+
+- **Engineering:** execute the single new NEXT_ACTION: freeze group-disjoint
+  task-specific learning/data/rejection/source/budget/failure criteria before
+  new training/predictions. All72 audit cases are seen development. Do not deploy
+  failed S2/F1/F2 or tune a geometric exception to a known failed bottle/box.
+- **Roope/team independent reviewers:** review the blinded image packet without
+  prior expected labels/model outputs. Two reviewers record visible coarse form,
+  mixed/unclear/outside, eligibility, privacy and concise basis independently;
+  adjudicate disagreement before references are accepted. Inspect separate
+  source/licence attribution in a second rights-review phase. Record identities/
+  dates/decisions, do not mark generated empty forms human-approved. No claim of
+  exact brand/material/safety/sorting from form; do not upload private photos.
+  Actual packet: `work/blind-human-review-72-2026-11-08-r2/`. Give each reviewer
+  `reviewer/` plus its accompanying `attribution/`, withholding `owner-only/`,
+  source recipe and predictions. Follow `scripts/qa/local-vision/blind-review-README.md`:
+  each fills their own A/B JSON with anonymous code/actual UTC date/attestations;
+  owner runs the exact `--reconcile` command after independent submissions.
+  An independent human adjudicates differences/exposure and the one explicitly
+  flagged uncertain orientation by source comparison before owner acceptance.
+  No forms have been completed; do not turn this packet into a fresh holdout.
+- **Engineering/Roope, under a separately requested phone update:** preserve a
+  verified rollback, check actual current profile/signatures, build a matching
+  JS-bundled client9 and replace-install without data reset; Roope operates
+  unlock/trust/permissions/camera/VoiceOver steps. Record single-item and mixed/
+  unknown controls, retake/denial/background/offline, larger text and latency/
+  memory/energy. Unsigned9 is not installed; old profile expiry is past, not
+  automatically renewed. Do not send credentials or personal image content.
+- **Release owner:** all Android/signed Release/operations/privacy/content/
+  licence/store procedures below remain. No GO, account/payment, publication,
+  cleanup or new automatic sharing authority is inferred from this run.
+
 ## November7 — reliability work continuing
 
 - **Engineering:** finish the separate frozen spatial development/prospective

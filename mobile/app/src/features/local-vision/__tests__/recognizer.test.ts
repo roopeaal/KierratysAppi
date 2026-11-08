@@ -92,6 +92,7 @@ describe("local-only recognizer", () => {
     for (const [code, reason] of [
       ["ERR_LOCAL_VISION_BUSY", "busy"],
       ["ERR_LOCAL_VISION_INVALID_IMAGE", "invalid_image"],
+      ["ERR_LOCAL_VISION_TIMEOUT", "timeout"],
       ["ERR_LOCAL_VISION_UNAVAILABLE", "unsupported"],
       ["unexpected", "failed"],
     ]) {
@@ -125,6 +126,38 @@ describe("local-only recognizer", () => {
       throw new Error("native missing");
     })(jpeg, signal());
     expect(result).toEqual({ status: "unavailable", reason: "unsupported" });
+  });
+  it("contains a throwing SDK recognition accessor before invoking native", async () => {
+    const result = await createLocalRecognizer(() => ({
+      get recognize(): (jpegBase64: string) => Promise<unknown> {
+        throw new Error("SDK accessor must not escape");
+      },
+    }))(jpeg, signal());
+    expect(result).toEqual({ status: "unavailable", reason: "unsupported" });
+  });
+  it("contains a throwing native error-code accessor as a typed failure", async () => {
+    const result = await createLocalRecognizer(() => ({
+      recognize: async () => {
+        throw {
+          get code(): string {
+            throw new Error("error accessor must not escape");
+          },
+        };
+      },
+    }))(jpeg, signal());
+    expect(result).toEqual({ status: "unavailable", reason: "failed" });
+  });
+  it("preserves native timeout then native busy until the worker permits retry", async () => {
+    const recognize = vi
+      .fn()
+      .mockRejectedValueOnce({ code: "ERR_LOCAL_VISION_TIMEOUT" })
+      .mockRejectedValueOnce({ code: "ERR_LOCAL_VISION_BUSY" })
+      .mockResolvedValue(raw());
+    const run = createLocalRecognizer(() => ({ recognize }));
+    expect(await run(jpeg, signal())).toEqual({ status: "unavailable", reason: "timeout" });
+    expect(await run(jpeg, signal())).toEqual({ status: "unavailable", reason: "busy" });
+    expect((await run(jpeg, signal())).status).toBe("observed");
+    expect(recognize).toHaveBeenCalledTimes(3);
   });
   it("keeps single-flight through cancellation, ignores late output and then permits retry", async () => {
     const native = deferred();

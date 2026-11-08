@@ -1,0 +1,107 @@
+{
+  "schemaVersion": "foreground-data-cases-v1",
+  "labelReviewStatus": "ai_reviewed_human_review_required",
+  "pretrainingMembership": "unknown",
+  "trainingExecuted": false,
+  "inferenceExecuted": false,
+  "maximumNewImages": 40,
+  "maximumNewBytes": 25000000,
+  "cases": [
+    {
+      "id": "bottle-kerner",
+      "title": "File:Kerner 2020 Czech wine bottle (Znovín Znojmo).jpg",
+      "expectedKind": "bottle",
+      "challenge": "form",
+      "split": "confirmatory",
+      "group": "kerner-znovin-2020",
+      "sourceFamily": "kerner-znovin-2020",
+      "license": "CC-BY-4.0",
+      "requiresNoSortingTruth": true,
+      "labelEvidence": "Bounded reserve source after pre-inference visual or credit eligibility exclusions; exact form/privacy still requires visual review, never selected from model outcomes."
+    },
+    {
+      "id": "bottle-bortoli",
+      "title": "File:De Bortoli The Estate Vineyard Pinot Noir 2024 bottle.jpg",
+      "expectedKind": "bottle",
+      "challenge": "form",
+      "split": "confirmatory",
+      "group": "bortoli-estate2024",
+      "sourceFamily": "bortoli-estate2024",
+      "license": "CC-BY-4.0",
+      "requiresNoSortingTruth": true,
+      "labelEvidence": "Bounded reserve source after pre-inference visual or credit eligibility exclusions; exact form/privacy still requires visual review, never selected from model outcomes."
+    },
+    {
+      "id": "bottle-pilsener",
+      "title": "File:Pilsener Light Bottle.jpg",
+      "expectedKind": "bottle",
+      "challenge": "form",
+      "split": "confirmatory",
+      "group": "pilsener-light-bottle",
+      "sourceFamily": "pilsener-light-bottle",
+      "license": "CC0-1.0",
+      "requiresNoSortingTruth": true,
+      "labelEvidence": "Bounded reserve source after pre-inference visual or credit eligibility exclusions; exact form/privacy still requires visual review, never selected from model outcomes."
+    },
+    {
+      "id": "bottle-albania",
+      "title": "File:Bottle Sheshi i Zi (80 vjet F.Sh.F.).jpg",
+      "expectedKind": "bottle",
+      "challenge": "form",
+      "split": "confirmatory",
+      "group": "albania-sheshi80",
+      "sourceFamily": "albania-sheshi80",
+      "license": "CC0-1.0",
+      "requiresNoSortingTruth": true,
+      "labelEvidence": "Bounded reserve source after pre-inference visual or credit eligibility exclusions; exact form/privacy still requires visual review, never selected from model outcomes."
+    },
+    {
+      "id": "box-butter",
+      "title": "File:Roomboter pakje van Melkinrichting A de Wilde, Jordensstraat 43 Haarlem, foto1.JPG",
+      "expectedKind": "box",
+      "challenge": "form",
+      "split": "confirmatory",
+      "group": "dewilde-butterbox",
+      "sourceFamily": "dewilde-butterbox",
+      "license": "CC0-1.0",
+      "requiresNoSortingTruth": true,
+      "labelEvidence": "Bounded reserve source after pre-inference visual or credit eligibility exclusions; exact form/privacy still requires visual review, never selected from model outcomes."
+    },
+    {
+      "id": "box-recorder",
+      "title": "File:Diktafon med 13 medföljande magnetark i A4-format från 1957 förpackade i Everest Carbonask - TEKS0043080.jpg",
+      "expectedKind": "box",
+      "challenge": "form",
+      "split": "confirmatory",
+      "group": "recorder-everest-TEKS0043080",
+      "sourceFamily": "recorder-everest-TEKS0043080",
+      "license": "CC-BY-4.0",
+      "requiresNoSortingTruth": true,
+      "labelEvidence": "Bounded reserve source after pre-inference visual or credit eligibility exclusions; exact form/privacy still requires visual review, never selected from model outcomes."
+    },
+    {
+      "id": "outside-metbowl",
+      "title": "File:Bowl MET DP235021.jpg",
+      "expectedKind": "unknown",
+      "challenge": "outside",
+      "split": "confirmatory",
+      "group": "metbowl-DP235021",
+      "sourceFamily": "metbowl-DP235021",
+      "license": "CC0-1.0",
+      "requiresNoSortingTruth": true,
+      "labelEvidence": "Bounded reserve source after pre-inference visual or credit eligibility exclusions; exact form/privacy still requires visual review, never selected from model outcomes."
+    },
+    {
+      "id": "outside-coffeebeans",
+      "title": "File:Coffee Beans, color (28183654506).jpg",
+      "expectedKind": "unknown",
+      "challenge": "outside",
+      "split": "confirmatory",
+      "group": "coffee-beans28183654506",
+      "sourceFamily": "coffee-beans28183654506",
+      "license": "CC0-1.0",
+      "requiresNoSortingTruth": true,
+      "labelEvidence": "Bounded reserve source after pre-inference visual or credit eligibility exclusions; exact form/privacy still requires visual review, never selected from model outcomes."
+    }
+  ]
+}

@@ -1,3 +1,3 @@
 # Next action
 
-Finish the frozen spatial-disagreement algorithm experiment: develop only on the seen sixteen validation cases, lock one qualifying veto rule before fresh twenty-case prospective predictions, retain every failed/unknown result, and integrate only if its registered quality and native/contract/regression gates actually pass.
+Freeze one bounded, group-disjoint task-specific classifier-learning protocol using the openly seen72 reference cases for development only, specifying training/validation allocation, unknown/mixed rejection, fixed local model/head/budget, source/licence pins, failure accounting and independent human/real-camera acceptance before any new embedding/training/prediction call.

@@ -4,11 +4,12 @@ import ImageIO
 import UniformTypeIdentifiers
 @preconcurrency import Vision
 
-enum LocalVisionFailure: String, Error {
+enum LocalVisionFailure: String, Error, Sendable {
   case busy
   case invalidImage = "invalid_image"
   case unavailable
   case failed
+  case timeout
 }
 
 struct LocalVisionClassification: Encodable, Sendable {
@@ -162,7 +163,45 @@ private final class LocalVisionReadinessDelivery: @unchecked Sendable {
   }
 }
 
+/// The outer recognition watchdog may deliver timeout before synchronous work
+/// returns. It must never deliver a second result or release that work's gate.
+private final class LocalVisionRecognitionDelivery: @unchecked Sendable {
+  private let lock = NSLock()
+  private var completion: (@Sendable (Result<LocalVisionResult, LocalVisionFailure>) -> Void)?
+
+  init(_ completion: @escaping @Sendable (Result<LocalVisionResult, LocalVisionFailure>) -> Void) {
+    self.completion = completion
+  }
+
+  func resolve(_ result: Result<LocalVisionResult, LocalVisionFailure>) {
+    lock.lock()
+    let callback = completion
+    completion = nil
+    lock.unlock()
+    callback?(result)
+  }
+}
+
 #if LOCAL_VISION_QA
+private final class LocalVisionRecognitionQARecorder: @unchecked Sendable {
+  private let lock = NSLock()
+  private var results: [Result<LocalVisionResult, LocalVisionFailure>] = []
+  let signal = DispatchSemaphore(value: 0)
+
+  func record(_ result: Result<LocalVisionResult, LocalVisionFailure>) {
+    lock.lock()
+    results.append(result)
+    lock.unlock()
+    signal.signal()
+  }
+
+  func snapshot() -> [Result<LocalVisionResult, LocalVisionFailure>] {
+    lock.lock()
+    defer { lock.unlock() }
+    return results
+  }
+}
+
 private final class LocalVisionReadinessQARecorder: @unchecked Sendable {
   private let lock = NSLock()
   private var results: [LocalVisionReadiness] = []
@@ -183,8 +222,9 @@ private final class LocalVisionReadinessQARecorder: @unchecked Sendable {
 }
 #endif
 
-// VNRequest.cancel() is the only operation performed by the deadline queue.
-// Request setup, perform and result reads remain on the serial worker.
+// The Vision request-cancellation timer performs only VNRequest.cancel().
+// Request setup, perform and result reads remain on the serial worker; the
+// separate outer watchdog delivers a typed timeout without touching requests.
 private struct CancellableVisionRequests: @unchecked Sendable {
   let classifier: VNClassifyImageRequest
   let text: VNRecognizeTextRequest
@@ -285,6 +325,74 @@ final class LocalVisionEngine: @unchecked Sendable {
       "gate_released_after_actual_settle", "completion_delivered_once",
     ]
   }
+
+  /// Exercises the real recognition worker/gate and watchdog without decoding
+  /// an image or running Vision/Core ML. The blocked operation represents any
+  /// synchronous stage, including decode, that cannot settle on the deadline.
+  static func recognitionLifecycleSelfTest() -> [String]? {
+    let engine = LocalVisionEngine()
+    let entered = DispatchSemaphore(value: 0)
+    let release = DispatchSemaphore(value: 0)
+    defer { release.signal() }
+    let slow = LocalVisionRecognitionQARecorder()
+    engine.enqueueRecognition(deadlineSeconds: 0.03, operation: { _ in
+      entered.signal()
+      release.wait()
+      return .success(qaRecognitionObservation())
+    }, completion: slow.record)
+    guard entered.wait(timeout: .now() + 2) == .success else { return nil }
+
+    let busy = LocalVisionRecognitionQARecorder()
+    engine.recognize(jpegBase64: "YWJjZA==", completion: busy.record)
+    guard case .failure(.busy)? = busy.snapshot().first else { return nil }
+    let readinessBusy = LocalVisionReadinessQARecorder()
+    engine.inspectReadiness(completion: readinessBusy.record)
+    guard case .unavailable(.busy)? = readinessBusy.snapshot().first else { return nil }
+    guard slow.signal.wait(timeout: .now() + 2) == .success,
+          case .failure(.timeout)? = slow.snapshot().first else { return nil }
+
+    let afterTimeout = LocalVisionRecognitionQARecorder()
+    engine.recognize(jpegBase64: "YWJjZA==", completion: afterTimeout.record)
+    guard case .failure(.busy)? = afterTimeout.snapshot().first else { return nil }
+    do {
+      try engine.configureQAResources(URL(fileURLWithPath: "/unused-qa-only"))
+      return nil
+    } catch LocalVisionFailure.busy {} catch { return nil }
+    release.signal()
+    engine.worker.sync {}
+    guard slow.snapshot().count == 1,
+          case .failure(.timeout)? = slow.snapshot().first else { return nil }
+
+    let retry = LocalVisionRecognitionQARecorder()
+    engine.enqueueRecognition(deadlineSeconds: 1, operation: { _ in
+      .failure(.invalidImage)
+    }, completion: retry.record)
+    guard retry.signal.wait(timeout: .now() + 2) == .success,
+          case .failure(.invalidImage)? = retry.snapshot().first else { return nil }
+    engine.worker.sync {}
+
+    let once = LocalVisionRecognitionQARecorder()
+    let delivery = LocalVisionRecognitionDelivery(once.record)
+    delivery.resolve(.success(qaRecognitionObservation()))
+    delivery.resolve(.failure(.timeout))
+    guard once.snapshot().count == 1, case .success? = once.snapshot().first else { return nil }
+    guard "ERR_LOCAL_VISION_\(LocalVisionFailure.timeout.rawValue.uppercased())" == "ERR_LOCAL_VISION_TIMEOUT" else { return nil }
+    return [
+      "recognition_pending_busy", "readiness_busy_during_recognition", "bounded_outer_timeout",
+      "recognition_gate_retained_after_timeout", "configuration_busy_after_recognition_timeout",
+      "late_success_suppressed_once", "recognition_retry_after_actual_settlement",
+      "early_completion_delivered_once", "typed_timeout_bridge_code",
+    ]
+  }
+
+  private static func qaRecognitionObservation() -> LocalVisionResult {
+    // A synthetic delivery fixture only; it is never a model result or app data.
+    LocalVisionResult(classificationRevision: 2, ocrLanguages: ["en-US"], osVersion: "0.0.0",
+      observedAt: "1970-01-01T00:00:00.000Z",
+      classifications: classificationIdentifiers.map {
+        LocalVisionClassification(identifier: $0, score: 0, hasPrecisionRecallCurve: false, passesOperatingPoint: false)
+      }, textLines: [], supplement: .unavailable(.modelUnavailable), durationMs: 0)
+  }
   #endif
 
   func inspectReadiness(completion: @escaping @Sendable (LocalVisionReadiness) -> Void) {
@@ -373,6 +481,25 @@ final class LocalVisionEngine: @unchecked Sendable {
       completion(.failure(.invalidImage))
       return
     }
+    let deadlineAt = ProcessInfo.processInfo.systemUptime + Self.deadlineSeconds
+    enqueueRecognition(deadlineSeconds: Self.deadlineSeconds, operation: { predictor in
+      do {
+        return .success(try Self.perform(jpegBase64: jpegBase64, predictor: predictor, deadlineAt: deadlineAt))
+      } catch let failure as LocalVisionFailure {
+        return .failure(failure)
+      } catch {
+        // Never forward framework diagnostics, OCR, image data or paths.
+        return .failure(.failed)
+      }
+    }, completion: completion)
+  }
+
+  private func enqueueRecognition(
+    deadlineSeconds: TimeInterval,
+    operation: @escaping @Sendable (LocalMobileClipPredictor) -> Result<LocalVisionResult, LocalVisionFailure>,
+    completion: @escaping @Sendable (Result<LocalVisionResult, LocalVisionFailure>) -> Void
+  ) {
+    let started = ProcessInfo.processInfo.systemUptime
     stateLock.lock()
     guard !inFlight else {
       stateLock.unlock()
@@ -382,28 +509,32 @@ final class LocalVisionEngine: @unchecked Sendable {
     inFlight = true
     let predictor = supplementalPredictor
     stateLock.unlock()
-
+    let delivery = LocalVisionRecognitionDelivery(completion)
+    let deadline = DispatchSource.makeTimerSource(queue: .global(qos: .utility))
+    deadline.schedule(deadline: .now() + deadlineSeconds)
+    deadline.setEventHandler { delivery.resolve(.failure(.timeout)) }
+    deadline.resume()
     worker.async { [self] in
-      let outcome: Result<LocalVisionResult, LocalVisionFailure> = autoreleasepool {
-        do {
-          return .success(try Self.perform(jpegBase64: jpegBase64, predictor: predictor))
-        } catch let failure as LocalVisionFailure {
-          return .failure(failure)
-        } catch {
-          // Never forward library diagnostics, OCR, image data or device paths as errors.
-          return .failure(.failed)
-        }
+      let outcome = autoreleasepool {
+        ProcessInfo.processInfo.systemUptime - started < deadlineSeconds
+          ? operation(predictor) : .failure(LocalVisionFailure.timeout)
       }
+      let onTime = ProcessInfo.processInfo.systemUptime - started < deadlineSeconds
+      deadline.setEventHandler {}
+      deadline.cancel()
+      // Timeout is delivery, not cancellation. An uncancellable decode, Vision
+      // request or Core ML call keeps the shared gate until it actually returns.
       stateLock.lock()
       inFlight = false
       stateLock.unlock()
-      completion(outcome)
+      delivery.resolve(onTime ? outcome : .failure(.timeout))
     }
   }
 
-  private static func perform(jpegBase64: String, predictor: LocalMobileClipPredictor) throws -> LocalVisionResult {
+  private static func perform(jpegBase64: String, predictor: LocalMobileClipPredictor, deadlineAt: TimeInterval) throws -> LocalVisionResult {
     let start = ProcessInfo.processInfo.systemUptime
     let image = try decodeJPEG(jpegBase64: jpegBase64)
+    guard ProcessInfo.processInfo.systemUptime < deadlineAt else { throw LocalVisionFailure.timeout }
     let classifier = VNClassifyImageRequest()
     if #available(iOS 17.0, macOS 14.0, *) {
       classifier.revision = VNClassifyImageRequestRevision2
@@ -430,8 +561,11 @@ final class LocalVisionEngine: @unchecked Sendable {
     text.recognitionLanguages = languages
 
     let requests = CancellableVisionRequests(classifier: classifier, text: text)
+    let remaining = deadlineAt - ProcessInfo.processInfo.systemUptime
+    guard remaining > 0 else { throw LocalVisionFailure.timeout }
     let deadline = DispatchSource.makeTimerSource(queue: .global(qos: .utility))
-    deadline.schedule(deadline: .now() + deadlineSeconds)
+    // Decode and capability setup consume the same budget as the requests.
+    deadline.schedule(deadline: .now() + remaining)
     deadline.setEventHandler { requests.cancel() }
     deadline.resume()
     defer {
@@ -441,8 +575,8 @@ final class LocalVisionEngine: @unchecked Sendable {
     let handler = VNImageRequestHandler(cgImage: image.pixels, orientation: image.orientation, options: [:])
     try handler.perform([classifier, text])
     // cancel is best effort; the single-flight gate stays locked until perform really settles.
-    guard ProcessInfo.processInfo.systemUptime - start < deadlineSeconds else {
-      throw LocalVisionFailure.failed
+    guard ProcessInfo.processInfo.systemUptime < deadlineAt else {
+      throw LocalVisionFailure.timeout
     }
 
     // Vision is multi-label with a hierarchical taxonomy. Its independent scores
@@ -482,8 +616,8 @@ final class LocalVisionEngine: @unchecked Sendable {
     if let reason = supplementalSkipReason(classifications) {
       supplement = .skipped(reason)
     } else {
-      guard ProcessInfo.processInfo.systemUptime - start < deadlineSeconds else {
-        throw LocalVisionFailure.failed
+      guard ProcessInfo.processInfo.systemUptime < deadlineAt else {
+        throw LocalVisionFailure.timeout
       }
       do {
         let scores = try predictor.predict(image: image.pixels, orientation: image.orientation)
@@ -507,7 +641,7 @@ final class LocalVisionEngine: @unchecked Sendable {
     let elapsed = ProcessInfo.processInfo.systemUptime - start
     // Core ML prediction is not cancellable; never release the single-flight
     // gate or return its late output merely because the UI deadline elapsed.
-    guard elapsed < deadlineSeconds else { throw LocalVisionFailure.failed }
+    guard ProcessInfo.processInfo.systemUptime < deadlineAt else { throw LocalVisionFailure.timeout }
     let formatter = ISO8601DateFormatter()
     formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
     let version = ProcessInfo.processInfo.operatingSystemVersion
