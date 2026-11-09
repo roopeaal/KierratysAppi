@@ -1,10 +1,18 @@
 # Roadmap
 
+## Two-view learning — November9
+
+- [x] Freeze distinct source/data/runtime/budget and original two-view/raw-unit dual-ridge design before image predictions. Preserve exact72/45/27 family allocation, all old errors and AI-only reference status.
+- [x] Complete72 paired observations/144 explicit predictions with exact old center/available-fit parity; fit once/90 numerical-sanity rows/72 head decisions.80 new regressions pass; full1101/all builds/17 routes pass.
+- [x] Retain failed validation8correct/1wrong/four correct losses and combined one remaining wrong; no deployment/retune/refit or false independent-accuracy claim. Repair stale binary provenance/unknown-launch QA gaps before calls.
+- [ ] Implement final independent-human adjudication/owner-acceptance validation on the existing blinded packet; preparation/reconciliation is not human acceptance. Single NEXT_ACTION.
+- [ ] Obtain actual human reference completion and representative matching signed native/Android/offline/permissions/accessibility/latency/memory/energy acceptance. LV-001 and production gates remain open.
+
 ## Own learned head — November8 continuation
 
 - [x] Freeze family-bound45/27 split, raw captured feature/source parity and one original ridge-head design, without treating seen AI labels as independent accuracy.
 - [x] Implement numerical/schema/uncertainty/failure accounting and canonical once-only experiment ledger;47 synthetic tests/reviews pass. Fit once, retain validation two-correct-loss failure and combined four remaining wrong controls; no app integration/refit.
-- [ ] Freeze distinct richer two-view embedding/raw-unit dual-head experiment before new feature calls; no-image prototypes only are in progress under ignored work.
+- [x] Freeze and execute distinct richer two-view embedding/raw-unit dual-head experiment above; retain failed quality gate without app integration.
 - [ ] Obtain independent human references and representative matching native/platform acceptance; production and local quality findings remain open.
 
 ## Reliability continuation — November8

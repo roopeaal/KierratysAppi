@@ -1,5 +1,32 @@
 # Owner actions
 
+## November9 — two-view failure, independent references next
+
+- **Engineering/Codex, local:** implement the single final human-adjudication/
+  owner-acceptance validator in NEXT_ACTION using synthetic fixtures. Existing
+  `blind-review-packet.mjs --reconcile` compares two forms but cannot validate
+  final human resolutions/owner decisions. Reject blank/mismatched/changed/
+  unresolved/self-adjudicated records. Never reset either canonical v1/v2
+  ledger, refit/tune/combine failed models or bundle their ignored artifacts.
+- **Roope, review organizer:** arrange two distinct independent human reviewers
+  and a separate adjudicator. Use existing
+  `work/blind-human-review-72-2026-11-08-r2/`; follow
+  `scripts/qa/local-vision/blind-review-README.md` exactly: separate A/B
+  submissions without owner key/predictions, anonymous actual codes/dates,
+  exposure/eligibility/privacy, then `--reconcile`, human decisions for all
+  flagged cases including orientation, and explicit owner acceptance/exclusion.
+  No reviewer identity/completed form is invented here. These seen cases do
+  not become fresh held-out quality evidence through relabelling.
+- **Engineering + Roope/device operator, separate phone-update request only:**
+  verify current signing state, preserve rollback, build/sign/install matching
+  bundled native client, then measure camera/unknown/mixed/permissions/offline/
+  accessibility/latency/memory/energy/platform behavior. Current phone/profile
+  is unqueried; unsigned9/Mac timings do not fulfill this. No connection/account
+  problem is inferred without an attempt.
+- **Roope/release owner:** prior source-rights/privacy/Android/store/operations
+  procedures remain required; no general quality or public GO. No new credit,
+  key/account, paid inference, cleanup, publication or push is requested.
+
 ## November9 — failed original head, no new account action
 
 - **Engineering/local:** complete the single two-view NEXT_ACTION before new

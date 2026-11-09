@@ -1,5 +1,13 @@
 # Decision log
 
+## D-068 — More pixels and dimensions do not substitute for generalization
+
+- Date:2026-11-09. Freeze a new explicit two-view experiment before72 image processes/144 predictions, using identical seen family-bound45/27 references and pinned2024 model/licences. Both512 unit views, exact all18 center/available fit parity, strict original input/counters/metadata/source hashes and full denominators are mandatory. No probe/retry/partial-view fit or image/label replacement.
+- Use original raw-unit1024 dual ridge with joint weighted free bias, SUM class-mean objective, λ0.1 and rawmargin0.1 fixed before fit. This changes representation/normalization/regularization together, not a causal feature-only ablation. Separate one45-row fit,45 internal+45 independent primal sanity rows and72 head decisions; numeric checks are not accuracy samples.
+- Repair pre-call high worker-binary provenance gap by actual per-pair/final byte hashing and source checks; stamp observed SHA, not constant-only proof. Unknown process launch remains unknown rather than definite zero. Canonical image/fit ledgers bind the exact lock/output chain and refuse copied-lock/new-output repeat attempts. Owner deletion/concurrent malicious replacement/another host is not made tamper-proof.
+- Actual validation12correct/2wrong→8/1 loses four correct positives; combined29/7→25/1 retains one mixed-scene error. Training17/5→17/0 is resubstitution, not generalization. Reject deployment/refit/retuning/post-hoc candidate combinations and preserve both old primary failures. LV-001 stays high/open, not lowered for1101 passing software tests.
+- Next engineering work validates final independent-human adjudication/owner acceptance of the existing packet; no automatic human approval or new tiny catalogue holdout loop. Broader human-reviewed training/reference data and actual matching native/platform/energy acceptance remain required. No app/rule/dependency/phone/secret/paid/cleanup/publication change.
+
 ## D-067 — Train a bounded original head without certifying seen-data accuracy
 
 - Date:2026-11-08. Use captured18 fixed center similarities, not new paid/image requests. Exact raw/source/attempt parity and family-connected metadata split precede learning; source-family pair stays together. Train45/validate27 with unchanged AI-reference labels, including pantry jar and ambiguous food unknowns. No independent accuracy claim from already seen data.

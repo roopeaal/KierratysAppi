@@ -1,5 +1,13 @@
 # Current state
 
+## Two-view original head — November9,2026
+
+- Continued from b52568e; completed a distinct fixed representation/normalization/solver experiment, not another gate tweak or independent holdout. Same72 seen AI-reviewed original public images and family-bound45/27 allocation. Added two-view native exporter, strict raw/vector/parity joins, raw-unit1024 dual-ridge head, independent primal checker and canonical image→fit once-only controls;80 new no-image/synthetic tests and source reviews pass.
+- Repaired QA-006/high stale worker-binary provenance and QA-007/medium unknown-launch accounting before freeze/any image call. Freeze109 source files, exact data/runtime/binary/allocation. Actual72 processes/144 predictions complete; all72×18 center and16×18 available old fit cosines match exactly. One45-row fit,90 separately counted internal+independent sanity rows and72 head decisions; no retake/paid API/new checkpoint or source drift.
+- **Quality FAIL:** train17correct/5wrong→17/0, validation12/2→8/1 loses four correct positives; combined29/7→25/1 retains mixed-takeaway error and both old primary failures. Numerical checks pass, not generalization. Never deploy/refit/retune the failed head or combine old candidates post hoc. Full receipts/pins and interpretation: `docs/final/LOCAL_VISION_TWO_VIEW_RESULTS.md`.
+- Full `pnpm validate` passes1101 unique cases (576 Node+525 application)/all builds/17 routes. No app/UI/native runtime/rule/dependency/permission/recipient change; iOS9/Android2 unchanged. QA weights/features stay ignored and outside app. No new browser/phone/Release/Android/energy/current-profile/remote-CI acceptance. No secret, payment, cleanup, install or GitHub action.
+- Human labels remain uncompleted; LV-001/PHOTO-003/004 and production NO-GO remain. The existing blind-review tool reconciles two forms but does not validate final human adjudication/owner acceptance. That locally executable data-quality step is the single NEXT_ACTION; human completion and representative native evidence remain separate genuine acceptance requirements, not credit blockers.
+
 ## Own learned-head experiment — November8, later continuation
 
 - Continue from cleane9d3b58. Implement an original deterministic six-class ridge head on the72 already captured18-similarity feature vectors. Independently verify raw image/attempt/binary/metadata parity, family-connected45/27 allocation, training-only statistics, strict serialization, numeric extrapolation/uncertainty and veto-only baseline preservation.47 synthetic data/math/runner tests and pre-fit source reviews pass; no new image-model/paid API call.

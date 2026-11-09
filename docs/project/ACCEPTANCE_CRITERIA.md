@@ -1,5 +1,13 @@
 # Acceptance criteria
 
+## Two-view learned-head follow-up — November9
+
+1. Freeze actual sources/runtime/binary/data/allocation before image calls. Keep72 original seen references/45 train/27 validation and both old primary failures; two correlated views are not144 independent examples or human ground truth.
+2. Require both512 unit views, correct half energies, exact18 center cosines for all72 and exact18 fit cosines for16 available captures, per-pair/final actual binary/source checks and canonical once-only stage chain. Required failure stops acquisition/fit and remains in72 planned denominators with honest exact/lower-bound/unknown counters.
+3. One raw-unit1024 dual fit uses fixed SUM weighting/joint bias/λ0.1/margin0.1 and training-only membership.90 numerical-sanity rows are separate from72 head decisions and144 image predictions; persist/independent primal checks precede decisions. No primary-error/unknown recovery, material/SKU/safety/bin inference or paid fallback.
+4. Preserve failed validation8correct/1wrong with four baseline-correct losses and combined one known wrong; no refit/tuning/post-hoc combination/deployment/severity reduction. Full1101 software tests/all builds are not recognition reliability.
+5. Existing blinded forms/reconciliation remain unaccepted until actual independent human review, final adjudication and explicit owner decision. New final-acceptance validation must reject unresolved/incomplete/changed inputs rather than certify generated forms. App/native/privacy/licensing/signed-device/Android/performance/store acceptance remains separate.
+
 ## Original learned-head feasibility — November8 continuation
 
 1. Raw image/attempt/source metadata and all18 captured features must match pinned evidence; preserve all72 seen references, known source-family components and two old primary failures. No reference/ID-based label guessing, outcome-based split or independent-accuracy claim.

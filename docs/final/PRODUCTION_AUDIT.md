@@ -1,5 +1,24 @@
 # Adversarial production-readiness audit
 
+## Two-view source/quality follow-up — November9
+
+Scoped recognition/QA audit, not a repeated30-lane audit or release acceptance.
+Exact protocol, sources, receipts and retained failures:
+`LOCAL_VISION_TWO_VIEW_PROTOCOL.md` / `LOCAL_VISION_TWO_VIEW_RESULTS.md`.
+
+| ID / severity / state | Evidence / affected files or flow | Reproduction | Required remediation / execution boundary |
+| --- | --- | --- | --- |
+| LV-001 / high / OPEN | New original two-view head removes six combined old wrongs but loses four correct positives; validation retains mixed-takeaway false acceptance. App classifier remains unchanged; QA head is not deployed. | Read frozen lock6718e2f…/resultb803503c…; validation12/2→8/1, combined29/7→25/1. Train17/5→17/0 is not independent quality. Do not repeat inference/refit. | Engineering/local: final human-adjudication/acceptance validation and broader training/reference quality, not post-hoc threshold/candidate loops. Roope organizes actual independent reviewers; signed native/Android/camera/energy acceptance remains separate. |
+| QA-006 / high / REPAIRED before freeze/calls | Initial `embedding-evaluate.mjs` stamped configured binary SHA after one initial check; final stability omitted the new executable. A later binary replacement could carry stale provenance. | Numeric fixture replaces worker bytes after first hash; actual subsequent check must reject. Source-policy test proves per-pair observed SHA/final check; no real alternate executable run. | Rehash actual worker/source before each pair, stamp observed binary SHA and rehash at final stability. Regression/read-only review pass. Per-workspace workflow guard, not protection against intentional OS race/owner deletion/another host. |
+| QA-007 / medium / REPAIRED before freeze/calls | Missing PID/status/unclassified launch error could be falsely counted as definite prelaunch zero execution. `makeEmbeddingCall`, acquisition counters. | Synthetic pid0/statusnull/EINTR must produce unknownProcessLaunches1/unavailableCounterExecutions1, not prelaunch refusal; completion gate rejects. | Explicit true/known-false/unknown launch classification and regression. Actual72 processes have exact footer/progress evidence, no unknowns; no failure or retry needed for repair. |
+
+Full1101 software tests/all builds/17 routes and80 new no-image tests pass;
+all72 paired observations/144 image predictions/one fit/90 numerical rows/72
+head decisions complete with stable hashes. These do not resolve PHOTO-003/004,
+human references, actual phone/Release/Android/privacy/operations/store gates.
+No app/UI/runtime/rule/dependency/recipient change, paid call, secret, install,
+cleanup or GitHub publication. Existing severity/NO-GO is not relaxed.
+
 ## Own learned-head follow-up — November8 fit / November9 closeout
 
 Not a new30-lane audit or production GO. `LOCAL_VISION_LINEAR_RESULTS.md`

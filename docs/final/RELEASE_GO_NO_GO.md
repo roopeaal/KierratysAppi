@@ -1,5 +1,23 @@
 # Release decision
 
+## November9 — richer visual information still fails quality
+
+**NO-GO. LV-001 remains high/open.** The fixed two-view model removes six old
+combined wrongs but loses four correct positives; seen validation12correct/
+2wrong→8/1, combined29/7→25/1. One mixed-scene error and both original primary
+failures remain. Training17/5→17/0 is resubstitution, not reliability. Frozen
+gate FAIL; no integration/refit/retuning or post-hoc candidate combination.
+
+Source/data/parity/math/stage controls pass; high stale-binary provenance and
+medium unknown-launch gaps were repaired before calls. Full1101 tests/all
+builds/17 routes pass, not real camera/Release acceptance. Human forms remain
+blank, app/iOS9/Android2 and prior independent material/source policy unchanged.
+Next local work validates actual final human adjudication/owner acceptance;
+this is not account/credit-blocked. Existing native/platform/privacy/licensing/
+operations/store gates remain; owners/procedures are in OWNER_ACTIONS. No
+phone renewal/install, new native/browser/remote-CI pass, paid action or push.
+Evidence: LOCAL_VISION_TWO_VIEW_RESULTS and TEST_EVIDENCE.
+
 ## November9 — own head numerically valid, recognition still NO-GO
 
 **NO-GO, LV-001 high/open.** One frozen local fit on existing18-feature

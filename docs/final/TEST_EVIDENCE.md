@@ -1,5 +1,77 @@
 # Test evidence
 
+## November9 — frozen two-view experiment, failed quality retained
+
+Protocol/results: `LOCAL_VISION_TWO_VIEW_PROTOCOL.md` /
+`LOCAL_VISION_TWO_VIEW_RESULTS.md`. Private evidence root:
+`work/two-view-learning-2026-11-09.d0J4kb/`.
+
+- Before image calls: standalone Swift6 exporter compile,21 actual no-image
+  numeric/geometry/input checks and one model-load-only preflight; receipts
+  `work/embedding-native-2026-11-09.clmnxf/README.md` / `receipt-final.json`.
+  No hidden real-image warmup/probe. Prototype compiler missing parse-as-library
+  failure and promotion/source-newline verification failure are retained, then
+  repaired before the final binary/hash. No app native build is claimed here.
+- **80 new no-image/synthetic/read-only tests PASS** (15 head+17 data+15
+  native-source+12 policy+9 controls+12 runner), including exact parity, both
+  half norms, dual/primal algebra, strict raw output, original/family/source
+  joins, partial failure retention, copied-lock/image→fit controls, actual binary
+  mutation and unknown-launch telemetry. `embedding-tests-final.log` records
+  all80 before the final cosmetic lint fix; `embedding-tests-post-run.log`
+  repeats80 on the exact frozen source. Initial78-case evidence remains in
+  `embedding-tests.log`. No actual-data fit/image call in tests.
+- Freeze109 source files/runtime/data/exact45/27 allocation at14:55:17UTC,
+  lock6718e2f…; acquisition completes14:55:44: **72 processes/loads/decodes,
+  144 attempted/completed image predictions,72 fully observed pairs**. All18
+  center cosines match each old capture exactly; all18 fit cosines match all16
+  existing references exactly. Zero failure/not-attempted/unknown counts,
+  paid/API/text/download/retake calls. Raw/attempt hashes and all1024 values
+  rechecked before fit; acquisition SHA dc42e458… .
+- **One45-row fit,45 internal+45 independent sanity rows,72 head decisions**,
+  completes14:56:01UTC. Objective1.6068603994857047, slope norm²9.026897602554882,
+  max weighted bias/primal residual5.204170427930421e-16. Strict persisted model/
+  training membership and registered numerical criteria pass. Result SHA
+  b803503c…; complete64hex pins/canonical claims are in results. Immediate
+  recheck confirms all109 source hashes unchanged, no new model/head call.
+- **Quality FAIL:** train17correct/5wrong→17/0; validation12/2→8/1 with four
+  correct losses, combined29/7→25/1 with mixed-takeaway wrong. Both original
+  primary failures/one invalid remain. Zero newly wrong/required failures;
+  failed criteria still fail. No refit/threshold/split/label change, candidate
+  combination, deployment or severity reduction.
+- **Full `pnpm validate` PASS1101 unique =576 Node+525 application**,
+  boundaries/format/lint/strict types/all builds/17 exported routes, exit0:
+  `validate-pre-freeze.log`. Existing pinned pnpm11.16/Node26.4 shims, CI/
+  no-dotenv/no-telemetry; no dependency install/version change or Node24 claim.
+  The existing scoped tsx loader emits Node26 DEP0205 during real data loads;
+  warnings are retained and never treated as failed image responses.
+- Standalone Mac timings are139–448ms native/147–463ms wall, not phone/cold
+  start/full-cascade/latency-memory-energy acceptance. App/UI/iOS9/Android2/
+  rule/model/provenance/material-confirmation remain unchanged. No fresh
+  browser/device/native-release/Android/CI/Doctor/live-audit/store pass, phone
+  state query, secret, payment, cleanup or GitHub write. QA features/weights
+  stay outside the app. Human reference forms remain blank; NO-GO remains.
+
+Data-quality companion guidance materially preserves72-case/144-correlated-view
+grain, exact joins and failed/unknown/not-attempted denominators. It does not
+certify labels or attribute a gain solely to features when normalization/solver
+also changed. Independent source review found QA-006/high and QA-007/medium;
+both repaired before freeze, without a real failed call/retake. Final
+documentation-inclusive `pnpm validate` also passes1101/all builds/17 routes,
+exit0, `validate-final.log`; format and unchanged app/backend/shared/lockfile
+checks pass. Default **staged** `git diff --check` reports one cosmetic new
+blank line at EOF in the promoted frozen Swift source (line371). Earlier
+unstaged checks did not inspect then-untracked files. Preserve its pinned
+f63a4484… bytes, not rewrite a frozen source or falsely call that check green;
+no whitespace configuration/gate is changed. An independent read-only reviewer
+re-decodes all72 saved
+pairs/attempts, verifies all72×18 center and16×18 fit comparisons, identical
+45/27 allocation and109 frozen source/runtime entries, and independently
+recounts every saved measure/per-kind/veto outcome, verifies canonical image→fit
+claims, model45-row membership and saved numerical bounds, and confirms the four
+lost positives/one remaining mixed-scene wrong. No new model, fit or numerical/
+head-forward call is used for this evidence check; it does not independently
+rerun the recorded90 numerical rows.
+
 ## November9 — November8 own-head experiment closeout
 
 Protocol/spec/source/data/allocation/runtime were frozen before one actual

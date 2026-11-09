@@ -1,5 +1,25 @@
 # Security and privacy
 
+## November9 — private two-view experiment, not app delivery
+
+Only the same72 licensed public originals are processed locally with the cached
+pinned2024 model;144 explicit image predictions, zero text/network/paid call or
+private user photograph. Both view embeddings, raw/progress/attempt receipts and
+one learned artifact remain ignored/private outside the app. Retain purpose/
+licences/notices/source and AI-only references; no analytics/history/key/recipient/
+permission or material/identity/safety/sorting change. Local review packets keep
+their separate source/licence sidecar; blank forms are not human acceptance.
+
+Bounded original JPEG/base64/pixels/output/time, strict metadata/unit-vector/
+exact-parity contracts, actual worker/source rehashes and canonical separate
+once-only image/fit stage ledgers pass. Repairs prevent stale constant-only
+binary provenance and false zero-execution telemetry. Logical12s/parent15s
+SIGTERM is not forced native cancellation, memory erasure or device energy
+guarantee; local owner deletion/concurrent executable race/another host is not
+tamper-proof. Quality FAIL remains high/open; artifact is not deployed. No new
+phone/signing/Release/privacy-network-packet/Android/store acceptance, secret
+read, cleanup or GitHub write. Evidence: LOCAL_VISION_TWO_VIEW_RESULTS.
+
 ## November9 — private offline learned-head development
 
 Only already captured licensed public-image similarities are used: no new image

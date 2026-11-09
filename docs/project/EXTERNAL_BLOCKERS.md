@@ -1,5 +1,22 @@
 # External blockers
 
+## November9 two-view learning
+
+No new account, key, credit or paid-compute blocker:72 paired public-image
+observations and one local head fit complete. Validation fails with four correct
+losses/one mixed-scene wrong; training/reference/adjudication engineering remains
+locally executable, not falsely externally blocked. Next local acceptance-import
+validation does not need human forms to exist for synthetic testing.
+
+Actual independent labels/adjudication require two distinct human reviewers and
+an independent adjudicator organized by Roope; current forms remain blank. Use
+the existing blinded packet/procedure in OWNER_ACTIONS, not model predictions.
+Representative real-camera/OS/energy/platform evidence still requires a separately
+requested matching signed installation and Roope/device operation. No phone/
+profile/account state is queried; last verified November4 expiry remains past,
+not a newly reproduced signing failure. Release/privacy/rights/Android/store/
+operations requirements remain. No new installation, cleanup, paid call or push.
+
 ## November8 learned-head continuation
 
 No new credential/account/paid compute is needed: one local head fit uses

@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "two-view-learning-spec-v1",
+  "experimentId": "kig-embedding-v2",
+  "referenceStatus": "seen_ai_reviewed_human_review_required",
+  "worker": {
+    "binary": "work/embedding-native-2026-11-09.clmnxf/embedding-qa",
+    "binarySha256": "1c4e9c070a6ea969fabf81dc1f372f4b572dfb83237a4db54ba27113be6e29a5",
+    "sourceSha256": "f63a4484d8d9a63a3101f6b278df6fb56849c3901fac4822abfd1b7eb03f9099",
+    "schemaVersion": "mobileclip-s0-two-view-embeddings-v1",
+    "logicalBudgetMs": 12000,
+    "outerTimeoutMs": 15000,
+    "maxOutputBytesPerStream": 524288,
+    "maximumFailureTelemetryMs": 60000
+  },
+  "features": {
+    "modelId": "apple-mobileclip-s0-coreml-2024",
+    "revision": "55c8098c12ba8f928e37e26b2e1dd097777c3f98",
+    "centerPolicy": "center-square-256-srgb-v1",
+    "fitPolicy": "aspect-fit-256-srgb-gray127-v1",
+    "viewDimensions": 512,
+    "combinedDimensions": 1024,
+    "combine": "concat_div_sqrt2",
+    "unitNormTolerance": 1e-6,
+    "centerParity": "exact_all_18_all_72",
+    "fitParity": "exact_all_18_where_captured_16",
+    "partialViewsAllowed": false
+  },
+  "head": {
+    "classes": ["bottle", "jar", "box", "bag", "cup", "unknown"],
+    "geometry": "raw_unit_no_zscore",
+    "lambda": 0.1,
+    "classRowWeight": "1/class_count",
+    "objective": "sum_of_six_class_mean_squared_errors_plus_l2",
+    "solver": "dual_ridge_weighted_centering_joint_intercept",
+    "regularizeIntercept": false,
+    "minimumRawMargin": 0.1,
+    "mode": "veto_only_same_as_accepted_baseline",
+    "maximumObjective": 5,
+    "maximumSlopeSquaredNorm": 50,
+    "boundTolerance": 1e-7,
+    "maximumPrimalNormalResidual": 1e-8
+  },
+  "execution": {
+    "cases": 72,
+    "train": 45,
+    "validation": 27,
+    "sameAllocationAsLinearV1": true,
+    "maximumImageProcesses": 72,
+    "maximumImagePredictions": 144,
+    "maximumFits": 1,
+    "internalSanityRows": 45,
+    "independentSanityRows": 45,
+    "maximumHeadDecisions": 72,
+    "retries": 0,
+    "paidApiCalls": 0,
+    "stopAcquisitionAndFitOnAnyPairFailure": true,
+    "appIntegrationAllowed": false
+  },
+  "validationGate": {
+    "maximumWrongAcceptances": 0,
+    "maximumBaselineCorrectLosses": 0,
+    "maximumIntroducedFailures": 0,
+    "maximumIntroducedInvalidOutputs": 0,
+    "minimumValidWrongRemoved": 1,
+    "minimumCorrectPositives": 8,
+    "minimumCorrectPerKnownKind": 1
+  }
+}
