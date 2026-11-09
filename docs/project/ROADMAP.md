@@ -1,5 +1,12 @@
 # Roadmap
 
+## Own learned head — November8 continuation
+
+- [x] Freeze family-bound45/27 split, raw captured feature/source parity and one original ridge-head design, without treating seen AI labels as independent accuracy.
+- [x] Implement numerical/schema/uncertainty/failure accounting and canonical once-only experiment ledger;47 synthetic tests/reviews pass. Fit once, retain validation two-correct-loss failure and combined four remaining wrong controls; no app integration/refit.
+- [ ] Freeze distinct richer two-view embedding/raw-unit dual-head experiment before new feature calls; no-image prototypes only are in progress under ignored work.
+- [ ] Obtain independent human references and representative matching native/platform acceptance; production and local quality findings remain open.
+
 ## Reliability continuation — November8
 
 - [x] Complete frozen S1/S2 development and locked fresh20; retain failed integration gate/one remaining wrong control/two primary failures. No deployment or outcome-driven retake.
@@ -7,7 +14,7 @@
 - [x] Repair native once-only recognition deadline and remaining-budget cancellation without prematurely releasing busy work; add actual-worker no-image/JS/policy regressions. Preserve native/app8 and verify actual unsigned iOS9 build/resources/symbols/privacy.
 - [x] Repair actual static-export material-code prefill hydration while retaining separate Check+Confirm; original failed browser evidence and new source/browser assertions retained.
 - [x] Generate72-case blinded independent human review copies/blank forms, separate rights/source key and mandatory discrepancy/orientation adjudication.18 regressions/all-copy verification pass; generation is not human acceptance. Final full974/all builds/17 routes/browser checks pass.
-- [ ] Freeze a group-disjoint task-specific learning experiment on openly seen data, retaining unknown/mixed controls and independent human/real-camera acceptance; do not repeat fresh20 guard loops or call seen data held-out.
+- [x] Freeze and execute the group-disjoint task-specific learning experiment above; retain its failed result and never call seen data held-out.
 - [ ] Obtain independent reference review and separately requested matching signed native camera/offline/permissions/accessibility/latency/memory/energy/platform acceptance. LV-001/PHOTO/release gates remain open.
 
 ## Reliability loop — November7, in progress

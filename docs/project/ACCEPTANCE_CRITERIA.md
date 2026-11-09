@@ -1,5 +1,12 @@
 # Acceptance criteria
 
+## Original learned-head feasibility — November8 continuation
+
+1. Raw image/attempt/source metadata and all18 captured features must match pinned evidence; preserve all72 seen references, known source-family components and two old primary failures. No reference/ID-based label guessing, outcome-based split or independent-accuracy claim.
+2. One frozen45-row fit uses training-only statistics and exact registered objective/solver/gates. Canonical experiment ledger rejects copied locks/new freezes/alternate outputs, without source-image or app writes. Numeric/schema/serialization failures are failures, not safe removals.
+3. Preserve failed validation10correct/0wrong with two baseline-correct losses and combined four wrong controls. No refit/threshold change/deployment to turn it green; source/math/software checks are separate from empirical quality.
+4. Any richer feature experiment needs its own pre-call budget/source/metadata/parity/failure protocol. Independent human labels and representative signed native/Android/privacy/licensing/release evidence remain mandatory before quality/integration claims.
+
 ## Reliability continuation — November8
 
 1. Preserve S2/F1 failed prospective results, F2 introduced operational failure, source/reference pins and all denominators. No failed candidate deployment, retake, outcome-based relabel or severity reduction. All72 cases are seen development now; new training protocols must state this explicitly.

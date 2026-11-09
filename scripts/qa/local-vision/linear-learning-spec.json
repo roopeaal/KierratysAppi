@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "linear-learning-spec-v1",
+  "experimentId": "kig-linear-v1",
+  "referenceStatus": "seen_ai_reviewed_human_review_required",
+  "features": {
+    "kind": "captured_center_cosines",
+    "count": 18,
+    "modelId": "apple-mobileclip-s0-coreml-2024",
+    "revision": "55c8098c12ba8f928e37e26b2e1dd097777c3f98",
+    "imageWeightsSha256": "87d8f63997bbd2f38ba7defeaaa2c571928bdece56aa9629542198b3ce906ed6",
+    "prototypesSha256": "0dfe73569d1b2177629d95c4bc21c1392be9228aff6809cab0ed1c3358893c81",
+    "promptsSha256": "aa726197e10fc1911b88bb6d6da099220339133c6e39e500f112b9077316e610",
+    "preprocessing": "center-square-256-srgb-v1",
+    "computeUnits": "cpuOnly"
+  },
+  "split": {
+    "policy": "connected-family-stratified-hash-subset-v1",
+    "rankDomain": "kig-linear-split-v1",
+    "trainPerKnownKind": 5,
+    "validationPerKnownKind": 3,
+    "trainMixedSupported": 8,
+    "validationMixedSupported": 4,
+    "trainOtherUnknown": 12,
+    "validationOtherUnknown": 8,
+    "totalTrain": 45,
+    "totalValidation": 27
+  },
+  "head": {
+    "classes": ["bottle", "jar", "box", "bag", "cup", "unknown"],
+    "normalization": "unweighted_train_population_mean_sd",
+    "nearZeroSd": 1e-12,
+    "nearZeroReplacementScale": 1,
+    "objective": "sum_of_six_class_mean_squared_errors_plus_l2",
+    "classRowWeight": "1/class_count",
+    "l2": 1,
+    "regularizeIntercept": false,
+    "solver": "deterministic_cholesky_joint_intercept",
+    "maximumStandardizedMagnitude": 8,
+    "minimumRawMargin": 0.1,
+    "scoreMeaning": "regularized_linear_score_not_probability",
+    "maximumObjective": 5,
+    "maximumSlopeSquaredNorm": 5,
+    "maximumNormalEquationResidual": 1e-8,
+    "numericalTolerance": 1e-8
+  },
+  "decision": {
+    "mode": "veto_only_same_as_accepted_baseline",
+    "preserveUnknownConflictError": true,
+    "materialIdentitySafetySortingInference": false
+  },
+  "validationGate": {
+    "zeroWrongAcceptances": true,
+    "zeroBaselineCorrectLosses": true,
+    "zeroIntroducedRequiredFailures": true,
+    "zeroIntroducedInvalidOutputs": true,
+    "minimumBaselineErrorsRemoved": 1,
+    "minimumCorrectPositives": 8,
+    "minimumCorrectPerKnownKind": 1
+  },
+  "execution": {
+    "maximumFits": 1,
+    "maximumHeadPredictions": 72,
+    "trainingSanityRowEvaluations": 45,
+    "newImageModelCalls": 0,
+    "paidApiCalls": 0,
+    "hyperparameterOrSplitSearch": false,
+    "appIntegrationAllowed": false
+  }
+}

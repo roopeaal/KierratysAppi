@@ -1,5 +1,53 @@
 # Test evidence
 
+## November9 — November8 own-head experiment closeout
+
+Protocol/spec/source/data/allocation/runtime were frozen before one actual
+November8 fit. Exact procedure, failed decision and all pins:
+`LOCAL_VISION_LINEAR_PROTOCOL.md` / `LOCAL_VISION_LINEAR_RESULTS.md`.
+Evidence root: `work/linear-learning-2026-11-08.fBxjdB/`.
+
+- **One real fit/45 training rows,45 separate forward-residual sanity rows,
+  72 head-decision calls; zero new image-model/paid API calls or retries.**
+  Saved model, counters, canonical ledger and unchanged source/data evidence
+  pass independent read-only rechecking. All92 frozen source-file hashes still
+  match on November9; original-image/raw-attempt/binary/18-feature joins remain
+  one-to-one, families remain bound, labels and both old primary failures remain.
+- Numerical fit checks pass: objective1.678353231931069, squared slope norm
+  0.46082914097836947, maximum weighted normal residual7.112366251504909e-16.
+  Strict persisted-model roundtrip, training-only membership/means/scales/counts
+  and exactly registered class-balanced objective are verified, not quality.
+- **Validation FAIL:**27 seen development references,12correct/2wrong baseline
+  becomes10correct/0wrong, losing two correct positives. Combined72 is29/7→27/4;
+  four known wrong controls remain. No wrong answer/required failure introduced;
+  old two processing failures remain, one invalid. No source-specific exception,
+  parameter/seed/label change, repeated fit or app integration.
+- **47 new synthetic checks PASS:**16 math,15 raw-data/split/feature contract,
+  16 evaluation/accounting/filesystem guards. They include independent analytic
+  ridge/weighted-residual invariants, family alias components, failed-stage
+  retention, strict no-recovery policy and canonical copied-lock/second-freeze
+  rejection. QA-005/high single-fit bypass is repaired before the actual fit.
+  Initial lint/import bookkeeping problems were fixed before freeze, not by a
+  real-data retake. Independent reviewers ran only synthetic/recount checks.
+- **Full `pnpm validate` PASS1021 unique tests =496 Node policy+525 application**,
+  strict types/format/lint/boundaries/all builds/17 exported routes, exit0:
+  `validate-2026-11-09.log`. Existing pinned pnpm11.16 shims, Node26.4/CI/no-dotenv/
+  no-telemetry; no dependency install/version change. Scoped shared254 overlaps
+  the full run (`validate-shared-2026-11-09.log`), never added to1021.
+- App/native/source models/rules unchanged (iOS9/Android2). No new iOS build,
+  browser/device/Android/Release/remoteCI/Doctor/live-audit pass is claimed.
+  November8 exported-browser and unsigned9 evidence apply only to their original
+  scopes; no new UI behavior was implemented. Learned weights stay ignored,
+  not phone-delivered or bundled. No user photos, credentials, payment, cleanup
+  or GitHub write. Human reference forms are still uncompleted; NO-GO remains.
+
+At closeout, the next distinct two-view feature/head prototypes are no-image
+work under ignored work, not current source/runtime behavior or observed model
+improvement. They require a new source/data/parity/budget freeze before any
+new image prediction or fit. Data-quality companion guidance reinforces exact
+grain/joins/denominators and explicit unknown-versus-failure accounting; it
+does not certify labels or create additional accuracy samples.
+
 ## November8 — failed spatial/foreground confirmation and deadline repair
 
 Scope, exact protocols/frozen choices/source/reference/model pins, all acquisition

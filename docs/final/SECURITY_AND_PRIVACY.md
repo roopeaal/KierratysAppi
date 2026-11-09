@@ -1,5 +1,23 @@
 # Security and privacy
 
+## November9 — private offline learned-head development
+
+Only already captured licensed public-image similarities are used: no new image
+model/API/network, user photos, key/account, analytics/history, permission or app
+recipient change. Small learned weights and full source/input receipts remain
+ignored/private; no artifact is bundled, phone-installed or published. Inputs/
+models/outputs are bounded and runtime-validated; references retain uncertainty,
+source licences, AI-only status and original failures. No material/safety/bin
+inference or paid fallback is added.
+
+Canonical once-only experiment ledger closes a pre-fit copied-lock retry gap;
+no-link/overwrite guards and synthetic regressions pass. This is workflow
+enforcement per workspace, not tamper-proof protection against owner deletion/
+another host. Source/data/runtime pins and actual-fit numeric checks pass but
+do not certify recognition quality: failed result/four remaining known wrong
+controls remain open. New two-view prototypes are no-image work only until
+separate freeze. Prior signed/device/privacy/energy/release gates stay open.
+
 ## November8 — bounded delivery, experimental data kept out of app
 
 Native recognition now delivers typed timeout once independently of blocked

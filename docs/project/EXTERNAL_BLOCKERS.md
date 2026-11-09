@@ -1,5 +1,16 @@
 # External blockers
 
+## November8 learned-head continuation
+
+No new credential/account/paid compute is needed: one local head fit uses
+captured public-image features and no image-model/API calls. Its validation
+fails and four combined known errors remain; richer visual information/data
+engineering remains locally executable, not externally credit-blocked. Human
+reference forms and physical camera/platform acceptance remain genuinely human/
+device evidence, not fulfilled by unit tests or our own labels. No phone/profile
+state queried or renewed, no new installation/cleanup/push. Existing owner
+privacy/rights/operations/store/Android gates remain unchanged.
+
 ## November8 reliability continuation
 
 No new account/key/credit/paid service is required for the completed native

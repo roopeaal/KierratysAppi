@@ -1,5 +1,21 @@
 # Release decision
 
+## November9 — own head numerically valid, recognition still NO-GO
+
+**NO-GO, LV-001 high/open.** One frozen local fit on existing18-feature
+observations improves seen validation12correct/2wrong→10correct/0wrong but loses
+two correct positives; combined72 retains four wrong controls. Frozen gate
+fails, no retuning/deployment. This is our small decision head on pretrained
+features, not a reliable product/material recognizer or independent accuracy.
+
+Full1021 software tests/all builds/17 routes pass; model/source/ledger/data/math
+checks pass. No new app/native behavior, signed build, phone/offline/camera/
+energy/Android or store acceptance is implied. Blind forms remain empty and
+existing privacy/licensing/provenance/operations/release gates stay open.
+Richer two-view information is the next locally executable experiment, still
+requiring a new frozen protocol/budget and independent human/native evidence.
+No account/payment, profile/install, cleanup, GitHub or production action.
+
 ## November8 — deadline repaired; recognition still NO-GO
 
 **NO-GO. LV-001 remains high/open and locally executable.** Spatial S2 and

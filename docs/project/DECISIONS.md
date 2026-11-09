@@ -1,5 +1,12 @@
 # Decision log
 
+## D-067 — Train a bounded original head without certifying seen-data accuracy
+
+- Date:2026-11-08. Use captured18 fixed center similarities, not new paid/image requests. Exact raw/source/attempt parity and family-connected metadata split precede learning; source-family pair stays together. Train45/validate27 with unchanged AI-reference labels, including pantry jar and ambiguous food unknowns. No independent accuracy claim from already seen data.
+- Fix SUM-of-six-class-mean ridge objective, unweighted training statistics, joint unpenalized intercept, lambda1, rawmargin0.10 and |z|8 before fitting. Validate actual training membership/statistics, serialized model and objective/norm/normal equations. Only matching accepted baseline may survive; never recover primary errors/unknown/conflicts or infer material/safety/bin.
+- Repair source-review high single-fit loophole before real execution using canonical work-root experiment ledger. Preserve one actual fit/45 residual-sanity rows/72 decisions, all old failures and source hashes. Validation removes two errors but loses two correct answers; gate FAIL, not retuned/deployed. Combined four errors remain. Numeric success/47 unit cases are not recognition reliability.
+- Next distinct feature investigation keeps full image context as well as center embedding;18 projections cannot recover512 information or peripheral pixels. Require new explicit two-view144-prediction budget, original-image/old-center parity, fixed dual-head protocol and independent human/native gates before any call or integration. Prototypes only under ignored work during this unit; no app/build/dependency/secret/phone/paid/cleanup/publication change.
+
 ## D-066 — Reject failed spatial/subject guards; bound actual native delivery
 
 - Date:2026-11-08. Continued local reliability work, not publishing/install/paid inference. S2 seen improvement fails prospective coverage/remaining-error criteria; F1 seen improvement fails separate fresh20 with two mixed scenes still accepted. F2 introduces a required-stage failure despite extra correct answers. Preserve all receipts/labels/gates/failures; deploy none. Do not lower LV-001, fit a bottle silhouette threshold to one box, or describe model subjects as exact object counts.

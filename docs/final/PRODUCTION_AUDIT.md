@@ -1,5 +1,22 @@
 # Adversarial production-readiness audit
 
+## Own learned-head follow-up — November8 fit / November9 closeout
+
+Not a new30-lane audit or production GO. `LOCAL_VISION_LINEAR_RESULTS.md`
+records one actual local head fit and its failure;1021 software checks do not
+establish recognition reliability. App/native/rule/model versions unchanged.
+
+| ID / severity / state | Evidence / affected flow | Reproduction | Required remediation / owner boundary |
+| --- | --- | --- | --- |
+| LV-001 / high / OPEN | Ridge head on18 captured similarities removes2 wrong validation controls but loses2 correct positives; combined72 keeps4 wrong controls. Head is QA-only, not deployed; original app quality gap remains. | Inspect frozen lock55349a0f… and summary950bb1e9… in LOCAL_VISION_LINEAR_RESULTS; bottle-metal/bag-white are lost, four listed mixed scenes remain wrong. Do not refit. | Engineering/local: richer visual information and independent training/reference breadth; new two-view protocol before predictions, not another outcome-tuned gate loop. Human/native acceptance and current app runtime parity remain separate. |
+| QA-005 / high / locally REPAIRED before real fit | First new runner's per-lock attempt marker could be bypassed by copied lock/new directory or freeze. `linear-evaluate.mjs`, experiment reproducibility/accounting. | Synthetic copied-lock/new-hash/alternate-output/second-freeze cases; no actual repeat fit needed. | Canonical fixed experiment-ID `wx` ledger inside validated work root, no linked ledger, no reset/overwrite; per-lock marker ancillary. Regressions and independent review pass. Actual1fit/45 sanity rows/72 decisions remain, no bypass used. |
+
+Model identity/feature/case provenance, legacy failures, strict numerical/
+serialized schemas, source drift and class/family split are tested. No source
+secret/API/account/image acquisition or phone action was needed. Human labels,
+real-camera/unknown/hazard/platform/privacy/licensing/operations/store findings
+remain unchanged; source/model engineering is not falsely credit-blocked.
+
 ## Reliability continuation — November8
 
 Scoped local recognition/QA follow-up, **not a fresh30-lane audit or GO**.

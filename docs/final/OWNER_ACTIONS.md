@@ -1,5 +1,22 @@
 # Owner actions
 
+## November9 — failed original head, no new account action
+
+- **Engineering/local:** complete the single two-view NEXT_ACTION before new
+  calls. Never reset the v1 canonical ledger/refit/change its failed gate.
+  No paid compute/key/account is required; current app/source quality is not
+  externally credit-blocked. Do not deliver QA weights as if already accepted.
+- **Independent human reviewers/adjudicator:** the previously prepared72-case
+  blinded packet/procedure below remains uncompleted. Review original form versus
+  unknown/ambiguous labels without model outputs; retain exposure/orientation/
+  rights concerns and document adjudication. Our own AI labels are not acceptance.
+- **Engineering + Roope/device operator, only under a separate phone-update
+  request:** later matching signed native/permissions/offline/accessibility/
+  performance/energy acceptance is still needed. This unit changes no app binary,
+  profile or device; source9/Android2 remain, current phone state unqueried.
+- **Release owner:** existing privacy/content/licensing/operations/Android/store
+  actions are unchanged. No GO, push, paid action or cleanup is inferred.
+
 ## November8 — reliability and independent acceptance
 
 - **Engineering:** execute the single new NEXT_ACTION: freeze group-disjoint
