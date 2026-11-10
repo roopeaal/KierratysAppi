@@ -10,6 +10,7 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import { SortingResultCard } from "@/components/sorting-result";
+import { RecycleAction } from "@/components/recycle-action";
 import {
   AppText,
   Button,
@@ -20,6 +21,7 @@ import {
   sharedStyles,
 } from "@/components/ui";
 import { announceAccessibility } from "@/features/accessibility/announcements";
+import { recyclingIntent } from "@/features/overview/recording";
 import { useLanguage } from "@/i18n/language-context";
 import { radius, spacing, useAppTheme } from "@/theme/tokens";
 
@@ -48,6 +50,7 @@ export default function ManualComponentScreen() {
   const [shape, setShape] = useState<PackagingShape>("unknown");
   const [deposit, setDeposit] = useState<DepositReturnStatus>("unknown");
   const [result, setResult] = useState<SortingResult>();
+  const [recordingScope] = useState(() => ({}));
 
   const evaluate = () => {
     if (!material) return;
@@ -131,6 +134,11 @@ export default function ManualComponentScreen() {
         {result && (
           <View style={styles.result} accessibilityLiveRegion="polite">
             <SortingResultCard result={result} />
+            <RecycleAction
+              sorting={result}
+              material={material}
+              recordId={recyclingIntent(recordingScope, "manual")}
+            />
           </View>
         )}
         {result && (

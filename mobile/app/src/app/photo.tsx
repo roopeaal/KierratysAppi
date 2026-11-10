@@ -21,6 +21,7 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { SortingResultCard } from "@/components/sorting-result";
+import { RecycleAction } from "@/components/recycle-action";
 import {
   AppText,
   Button,
@@ -34,6 +35,7 @@ import {
   sharedStyles,
 } from "@/components/ui";
 import { announceAccessibility } from "@/features/accessibility/announcements";
+import { recyclingIntent } from "@/features/overview/recording";
 import { photoAvailable, requestPhoto } from "@/features/photo/api";
 import {
   canUsePhotoCapture,
@@ -585,6 +587,12 @@ function PhotoPartResult({
             {t("photoLocalSelection")}
           </AppText>
           <SortingResultCard result={sorting} embedded />
+          <RecycleAction
+            sorting={sorting}
+            material={material}
+            recordId={recyclingIntent(estimate, String(index))}
+            label={localizedText(language, part.label)}
+          />
         </View>
       )}
     </Paper>

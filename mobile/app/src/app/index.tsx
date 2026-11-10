@@ -306,6 +306,33 @@ export default function HomeScreen() {
               ))}
             </View>
             <HomeSectionHeading
+              title={t("overviewTitle")}
+              action={t("overviewOpenAction")}
+              onPress={() => router.push("/overview")}
+            />
+            <HomeSurface>
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel={t("overviewOpenAction")}
+                accessibilityHint={t("overviewHomeDetail")}
+                onPress={() => router.push("/overview")}
+                testID="home-overview-action"
+                style={({ pressed }) => [
+                  styles.previewRow,
+                  { opacity: pressed ? interaction.pressedOpacity : 1 },
+                ]}
+              >
+                <IconDisc kind="guide" compact />
+                <View style={styles.grow}>
+                  <AppText style={styles.rowTitle}>{t("overviewOpenAction")}</AppText>
+                  <AppText style={[styles.caption, { color: home.muted }]}>
+                    {t("overviewHomeDetail")}
+                  </AppText>
+                </View>
+                <Chevron />
+              </Pressable>
+            </HomeSurface>
+            <HomeSectionHeading
               title={t("homeNearbySection")}
               action={t("homeFindPoints")}
               onPress={nearby}

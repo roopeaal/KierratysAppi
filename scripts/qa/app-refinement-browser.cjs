@@ -509,6 +509,7 @@ async function largeText(page) {
         "guide",
         "material-code",
         "history",
+        "overview",
         "legal",
       ]) {
         await page.goto(baseUrl + "/" + route);

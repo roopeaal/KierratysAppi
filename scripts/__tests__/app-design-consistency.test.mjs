@@ -46,7 +46,7 @@ test("Home presentation derives from the same live light and dark palettes as al
   assert.match(ui, /backgroundColor: palette\.bgSurface/);
 });
 
-test("all fourteen functional subpages use shared text and navigation without legacy sans overrides", () => {
+test("all fifteen functional subpages use shared text and navigation without legacy sans overrides", () => {
   for (const route of [
     "identify",
     "settings",
@@ -62,6 +62,7 @@ test("all fourteen functional subpages use shared text and navigation without le
     "legal",
     "photo",
     "local-photo",
+    "overview",
   ]) {
     const screen = mobile(`app/${route}.tsx`);
     assert.match(screen, /<PageHeader\b/, `${route} retains shared back navigation`);

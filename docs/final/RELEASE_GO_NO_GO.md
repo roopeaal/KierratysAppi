@@ -1,5 +1,25 @@
 # Release decision
 
+## November10 — teammate features integrated, public release still NO-GO
+
+Overview and matching SDK patches from real team main0eae2cf are merged locally
+without overwriting illustrated/local-AI/confirmation/privacy work. Repaired
+acknowledgement-loss accounting and actual CLI schema evidence; final1159tests/
+all builds/18routes/mobile499, live high-critical advisory gate0 and Expo
+compatibility/three FI/EN browser suites pass.14moderate+5low advisory records
+remain. This is software evidence, not a clean public release or recognition
+quality acceptance.
+
+Roope authorizes matching phone delivery and a narrow barcode-only trusted-LAN
+server. Developer-signed embedded-JS Release10 is built/verified/replacement-
+installed; owner resolves trust and confirms opening, then CLI relaunch and
+retainedPID pass with Metro stopped. Profile expires17.11.2026 at12.06.45
+Helsinki. Release build configuration is not App Store distribution. Independent
+native Overview/persistence/airplane-mode and human labels, LV-001/PHOTO-003/004, camera/
+airplane-mode/VoiceOver/persistence/energy/Android and privacy/content/licensing/
+operations/store gates remain. No failed learned head, paid call, new key,
+cleanup or GitHub write. Owners/procedures remain in OWNER_ACTIONS.
+
 ## November9 — richer visual information still fails quality
 
 **NO-GO. LV-001 remains high/open.** The fixed two-view model removes six old

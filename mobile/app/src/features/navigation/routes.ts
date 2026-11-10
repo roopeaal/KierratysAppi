@@ -19,6 +19,7 @@ export function activeTab(path: string): PrimaryTab | null {
       return "nearby";
     case "/settings":
     case "/history":
+    case "/overview":
     case "/legal":
       return "settings";
     default:

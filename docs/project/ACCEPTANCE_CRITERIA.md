@@ -1,5 +1,13 @@
 # Acceptance criteria
 
+## Teammate main and matching phone delivery — November10
+
+1. Fetch actual verifiedteamorigin/main, inspect missing commits/author behavior and retain original ancestry via local merge. Preserve current local-recognition/UI/material-confirmation/privacy and both historical evidence streams; no private source/bot-branch import or push authority inferred.
+2. Overview counts only explicit self-reported recycled parts, not lookups/AI estimates. Preserve count basis/material separation/persistence/recent100/deletion; ambiguous acknowledgements retain exact intent and lock replacement edits until reconciliation/retry/confirmed reset. Test storage/limits/corruption/concurrency/backup disclosures and FI/EN/narrow/dark/large/focus/error recovery.
+3. Matching frozen dependency/actual CLI schema checks, full/mobile validation, current live high/critical policy and Expo compatibility pass. Keep lower advisory records and first failed tests; never change parser/semantics or weaken assertions to hide an expected-label test bug.
+4. Before replacement install, preserve prior app/native tree; match source10/actual version/profile/device/team, native lock=Manifest, default/FI/EN camera/location/LAN purpose, privacy, complete pinned local model/notices, strict signatures and current embedded JS. No QA/rejected head/private key is bundled. Development signing/Release build is not App Store acceptance.
+5. Verify actual installed build/launch/Overview without Metro, without uninstalling/resetting user data or creating fake phone records. Native camera/OCR/airplane-mode/permissions/VoiceOver/persistence/energy/general quality remain separate measured gates. Approved server binds exact trusted LAN only, keyunset/cloudfalse; no paid inference or automatic publication.
+
 ## Two-view learned-head follow-up — November9
 
 1. Freeze actual sources/runtime/binary/data/allocation before image calls. Keep72 original seen references/45 train/27 validation and both old primary failures; two correlated views are not144 independent examples or human ground truth.

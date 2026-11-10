@@ -1,5 +1,24 @@
 # External blockers
 
+## November10 teammate integration / authorized phone update
+
+No new key, account, API-credit or paid-compute blocker found. Incoming main is
+merged locally; software/browser/supply-chain/native checks pass. Actual Release10
+is signed and replacement-installed; owner resolves the initial trust refusal
+and confirms opening, followed by successful CLI relaunch/retainedPID. Profile
+expires17.11.2026 at12.06.45 Helsinki. This actual trust step is complete, not
+a continuing account/signature blocker. Roope approves barcode-only API on the
+current trusted LAN; cloud is disabled/keyunset and a free real lookup resolves.
+
+Roope must operate actual unlock/trust/account prompts if they arise, and real
+camera/settings/VoiceOver or true recycling-record actions for physical evidence.
+No independent native Overview interaction/persistence/airplane-mode/camera/
+VoiceOver/energy acceptance is implied by opening. An optional automation tool
+cannot initially resolve its device selector, not evidence the phone is absent.
+Do not invent additional prompts or human acceptance. Existing independent-reference/
+quality/Android/operations/store/privacy/source-rights gates remain. This source
+integration authorizes no new GitHub sharing, payment, cleanup or data reset.
+
 ## November9 two-view learning
 
 No new account, key, credit or paid-compute blocker:72 paired public-image

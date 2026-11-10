@@ -1,5 +1,37 @@
 # Adversarial production-readiness audit
 
+## Teammate integration — November10 scoped follow-up
+
+Not a fresh30-lane audit or production GO. Incoming3commits from actual
+KierratysAppi/main0eae2cf are merged locally, preserving local UI/recognition/
+confirmation/privacy. Evidence: `TEAM_MAIN_INTEGRATION_AND_CLIENT10.md`.
+
+| ID / severity / state | Evidence / affected files | Reproduction | Required remediation / boundary |
+| --- | --- | --- | --- |
+| INT-001 / medium / locally REPAIRED | Incoming Overview form discarded pendingID on edit after rejected save acknowledgement, permitting duplicate self-reported counts after a committed write. `overview.tsx`, new `save-intent.ts`. | Mock storage commits then rejects; block read reconciliation, attempt label/material/quantity edits, retry. Original storage test already models acknowledgement loss; new helper/browser cases cover UI. | Read-reconcile exact payload, keep unknown intent/editlock, explicit stable retry or confirmed clear/reset;10 new cases/50Overview tests plus FI/EN browser pass. No fake phone record or real data deletion. |
+| INT-002 / medium / locally REPAIRED | New CLI test claimed CLI-owned Zod and resolved undeclared dependency through incidental hoisting; actual58.1.19 uses JSON Schema/injected Zod. `expo-cli-zod-compatibility.test.mjs`. | Inspect real CLI manifest/schema and create MCP schema with explicit declared Zod; missing injection must fail. | Resolve contracts-declared Zod, exercise actual JSON Schema/constructor/factory and readable failure semantics;8 CLI cases pass. Keep frozen resolution/policy values; old override documented inert. |
+
+Final1159/all builds/18routes/mobile499, current advisory gate/Expo check and
+three FI/EN browser suites pass. Existing14moderate+5low advisory records and
+LV-001/PHOTO-003/004/release findings remain, no severity reduction. Actual
+developer Release10 build/signature/profile/model/privacy checks, replacement
+inventory, owner trust/opening confirmation and later relaunch/PID pass with
+Metro stopped; no general camera/airplane-mode/energy/store acceptance inferred.
+No private-source import/push, paid call, secret read or cleanup.
+
+**INT-003 / low / verifier locally corrected:** initial private artifact checker
+requires contiguous runtime-composed/optimized strings and literal byte order of
+informational CoreML maps. Affects delivery evidence, not app inference. Reproduce
+on the unchanged Release10 binary: timeout is composed from typed reason, V4 is
+proven as ARM64 SmallString; only3 known map records permute at bytes204–365 and
+full JSON objects are equal. Require exact source/archive/object linkage,
+8symbol checks/scoped instruction decoding, exact nonmap bytes and all graph/
+weight/other pins.33 positive/negative proof cases plus root independent
+comparison pass. Retain both failed receipts and actual new tree hash; no model
+or application change/inference retry. Procedure/evidence/source:
+`docs/research/coreml-release-artifact-2026-11-10.md`. This is not a waived
+quality gate or a new human/device quality pass.
+
 ## Two-view source/quality follow-up — November9
 
 Scoped recognition/QA audit, not a repeated30-lane audit or release acceptance.

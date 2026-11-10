@@ -10,7 +10,15 @@ const base = process.env.APP_QA_URL ?? "http://127.0.0.1:8095";
 const evidence = path.resolve(
   process.env.APP_QA_EVIDENCE_DIR ?? "work/local-vision-browser-2026-11-03",
 );
+const overviewKey = "@kierratysappi/recycling-overview/v1";
 fs.mkdirSync(evidence, { recursive: true });
+
+async function storedRecycling(page) {
+  return page.evaluate((key) => {
+    const raw = localStorage.getItem(key);
+    return raw === null ? null : JSON.parse(raw);
+  }, overviewKey);
+}
 
 async function inspect(page, name) {
   await page.evaluate(() => document.fonts.ready);
@@ -217,6 +225,12 @@ async function main() {
       await assertPassive();
       // This is a public-code navigation fixture, not OCR/inference evidence.
       // A suggested code only prefills: checking and comparison remain explicit.
+      // Web cannot fabricate native OCR. Enter via the real local manual recovery,
+      // then supply a public suggested code through the same public query boundary.
+      await page.getByTestId("local-photo-marking-action").click();
+      await page.getByRole("textbox").waitFor();
+      assert.equal(new URL(page.url()).pathname, "/material-code");
+      assert.equal(await storedRecycling(page), null, "No automatic recycling record on recovery");
       await page.goto(`${base}/material-code?code=05%20PP`);
       const codeField = page.getByRole("textbox", {
         name: language === "fi" ? "Pakkauksessa näkyvä koodi" : "Code visible on the package",
@@ -232,6 +246,8 @@ async function main() {
       });
       assert.equal(await confirm.count(), 0);
       assert.equal(await page.locator('[data-testid^="sorting-result-"]').count(), 0);
+      assert.equal(await page.getByTestId("recycle-mark-action").count(), 0);
+      assert.equal(await storedRecycling(page), null, "No automatic recycling record from prefill");
       const checkCode = page.getByRole("button", {
         name: language === "fi" ? "Tarkista koodi" : "Check code",
         exact: true,
@@ -246,14 +262,60 @@ async function main() {
       await checkCode.click();
       await confirm.waitFor();
       assert.equal(await page.locator('[data-testid^="sorting-result-"]').count(), 0);
+      assert.equal(await page.getByTestId("recycle-mark-action").count(), 0);
+      assert.equal(await storedRecycling(page), null, "No automatic recycling record from Check");
       await inspect(page, `${language}-material-requires-confirmation`);
       await confirm.click();
       await page.locator('[data-testid^="sorting-result-"]').waitFor();
+      const mark = page.getByTestId("recycle-mark-action");
+      await mark.waitFor();
+      assert.equal(
+        await storedRecycling(page),
+        null,
+        "Physical confirmation only enables recording",
+      );
+      await mark.click();
+      await page.getByTestId("recycle-confirm-panel").waitFor();
+      assert.equal(await storedRecycling(page), null, "Opening recycling confirmation is passive");
+      await page.getByTestId("recycle-confirm-cancel").click();
+      assert.equal(
+        await storedRecycling(page),
+        null,
+        "Cancelled recording preserves empty storage",
+      );
+      await mark.click();
+      await page.getByTestId("recycle-confirm-action").click();
+      await page.waitForFunction(
+        (key) => JSON.parse(localStorage.getItem(key) ?? "null")?.counts.plastic === 1,
+        overviewKey,
+      );
+      const confirmedRecord = await storedRecycling(page);
+      assert.equal(confirmedRecord.recent.length, 1);
+      assert.equal(confirmedRecord.recent[0].quantity, 1);
+      assert.equal(confirmedRecord.recent[0].material, "plastic");
+      assert.equal(confirmedRecord.recent[0].label, "PP 5");
+      assert.equal(
+        Object.values(confirmedRecord.counts).reduce((sum, n) => sum + n, 0),
+        1,
+      );
+      await page.getByTestId("recycle-overview-action").click();
+      await page.getByTestId("overview-total").waitFor();
+      await page.waitForFunction(
+        () => document.querySelector('[data-testid="overview-total"]')?.textContent === "1",
+      );
+      assert.equal(await page.getByTestId("tab-settings").getAttribute("aria-selected"), "true");
+      await inspect(page, `${language}-local-recovery-confirmed-overview`);
       await page.goto(`${base}/material-code?code=05%20PP&code=01%20PET`);
       await codeField.waitFor();
       assert.equal(await codeField.inputValue(), "");
       assert.equal(await confirm.count(), 0);
       assert.equal(await page.locator('[data-testid^="sorting-result-"]').count(), 0);
+      assert.equal(await page.getByTestId("recycle-mark-action").count(), 0);
+      assert.deepEqual(
+        await storedRecycling(page),
+        confirmedRecord,
+        "Invalid prefill cannot mutate records",
+      );
       await assertPassive();
       await page.goto(`${base}/legal`);
       await page
@@ -292,13 +354,24 @@ async function main() {
       );
       assert.equal(await cloudPrivacy.count(), 1);
       assert.match(await cloudPrivacy.innerText(), /30/u);
+      await page.getByTestId("privacy-delete-action").click();
+      await page.getByTestId("privacy-delete-confirm-panel").waitFor();
+      assert.deepEqual(await storedRecycling(page), confirmedRecord, "Opening deletion is passive");
+      await inspect(page, `${language}-privacy-local-cloud-overview-deletion`);
+      await page.getByTestId("privacy-delete-cancel").click();
+      assert.equal(await page.getByTestId("privacy-delete-confirm-panel").count(), 0);
+      assert.deepEqual(
+        await storedRecycling(page),
+        confirmedRecord,
+        "Cancelling deletion retains records",
+      );
       await inspect(page, `${language}-privacy-local-and-cloud`);
       await assertPassive();
       assert.deepEqual(errors, []);
       await context.close();
     }
     console.log(
-      "PASS: actual FI/EN web final supported-iPhone/limited-recognition/paid-cloud copy and capture guidance, explicit unsupported-native state (no fake estimate/retake), zero implicit API/camera/GPS, keyboard barcode permission-explanation/back and manual-marking recovery, separate named cloud consent entry/back without capture/send, 44pt controls, dark/light 320/390/1280 and 130% synthetic text; public-code prefill requires explicit check and confirmation, duplicate route values are rejected; Privacy distinctly describes local no-upload/clearing, conditional MobileCLIP-S0/2024 attribution with no endorsement/material-certainty claim, and separately consented OpenAI retention. Native capture/retake, image inference and accuracy remain unverified.",
+      "PASS: actual FI/EN web final supported-iPhone/limited-recognition/paid-cloud copy and capture guidance, explicit unsupported-native state (no fake estimate/retake), zero implicit API/camera/GPS, keyboard barcode permission-explanation/back and manual-marking recovery, separate named cloud consent entry/back without capture/send, 44pt controls, dark/light 320/390/1280 and 130% synthetic text; local recovery/public-code prefill requires explicit Check, physical confirmation and a separate recycled-part confirmation before one Overview record, with passive cancellation and invalid-query preservation; Privacy retains local no-upload/clearing, conditional MobileCLIP-S0/2024 attribution without endorsement/material certainty, separately consented OpenAI retention and cancel-safe Overview deletion. Native capture/retake, image inference and accuracy remain unverified.",
     );
   } finally {
     await browser.close();

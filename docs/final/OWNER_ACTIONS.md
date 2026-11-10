@@ -1,5 +1,32 @@
 # Owner actions
 
+## November10 — installed client10 and retained acceptance gates
+
+- **Completed engineering/Roope:** actual teammate main is locally merged;
+  source1159/browser/audit/Expo/native artifact checks pass. Replace-install
+  confirms0.1.0/build10; Roope personally trusts/verifies developer and reports
+  opening. Later CLI terminate/relaunch/retainedPID succeeds without Metro.
+  New signing profile expires **17.11.2026 klo12.06.45 Helsinki**; renew/sign/
+  replace-install before expiry under a later owner request. No year-end/store
+  availability follows from a seven-day personal developer profile.
+- **Roope/device operator + engineering:** execute the single offline/persistence
+  NEXT_ACTION on client10. Owner operates airplane mode and restores original
+  network state; record only genuine already-recycled material, never fabricated
+  phone totals. Confirm actual Overview/guide rendering, then force-quit/reopen
+  persistence. Do not clear existing data or capture/upload private images.
+  Camera/denial/VoiceOver/latency/memory/energy/Android remain separate evidence.
+- **Engineering:** retain approved barcode-only exact-LAN:3003 service, cloudfalse/
+  keyunset, no wildcard exposure; public product lookup still needs Mac/LAN/
+  internet, local startup/guide/Overview/local estimator need no API. Do not
+  silently enable paid cloud, read/reuse a key or publish this development merge.
+- **Roope/review organizer:** previously prepared independent human forms are
+  still blank. Final adjudication/owner-acceptance validation is engineering-
+  executable backlog; independent humans must actually review, never use our
+  own predictions as ground truth. Failed learned heads remain undeployed.
+- **Release owner:** existing store/privacy/licensing/provenance/operations/
+  Android/general-quality gates remain. Developer Release installation is not
+  production GO; no GitHub push, paid call, cleanup or data reset is authorized.
+
 ## November9 — two-view failure, independent references next
 
 - **Engineering/Codex, local:** implement the single final human-adjudication/

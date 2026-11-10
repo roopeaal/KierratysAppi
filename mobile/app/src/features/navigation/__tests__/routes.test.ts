@@ -7,6 +7,7 @@ describe("integrated primary navigation", () => {
     expect(new Set(primaryTabs.map(({ id }) => id)).size).toBe(4);
     expect(activeTab("/guide")).toBe("home");
     expect(activeTab("/history")).toBe("settings");
+    expect(activeTab("/overview")).toBe("settings");
     expect(activeTab("/legal")).toBe("settings");
   });
 

@@ -36,7 +36,7 @@ test("native permission purpose includes both barcode and explicitly approved im
     assert.doesNotMatch(purpose, /ei lähetetä/u);
   }
   assert.equal(camera[1].recordAudioAndroid, false);
-  assert.equal(app.ios.buildNumber, "9");
+  assert.equal(app.ios.buildNumber, "10");
   assert.equal(app.android.versionCode, 2);
   assert.equal(
     JSON.parse(read("mobile/app/locales/fi.json")).ios.NSCameraUsageDescription,
@@ -46,6 +46,17 @@ test("native permission purpose includes both barcode and explicitly approved im
     JSON.parse(read("mobile/app/locales/en.json")).ios.NSCameraUsageDescription,
     /separate approval/u,
   );
+});
+
+test("standalone development client describes the real local product server in FI and EN", () => {
+  const app = JSON.parse(read("mobile/app/app.json")).expo;
+  const fi = JSON.parse(read("mobile/app/locales/fi.json")).ios;
+  const en = JSON.parse(read("mobile/app/locales/en.json")).ios;
+  assert.equal(app.ios.infoPlist.NSLocalNetworkUsageDescription, fi.NSLocalNetworkUsageDescription);
+  assert.match(fi.NSLocalNetworkUsageDescription, /tuotehakuun Macin palvelimelta/u);
+  assert.match(en.NSLocalNetworkUsageDescription, /look up products.*server on your Mac/u);
+  for (const purpose of [fi.NSLocalNetworkUsageDescription, en.NSLocalNetworkUsageDescription])
+    assert.doesNotMatch(purpose, /Dev Launcher|discover/u);
 });
 
 test("paid photo boundary is development-only, bounded and separate from normal lookup logging/cache", () => {

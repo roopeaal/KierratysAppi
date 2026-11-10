@@ -1,5 +1,31 @@
 # Security and privacy
 
+## November10 — explicit local records and narrow development service
+
+Teammate Overview stores only explicitly confirmed self-reported material/part
+counts, optional labels and dates locally; not automatic scan-derived recycling,
+weight/environmental impact or material verification. Recent100 is bounded
+history/dedup; counts retain older parts. No analytics/upload/account is added.
+UI describes count basis/optional nonpersonal label/OS backup/deletion; iOS
+storage is not claimed encrypted, backup-free or cryptographically wiped.
+Unknown save acknowledgements now retain/reconcile exact intent and prevent
+replacement edits; explicit retry/confirmed clear controls recovery. Global
+local-data deletion shares the storage lock and error/confirmation UI.
+
+Current local inference/material confirmation/source provenance remain. Trusted
+LAN barcode server is owner-approved, exact-address only:3003, clouddisabled/
+keyunset, silent routine logging; health/capability checks do not send images,
+GPS or actual product requests. A later single public-GTIN smoke test resolves
+against Open Food Facts, without phone history/photo/GPS changes. No wildcard bind, private key/API-key read,
+paid service, cleanup or publication. Source/default/FI/EN LAN purpose describes
+real product-server use. Actual developer Release10 signature/profile/native/
+privacy/model checks and replacement install pass; owner personally resolves
+trust and confirms opening, later CLI relaunch/PID succeeds without Metro.
+Signing leaf is in profile; expiry17.11.2026 at12.06.45Helsinki. No independent
+Overview/camera/privacy-network/airplane-mode/VoiceOver/energy acceptance follows.
+Current source/browser/audit scopes and retained failures are in TEST_EVIDENCE;
+existing public privacy/licensing/security/operations/store gates remain.
+
 ## November9 — private two-view experiment, not app delivery
 
 Only the same72 licensed public originals are processed locally with the cached

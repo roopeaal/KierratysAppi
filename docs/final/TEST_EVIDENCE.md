@@ -1,5 +1,77 @@
 # Test evidence
 
+## November10 — actual teammate main integration and client10 preparation
+
+Source/history/procedures/retained failures and later native delivery evidence:
+`TEAM_MAIN_INTEGRATION_AND_CLIENT10.md`. Current run is not a repeated30-lane
+audit, a general recognition pass or a public release. Private evidence root:
+`work/team-main-integration-2026-11-09.mazlz9/`.
+
+- Fresh actualorigin/main0eae2cf contains3missingITbes-dev commits; normal local
+  merge keeps original ancestry and all9local commits/illustrated/local-AI/
+  material-confirmation/hydration behavior. Five docs conflicts retain both
+  histories; current merge entries resolved. Backend/shared/rules/models are
+  not replaced; no private import, open Dependabot update or GitHub write.
+- Frozen matching install passes761-entry supply-chain/age policy. Actual
+  Expo58.0.23/native compatibility and CLI58.1.19 JSON Schema/explicit injected
+  Zod tests pass; no policy-value or frozen-lock regeneration. Inert historical
+  CLI override remains documented, not claimed active ownership.
+- **Final full `pnpm validate` PASS1159unique (584Node+575application)**,
+  boundaries/format/lint/strict types/all builds/**18 exported routes**; final
+  mobile499 overlaps. Logs `validate-final-2026-11-10.log` /
+  `validate-mobile-final-2026-11-10.log`, both exit0. Earlier1158 checkpoint
+  precedes one added real-LAN-purpose regression. Existing pinned pnpm11.16,
+  Node26.4/CI/no-dotenv/no-telemetry, not newly verified Node24 or remote CI.
+- Live `security:audit` exit0/no high-critical,14moderate+5low records retained;
+  `expo install --check` exit0/dependencies up to date. Logs
+  `security-audit-2026-11-10.log` / `expo-install-check-2026-11-10.log`.
+  No fresh Doctor/gitleaks/canary acceptance inferred. Exact historical prose
+  ignore fingerprint is independently scoped; workflows/rules unchanged.
+- Overview50 tests include10 new exact-intent acknowledgement-loss cases.
+  Browser Overview/app-refinement pass first; local-vision first fails only
+  newly written raw05PP label expectation. Existing domain implementation/test
+  proves canonicalPP5; strict expectation-only repair/fresh rerun passes.
+  First failure/log/screens retained, no parser/assertion weakening. All3 FI/EN
+  suites cover real rendered styles/narrow/dark/large, persistence, correction,
+  corruption, commit→reject/edit-lock/retry/clear, Check+physical confirmation+
+  distinct recycling confirmation/cancel and local-data deletion. Thirty-two
+  source checks and six actual screenshot reviews pass. Root also inspects the
+  actual IAB Overview zero/selectedSettings/sharedtypography. Browser/mock
+  evidence is not native inference/VoiceOver/phone/Android acceptance.
+- All browser attempts/script hashes are retained in
+  `browser-2026-11-10/browser-results.json`, SHA7f60a066c8d56f649a5d8ace079c53e7e5eeef3017811ab5f49e64c2396fd854.
+  Stop only owned worktree Metro8111 after checks; API remains narrowly bound.
+- Targeted native inventory before update confirms0.1.0/build4. Complete
+  generated-iOS and unsigned9 APFS copies precede native changes; lock hashes
+  match. Source becomes iOS10/Android2; camera/location unchanged, accurate LAN
+  purpose is default/FI/EN. First pod install at root fails Expo resolution;
+  correct iOS cwd completes, Podfile.lock=Manifest with matching updated pods.
+  Actual developer-signed **Release10 BUILD SUCCEEDED**, embedded5,428,413-byte
+  JS,75,468,195-byte bundle. Strictapp/11framework signatures,17matchingnative
+  pins, default/FI/ENpurposes/privacy/model13resources/fournotices pass. Both
+  literal-checker false negatives remain; source/object/8symbol/ARM64V4 proof
+  and exact3metadata-map permutation/fullJSON equality replace invalid
+  byte/string assumptions, not model/source/gate changes.33 extra no-image
+  proof tests are outside1159. Details/primary source are in the linked report
+  and `docs/research/coreml-release-artifact-2026-11-10.md`.
+- Replacement install/targeted inventory confirm0.1.0/build10. Initial iOS
+  security denial resolves after **owner personally trusts and confirms app
+  opening**. Later actual terminate/relaunch with Overview payload succeeds;
+  subsequent exact-PID query retains it with Metro stopped. Successful payload/
+  PID plus owner confirmation are not an independent native screenshot or
+  Overview interaction/persistence/airplane-mode/camera/VoiceOver/energy pass.
+  New profile expires17.11.2026 at12.06.45Helsinki. Public signing leaf also
+  matches profile; initial optional extraction syntax failure is retained,
+  corrected standard syntax succeeds without private-key access. No clean
+  prebuild, data reset, uninstall, cleanup or new account/key.
+- Roope separately approves trusted-LAN lookup API. Actual only-current-LAN
+  address:3003 listener, healthok/cloudcapabilityfalse, keyunset and logger
+  silent. Initial guessed endpoint404s retained as setup observations, not
+  provider failures. One later free public-GTIN lookup returns200/resolved/
+  correctbinding/OpenFoodFacts provenance/2components, outside phone history.
+  No photo/GPS/paid request. Standalone local startup is not full airplane-mode/
+  accuracy/energy or independent phone-LAN-reachability acceptance.
+
 ## November9 — frozen two-view experiment, failed quality retained
 
 Protocol/results: `LOCAL_VISION_TWO_VIEW_PROTOCOL.md` /
@@ -492,6 +564,25 @@ extend it. Public production remains **NO-GO**; no new push authority inferred.
   all builds and16 web routes (`validate.log` in the same ignored root).
   Documentation-inclusive format check also passes; no new source behavior or
   test case is added for this delivery-only refresh.
+2026-11-05 SDK 58 CI compatibility repair, based on `24f4422`:
+
+- The owner supplied the failed CI Doctor output: 19/20 passed, with eight version mismatches. Package declarations now select Expo 58.0.23, Constants 58.0.15, development client 58.0.18, Linking 58.0.16, Router 58.0.30, Splash Screen 58.0.13, safe-area context 5.11.1 and Screens 4.30.1. These match the official Expo 58.0.23 bundled map and all releases predate the strict one-day age floor.
+- Only these direct versions, their required lockfile graph and the CLI compatibility test adapter are changed. Application code, backend/shared packages, React/RN versions, native identity, storage schema/data, security override and CI policies are retained. No package exclusions, disabled checks or newly introduced direct dependency. Frozen reinstall passes.
+- Checksum-verified official package review found the used Router/Constants/Splash/SafeArea APIs retained. Safe-area context has native/web layout changes and Expo updates its native iOS root controller, so custom development clients require rebuilding. No device, native build/signing or live provider/photo request is part of this check.
+- CLI 58.1.19 moved plugin/MCP modules and switched plugin/output validation from Zod objects to JSON schemas. The seven installed-CLI tests now use its actual JSON validator and explicit MCP Zod argument, preserving malformed-descriptor/output rejection, strict typed parameters, readable error paths and plugin path containment. Obsolete freezing/cloning expectations were replaced with the new input-nonmutation contract. No application logic or check was disabled. The narrow suite passes 7/7 after initial module/API failures.
+- Full `pnpm validate` passes 471 unique tests (113 policy + 358 application), all mandatory checks/builds and 17 web routes. Mobile validation passes 282 overlapping cases and its build. Frozen reinstall, peer checks and the bundled SDK compatibility check pass; the local offline compatibility result is not a replacement for online Doctor. Live dependency audit passes with zero high/critical, 14 moderate and 5 low records retained.
+- All six existing browser suites pass on the patched dependencies on their first unchanged attempts: Overview, reference Home, nearby UX, photo recognition, app refinement and integrated navigation. FI/EN, light/dark, 320/390/1280 layouts, 130% synthetic text, data persistence/deletion and navigation were checked. Four Overview screenshots are byte-for-byte identical to the pre-patch original screenshots. Both Expo Go manifests report SDK 58 and launch assets.
+- Updated iOS and Android Hermes JavaScript exports pass under ignored `work/sdk58-ci-fix-native/`. The final root-policy suite passes 113/113, including all seven adapted CLI validation tests and their error-path/plugin-boundary checks. Logs and package/API review evidence are `/workspace/outputs/sdk58-ci-fix/`. No native compilation, signing, device installation or physical acceptance is claimed.
+
+2026-11-05 Overview promotion to KierratysAppi main, based on `0293ce5`:
+
+- All 22 mobile and Overview QA paths match the tested `Bezxs/testkierratysappi` commit `57ddb5e` byte-for-byte. No backend/shared behavior, dependency, native configuration or sorting-rule change. Fresh original-checkout `pnpm validate` passes 471 unique tests (113 policy + 358 application), all boundaries/format/lint/types/builds and 17 web routes. `pnpm validate:mobile` passes 282 overlapping cases and its build.
+- README-only cleanup fixes `.env.local` setup and replaces stale build/credit statements with dated photo-evaluation evidence. The earlier original baseline passed 431 tests and dependency policy on November 5.
+- The full Overview browser suite passes on the promoted original source in FI/EN: explicit recording/cancel/session duplicates/new lookup, reload/new-page persistence, percentages and paper/carton separation, failed writes/retries, corrupt-data preservation, record removal/reset, global deletion and corrected-photo material feedback. Light/dark, 320/390/1280 layouts, 130% synthetic text and screenshots were checked. Both Expo Go manifests report SDK 58 with launch assets. Logs and screenshots are `/workspace/outputs/overview-original/` and ignored `work/overview-original/`. Physical phone persistence/VoiceOver acceptance remains separate.
+- The November 2 Gitleaks finding predates Overview and is confirmed ordinary prose in historical `docs/security/THREAT_MODEL.md`, commit `a30c2afac59eb63ee8a77460948eb3a36651b930`, line 28. Root `.gitleaksignore` contains only that exact immutable commit/path/rule/line fingerprint. Scanner 8.24.3 was verified against official release checksums; fully redacted scheduled-scope scans across all 11 public branch histories go from one finding to zero with default root-ignore discovery. Synthetic future key-format canaries at the same path/line in a new commit and in another file remain detected. No real credential was inspected, changed or rotated, no workflow or detection rule was disabled, and no history was rewritten. Redacted proof is under `/workspace/outputs/overview-original/security/`.
+- All five existing browser regression suites also pass unchanged on their first attempts: reference Home, nearby UX, photo recognition, app refinement and integrated navigation. The two initial-render timing failures observed during earlier baseline reviews did not reproduce with warm sequential execution; no runner or assertion was altered.
+- Original-checkout iOS and Android Hermes JavaScript exports pass under ignored `work/overview-original-native/`. These are bundler checks; no native compilation, signing or device installation occurred.
+- No live provider/photo/GPS, paid inference or physical-device action is part of this promotion. Dependency risk remains separately monitored: the November 5 baseline audit passed with zero high/critical, 14 moderate and 6 low records; the dependency graph is unchanged.
 
 ## October29 — fresh contributor recheck and owner-authorized main sharing
 

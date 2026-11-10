@@ -5,6 +5,7 @@ import { useRouter } from "expo-router";
 import { useEffect } from "react";
 import { ActivityIndicator, Linking, StyleSheet, View } from "react-native";
 import { PackagingMark } from "@/components/packaging-mark";
+import { RecycleAction } from "@/components/recycle-action";
 import { SortingResultCard } from "@/components/sorting-result";
 import {
   AppText,
@@ -20,6 +21,7 @@ import {
 } from "@/components/ui";
 import { announceAccessibility } from "@/features/accessibility/announcements";
 import { lookupAnnouncement } from "@/features/accessibility/result-announcement";
+import { recyclingIntent } from "@/features/overview/recording";
 import { useScanSession } from "@/features/scan/session-context";
 import { useLanguage } from "@/i18n/language-context";
 import { spacing, useAppTheme } from "@/theme/tokens";
@@ -190,6 +192,14 @@ function ProductResult({
               </View>
               <Rule />
               <SortingResultCard result={sorting} embedded />
+              <RecycleAction
+                sorting={sorting}
+                material={observation.materialFamily?.value}
+                recordId={recyclingIntent(result, observation.id)}
+                label={[result.product.name?.value, componentLabel(observation, t)]
+                  .filter(Boolean)
+                  .join(" · ")}
+              />
             </Paper>
           ))}
         </View>

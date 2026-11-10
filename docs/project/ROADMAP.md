@@ -1,5 +1,13 @@
 # Roadmap
 
+## Fresh teammate integration and phone delivery — November10
+
+- [x] Inspect actualorigin/defaulthead/freshcommits and merge main0eae2cf locally, preserving original contributor ancestry and current local recognition/UI/confirmation. No private import, open-bot update or push.
+- [x] Integrate persistent Overview/self-reported piece-count shares/recent100/deletion, repair acknowledgement-loss intent accounting and CLI-injected-Zod evidence. Frozen install,final1159/mobile499, live audit/Expo check and all three FI/EN browser suites pass; stop only owned Metro afterward.
+- [x] Preserve generated native tree/unsigned9, bump source iOS10, synchronize matching23/core30/router30/screens4.30.1 pods and accurate FI/EN LAN purpose. Authorized barcode-only server is healthy/cloud disabled.
+- [x] Complete actual signed embedded-JS Release10 artifact/profile/model/signature checks, replacement build10 inventory, owner trust/opening confirmation and later same-process Overview-payload relaunch with Metro stopped. No independent native screenshot/interaction or complete offline pass inferred.
+- [ ] Complete representative real-camera/permissions/airplane-mode/VoiceOver/persistence/energy/Android and independent human quality acceptance; current production NO-GO remains.
+
 ## Two-view learning — November9
 
 - [x] Freeze distinct source/data/runtime/budget and original two-view/raw-unit dual-ridge design before image predictions. Preserve exact72/45/27 family allocation, all old errors and AI-only reference status.
@@ -74,6 +82,11 @@
 - [x] Verify exact LAN iOS asset/new FI+EN headings/old-heading absence/current API/SDK58/build4/no credential markers; relaunch same installed app/device and verify repeated PID plus actual native **Suositut haut** Home rendering. No reinstall/signing/data reset/camera/GPS/paid call/GitHub write.
 - [x] Pass fresh full431-case validation/all builds/16 routes and documentation-inclusive format check; retain scoped native receipts outside Git and record unchanged profile expiry separately from the JS refresh.
 - [ ] Complete the wider controlled native entry/back/larger-text acceptance; the successful Home heading observation does not replace that matrix.
+- [x] Align the eight CI-reported SDK 58 package versions without application-source changes or compatibility exclusions.
+- [ ] Verify updated SDK 58 Expo Go on the owner's phone; rebuild a custom native client before using it with the changed native modules.
+
+- [x] Apply the tested Overview implementation to the original repository with persistent material percentages and explicit recording.
+- [ ] Verify Overview recording, force-close/reopen persistence, larger text and confirmed deletion on the owner's phone.
 
 ## Owner-authorized preserved source sharing — October29
 
