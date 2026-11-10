@@ -26,6 +26,14 @@
 - No new physical/visual/recognition/production pass. Existing client10 delivery
   and failure/NO-GO evidence below remain; remote publication/CI require actual
   subsequent receipts, not inference from local tests.
+- Publication: verified push URL is `https://github.com/roopeaal/KierratysAppi.git`;
+  explicit non-force `git push origin HEAD:refs/heads/main` exits0 and reports
+  `0eae2cf..0b75faf`. Independent `git ls-remote origin refs/heads/main` confirms
+  `0b75faf3a2810e84ecca24ae21c152ba3c03a191`. Initial Actions listing shows only
+  older heads. Subsequent exact-head query finds [CI42848639233](https://github.com/roopeaal/KierratysAppi/actions/runs/42848639233)
+  and [Security42848639093](https://github.com/roopeaal/KierratysAppi/actions/runs/42848639093)
+  in progress, not passed. Outcome-only documentation follows as a normal
+  fast-forward under this same authorization.
 
 ## November10 — actual teammate main integration and client10 preparation
 

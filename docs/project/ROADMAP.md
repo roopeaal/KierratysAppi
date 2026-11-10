@@ -4,7 +4,7 @@
 
 - [x] Re-fetch actual team main, independently verify all13 known contributor commits/callsites and inspect selected publication history/resources; retain existing native-address/material-filter qualifications.
 - [x] Pass139 preservation cases, fresh full1159/all builds/18routes and isolated tracked-source584/zero skips; correct stale module documentation/QA whitespace without runtime change.
-- [ ] Complete explicitly authorized normal fast-forward team/main push and independent remote verification; no private sync or production-release claim.
+- [x] Complete explicitly authorized normal fast-forward team/main push0eae2cf→0b75faf and independent remote SHA verification; retain an outcome-only follow-up under the same sharing authority. No private sync or production-release/remote-CI pass claim.
 
 ## Fresh teammate integration and phone delivery — November10
 
