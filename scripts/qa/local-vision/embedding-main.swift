@@ -368,4 +368,3 @@ private func selfTest() throws {
     }
   }
 }
-

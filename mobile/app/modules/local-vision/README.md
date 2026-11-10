@@ -1,11 +1,17 @@
 # Local Apple Vision observations
 
-Local Expo module `KierratysLocalVision`, iOS only. One method:
-`recognize(jpegBase64: string): Promise<LocalVisionRaw>`.
-Old native clients, Android and web must report unavailable; never silently
-fall back to a paid/network provider. A new native build is required to link it.
+Local Expo module `KierratysLocalVision`, iOS only. Two native entry points:
+`inspectReadiness()` and `recognize(jpegBase64: string)`.
+The application adapter validates their untrusted results before use. Readiness
+reports full, primary-only or unavailable support; full means resource integrity
+and interface availability, **not recognition accuracy**. Older clients without
+that entry report readiness unreported rather than claiming a model is absent.
+Clients without the module, Android and web report local recognition unavailable;
+never silently fall back to a paid/network provider. Linking requires a native build.
 
-This uses Apple's existing pretrained Vision model, **not an own-trained model**.
+This uses Apple's existing pretrained Vision model and a bundled, pinned 2024
+MobileCLIP-S0 image supplement, **not an own-trained model**. The supplement runs
+only after a successful primary no-match, never to override a match or conflict.
 Our separate application mapper treats these results as unverified observations.
 No label authorizes material selection, verified product identity or a sorting
 answer. The app must retain user material/condition confirmation and rule sources.
@@ -34,25 +40,39 @@ answer. The app must retain user material/condition confirmation and rule source
   fails closed, never silently changes policy. Apple's dictionary mechanism
   requires language correction. It can still misread text, so output is only a
   candidate for independent confirmation, not material truth or Finnish OCR.
-- Output is bounded:the complete seven exact classification identifiers with
+- Output is bounded: the complete seven exact primary classification identifiers with
   finite scores and Apple per-class precision/recall operating-point flags,
   24 distinct OCR lines of at most64 UTF-16 code units, no controls/format chars,
   fixed engine/schema/revisions, OS version, timestamp and elapsed milliseconds.
-  Scores are model confidence, **not calibrated packaging-accuracy percentages**.
-- Schema is `local-vision-v3`; `apple-class-operating-point-v1` fixes minimum
+  A separate supplement reports skipped/unavailable or eighteen ordered finite
+  cosine scores with pinned model/prototype/prompt/preprocessing provenance.
+  Cosines are not probabilities; primary scores are model confidence, **not
+  calibrated packaging-accuracy percentages**.
+- Current observation schema is `local-vision-v4`; strict V2/V3 compatibility is
+  retained by the application adapter, without inventing supplement metadata.
+  Readiness uses `local-vision-readiness-v1`.
+  `apple-class-operating-point-v1` fixes minimum
   precision0.9/minimum recall0.01. A flag requires an available precision/recall
   curve and `hasMinimumRecall(0.01, forPrecision: 0.9)`. These are Apple's internal
   class operating points, not a measured90% precision guarantee for this app.
   Scores from different labels are never compared. Generic parent/scene labels
   do not veto children; more than one accepted object kind remains ambiguous.
 - Fixed error codes: ERR_LOCAL_VISION_BUSY, ERR_LOCAL_VISION_INVALID_IMAGE,
-  ERR_LOCAL_VISION_UNAVAILABLE, ERR_LOCAL_VISION_FAILED. No underlying exception,
+  ERR_LOCAL_VISION_UNAVAILABLE, ERR_LOCAL_VISION_FAILED, ERR_LOCAL_VISION_TIMEOUT.
+  The outer once-only watchdog includes queue/decode/request/prediction time;
+  uncancellable work retains the busy gate until settlement. No underlying exception,
   image, OCR content or device path is exposed in an error.
 
 The exact same engine source is compiled by `scripts/qa/local-vision/main.swift`
 for controlled macOS baseline testing. Mac output is not physical-iPhone evidence.
 The CLI can read one explicitly selected, licence/hash-cleared local fixture;
 that file-reading code is not in the native app engine.
+
+The pinned supplement's full four component/weight notices are in
+`ios/Resources/Notices/` and bundled by the podspec. See
+`docs/final/LOCAL_CLASSIFIER_UPGRADE.md` at the repository root
+for acquisition/licensing/evaluation scope. Rejected learned heads and QA-only
+exporters are not shipped; current known quality failures remain release gates.
 
 ## References (accessed2026-11-03)
 

@@ -1,5 +1,10 @@
 # Decision log
 
+## D-071 — Share preserved team source, not a production-readiness claim
+
+- Date:2026-11-10. Roope explicitly authorizes GitHub publication conditional on retaining others' additions. Fresh main0eae2cf is an ancestor of reviewed050eb2c; all13 identified contributor commits and actual Overview/result/photo/manual/settings/location/SDK integrations remain. Independent139cases, fresh full1159 and tracked-source-only584 pass. Retain historical native-only address and unwired exact-material-helper qualifications; these are unchanged from published main, not claimed implemented UI.
+- Review selected history for accidental private/device/credential/learned-weight artifacts and preserve full pinned2024 model notices. Correct obsolete module README and QA EOF whitespace only; frozen experiment evidence remains bound to its original source hashes and is not rerun/retrained. Use explicit non-force HEAD:refs/heads/main to the verified team remote, with remote SHA verification and outcome-only follow-up under this same authorization. Do not touch KeepItGreen, other branches/settings or infer CI/physical/production acceptance.
+
 ## D-069 — Merge teammates' actual main without erasing local recognition
 
 - Date:2026-11-10. Inspect real remotes/freshdefaultmain0eae2cf and all three missing commits; GitHub confirms ITbes-dev authored Overview. Use normal local merge preserving original ancestry, not copying private KeepItGreen/untested Dependabot branches or pushing. Retain both project histories and exactly one current NEXT_ACTION; keep current illustrated UI/local AI/confirmation/hydration/privacy while adding explicit local self-reported Overview.

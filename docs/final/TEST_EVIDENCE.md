@@ -1,5 +1,32 @@
 # Test evidence
 
+## November10 — fresh conditional pre-push verification
+
+- Actual fetched main0eae2cf is an ancestor of050eb2c (0behind/10ahead); all13
+  known ITbes-dev/Rdotcom contributor IDs and reachable integration callsites
+  pass independent review.139 targeted cases pass. Existing native-only address
+  and exported/tested but unwired material-filter helper remain explicit.
+- Fresh full `pnpm validate` exit0:1159unique (584Node+575application), all
+  boundaries/format/lint/strict types/workspace builds/18exported routes pass.
+  Private log `work/prepush-2026-11-10.nml7O6/validate.log`,
+  SHA256 `17f5548e7be1057a16c2d8a457d4ac8aded05bd2cfa3a4375051ae27fa481985`.
+- Separate `git archive050eb2c` source snapshot has no ignored work/generated
+  iOS/images:584root tests/zero skips/exit0. Private receipt
+  `/private/tmp/kig-prepush-source.5Oa24W/node-tests-complete-deps.log`,
+  SHA256 `99935036047c955542146fe0eaf8ed2d15bf27bb81e27a3cc4bc10f2e7844ce3`.
+  Exact installed dependencies are reused; two earlier harness dependency/link
+  failures are retained, not source failures or silently skipped cases. This
+  is not fresh-install/Linux/Node24/remote-CI acceptance.
+- Publication review finds no tracked credential/profile/device/phone-image/
+  generated-build/rejected-head artifacts in selected paths/history. All four
+  intended2024 model notices remain. This inventory is not a fresh full secret
+  scanner/legal review. Stale module README is corrected to actual readiness/
+  observationV4/supplement/timeout behavior; QA-only EOF blank line removed.
+  No application behavior, phone install, model prediction or paid request.
+- No new physical/visual/recognition/production pass. Existing client10 delivery
+  and failure/NO-GO evidence below remain; remote publication/CI require actual
+  subsequent receipts, not inference from local tests.
+
 ## November10 — actual teammate main integration and client10 preparation
 
 Source/history/procedures/retained failures and later native delivery evidence:

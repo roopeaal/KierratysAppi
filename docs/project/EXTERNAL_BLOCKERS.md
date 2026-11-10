@@ -1,5 +1,13 @@
 # External blockers
 
+## November10 conditional sharing authority
+
+Roope now explicitly authorizes this reviewed team/main source-sharing step if
+contributor preservation passes. That check and local validation pass; no new
+external source-sharing blocker is found. Existing physical acceptance, local
+recognition-quality, platform, operational and public-release gates remain.
+This does not authorize future automatic sharing or KeepItGreen synchronization.
+
 ## November10 teammate integration / authorized phone update
 
 No new key, account, API-credit or paid-compute blocker found. Incoming main is

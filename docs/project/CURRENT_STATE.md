@@ -1,5 +1,11 @@
 # Current state
 
+## Conditional team source sharing — November10,2026
+
+- Roope explicitly requests GitHub publication if others' additions remain. Fresh origin/main is still0eae2cf;050eb2c preserves all13 identified ITbes-dev/Rdotcom commits and their current application callsites. Independent139-case preservation check passes. Native-only address lookup and the exported/tested material-filter helper without a UI caller are existing published-main limitations, not newly lost features.
+- Fresh full `pnpm validate` passes1159unique tests/all builds/18routes. A separate tracked-source archive passes584root tests/zero skips without ignored work/generated iOS/images; reused dependencies mean this is not fresh-install/Linux/Node24/remote-CI evidence. Correct stale native-module method/schema/supplement documentation and one QA EOF blank line only; no runtime/phone change.
+- Selected history/file inventory contains no tracked secret files, device profiles, phone/user images, native build outputs or rejected learned weights. Intended pinned2024MobileCLIP resources retain four notices. Authorize only a reviewed fast-forward to verified KierratysAppi/main and its outcome documentation, not private-repo synchronization or production release. Publication outcome is recorded after remote verification; existing quality/release NO-GO and physical NEXT_ACTION remain.
+
 ## Teammate main integration / matching phone delivery — November10,2026
 
 - Roope requests fresh teammate GitHub changes, then explicitly phone installation and a trusted-LAN barcode server with cloud AI disabled. Start cleanaaabcdb; actualorigin is KierratysAppi/main0eae2cf, common0293ce5,9local/3remote commits. Normal local merge retains ITbes-dev's original7eb61d9/24f4422/0eae2cf history, persistent Overview and SDK58.0.23 updates; no KeepItGreen import, unreviewed Dependabot branch or push.
