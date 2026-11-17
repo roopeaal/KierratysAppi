@@ -21,6 +21,10 @@
   Windows run in public KierratysAppi; main is untouched. Publish a fresh commit
   from public main with reviewed required source, not private development history.
   No paid runner, artifact/cache storage, public review or production release.
+- Actual proof succeeds on Windowsx64Chrome156and Edge156. Retain run URL and
+  tested source SHA. Outcome-only docs follow on the same authorized branch with
+  unchanged code; skip redundant CI for that documentation commit, not tests of
+  implementation changes. Main and private ancestry remain untouched.
 
 ## D-120 — Independently decode QR before blaming transport or rebuilding
 

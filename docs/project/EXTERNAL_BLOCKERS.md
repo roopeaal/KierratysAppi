@@ -4,9 +4,9 @@
 
 Owner clarifies target is Windows Chrome/Edge, not Expo Go. Physical Go
 installation is therefore not a blocker for this browser task. Local browser
-implementation/testing is complete; actual Windows execution is pending, not
-claimed from Mac. Owner authorizes a reviewed proof branch/standard hosted
-Windows runner; public repo/free compute verified, no cache/artifact upload.
+implementation/testing is complete; actual Windowsx64model parity and Chrome/
+Edge flows now pass run44086483622. Owner-authorized proof branch leaves main
+unchanged; public repo/free standard compute, no cache/artifact upload.
 Physical webcam/OS camera permissions and WindowsARM64 remain separate from
 the synthetic-camera x64 proof. No paid service/key/account prerequisite added.
 

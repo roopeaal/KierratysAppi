@@ -4,8 +4,10 @@
   UI, Mac Chrome smoke and visible owner page.
 - [x] Windows path/venv/OS env/CRLF fixes and portable browser-service launcher;
   exact CORS/security tests and actual managed Mac smoke.
-- [ ] Owner-authorized fresh proof-branch publication and actual Windows-hosted
-  model parity/Chrome/Edge tests, with main unchanged.
+- [x] Owner-authorized fresh proof-branch publication and actual Windows-hosted
+  model parity/Chrome/Edge tests, main unchanged (run44086483622success).
+- [ ] Teammate's physical Windows webcam/OS camera permission acceptance using
+  BROWSER_AI.md; synthetic CI does not certify hardware/driver behavior.
 
 - [x] Independently Apple-decode original/new phone QR; larger standard-HTTP
   handoff/Expo iOS redirect verified. No malformed QR or server outage proven.

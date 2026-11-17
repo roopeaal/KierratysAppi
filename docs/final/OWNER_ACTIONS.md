@@ -6,10 +6,10 @@
   JPEG/PNG/WebP file or open your camera, review, explicitly approve sending,
   then confirm object/material. Server3004and web8097remain running; keep Mac
   awake. Old Expo Go8096was stopped because the requested target is desktop web.
-- Codex: publish only reviewed necessary source as a fresh commit from public
-  main to the explicitly approved codex/browser-windows-proof branch. Run and
-  repair real Windows-hosted model parity/Chrome/Edge checks; no main update,
-  private-history mirror, paid runner or cache/artifact upload.
+- Codex: reviewed source published as dde3ff3on approved test branch; actual
+  Windows run44086483622passes model parity/Chrome/Edge. Main unchanged; no
+  private-history mirror, paid runner or cache/artifact upload. Both owner
+  services now bind loopback only for desktop use, with no Expo Go prerequisite.
 - Windows teammate: use the proof branch's BROWSER_AI.md PowerShell steps and
   local Node/Python services; do not use the Mac's venv/private address. Grant
   local camera permission yourself when needed. Physical webcam acceptance is

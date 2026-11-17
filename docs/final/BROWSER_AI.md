@@ -100,3 +100,8 @@ It has no cache/artifact upload, paid AI key, larger runner or production deploy
 
 Current evidence, retained failures and exact Windows result status are in
 TEST_EVIDENCE.md. Mac Chromium evidence does **not** count as a Windows test.
+
+Verified November17: actual Windows x64 model parity, Chrome156and Edge156all
+pass [run44086483622](https://github.com/roopeaal/KierratysAppi/actions/runs/44086483622)
+for source dde3ff3. Mac Chrome157passes too. Camera tests use synthetic video;
+your own webcam/OS permission still needs a physical test. Public main unchanged.

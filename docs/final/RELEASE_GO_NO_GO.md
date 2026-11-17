@@ -1,12 +1,12 @@
 # Release decision
 
-## November17 — desktop browser ready for local trial; Windows proof pending
+## November17 — browser verified on Mac/Windows; public NO-GO unchanged
 
 Local actual Chrome/real-model JPEG and PNG/object/material/guidance smoke,
 synthetic camera shutdown, consent/no-upload, EN/dark/narrow/offline and2100tests
-pass. Owner's actual Chrome page is open. Windows-compatible launcher/path/
-runtime fixes and owner-authorized isolated proof workflow are prepared; do not
-claim Windows passed before its job completes. No physical webcam/WindowsARM64
+pass. Owner's actual Chrome page is open. Windows run44086483622passes actual
+model parity and Chrome/Edge flows for dde3ff3. Main remains63b49a6, no private
+history copied. No physical webcam/WindowsARM64
 or public production GO. Main is not authorized to change; only the reviewed
 proof branch may be shared in this step. Setup: BROWSER_AI.md.
 
