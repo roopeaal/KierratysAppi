@@ -1,8 +1,10 @@
 import type { SortingResult } from "@kierratysappi/recycling-engine";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useRef, useState } from "react";
-import { View } from "react-native";
+import { type GestureResponderEvent, Platform, View } from "react-native";
 import { announceAccessibility } from "@/features/accessibility/announcements";
+import { isPointerActivation } from "@/features/accessibility/motion";
+import { useInteractionMotion } from "@/features/accessibility/motion-context";
 import {
   type OverviewMaterial,
   overviewMaterials,
@@ -13,7 +15,8 @@ import { readRecyclingSummary, recordRecycling } from "@/features/overview/stora
 import { useLanguage } from "@/i18n/language-context";
 import { useAppTheme } from "@/theme/tokens";
 import { ChoiceChip } from "./choice-chip";
-import { AppText, Button, InlineLink, Paper, sharedStyles } from "./ui";
+import { RecyclingStamp } from "./recycling-stamp";
+import { AppText, Button, GuidanceHeading, InlineLink, Paper, sharedStyles } from "./ui";
 
 const materialKeys = {
   plastic: "overviewMaterialPlastic",
@@ -73,11 +76,13 @@ function RecordAction({
   const router = useRouter();
   const { t } = useLanguage();
   const { palette } = useAppTheme();
+  const motionAllowed = useInteractionMotion();
   const [state, setState] = useState<"loading" | "ready" | "saved" | "error">("loading");
   const [savedMaterial, setSavedMaterial] = useState<OverviewMaterial>();
   const [selectedMaterial, setSelectedMaterial] = useState<OverviewMaterial>();
   const [confirming, setConfirming] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [animateStamp, setAnimateStamp] = useState(false);
   const loadVersion = useRef(0);
   const locked = useRef(false);
   const active = useRef(false);
@@ -86,6 +91,7 @@ function RecordAction({
 
   const refresh = useCallback(() => {
     const request = ++loadVersion.current;
+    setAnimateStamp(false);
     setState("loading");
     setConfirming(false);
     void readRecyclingSummary()
@@ -113,8 +119,11 @@ function RecordAction({
     }, [refresh]),
   );
 
-  const save = async () => {
+  const save = async (event: GestureResponderEvent) => {
     if (locked.current || !confirming || state !== "ready" || !chosenMaterial) return;
+    const pointerActivated =
+      motionAllowed && isPointerActivation(event.nativeEvent, Platform.OS === "web");
+    const saveView = loadVersion.current;
     locked.current = true;
     setSaving(true);
     const savedLabel = label
@@ -130,9 +139,16 @@ function RecordAction({
       ...(savedLabel ? { label: savedLabel } : {}),
     };
     try {
-      const summary = await recordRecycling(pending.current);
+      const intended = pending.current;
+      const summary = await recordRecycling(intended);
       if (active.current) {
-        setSavedMaterial(summary.recent.find((entry) => entry.id === recordId)?.material);
+        const saved = summary.recent.find((entry) => entry.id === recordId);
+        setSavedMaterial(saved?.material);
+        setAnimateStamp(
+          pointerActivated &&
+            saveView === loadVersion.current &&
+            saved?.recycledAt === intended.recycledAt,
+        );
         setState("saved");
         setConfirming(false);
 
@@ -154,17 +170,22 @@ function RecordAction({
   return (
     <View style={sharedStyles.tightStack} testID={`recycle-action-${recordId}`}>
       {state === "saved" ? (
-        <View style={sharedStyles.tightStack} accessibilityLiveRegion="polite">
-          <AppText style={{ color: palette.actionLink }}>
-            {t("recyclingAlreadySaved")}
-            {savedMaterial ? ` · ${t(materialKeys[savedMaterial])}` : ""}
-          </AppText>
-          {material && savedMaterial && savedMaterial !== material && (
-            <AppText variant="small" muted>
-              {t("recyclingCorrectionNote")}
-            </AppText>
-          )}
-        </View>
+        <GuidanceHeading>
+          <View style={sharedStyles.row} accessibilityLiveRegion="polite" testID="recycle-saved">
+            <RecyclingStamp material={savedMaterial} play={animateStamp} />
+            <View style={[sharedStyles.grow, sharedStyles.tightStack]}>
+              <AppText variant="heading" style={{ color: palette.pine }}>
+                {t("recyclingAlreadySaved")}
+                {savedMaterial ? ` · ${t(materialKeys[savedMaterial])}` : ""}
+              </AppText>
+              {material && savedMaterial && savedMaterial !== material && (
+                <AppText variant="small" muted>
+                  {t("recyclingCorrectionNote")}
+                </AppText>
+              )}
+            </View>
+          </View>
+        </GuidanceHeading>
       ) : state === "error" ? (
         <>
           <AppText accessibilityRole="alert" style={{ color: palette.brick }}>
@@ -191,6 +212,7 @@ function RecordAction({
                 {overviewMaterials.map((value) => (
                   <ChoiceChip
                     key={value}
+                    category={value}
                     label={t(materialKeys[value])}
                     selected={selectedMaterial === value}
                     onPress={() => setSelectedMaterial(value)}
@@ -209,7 +231,7 @@ function RecordAction({
             label={t("recyclingConfirmAction")}
             disabled={saving || !chosenMaterial}
             busy={saving}
-            onPress={() => void save()}
+            onPress={(event) => void save(event)}
             testID="recycle-confirm-action"
           />
           <Button
@@ -223,7 +245,6 @@ function RecordAction({
       ) : (
         <Button
           label={t("recyclingMarkAction")}
-          variant="secondary"
           disabled={state === "loading"}
           onPress={() => setConfirming(true)}
           testID="recycle-mark-action"

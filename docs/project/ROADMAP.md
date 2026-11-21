@@ -1,5 +1,42 @@
 # Roadmap
 
+- [x] Unify cards and result headings, use a fixed light appearance, and give Home a localized Overview action.
+- [x] Install and launch iPhone build 29 for owner testing.
+- [x] Confirm the fixed light appearance and Home Overview shortcut on the physical iPhone.
+
+- [x] Use structured public packaging data and add the exact checked Finnish Coca-Cola Zero deposit bottle offline.
+- [ ] Review licensed coverage before expanding the offline packaging catalogue beyond individually checked variants.
+
+- [x] Apply a shared material atlas to entry, guide and known packaging observations.
+- [x] Restore the full-width reference artwork to the Home header only.
+- [x] Remove duplicate Home links without losing their destinations.
+- [x] Fit Home's existing actions and material grid to short and tall phone viewports.
+- [x] Restore compact Home links for nearby points, manual entry, overview and history.
+- [x] Restore the original mockup headline as live FI/EN text.
+- [x] Match the Home reference layout, with truthful nearby and recent states.
+- [x] Add disclosed recycling-point thumbnails to Home and Location details.
+- [x] Illustrate Recently viewed using real stored packaging observations.
+- [x] Install and launch iPhone build 25 for owner testing.
+- [x] Unify touch feedback and add a material save stamp and real weekly overview.
+- [x] Give Overview a full-width Home card and move the manual shortcut off Home.
+- [x] Align Home cards and put nearby attribution in the section heading.
+- [x] Give Overview the same standalone heading as the other Home sections.
+- [x] Install and launch iPhone build 28 for owner testing.
+- [x] Install and launch iPhone build 27 for owner testing.
+- [x] Install and launch iPhone build 26 for physical testing.
+- [ ] Verify the new touch and save feedback on physical hardware.
+- [x] Share foreground-only location after opt-in and add photo variants for common point types.
+- [x] Match illustrative bin colours to sourced Finnish label examples without implying universal colours.
+- [x] Install and launch the current standalone iPhone build for owner testing.
+- [x] Keep Home attribution compact and retain the full directory notice on Location.
+- [x] Show automatic address estimates and use the opt-in region in photo sorting.
+- [ ] Check automatic address estimates against the native map service on a physical phone.
+- [ ] Verify automatic nearby results and illustration labels on the physical iPhone.
+- [ ] Render residual named HTML entities in the offline HSY guide as plain text.
+- [x] Use one icon family for current material, waste-type and destination labels.
+
+- [x] Extend the approved Home style through shared presentation components.
+- [ ] Inspect the updated identify-to-record flow on a physical iPhone.
 - [x] Barcode/manual lookup, sourced sorting, object/material choices and nearby points.
 - [x] Native iOS/Android adapters and own-server Expo Go/browser image suggestions.
 - [x] Persistent FI/EN, local history/marking and tested error/permission recovery.

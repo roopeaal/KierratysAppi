@@ -3,19 +3,24 @@ import {
   collectionPointUrl,
   type NearbyCollectionPoint,
 } from "@kierratysappi/contracts/collection-points";
-import * as Location from "expo-location";
-import { useEffect, useRef, useState } from "react";
+import { useFocusEffect } from "expo-router";
+import { useCallback, useState } from "react";
 import { Platform, StyleSheet, useWindowDimensions, View } from "react-native";
 import { announceAccessibility } from "@/features/accessibility/announcements";
+import { readPointAddress } from "@/features/nearby/device-location";
+import { useForegroundLocation } from "@/features/nearby/foreground-context";
 import { displayDistance } from "@/features/nearby/location-session";
 import { collectionMaterialLabels } from "@/features/nearby/material-label";
-import { resolvePointAddress } from "@/features/nearby/point-address";
 import { recyclingIntent } from "@/features/overview/recording";
 import { openExternalUrl } from "@/features/security/external-links";
+import { pointCategoryIcons } from "@/features/sorting/category-icons";
+import { pointWasteMarking } from "@/features/sorting/waste-markings";
 import { useLanguage } from "@/i18n/language-context";
 import { useAppTheme } from "@/theme/tokens";
+import { CollectionPointThumbnail } from "./collection-point-thumbnail";
+import { MaterialStudy } from "./material-study";
 import { RecyclingRecordAction } from "./recycle-action";
-import { AppText, Button, InlineLink, Paper, Rule, sharedStyles } from "./ui";
+import { AppText, InlineLink, Paper, Rule, sharedStyles } from "./ui";
 
 export function NearbyPointCard({
   result,
@@ -31,19 +36,21 @@ export function NearbyPointCard({
   const { palette } = useAppTheme();
   const { width, fontScale } = useWindowDimensions();
   const stackedHeading = width < 360 || fontScale > 1.2;
+  const showPhoto = !stackedHeading && point.reportedMaterials.length > 0;
   const [recordingScope] = useState(() => ({}));
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [linkError, setLinkError] = useState(false);
-  const [address, setAddress] = useState<{
-    status: "idle" | "loading" | "done";
-    text: string | null;
-  }>({ status: "idle", text: null });
-  const active = useRef<AbortController | null>(null);
-  useEffect(
-    () => () => {
-      active.current?.abort();
-    },
-    [],
+  const [estimate, setEstimate] = useState<string | null>(null);
+  const { foreground } = useForegroundLocation();
+  useFocusEffect(
+    useCallback(() => {
+      if (!foreground || point.address || Platform.OS === "web") return;
+      const controller = new AbortController();
+      void readPointAddress(point, controller.signal).then((text) => {
+        if (!controller.signal.aborted) setEstimate(text);
+      });
+      return () => controller.abort();
+    }, [foreground, point]),
   );
   const openUrl = (url: string) => {
     setLinkError(false);
@@ -52,33 +59,23 @@ export function NearbyPointCard({
       announceAccessibility(t("nearbyLinkError"), "high");
     });
   };
-  const completeAddress = async () => {
-    if (address.status !== "idle" || active.current) return;
-    const controller = new AbortController();
-    active.current = controller;
-    setAddress({ status: "loading", text: null });
-    announceAccessibility(t("nearbyAddressLoading"));
-    const text = await resolvePointAddress(point, Location.reverseGeocodeAsync, controller.signal);
-    if (!controller.signal.aborted) {
-      setAddress({ status: "done", text });
-      announceAccessibility(
-        text ? `${t("nearbyAddressEstimate")}: ${text}` : t("nearbyAddressFailed"),
-      );
-    }
-    if (active.current === controller) active.current = null;
-  };
   return (
     <Paper style={styles.card} testID={`nearby-point-${index}`}>
       <View style={[styles.heading, stackedHeading && styles.headingStack]}>
+        {showPhoto && <CollectionPointThumbnail point={point} compact />}
         <View style={[styles.identity, stackedHeading && styles.identityStack]}>
           <AppText variant="heading" accessibilityRole="header" style={styles.name}>
             {point.name ?? point.operator ?? t("nearbyGeneric")}
           </AppText>
-          <AppText variant="small" muted>
+          <AppText variant="small" muted accessibilityLiveRegion={index === 0 ? "polite" : "none"}>
             {point.address ??
-              address.text ??
-              t(address.status === "done" ? "nearbyAddressFailed" : "nearbyLocationOnMap")}
+              (estimate ? `${t("nearbyAddressLabel")}: ${estimate}` : t("nearbyLocationOnMap"))}
           </AppText>
+          {showPhoto && (
+            <AppText variant="small" muted style={styles.photoLabel}>
+              {t("nearbyExamplePhoto")}
+            </AppText>
+          )}
         </View>
         <View style={[styles.distance, stackedHeading && styles.distanceLine]}>
           <AppText variant="mono" style={styles.distanceValue}>
@@ -89,18 +86,38 @@ export function NearbyPointCard({
           </AppText>
         </View>
       </View>
-      {address.text && (
-        <AppText variant="small" muted>
-          {t("nearbyAddressSource")}
-        </AppText>
-      )}
       <View style={styles.materials} testID={`nearby-materials-${index}`}>
         {point.reportedMaterials.length ? (
-          point.reportedMaterials.slice(0, detailsOpen ? 30 : 4).map((material) => (
-            <View key={material} style={[styles.material, { backgroundColor: palette.pineSoft }]}>
-              <AppText variant="small">{t(collectionMaterialLabels[material])}</AppText>
-            </View>
-          ))
+          point.reportedMaterials.slice(0, detailsOpen ? 30 : 4).map((material) => {
+            const marking = pointWasteMarking(material);
+            return (
+              <View
+                key={material}
+                style={[
+                  styles.material,
+                  {
+                    backgroundColor: marking?.tint ?? palette.pineSoft,
+                  },
+                ]}
+              >
+                {marking && (
+                  <View
+                    accessible={false}
+                    aria-hidden
+                    style={[
+                      styles.marking,
+                      { backgroundColor: marking.color, borderColor: palette.borderStrong },
+                    ]}
+                    testID={`nearby-marking-${marking.id}`}
+                  />
+                )}
+                <MaterialStudy material={pointCategoryIcons[material]} size={18} />
+                <AppText variant="small" style={styles.materialText}>
+                  {t(collectionMaterialLabels[material])}
+                </AppText>
+              </View>
+            );
+          })
         ) : (
           <AppText variant="small" muted>
             {t("nearbyMaterialsUnknown")}
@@ -136,6 +153,14 @@ export function NearbyPointCard({
       {detailsOpen && (
         <View style={sharedStyles.tightStack} testID={`nearby-details-${index}`}>
           <Rule />
+          {stackedHeading && point.reportedMaterials.length > 0 && (
+            <View style={styles.illustration}>
+              <CollectionPointThumbnail point={point} />
+              <AppText variant="small" muted style={styles.caption}>
+                {t("nearbyExamplePhoto")}
+              </AppText>
+            </View>
+          )}
           {point.reportedExclusions.length > 0 && (
             <AppText variant="small">
               {t("nearbyExclusions")}:{" "}
@@ -162,6 +187,11 @@ export function NearbyPointCard({
               {t("nearbyOperator")}: {point.operator}
             </AppText>
           )}
+          {estimate && (
+            <AppText variant="small" muted>
+              {t("nearbyAddressSource")}
+            </AppText>
+          )}
           <AppText variant="small" muted>
             {t("nearbyPointId")}: {point.id}
           </AppText>
@@ -185,25 +215,6 @@ export function NearbyPointCard({
             recordId={recyclingIntent(recordingScope, point.id)}
             label={t("nearbyGeneric")}
           />
-          {!point.address && Platform.OS !== "web" && address.status !== "done" && (
-            <View style={sharedStyles.tightStack}>
-              <AppText variant="small" muted>
-                {t("nearbyAddressConsent")}
-              </AppText>
-              <Button
-                label={t("nearbyCompleteAddress")}
-                variant="quiet"
-                busy={address.status === "loading"}
-                onPress={() => void completeAddress()}
-                testID={`nearby-address-${index}`}
-              />
-              {address.status === "loading" && (
-                <AppText variant="small" accessibilityLiveRegion="polite">
-                  {t("nearbyAddressLoading")}
-                </AppText>
-              )}
-            </View>
-          )}
         </View>
       )}
       {linkError && <AppText accessibilityRole="alert">{t("nearbyLinkError")}</AppText>}
@@ -229,6 +240,25 @@ const styles = StyleSheet.create({
   },
   distanceValue: { fontSize: 18, lineHeight: 26 },
   materials: { flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: 6 },
-  material: { borderRadius: 8, paddingHorizontal: 9, paddingVertical: 5 },
+  material: {
+    borderRadius: 8,
+    maxWidth: "100%",
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    alignItems: "center",
+    flexDirection: "row",
+    gap: 4,
+  },
+  materialText: { flexShrink: 1 },
+  marking: {
+    width: 9,
+    height: 9,
+    borderRadius: 3,
+    borderWidth: StyleSheet.hairlineWidth,
+    flexShrink: 0,
+  },
   actions: { flexDirection: "row", flexWrap: "wrap", gap: 20 },
+  illustration: { flexDirection: "row", alignItems: "center", gap: 10 },
+  caption: { flex: 1, minWidth: 0 },
+  photoLabel: { fontSize: 11, lineHeight: 15 },
 });

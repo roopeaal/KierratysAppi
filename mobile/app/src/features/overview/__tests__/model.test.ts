@@ -3,6 +3,7 @@ import {
   emptyRecyclingSummary,
   materialBreakdown,
   overviewMaterials,
+  recentRecyclingActivity,
   totalRecycled,
 } from "../model";
 
@@ -66,5 +67,43 @@ describe("recycling material totals", () => {
     });
     expect(emptyRecyclingSummary().counts.plastic).toBe(0);
     expect(emptyRecyclingSummary().recent).toEqual([]);
+  });
+});
+
+describe("recent recycling activity", () => {
+  it("uses seven local calendar dates, excluding old and future records", () => {
+    const now = new Date(2026, 2, 31, 18);
+    const entry = (id: string, day: number, hour: number, quantity: number) => ({
+      id,
+      material: "glass" as const,
+      quantity,
+      recycledAt: new Date(2026, 2, day, hour).toISOString(),
+    });
+    const latest = entry("latest", 31, 12, 4);
+    const activity = recentRecyclingActivity(
+      [
+        entry("start", 25, 0, 1),
+        entry("on-sunday", 29, 22, 2),
+        latest,
+        entry("old", 24, 23, 15),
+        entry("sunday-earlier", 29, 10, 3),
+        entry("future-same-day", 31, 19, 40),
+        entry("tomorrow", 32, 10, 40),
+      ],
+      now,
+    );
+    expect(activity.days.map((day) => day.date.getDate())).toEqual([25, 26, 27, 28, 29, 30, 31]);
+    expect(activity.days.map((day) => day.count)).toEqual([1, 0, 0, 0, 5, 0, 4]);
+    expect(activity.total).toBe(10);
+    expect(activity.latest).toEqual(latest);
+  });
+
+  it("does not invent recent activity from undated lifetime totals", () => {
+    const summary = emptyRecyclingSummary();
+    summary.counts.plastic = 500;
+    const activity = recentRecyclingActivity(summary.recent, new Date(2026, 0, 3, 12));
+    expect(activity.days.map((day) => day.date.getDate())).toEqual([28, 29, 30, 31, 1, 2, 3]);
+    expect(activity.total).toBe(0);
+    expect(activity.latest).toBeUndefined();
   });
 });

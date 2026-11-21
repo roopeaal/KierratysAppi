@@ -292,14 +292,24 @@ async function largeText(page) {
       const page = await context.newPage();
       const errors = [];
       page.on("pageerror", (error) => errors.push(error.message));
-      await open(page, "/", "home-overview-action");
-      await get(page, "home-overview-action").click();
+      await open(page, "/", "tab-settings");
+      await get(page, "tab-settings").click();
+      await get(page, "settings-overview-action").click();
       await total(page, 0);
       assert.equal(await get(page, "overview-empty").count(), 1);
+      assert.equal(await get(page, "overview-activity-empty").count(), 1);
+      assert.equal(await get(page, "overview-activity-latest").count(), 0);
+      assert.equal(
+        await get(page, "overview-activity-total").innerText(),
+        language === "fi" ? "0 kappaletta" : "0 items",
+      );
       assert.equal(await get(page, "overview-add-action").getAttribute("aria-disabled"), "true");
       assert.equal(await get(page, "tab-settings").getAttribute("aria-selected"), "true");
       assert.equal(await get(page, "bottom-navigation").getByRole("tab").count(), 4);
       assert.equal(await stored(page), null);
+      const materialArt = get(page, "overview-material-paper").getByTestId("category-icon-paper");
+      assert.equal(await materialArt.getAttribute("aria-hidden"), "true");
+      await materialArt.locator("img").evaluate((image) => image.decode());
       assert.equal(lookups, 0);
       assert.equal(photos, 0);
       await layout(page, `${language}-empty-390`);
@@ -315,6 +325,16 @@ async function largeText(page) {
       assert.equal(await stored(page), null, "A lookup does not record recycling");
       assert.ok(
         (await get(page, "sorting-result-resolved").innerText()).includes("QA rule fixture"),
+      );
+      const destinationArt = get(page, "sorting-result-resolved").getByTestId(
+        "category-icon-plastic",
+      );
+      await destinationArt.locator("img").evaluate((image) => image.decode());
+      assert.equal(
+        await get(page, "sorting-result-unknown")
+          .locator('[data-testid^="category-icon-"]')
+          .count(),
+        0,
       );
       await get(page, "recycle-mark-action").click();
       await get(page, "recycle-confirm-panel").waitFor();
@@ -339,7 +359,8 @@ async function largeText(page) {
       );
       assert.equal((await stored(page)).counts.plastic, 1);
       await get(page, "result-scan-another-action").click();
-      await get(page, "home-manual-action").click();
+      await get(page, "tab-identify").click();
+      await get(page, "identify-manual-action").click();
       await get(page, "manual-gtin-input").fill(gtin);
       await get(page, "manual-submit-action").click();
       await get(page, "product-result-screen").waitFor();
@@ -440,6 +461,17 @@ async function largeText(page) {
       assert.equal(await get(page, "overview-add-action").getAttribute("aria-disabled"), "true");
       await add(page, "plastic", 3, 3, "QA plastic parts");
       await add(page, "glass", 1, 4, "QA glass jar");
+      assert.equal(
+        await get(page, "overview-activity-total").innerText(),
+        language === "fi" ? "4 kappaletta" : "4 items",
+      );
+      const activityLabel = await get(page, "overview-activity-strip").getAttribute("aria-label");
+      assert.equal(activityLabel.split("; ").length, 7);
+      assert.ok(activityLabel.includes(language === "fi" ? "4 kappaletta" : "4 items"));
+      assert.match(
+        await get(page, "overview-activity-latest").innerText(),
+        language === "fi" ? /Lasi · 1 kappale/u : /Glass · 1 item/u,
+      );
       assert.equal(await get(page, "overview-percent-plastic").innerText(), "75%");
       assert.equal(await get(page, "overview-percent-glass").innerText(), "25%");
       await page.reload({ waitUntil: "networkidle" });
@@ -487,6 +519,10 @@ async function largeText(page) {
       await get(page, `overview-remove-${latest.id}`).click();
       await get(page, "overview-confirm-action").click();
       await total(page, 6);
+      assert.equal(
+        await get(page, "overview-activity-total").innerText(),
+        language === "fi" ? "6 kappaletta" : "6 items",
+      );
 
       process.stdout.write(
         `${language}: persistence, percentages, failed-write retry and removal passed.\n`,
@@ -527,7 +563,7 @@ async function largeText(page) {
       await page.waitForFunction(
         () =>
           getComputedStyle(document.getElementById("app-screen-surface")).backgroundColor ===
-          "rgb(20, 34, 27)",
+          "rgb(245, 252, 250)",
       );
       await largeText(page);
       await layout(page, `${language}-overview-dark-320-large`);
@@ -561,7 +597,10 @@ async function largeText(page) {
       await get(page, "overview-confirm-action").click();
       await total(page, 0);
       await add(page, "metal", 2, 2);
-      await page.evaluate(() => localStorage.setItem("@another-app/keep", "keep"));
+      await page.evaluate(() => {
+        localStorage.setItem("@another-app/keep", "keep");
+        localStorage.setItem("@kierratysappi/automatic-location/v1", "true");
+      });
       await open(page, "/legal", "privacy-delete-action");
       await get(page, "privacy-delete-action").click();
       await get(page, "privacy-delete-cancel").click();

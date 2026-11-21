@@ -6,10 +6,12 @@ import { announceAccessibility } from "@/features/accessibility/announcements";
 import { recordingMaterialFromAnswer, recyclingIntent } from "@/features/overview/recording";
 import { useSortingRegion } from "@/features/region/context";
 import { openExternalUrl } from "@/features/security/external-links";
+import { objectDestinationIcon } from "@/features/sorting/category-icons";
 import { useLanguage } from "@/i18n/language-context";
+import { MaterialStudy } from "./material-study";
 import { RecyclingRecordAction } from "./recycle-action";
 import { SortingRegionPicker } from "./sorting-region-picker";
-import { AppText, Button, InlineLink, sharedStyles } from "./ui";
+import { AppText, Button, GuidanceHeading, InlineLink, sharedStyles } from "./ui";
 
 // Used by both manual search and actual image hints; never creates fake AI output.
 export function ObjectSortingFlowView({
@@ -43,6 +45,10 @@ export function ObjectSortingFlowView({
     ...(selection ? { region: selection.regionId } : {}),
   });
   const step = evaluateObjectSorting(input(current.answers));
+  const category =
+    step.status === "guidance"
+      ? objectDestinationIcon(step.sources, current.answers.at(-1))
+      : undefined;
   const recordedMaterial = current.answers.flatMap((answer, index) => {
     const previous = evaluateObjectSorting(input(current.answers.slice(0, index)));
     const material =
@@ -91,7 +97,11 @@ export function ObjectSortingFlowView({
           >
             {localizedText(language, step.title)}
           </AppText>
-          {step.detail && <AppText>{localizedText(language, step.detail)}</AppText>}
+          {step.id === "region" && !showRegionControl ? (
+            <AppText>{t("regionChooseOperator")}</AppText>
+          ) : (
+            step.detail && <AppText>{localizedText(language, step.detail)}</AppText>
+          )}
           {step.id === "region" && showRegionControl && <SortingRegionPicker />}
           {step.choices.map((option) => (
             <Button
@@ -106,16 +116,22 @@ export function ObjectSortingFlowView({
         </>
       ) : (
         <>
-          <AppText
-            accessibilityRole="header"
-            accessibilityLiveRegion="polite"
-            variant="heading"
-            testID="object-sorting-heading"
-          >
-            {step.status === "guidance"
-              ? localizedText(language, step.destination)
-              : t("objectSortingUnknown")}
-          </AppText>
+          <GuidanceHeading>
+            <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+              {category && <MaterialStudy material={category} size={46} />}
+              <AppText
+                accessibilityRole="header"
+                accessibilityLiveRegion="polite"
+                variant="heading"
+                testID="object-sorting-heading"
+                style={sharedStyles.grow}
+              >
+                {step.status === "guidance"
+                  ? localizedText(language, step.destination)
+                  : t("objectSortingUnknown")}
+              </AppText>
+            </View>
+          </GuidanceHeading>
           {step.status === "guidance" && (
             <AppText testID="object-sorting-preparation">
               {localizedText(language, step.preparation)}

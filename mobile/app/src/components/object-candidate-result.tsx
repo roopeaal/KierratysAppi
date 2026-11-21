@@ -70,6 +70,7 @@ export function ObjectCandidateResultView({
             <ObjectSortingFlowView
               key={current.kind}
               kind={current.kind}
+              showRegionControl={false}
               recordId={recordId ?? recyclingIntent(result, "object")}
               label={t(labels[current.kind] ?? "objectCandidateUnknown")}
               onChangeObject={() => setSelection(undefined)}

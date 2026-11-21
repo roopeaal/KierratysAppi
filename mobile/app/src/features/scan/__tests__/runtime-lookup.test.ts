@@ -27,9 +27,11 @@ describe("runtime-specific barcode lookup", () => {
     expect(backend).not.toHaveBeenCalled();
     expect(publicIdentity).toHaveBeenCalledTimes(1);
   });
-  it("preserves the bundled catalogue without network in Expo Go", async () => {
+  it("preserves the bundled catalogue when Expo Go cannot reach the network", async () => {
     const backend = vi.fn(async () => notFound),
-      publicIdentity = vi.fn(async () => notFound);
+      publicIdentity = vi.fn(async () => {
+        throw Error("controlled_offline");
+      });
     const result = await createRuntimeBarcodeLookup(
       offlineCatalogue,
       "storeClient",
@@ -38,7 +40,7 @@ describe("runtime-specific barcode lookup", () => {
     )(GtinSchema.parse("3017620422003"), "fi");
     expect(result.status).toBe("packaging_missing");
     expect(backend).not.toHaveBeenCalled();
-    expect(publicIdentity).not.toHaveBeenCalled();
+    expect(publicIdentity).toHaveBeenCalledOnce();
   });
   it.each(["bare", "standalone", undefined])(
     "preserves backend semantics in %s",

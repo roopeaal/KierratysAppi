@@ -1,17 +1,17 @@
 import { describe, expect, it } from "vitest";
 import { homeColors } from "../home-colors";
-import { darkPalette, lightPalette } from "../palettes";
+import { lightPalette } from "../palettes";
 
 describe("theme contrast", () => {
   it.each([
-    ["Home light ink", homeColors(false).ink, homeColors(false).canvas],
-    ["Home light muted", homeColors(false).muted, homeColors(false).canvas],
-    ["Home light white-card copy", homeColors(false).muted, "#FFFFFF"],
-    ["Home light leaf-panel copy", homeColors(false).muted, "#DFF4E7"],
-    ["Home light links", homeColors(false).link, homeColors(false).canvas],
-    ["Home dark ink", homeColors(true).ink, homeColors(true).canvas],
-    ["Home dark muted", homeColors(true).muted, darkPalette.bgSurface],
-    ["Home dark links", homeColors(true).link, homeColors(true).canvas],
+    ["Home ink", homeColors.ink, homeColors.canvas],
+    ["Home muted", homeColors.muted, homeColors.canvas],
+    ["Home white-card copy", homeColors.muted, "#FFFFFF"],
+    ["Home leaf-panel copy", homeColors.muted, "#DFF4E7"],
+    ["Home links", homeColors.link, homeColors.canvas],
+    ["Home pressed-card copy", homeColors.ink, lightPalette.pineSoft],
+    ["Home pressed-card details", homeColors.muted, lightPalette.pineSoft],
+    ["Home focus ring", homeColors.link, lightPalette.bgSurface],
   ])("keeps %s at AA without changing semantic result colors", (_name, foreground, background) => {
     expect(contrastRatio(foreground, background)).toBeGreaterThanOrEqual(4.5);
   });
@@ -24,14 +24,7 @@ describe("theme contrast", () => {
     ["light amber status", lightPalette.amber, lightPalette.amberSoft],
     ["light brick status", lightPalette.brick, lightPalette.brickSoft],
     ["light primary button", lightPalette.onStrong, lightPalette.pine],
-    ["dark ink", darkPalette.ink, darkPalette.background],
-    ["dark muted", darkPalette.muted, darkPalette.background],
-    ["dark placeholder", darkPalette.faint, darkPalette.surfaceRaised],
-    ["dark pine status", darkPalette.pine, darkPalette.pineSoft],
-    ["dark cobalt status", darkPalette.cobalt, darkPalette.cobaltSoft],
-    ["dark amber status", darkPalette.amber, darkPalette.amberSoft],
-    ["dark brick status", darkPalette.brick, darkPalette.brickSoft],
-    ["dark primary button", darkPalette.onStrong, darkPalette.pine],
+    ["Scan action supporting text", "#DCEEE2", lightPalette.actionPrimary],
   ])("keeps %s at WCAG AA for normal text", (_name, foreground, background) => {
     expect(contrastRatio(foreground, background)).toBeGreaterThanOrEqual(4.5);
   });
@@ -40,26 +33,17 @@ describe("theme contrast", () => {
     ["light semantic primary text", lightPalette.textPrimary, lightPalette.bgCanvas],
     ["light semantic secondary text", lightPalette.textSecondary, lightPalette.bgCanvas],
     ["light semantic link", lightPalette.actionLink, lightPalette.bgCanvas],
-    ["dark semantic primary text", darkPalette.textPrimary, darkPalette.bgCanvas],
-    ["dark semantic secondary text", darkPalette.textSecondary, darkPalette.bgCanvas],
-    ["dark semantic link", darkPalette.actionLink, darkPalette.bgCanvas],
     ["light scan tile and primary button", lightPalette.onStrong, lightPalette.actionPrimary],
-    ["dark scan tile and primary button", darkPalette.onStrong, darkPalette.actionPrimary],
     ["light white-surface body", lightPalette.textPrimary, lightPalette.bgSurface],
-    ["dark white-surface body", darkPalette.textPrimary, darkPalette.bgSurface],
     ["light white-surface provenance", lightPalette.textSecondary, lightPalette.bgSurface],
-    ["dark white-surface provenance", darkPalette.textSecondary, darkPalette.bgSurface],
     ["light material pictograms", lightPalette.textPrimary, lightPalette.pineSoft],
-    ["dark material pictograms", darkPalette.textPrimary, darkPalette.pineSoft],
   ])("keeps %s at WCAG AA", (_name, foreground, background) => {
     expect(contrastRatio(foreground, background)).toBeGreaterThanOrEqual(4.5);
   });
 
   it.each([
     ["light strong border", lightPalette.borderStrong, lightPalette.bgCanvas],
-    ["dark strong border", darkPalette.borderStrong, darkPalette.bgCanvas],
     ["light input boundary", lightPalette.borderStrong, lightPalette.bgElevated],
-    ["dark input boundary", darkPalette.borderStrong, darkPalette.bgElevated],
   ])("keeps %s distinguishable", (_name, foreground, background) => {
     expect(contrastRatio(foreground, background)).toBeGreaterThanOrEqual(3);
   });

@@ -1,11 +1,9 @@
 import { Image, StyleSheet, View } from "react-native";
-import { useAppTheme } from "@/theme/tokens";
 import { photoBackdropLayout } from "./reference-layout";
 
 /** Original owner-supplied artwork, reused unchanged from KeepItGreen 0142bb0. */
 export function LeafBrandMark({ size = 52 }: { readonly size?: number }) {
   const scale = size / 192;
-  const { isDark } = useAppTheme();
   return (
     <View
       accessible={false}
@@ -18,7 +16,7 @@ export function LeafBrandMark({ size = 52 }: { readonly size?: number }) {
         height: size * 0.94,
         overflow: "hidden",
         borderRadius: size / 2,
-        mixBlendMode: isDark ? "normal" : "multiply",
+        mixBlendMode: "multiply",
       }}
     >
       <Image
@@ -44,7 +42,6 @@ export function PhotoCardBackdrop({
   readonly width: number;
   readonly height: number;
 }) {
-  const { isDark } = useAppTheme();
   const layout = photoBackdropLayout(width, height);
   return (
     <View
@@ -62,14 +59,13 @@ export function PhotoCardBackdrop({
         style={{
           position: "absolute",
           ...layout,
-          opacity: isDark ? 0.12 : 1,
         }}
       />
     </View>
   );
 }
 
-export function ScanIllustration() {
+export function ScanIllustration({ scale = 1 }: { readonly scale?: number }) {
   return (
     <Image
       source={require("../../assets/backgrounds/photo-bottle-v1.png")}
@@ -80,11 +76,11 @@ export function ScanIllustration() {
       importantForAccessibility="no-hide-descendants"
       pointerEvents="none"
       resizeMode="contain"
-      style={styles.scan}
+      style={[styles.scan, { width: 139 * scale, height: 153 * scale }]}
     />
   );
 }
 
 const styles = StyleSheet.create({
-  scan: { position: "absolute", right: 7, bottom: -25, width: 139, height: 153 },
+  scan: { position: "absolute", right: 7, bottom: -25 },
 });

@@ -36,6 +36,7 @@ const fi = {
   homeJurisdiction: "Ohjealue: Suomi",
   manualLocation: "Löydät numerot pakkauksen viivakoodin alta.",
   resultScope: "Yhteisötieto · tarkista pakkaus",
+  reviewedPackagingScope: "Tarkistettu pakkaustieto · Suomi",
   languageLabel: "Kieli",
   finnish: "Suomi",
   english: "English",
@@ -64,7 +65,8 @@ const fi = {
   notFoundBody:
     "Koodille ei löytynyt tuotetietoja. Tarkista koodi tai katso materiaalin yleisohje.",
   packagingMissingTitle: "Pakkaustiedot puuttuvat",
-  packagingMissingBody: "Tuote löytyi, mutta pakkauksen osista ei ole riittäviä tietoja.",
+  packagingMissingBody:
+    "Tuote löytyi, mutta lähde ei kerro, mistä pakkaus on tehty. Voit tarkistaa materiaalikoodin tai valita pakkauksen osan käsin.",
   providerUnavailableTitle: "Tietolähde ei vastaa",
   providerUnavailableBody:
     "Tuotetietoja ei saatu haettua. Yritä hetken kuluttua uudelleen tai avaa materiaalien yleisohje.",
@@ -141,6 +143,7 @@ const fi = {
     "Katso pakkauksesta materiaali ja muoto. Valitse vain tiedot, joista olet varma.",
   shapeLabel: "Muoto",
   shapeBottle: "Pullo",
+  shapePlasticBottle: "Muovipullo",
   shapeCan: "Tölkki",
   shapeJar: "Purkki",
   shapeOther: "Muu / en tiedä",
@@ -195,6 +198,7 @@ const fi = {
   clearHistoryConfirmAction: "Tyhjennä",
   openResult: "Avaa",
   emptyHistory: "Ei tallennettuja hakuja.",
+  historyReadError: "Historiaa ei voitu lukea.",
   draftNotSent: "Palautetta ei ole lähetetty.",
   correctionAction: "Ilmoita virheestä",
   feedbackTitle: "Ilmoita virheestä",
@@ -214,7 +218,7 @@ const fi = {
   privacyTitle: "Tietojen käyttö",
   sortingInformationTitle: "Lajitteluohjeista",
   privacyInformation:
-    "Perushaku ei vaadi tiliä. Viivakoodi tarkistetaan ensin laitteen pienestä tuoteluettelosta. Muut koodit lähetetään KeepItGreenin palvelimelle ja edelleen Open Food Factsille; jos palvelimeen ei saada yhteyttä, koodi lähetetään suoraan Open Food Factsin elintarvikehakuun. Verkkopalvelu näkee myös yhteyden IP-osoitteen, mutta ei kamerakuvaa tai sijaintia. Palvelimen tuotetyypin mukainen haku voi käyttää myös Open Beauty Facts-, Open Pet Food Facts- tai Open Products Facts -tietokantaa. Yhteisötiedot voivat olla puutteellisia. Palvelin voi säilyttää viivakoodiin liittyvää hakutulosta prosessimuistissa enintään kuusi tuntia ja IP-osoitetta väärinkäytön estoon enintään minuutin; rutiinipyyntöjä ei lokiteta. Mainos- tai käyttöanalytiikkaa ei ole. Historia, itse kirjaamasi kierrätysmerkinnät ja materiaalimäärät sekä palauteluonnokset ovat paikallisia, mutta käyttöjärjestelmän varmuuskopio voi sisältää ne. Kierrätysmerkintä tallentuu vain, kun kirjaat sen itse; tuotehaku ei lisää kierrätettyä määrää. Kaikki paikalliset tiedot voi poistaa alta.",
+    "Perushaku ei vaadi tiliä. Jos pakkaustieto on valmiiksi laitteella, verkkohakua ei tarvita. Tarvittaessa viivakoodi lähetetään KeepItGreenin palvelimelle ja edelleen Open Food Factsille tai suoraan Open Food Factsin elintarvikehakuun, jos palvelinta ei ole käytössä tai siihen ei saada yhteyttä. Verkkopalvelu näkee myös yhteyden IP-osoitteen, mutta ei kamerakuvaa tai sijaintia. Palvelimen tuotetyypin mukainen haku voi käyttää myös Open Beauty Facts-, Open Pet Food Facts- tai Open Products Facts -tietokantaa. Yhteisötiedot voivat olla puutteellisia. Palvelin voi säilyttää viivakoodiin liittyvää hakutulosta prosessimuistissa enintään kuusi tuntia ja IP-osoitetta väärinkäytön estoon enintään minuutin; rutiinipyyntöjä ei lokiteta. Mainos- tai käyttöanalytiikkaa ei ole. Historia, itse kirjaamasi kierrätysmerkinnät ja materiaalimäärät sekä palauteluonnokset ovat paikallisia, mutta käyttöjärjestelmän varmuuskopio voi sisältää ne. Kierrätysmerkintä tallentuu vain, kun kirjaat sen itse; tuotehaku ei lisää kierrätettyä määrää. Kaikki paikalliset tiedot voi poistaa alta.",
   sortingInformation:
     "Lajitteluohje perustuu ilmoitettuihin lähteisiin ja voi vaatia pakkauksen tarkistamista. Paikallinen jätehuolto ja pakkauksen vaarallisuusohjeet ovat etusijalla.",
   deleteLocalData: "Poista kaikki paikalliset tiedot",
@@ -256,6 +260,7 @@ const en: Record<keyof typeof fi, string> = {
   homeJurisdiction: "Guidance area: Finland",
   manualLocation: "Find the numbers below the barcode on your package.",
   resultScope: "Community data · check the package",
+  reviewedPackagingScope: "Checked packaging data · Finland",
   languageLabel: "Language",
   finnish: "Suomi",
   english: "English",
@@ -285,7 +290,7 @@ const en: Record<keyof typeof fi, string> = {
     "No product data was found for this code. Check the code or use the general material guide.",
   packagingMissingTitle: "Packaging data is missing",
   packagingMissingBody:
-    "The product was found, but there is not enough information about its parts.",
+    "The product was found, but the source does not say what the packaging is made of. Check its material code or select the packaging part manually.",
   providerUnavailableTitle: "Data source unavailable",
   providerUnavailableBody:
     "Product data could not be retrieved. Try again shortly or open the general material guide.",
@@ -363,6 +368,7 @@ const en: Record<keyof typeof fi, string> = {
     "Check the material and shape on the package. Select only information you are sure of.",
   shapeLabel: "Shape",
   shapeBottle: "Bottle",
+  shapePlasticBottle: "Plastic bottle",
   shapeCan: "Can",
   shapeJar: "Jar",
   shapeOther: "Other / not sure",
@@ -417,6 +423,7 @@ const en: Record<keyof typeof fi, string> = {
   clearHistoryConfirmAction: "Clear",
   openResult: "Open",
   emptyHistory: "No saved lookups.",
+  historyReadError: "Couldn't read lookup history.",
   draftNotSent: "Feedback has not been sent.",
   correctionAction: "Report a problem",
   feedbackTitle: "Report a problem",
@@ -437,7 +444,7 @@ const en: Record<keyof typeof fi, string> = {
   privacyTitle: "Use of information",
   sortingInformationTitle: "About sorting guidance",
   privacyInformation:
-    "Basic lookup needs no account. The barcode is checked in the small on-device catalogue first. Other codes are sent to the KeepItGreen server and then to Open Food Facts; if the server cannot be reached, the code is sent directly to Open Food Facts food lookup. The network service also sees your connection's IP address, but no camera image or location. Server-side lookup may also use Open Beauty Facts, Open Pet Food Facts or Open Products Facts by product type. Community data may be incomplete. The server may retain a barcode-linked lookup result in process memory for up to six hours and an IP address for abuse prevention for up to one minute; routine requests are not logged. There is no advertising or usage analytics. History, your own recycling records and material totals, and feedback drafts are local, but an operating-system backup may include them. Recycling is recorded only when you save it yourself; a product lookup does not add to your recycled count. All local data can be deleted below.",
+    "Basic lookup needs no account. If packaging data is already on your device, no network lookup is needed. When needed, the barcode is sent to the KeepItGreen server and then to Open Food Facts, or directly to Open Food Facts for food lookup if the server is not in use or cannot be reached. The network service also sees your connection's IP address, but no camera image or location. Server-side lookup may also use Open Beauty Facts, Open Pet Food Facts or Open Products Facts by product type. Community data may be incomplete. The server may retain a barcode-linked lookup result in process memory for up to six hours and an IP address for abuse prevention for up to one minute; routine requests are not logged. There is no advertising or usage analytics. History, your own recycling records and material totals, and feedback drafts are local, but an operating-system backup may include them. Recycling is recorded only when you save it yourself; a product lookup does not add to your recycled count. All local data can be deleted below.",
   sortingInformation:
     "Guidance is based on the cited sources and may require checking the package. Local waste-service and hazardous-product instructions take precedence.",
   deleteLocalData: "Delete all local data",

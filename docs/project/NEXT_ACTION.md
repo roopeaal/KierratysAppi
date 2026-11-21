@@ -1,3 +1,3 @@
 # Next action
 
-Build and inspect a new non-debug native release against docs/security.md: verify final transport restrictions, permissions, backup/debug flags and confirmation-to-guidance flow; record binary/device evidence separately from config introspection.
+On iPhone build 29 in airplane mode, enter barcode 6415600502078 and verify that the result directs the bottle to a retail return point.

@@ -1,11 +1,13 @@
 // Actual exported application. Synthetic API fixture is isolated to this QA only.
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import path from "node:path";
 import http from "node:http";
 import { createRequire } from "node:module";
+import path from "node:path";
+
 const root = fs.realpathSync(process.cwd()),
   run = path.resolve(root, process.argv[2]);
+const barcodeOnly = process.argv.includes("--barcode-only");
 assert(run.startsWith(`${root}/work/`) && fs.realpathSync(run) === run);
 const require = createRequire(import.meta.url),
   { chromium } = require(process.env.PLAYWRIGHT_MODULE_PATH);
@@ -80,6 +82,13 @@ try {
               code: "6410405196811",
               product_name_en: "QA synthetic identity",
               product_name_fi: "QA synteettinen tuote",
+              ...(fixture === "packaging"
+                ? {
+                    packagings: [
+                      { shape: { id: "en:film" }, material: { id: "en:pp-5-polypropylene" } },
+                    ],
+                  }
+                : {}),
             },
           }),
         });
@@ -125,84 +134,84 @@ try {
       });
       evidence.push({ language, colorScheme, width, stage, layout: true });
     }
-    for (const [route, marker] of [
-      ["/", "home-screen"],
-      ["/identify", "identify-screen"],
-      ["/settings", "settings-screen"],
-      ["/manual", "manual-entry-screen"],
-      ["/scan", "scanner-permission-screen"],
-      ["/local-photo", "local-photo-screen"],
-      ["/guide", "guide-screen"],
-      ["/nearby", "nearby-screen"],
-      ["/overview", "overview-screen"],
-      ["/result", "result-empty-screen"],
-      ["/component", null],
-      ["/material-code", null],
-      ["/history", null],
-      ["/legal", null],
-      ["/feedback", null],
-      ["/photo", null],
-    ]) {
-      await page.goto(base + route);
-      if (marker) await get(marker).waitFor();
-      else await page.getByRole("heading").first().waitFor();
+    if (!barcodeOnly) {
+      for (const [route, marker] of [
+        ["/", "home-screen"],
+        ["/identify", "identify-screen"],
+        ["/settings", "settings-screen"],
+        ["/manual", "manual-entry-screen"],
+        ["/scan", "scanner-permission-screen"],
+        ["/local-photo", "network-photo-screen"],
+        ["/guide", "guide-screen"],
+        ["/nearby", "nearby-screen"],
+        ["/overview", "overview-screen"],
+        ["/result", "result-empty-screen"],
+        ["/component", null],
+        ["/material-code", null],
+        ["/history", null],
+        ["/legal", null],
+        ["/feedback", null],
+        ["/photo", null],
+      ]) {
+        await page.goto(base + route);
+        if (marker) await get(marker).waitFor();
+        else await page.getByRole("heading").first().waitFor();
+        assert.equal(await page.evaluate(() => document.documentElement.lang), language);
+        await inspect(route === "/" ? "home" : route.slice(1));
+      }
+      // Camera's manual entry must share the expanded barcode lookup as well.
+      await page.goto(base + "/local-photo");
+      await get("offline-product-manual-input").fill("6408430030309");
+      await get("offline-product-manual-submit").click();
+      await get("packaging-missing-result").waitFor();
+      assert.match(await get("product-result-screen").innerText(), /Oivariini/);
+      await inspect("camera-shared-barcode");
+      await recordUnknownMaterial(1);
+      // A source-backed HSY query must require a matching municipality, not guess.
+      await page.goto(
+        base +
+          "/guide?query=" +
+          encodeURIComponent(language === "fi" ? "Paistinpannu, kasari" : "Frying pan, saucepan"),
+      );
+      await get("sorting-region-manual").click();
+      await get("sorting-region-input").fill("Vantaa");
+      await get("sorting-region-092").click();
+      await get("source-guide-result").waitFor();
+      assert.match(
+        await get("source-guide-title").innerText(),
+        language === "fi" ? /Paistinpannu/ : /Frying pan/,
+      );
+      await page.waitForFunction(() => {
+        const r = document
+          .querySelector('[data-testid="source-guide-title"]')
+          ?.getBoundingClientRect();
+        return r && r.top >= 0 && r.bottom < innerHeight - 160;
+      });
+      await inspect("hsy-offline-source");
+      await recordUnknownMaterial(2);
+      await page.goto(base + "/guide?material=plastic");
+      await get("recycle-mark-action").click();
+      assert.equal(
+        await get("recycle-material-plastic").count(),
+        0,
+        "Explicit general material needs no second picker",
+      );
+      await get("recycle-confirm-action").click();
+      await page.waitForFunction(
+        () =>
+          JSON.parse(localStorage.getItem("@kierratysappi/recycling-overview/v1") ?? "null")?.counts
+            .plastic === 1,
+      );
+      await page.goto(
+        base +
+          "/guide?query=" +
+          encodeURIComponent(language === "fi" ? "Paistinpannu, kasari" : "Frying pan, saucepan"),
+      );
+      await page.reload();
+      // Region intentionally transient across full relaunch; language is not.
+      await get("sorting-region-manual").waitFor();
       assert.equal(await page.evaluate(() => document.documentElement.lang), language);
-      await inspect(route === "/" ? "home" : route.slice(1));
     }
-    // Camera's manual entry must share the expanded barcode lookup as well.
-    await page.goto(base + "/local-photo");
-    const beforePhoto = remoteRequests;
-    await get("offline-product-manual-input").fill("6408430030309");
-    await get("offline-product-manual-submit").click();
-    await get("packaging-missing-result").waitFor();
-    assert.match(await get("product-result-screen").innerText(), /Oivariini/);
-    assert.equal(remoteRequests, beforePhoto);
-    await inspect("camera-shared-barcode");
-    await recordUnknownMaterial(1);
-    // A source-backed HSY query must require a matching municipality, not guess.
-    await page.goto(
-      base +
-        "/guide?query=" +
-        encodeURIComponent(language === "fi" ? "Paistinpannu, kasari" : "Frying pan, saucepan"),
-    );
-    await get("sorting-region-manual").click();
-    await get("sorting-region-input").fill("Vantaa");
-    await get("sorting-region-092").click();
-    await get("source-guide-result").waitFor();
-    assert.match(
-      await get("source-guide-title").innerText(),
-      language === "fi" ? /Paistinpannu/ : /Frying pan/,
-    );
-    await page.waitForFunction(() => {
-      const r = document
-        .querySelector('[data-testid="source-guide-title"]')
-        ?.getBoundingClientRect();
-      return r && r.top >= 0 && r.bottom < innerHeight - 160;
-    });
-    await inspect("hsy-offline-source");
-    await recordUnknownMaterial(2);
-    await page.goto(base + "/guide?material=plastic");
-    await get("recycle-mark-action").click();
-    assert.equal(
-      await get("recycle-material-plastic").count(),
-      0,
-      "Explicit general material needs no second picker",
-    );
-    await get("recycle-confirm-action").click();
-    await page.waitForFunction(
-      () =>
-        JSON.parse(localStorage.getItem("@kierratysappi/recycling-overview/v1") ?? "null")?.counts
-          .plastic === 1,
-    );
-    await page.goto(
-      base +
-        "/guide?query=" +
-        encodeURIComponent(language === "fi" ? "Paistinpannu, kasari" : "Frying pan, saucepan"),
-    );
-    await page.reload();
-    // Region intentionally transient across full relaunch; language is not.
-    await get("sorting-region-manual").waitFor();
-    assert.equal(await page.evaluate(() => document.documentElement.lang), language);
     await page.goto(base + "/");
     await get("home-identify-action").click();
     await get("identify-manual-action").click();
@@ -212,14 +221,28 @@ try {
     const before = remoteRequests;
     // All external requests are aborted; keep the loopback server available for
     // web-only lazy chunks. Native assets are packaged, unlike this web host.
+    await get("manual-gtin-input").fill("6415600502078");
+    await get("manual-submit-action").click();
+    await get("sorting-result-resolved").waitFor();
+    assert.match(await get("product-result-screen").innerText(), /Coca-Cola Zero Sugar/);
+    await get("product-result-screen")
+      .getByText(language === "fi" ? "Muovipullo" : "Plastic bottle", { exact: true })
+      .waitFor();
+    assert.match(
+      await get("sorting-result-resolved").innerText(),
+      language === "fi" ? /Kaupan palautusautomaatti/ : /Retail return point/,
+    );
+    await get("product-result-screen").getByRole("link", { name: "S-kaupat" }).waitFor();
+    assert.equal(remoteRequests, before, "reviewed packaging must not make network requests");
+    await inspect("reviewed-deposit-offline");
+    await page.goto(base + "/manual");
     await get("manual-gtin-input").fill("0643435694897");
     await get("manual-submit-action").click();
     await get("packaging-missing-result").waitFor();
     assert.match(await get("product-result-screen").innerText(), /Pavé gourmand/);
-    assert.equal(remoteRequests, before, "bundled identity must not make network requests");
     await inspect("bundled-barcode-offline");
     await page.goto(base + "/manual");
-    fixture = true;
+    fixture = "identity";
     await get("manual-gtin-input").fill("6410405196811");
     await get("manual-submit-action").click();
     await get("packaging-missing-result").waitFor();
@@ -238,6 +261,30 @@ try {
     await get("manual-submit-action").click();
     await get("packaging-missing-result").waitFor();
     await inspect("cached-fixture-offline");
+    fixture = "packaging";
+    await page.goto(base + "/manual");
+    await get("manual-gtin-input").fill("6410405196811");
+    await get("manual-submit-action").click();
+    await get("sorting-result-resolved").waitFor();
+    await inspect("cached-identity-upgraded");
+    await page.waitForFunction(() =>
+      JSON.parse(localStorage.getItem("@kierratysappi/offline-lookup-cache/v1") ?? "[]").some(
+        (e) => e.result.status === "resolved",
+      ),
+    );
+    fixture = false;
+    await page.goto(base + "/manual");
+    await get("manual-gtin-input").fill("6410405196811");
+    await get("manual-submit-action").click();
+    await get("sorting-result-resolved").waitFor();
+    await inspect("cached-packaging-offline");
+    if (barcodeOnly) {
+      await context.close();
+      console.log(
+        `PASS ${language}/${colorScheme}: offline deposit and identity, live upgrade, saved guidance`,
+      );
+      continue;
+    }
     await page.goto(base + "/overview");
     await get("overview-material-metal").click();
     await get("overview-quantity-input").fill("2");

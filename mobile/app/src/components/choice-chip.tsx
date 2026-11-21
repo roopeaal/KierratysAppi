@@ -1,14 +1,17 @@
 import { useState } from "react";
-import { Pressable, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { useAppTheme } from "@/theme/tokens";
-import { AppText } from "./ui";
+import { TactilePressable as Pressable } from "./tactile-pressable";
+import { AppText, ChoiceIndicator } from "./ui";
 export function ChoiceChip({
   label,
+  category,
   selected,
   onPress,
   testID,
 }: {
   label: string;
+  category?: MaterialStudyKind;
   selected: boolean;
   onPress: () => void;
   testID?: string;
@@ -38,7 +41,12 @@ export function ChoiceChip({
         },
       ]}
     >
-      <AppText variant="small" style={{ color: selected ? palette.actionPrimary : palette.ink }}>
+      <ChoiceIndicator selected={selected} />
+      {category && <MaterialStudy material={category} size={22} />}
+      <AppText
+        variant="small"
+        style={{ flexShrink: 1, color: selected ? palette.actionPrimary : palette.ink }}
+      >
         {label}
       </AppText>
     </Pressable>
@@ -55,5 +63,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     maxWidth: "100%",
+    flexDirection: "row",
+    gap: 8,
   },
 });
+
+import { MaterialStudy, type MaterialStudyKind } from "./material-study";

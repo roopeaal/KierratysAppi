@@ -8,9 +8,10 @@ import { localizedText } from "@kierratysappi/localization";
 import { type SortingResult, sortPackagingComponent } from "@kierratysappi/recycling-engine";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Pressable, StyleSheet, View } from "react-native";
-import { SortingResultCard } from "@/components/sorting-result";
+import { StyleSheet, View } from "react-native";
 import { RecycleAction } from "@/components/recycle-action";
+import { SortingResultCard } from "@/components/sorting-result";
+import { TactilePressable as Pressable } from "@/components/tactile-pressable";
 import {
   AppText,
   Button,

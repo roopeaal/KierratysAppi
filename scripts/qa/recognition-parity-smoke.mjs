@@ -36,6 +36,9 @@ try {
       (language) => localStorage.setItem("@kierratysappi/language/v1", language),
       language,
     );
+    // These two barcode assertions exercise the bundled identity when lookup is offline.
+    await context.route(/\/v1\/recycling\/lookup(?:$|\?)/, (route) => route.abort());
+    await context.route(/\/api\/v3\/product\/6408430030309(?:$|\?)/, (route) => route.abort());
     const page = await context.newPage();
     const get = (id) => page.getByTestId(id);
     const t = (key) => translate(language, key);

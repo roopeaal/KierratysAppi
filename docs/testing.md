@@ -5,12 +5,12 @@ pnpm validate
 pnpm security:audit
 ```
 
-Osakohtaiset tarkistukset: `pnpm validate:mobile`, `pnpm validate:backend` ja
-`pnpm validate:shared`. Ne eivät korvaa koko integraation tarkistusta.
-CI säilyttää testit, tyypityksen, rajat, koonnit, Expo Doctorin, auditoinnin,
-CodeQL:n ja salaisuuksien tarkistuksen.
+Sijainti: Chrome tarkisti FI/EN-kuvatunnistuksen automaattisen HSY-ohjeen ja aluevalinnan varapolun testivastauksilla sekä selaimen karttavaravaihtoehdon osoitteettomalle pisteelle. Natiivin osoitearvion yksikkötestit kattavat julkiset pistekoordinaatit, yhden pyynnön kerrallaan, aikakatkaisun ja peruutuksen. `pnpm validate:mobile` ja `pnpm validate` (2 182 testiä) läpäisty. Natiivin karttapalvelua ei kokeiltu fyysisellä laitteella.
+Vaalea ilme ja etusivu: `light-appearance-browser` tarkisti yhdeksän näkymää suomeksi (390 px) ja englanniksi (320 px) oikeassa web-viennissä; selainasetuksen vaihto ei muuttanut värejä. ”Katso yhteenveto” avautui näppäimistöllä ja viikkokaavion aikajakso jäi ennalleen. `home-field-guide` läpäisi haun, kortit ja sijaintitestit. Laaja `assessment-browser` läpäisi kaikki neljä kieli-/selainasetusta kehitysviennissä, jossa kuvatunnistuksen osoite oli määritelty mutta verkkoliikenne estettiin tai simuloitiin. `pnpm validate:mobile`, `pnpm validate` (2 184 testiä) ja iOS-/Android-Hermes-viennit läpäisty. Expo-konfiguraatio tuotti iOS:lle Light- ja Androidille light-asetuksen. Ei fyysistä laitekoetta.
+Kuva- ja viivakoodipolut testattiin Chromessa FI/EN testivastauksilla: vahvistus, vaihtoehdot, lähde, tallennus, tyhjä tulos ja verkkokatko. Viivakoodikorjaus 19.11.: oikea OFF-haku koodille `6408430030309` palautti muovikalvon. Chromen `assessment-browser.mjs --barcode-only` läpäisi 20 vaihetta (FI/EN, vaalea/tumma, 390/320 px): `6415600502078` ja Palpan ohje ilman verkkopyyntöä, puuttuva tieto, sen täydentyminen ja tallennetun ohjeen käyttö ilman verkkoa. Koko vanha selainajo pysähtyi eri kuvatunnistusreitin näkymäselektoriin; tätä ajoa ei lasketa hyväksytyksi. `pnpm validate:mobile`, `pnpm validate` (2 201 testiä) ja iOS-/Android-Hermes-viennit läpäisty. Ei uutta puhelinasennusta.
+Vuorovaikutus: Chrome tarkisti kosketuspainalluksen ja peruutuksen, näppäimistön, liikeasetuksen vaihdon kesken käytön, tallennetun materiaalileiman, tumman näkymän sekä FI/EN-viikkoyhteenvedon. Kuvaohjeen fixture-kokeet, `pnpm validate:mobile`, `pnpm validate` (2 194 testiä) ja iOS/Android JS-export läpäisty. Ei fyysistä laitekoetta.
 
-## Tietoturvakovennus 18.11.2026 — nykyinen paikallinen lähde
+## Tietoturvakovennus 18.11.2026 — julkaisupohja
 
 - `pnpm validate`: 2 165 testiä (957 Node + 1 208 workspace), tyypit, lint,
   rajat ja koonnit läpäisty. Mobile/backend/shared-osakohtaiset portit läpäisty.
@@ -38,7 +38,7 @@ CodeQL:n ja salaisuuksien tarkistuksen.
 - Macin selainkoe käyttää oikeaa SigLIP2-mallia, JPEG/PNG:tä, erillistä lupaa,
   materiaalivalintaa, lähteistettyä ohjetta, EN-pysyvyyttä ja offline-palautumista.
   Windows x64:n malli/Chrome/Edge on ajettu GitHubin Windows-koneella.
-- iPhonen natiiviversio 23 on asennettu ja käynnistys tarkistettu. Omistaja on
+- iPhonen natiiviversio 29 asennettiin version 28 päälle ja käynnistys varmennettiin. Laitteen sovelluslistassa näkyi 0.1.0 (29); allekirjoitus, laitekohdistus, natiivin Light-asetus ja ”Katso yhteenveto” Hermes-nipussa tarkistettiin. Omistaja vahvisti 21.11.2026, että sovellus pysyi vaaleana ja painike avasi yhteenvedon. Omistaja on
   kokeillut Go:n lusikka-/materiaaliohjeen ja kielivalinnan. Android-emulaattorissa
   on tehty natiivi- ja Go-kokeita. Tämä ei ole fyysinen Samsung-hyväksyntä.
 

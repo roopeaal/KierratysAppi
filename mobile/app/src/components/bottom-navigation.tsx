@@ -1,6 +1,6 @@
 import { usePathname, useRouter } from "expo-router";
 import { useState } from "react";
-import { Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   activeTab,
@@ -14,6 +14,7 @@ import { interaction, useAppTheme } from "@/theme/tokens";
 import { ActionIcon } from "./action-icon";
 import { homeFont } from "./home-elements";
 import { ReferenceSymbol } from "./reference-symbol";
+import { TactilePressable as Pressable } from "./tactile-pressable";
 import { AppText } from "./ui";
 
 export function BottomNavigation() {

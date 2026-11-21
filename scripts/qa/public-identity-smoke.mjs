@@ -1,9 +1,10 @@
 // Exactly one public food-code GET, no account, owner data, retries or paid calls.
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import path from "node:path";
 import { createRequire } from "node:module";
+import path from "node:path";
 import { pathToFileURL } from "node:url";
+
 const root = fs.realpathSync(process.cwd()),
   run = path.resolve(root, process.argv[2]);
 assert(run.startsWith(`${root}/work/`) && fs.realpathSync(run) === run);
@@ -25,7 +26,7 @@ const result = await createPublicIdentityLookup(async (url, init) => {
   const response = await fetch(url, init);
   calls.push({ status: response.status, contentType: response.headers.get("content-type") });
   return response;
-})("5449000000996", "fi");
+})("6408430030309", "fi");
 fs.writeFileSync(
   path.join(run, "public-smoke.json"),
   JSON.stringify(
@@ -35,15 +36,20 @@ fs.writeFileSync(
       productName: result.product?.name?.value,
       community: result.product?.name?.provenance.verificationStatus,
       licence: result.product?.name?.provenance.license.id,
-      noSortingFromIdentity: !result.product?.packagingComponents.length,
+      packaging: result.components?.map(({ observation, sorting }) => ({
+        material: observation.materialFamily?.value,
+        shape: observation.shape?.value,
+        destination: sorting.destination?.id,
+      })),
     },
     null,
     2,
   ),
   { flag: "wx" },
 );
-assert.equal(result.status, "packaging_missing", "public_identity_not_resolved");
+assert.equal(result.status, "resolved", "public_packaging_not_resolved");
 assert.equal(result.product.name?.provenance.verificationStatus, "community");
+assert.ok(result.components.some(({ sorting }) => sorting.destination?.id === "plastic_packaging"));
 console.log(
-  "One public food-code identity resolved with community provenance; no material inferred.",
+  "One public food code returned structured plastic film evidence and sourced sorting guidance.",
 );

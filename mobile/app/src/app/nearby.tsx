@@ -5,20 +5,12 @@ import {
 import type { MessageKey } from "@kierratysappi/localization";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useRef, useState } from "react";
-import {
-  ActivityIndicator,
-  AppState,
-  Keyboard,
-  Linking,
-  Platform,
-  StyleSheet,
-  TextInput,
-  View,
-} from "react-native";
+import { ActivityIndicator, Keyboard, Linking, Platform, StyleSheet, View } from "react-native";
 import snapshot from "@/assets/data/finland-recycling.json";
 import { ChoiceChip } from "@/components/choice-chip";
 import { NearbyPointCard } from "@/components/nearby-point-card";
 import {
+  AppInput,
   AppText,
   Button,
   InlineLink,
@@ -28,7 +20,8 @@ import {
   sharedStyles,
 } from "@/components/ui";
 import { announceAccessibility } from "@/features/accessibility/announcements";
-import { readAddressLocation, readDeviceLocation } from "@/features/nearby/device-location";
+import { readAddressLocation } from "@/features/nearby/device-location";
+import { useForegroundLocation } from "@/features/nearby/foreground-context";
 import { LocationIssue } from "@/features/nearby/location-session";
 import { AddressLookupIssue } from "@/features/nearby/manual-location";
 import {
@@ -64,6 +57,7 @@ const errors = {
 
 export default function NearbyScreen() {
   const { fromCoordinates } = useSortingRegion();
+  const { enabled, foreground, read, setEnabled } = useForegroundLocation();
   const router = useRouter();
   const { t, language } = useLanguage();
   const { palette } = useAppTheme();
@@ -87,45 +81,58 @@ export default function NearbyScreen() {
     setManualOpen(false);
     setLocationInput("");
   }, []);
-  const find = useCallback(async () => {
-    if (active.current) return;
-    setLinkError(false);
-    if (!directory.success) {
-      setState({ status: "error", message: "nearbyDataError" });
-      return;
-    }
-    const controller = new AbortController();
-    active.current = controller;
-    setState({ status: "loading" });
-    announceAccessibility(t("nearbyLoading"));
-    try {
-      const fix = await readDeviceLocation(controller.signal);
-      if (controller.signal.aborted) return;
-      fromCoordinates(fix.coords);
-      const results = buildNearbyResults(directory.data.points, fix.coords);
-      if (!results.reported.length && !results.missing.length) {
-        setState({ status: "error", message: "nearbyNoResult" });
-        announceAccessibility(t("nearbyNoResult"), "high");
-      } else {
-        setState({
-          status: "ready",
-          results,
-          accuracy: fix.coords.accuracy ?? 0,
-          origin: "device",
-        });
-
-        announceAccessibility(t("nearbyResult"), "high");
+  const find = useCallback(
+    async (options: { prompt?: boolean; enable?: boolean; refresh?: boolean } = {}) => {
+      if (active.current) return;
+      setLinkError(false);
+      if (!directory.success) {
+        setState({ status: "error", message: "nearbyDataError" });
+        return;
       }
-    } catch (error) {
-      if (controller.signal.aborted) return;
-      const message = error instanceof LocationIssue ? errors[error.reason] : "nearbyUnavailable";
-      setState({ status: "error", message });
+      const controller = new AbortController();
+      active.current = controller;
+      setState({ status: "loading" });
+      announceAccessibility(t("nearbyLoading"));
+      try {
+        const fix = await read(controller.signal, options);
+        if (controller.signal.aborted) return;
+        fromCoordinates(fix.coords);
+        if (options.enable) {
+          try {
+            await setEnabled(true);
+          } catch {
+            if (!controller.signal.aborted)
+              setState({ status: "error", message: "nearbyPreferenceError" });
+            return;
+          }
+        }
+        if (controller.signal.aborted) return;
+        const results = buildNearbyResults(directory.data.points, fix.coords);
+        if (!results.reported.length && !results.missing.length) {
+          setState({ status: "error", message: "nearbyNoResult" });
+          announceAccessibility(t("nearbyNoResult"), "high");
+        } else {
+          setState({
+            status: "ready",
+            results,
+            accuracy: fix.coords.accuracy ?? 0,
+            origin: "device",
+          });
 
-      announceAccessibility(t(message), "high");
-    } finally {
-      if (active.current === controller) active.current = null;
-    }
-  }, [t, fromCoordinates]);
+          announceAccessibility(t("nearbyResult"), "high");
+        }
+      } catch (error) {
+        if (controller.signal.aborted) return;
+        const message = error instanceof LocationIssue ? errors[error.reason] : "nearbyUnavailable";
+        setState({ status: "error", message });
+
+        announceAccessibility(t(message), "high");
+      } finally {
+        if (active.current === controller) active.current = null;
+      }
+    },
+    [t, fromCoordinates, read, setEnabled],
+  );
   const findByLocation = async () => {
     if (active.current || Platform.OS === "web") return;
     const input = locationInput;
@@ -170,16 +177,14 @@ export default function NearbyScreen() {
   };
   useFocusEffect(
     useCallback(() => {
-      // Only a recent in-memory Home press auto-starts; URL/deep-link opening alone never does.
-      if (consumeSearchRequest()) void find();
-      const listener = AppState.addEventListener("change", (next) => {
-        if (next === "background") clear();
-      });
-      return () => {
-        listener.remove();
-        clear();
-      };
-    }, [clear, consumeSearchRequest, find]),
+      if (foreground && enabled !== null) {
+        const explicit = consumeSearchRequest();
+        // Auto-search checks an existing OS grant silently; only a real navigation
+        // action or press can prompt. A direct URL is never permission to ask.
+        if (enabled || explicit) void find({ prompt: explicit && !enabled });
+      }
+      return clear;
+    }, [clear, consumeSearchRequest, enabled, find, foreground]),
   );
   const openSource = () => {
     if (!directory.success) return;
@@ -213,7 +218,14 @@ export default function NearbyScreen() {
         </View>
       ) : (
         state.status !== "ready" && (
-          <Button label={t("nearbyFind")} onPress={() => void find()} testID="nearby-find" />
+          <View style={sharedStyles.tightStack}>
+            {!enabled && <AppText muted>{t("nearbyAutomaticBrief")}</AppText>}
+            <Button
+              label={t(enabled ? "nearbyFind" : "nearbyEnableAutomatic")}
+              onPress={() => void find({ prompt: true, enable: !enabled })}
+              testID="nearby-find"
+            />
+          </View>
         )
       )}
       {state.status === "error" && (
@@ -336,9 +348,20 @@ export default function NearbyScreen() {
           <Button
             label={t("nearbyRefresh")}
             variant="quiet"
-            onPress={() => void find()}
+            onPress={() => void find({ prompt: true, refresh: true })}
             testID="nearby-find"
           />
+          {!enabled && state.origin === "device" && (
+            <View style={sharedStyles.tightStack}>
+              <AppText muted>{t("nearbyAutomaticBrief")}</AppText>
+              <Button
+                variant="quiet"
+                label={t("nearbyEnableAutomatic")}
+                onPress={() => void find({ prompt: true, enable: true })}
+                testID="nearby-auto-enable"
+              />
+            </View>
+          )}
         </>
       )}
       {linkError && <AppText accessibilityRole="alert">{t("nearbyLinkError")}</AppText>}
@@ -360,7 +383,7 @@ export default function NearbyScreen() {
             ) : (
               <View style={sharedStyles.tightStack}>
                 <AppText>{t("nearbyLocationHint")}</AppText>
-                <TextInput
+                <AppInput
                   accessibilityLabel={t("nearbyLocationLabel")}
                   accessibilityHint={t("nearbyLocationHint")}
                   autoCorrect={false}

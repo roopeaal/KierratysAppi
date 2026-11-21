@@ -3,14 +3,25 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import test from "node:test";
 
-const mobileScreens = ["manual.tsx", "material-code.tsx", "feedback.tsx"];
+const inputFiles = [
+  "app/index.tsx",
+  "app/manual.tsx",
+  "app/material-code.tsx",
+  "app/feedback.tsx",
+  "app/guide.tsx",
+  "app/overview.tsx",
+  "app/nearby.tsx",
+  "components/recognition-presentation.tsx",
+  "components/sorting-region-picker.tsx",
+];
 
 test("every mobile text input has an explicit cross-platform accessible name", () => {
-  for (const screen of mobileScreens) {
-    const source = readFileSync(join("mobile/app/src/app", screen), "utf8");
-    const inputs = [...source.matchAll(/<TextInput\b[\s\S]*?\/>/g)];
+  for (const screen of inputFiles) {
+    const source = readFileSync(join("mobile/app/src", screen), "utf8");
+    const inputs = [...source.matchAll(/<AppInput\b[\s\S]*?\/>/g)];
 
-    assert.ok(inputs.length > 0, `${screen} must contain a TextInput covered by this policy`);
+    assert.ok(inputs.length > 0, `${screen} must contain an AppInput covered by this policy`);
+    assert.doesNotMatch(source, /<TextInput\b/);
 
     for (const [index, input] of inputs.entries()) {
       assert.match(
@@ -51,7 +62,7 @@ test("every dynamic mobile alert has an explicit iOS announcement path", () => {
 
 test("critical mobile journeys expose stable semantic automation identifiers", () => {
   const requiredIdentifiers = {
-    "index.tsx": ["home-screen", "home-scan-action", "home-manual-action"],
+    "index.tsx": ["home-screen", "home-scan-action", "home-guide-action"],
     "scan.tsx": [
       "scanner-permission-screen",
       "scanner-permission-action",

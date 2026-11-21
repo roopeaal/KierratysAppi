@@ -12,6 +12,7 @@ import {
   Button,
   InlineLink,
   PageHeader,
+  PageIntro,
   Paper,
   Rule,
   Screen,
@@ -145,18 +146,14 @@ function ProductResult({
     <Screen testID="product-result-screen">
       <PageHeader onBack={onClose} label={t("close")} testID="result-close-action" />
 
-      <View style={styles.answerIntro}>
-        <AppText variant="small" muted>
-          {t("productDetailsTitle")}
-        </AppText>
-        <AppText variant="title" accessibilityRole="header">
-          {name}
-        </AppText>
-        {brand && <AppText muted>{brand}</AppText>}
-        <AppText variant="small" muted>
-          {t("resultScope")}
-        </AppText>
-      </View>
+      <PageIntro
+        title={name}
+        eyebrow={t("productDetailsTitle")}
+        body={brand}
+        caption={t(
+          provenance.verificationStatus === "verified" ? "reviewedPackagingScope" : "resultScope",
+        )}
+      />
 
       {result.status === "packaging_missing" ? (
         <View style={styles.resultStack}>
@@ -207,6 +204,14 @@ function ProductResult({
               />
             </Paper>
           ))}
+          {result.components.some(({ sorting }) => sorting.status !== "resolved") && (
+            <Button
+              label={t("manualComponentAction")}
+              variant="secondary"
+              onPress={() => router.push("/component")}
+              testID="result-manual-component-action"
+            />
+          )}
         </View>
       )}
 
@@ -235,7 +240,11 @@ function ProductResult({
         </View>
         <View style={styles.sourceRow}>
           <AppText variant="small" muted>
-            {result.cache.hit ? t("cachedLabel") : t("liveLabel")}
+            {provenance.verificationStatus === "verified"
+              ? t("reviewedPackagingScope")
+              : result.cache.hit
+                ? t("cachedLabel")
+                : t("liveLabel")}
           </AppText>
           <AppText variant="small" muted>
             {provenance.sourceName}
@@ -243,8 +252,8 @@ function ProductResult({
         </View>
         <View style={sharedStyles.tightStack}>
           <AppText variant="small" muted>
-            {t("communityDataLabel")} · {t("lastRetrievedLabel")}:{" "}
-            {formatDate(provenance.retrievedAt, language)}
+            {provenance.verificationStatus === "community" ? `${t("communityDataLabel")} · ` : ""}
+            {t("lastRetrievedLabel")}: {formatDate(provenance.retrievedAt, language)}
           </AppText>
           <View style={styles.disclosureRow}>
             <AppText variant="small" muted>
@@ -292,11 +301,8 @@ function StateScreen({ title, body, code, primary, secondary, close, testID }: S
   return (
     <Screen testID={testID}>
       <PageHeader onBack={close} label={t("close")} testID="result-close-action" />
+      <PageIntro title={title} body={body} />
       <View style={styles.stateBody}>
-        <AppText variant="title" accessibilityRole="header">
-          {title}
-        </AppText>
-        <AppText>{body}</AppText>
         {code && (
           <AppText variant="mono" muted>
             {code}
@@ -346,7 +352,11 @@ function componentLabel(
   },
   t: Translator,
 ): string {
-  if (observation.shape?.value === "bottle") return t("shapeBottle");
+  if (observation.shape?.value === "bottle") {
+    return t(
+      observation.materialFamily?.value === "plastic" ? "shapePlasticBottle" : "shapeBottle",
+    );
+  }
   if (observation.shape?.value === "can") return t("shapeCan");
   if (observation.shape?.value === "jar") return t("shapeJar");
   return observation.displayName?.value ?? materialLabel(observation.materialFamily?.value, t);
@@ -355,9 +365,8 @@ function componentLabel(
 const styles = StyleSheet.create({
   centered: { justifyContent: "center", alignItems: "center", gap: spacing.md },
   centerText: { textAlign: "center" },
-  stateBody: { paddingTop: spacing.lg, gap: spacing.md },
+  stateBody: { gap: spacing.sm },
   stateActions: { marginTop: spacing.md },
-  answerIntro: { paddingTop: spacing.lg, gap: spacing.xs },
   sourceRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -365,7 +374,7 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
     marginTop: spacing.md,
   },
-  resultStack: { paddingTop: spacing.lg, gap: spacing.md },
+  resultStack: { gap: spacing.md },
   nextActions: { paddingTop: spacing.xl, gap: spacing.md },
   productSummary: { paddingTop: spacing.xl, gap: spacing.md },
   disclosureRow: { flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: spacing.xs },

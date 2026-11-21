@@ -1,10 +1,12 @@
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useState } from "react";
-import { Pressable, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { IconDisc } from "@/components/home-elements";
+import { TactilePressable as Pressable } from "@/components/tactile-pressable";
 import {
   ActionRow,
   AppText,
+  Button,
   ChoiceIndicator,
   PageHeader,
   PageIntro,
@@ -13,6 +15,8 @@ import {
   sharedStyles,
 } from "@/components/ui";
 import { isHistoryEnabled } from "@/features/history/storage";
+import { useForegroundLocation } from "@/features/nearby/foreground-context";
+import { useSortingRegion } from "@/features/region/context";
 import { useLanguage } from "@/i18n/language-context";
 import { controls, interaction, radius, spacing, useAppTheme } from "@/theme/tokens";
 
@@ -20,6 +24,10 @@ export default function SettingsScreen() {
   const router = useRouter();
   const { t, language, setLanguage, storageError } = useLanguage();
   const { palette } = useAppTheme();
+  const { enabled: automaticLocation, setEnabled } = useForegroundLocation();
+  const { clearDevice } = useSortingRegion();
+  const [locationError, setLocationError] = useState(false);
+  const [savingLocation, setSavingLocation] = useState(false);
   const [history, setHistory] = useState<boolean | "loading" | "error">("loading");
   const [focusedLanguage, setFocusedLanguage] = useState<"fi" | "en" | null>(null);
   useFocusEffect(
@@ -84,6 +92,42 @@ export default function SettingsScreen() {
             ))}
           </View>
           {storageError && <AppText accessibilityRole="alert">{t("languageSaveError")}</AppText>}
+        </Paper>
+        <Paper>
+          <AppText variant="heading" accessibilityRole="header">
+            {t("nearbyAutomaticTitle")}
+          </AppText>
+          <AppText variant="small" muted>
+            {t(
+              automaticLocation === null
+                ? "settingsLoading"
+                : automaticLocation
+                  ? "nearbyAutomaticOn"
+                  : "nearbyAutomaticOff",
+            )}
+          </AppText>
+          {locationError && (
+            <AppText accessibilityRole="alert">{t("nearbyPreferenceError")}</AppText>
+          )}
+          {(automaticLocation || locationError) && (
+            <Button
+              variant="quiet"
+              testID="settings-location-off"
+              busy={savingLocation}
+              label={t("nearbyDisableAutomatic")}
+              onPress={() => {
+                if (savingLocation) return;
+                setSavingLocation(true);
+                clearDevice();
+                void setEnabled(false)
+                  .then(
+                    () => setLocationError(false),
+                    () => setLocationError(true),
+                  )
+                  .finally(() => setSavingLocation(false));
+              }}
+            />
+          )}
         </Paper>
         <Paper>
           <ActionRow

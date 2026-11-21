@@ -27,10 +27,12 @@ test("Home and utility typography share one scalable platform sans family", () =
   assert.doesNotMatch(home, /Platform\.select\(/);
 });
 
-test("Home presentation derives from the same live light and dark palettes as all screens", () => {
+test("Home and all other screens always use the same light palette", () => {
   const home = mobile("theme/home-colors.ts");
-  assert.match(home, /import \{ darkPalette, lightPalette \} from "\.\/palettes"/);
-  assert.match(home, /isDark \? darkPalette : lightPalette/);
+  assert.match(home, /import \{ lightPalette as palette \} from "\.\/palettes"/);
+  const tokens = mobile("theme/tokens.ts");
+  assert.match(tokens, /const appTheme: AppTheme = \{ palette: lightPalette \}/);
+  assert.doesNotMatch(tokens, /Appearance|useColorScheme|darkPalette|isDark/);
   for (const [homeToken, semanticToken] of [
     ["canvas", "bgCanvas"],
     ["ink", "textPrimary"],
@@ -44,6 +46,33 @@ test("Home presentation derives from the same live light and dark palettes as al
   assert.match(ui, /muted \? palette\.textSecondary : palette\.textPrimary/);
   assert.match(ui, /backgroundColor: palette\.bgCanvas/);
   assert.match(ui, /backgroundColor: palette\.bgSurface/);
+});
+
+test("native, browser and shared form chrome stay light without changing the OS preference", () => {
+  const { expo } = JSON.parse(source("mobile/app/app.json"));
+  assert.equal(expo.userInterfaceStyle, "light");
+  assert.equal(expo.backgroundColor, "#F5FCFA");
+  assert.equal(
+    expo.plugins.find(([name]) => name === "expo-splash-screen")?.[1]?.backgroundColor,
+    expo.backgroundColor,
+  );
+  assert.match(mobile("app/+html.tsx"), /name="color-scheme" content="light"/);
+  assert.match(mobile("app/_layout.tsx"), /<StatusBar style="dark" \/>/);
+  assert.match(
+    mobile("components/ui.tsx"),
+    /<TextInput \{\.\.\.props\} keyboardAppearance="light"/,
+  );
+});
+
+test("Home's overview shortcut is a localized action distinct from the weekly chart title", () => {
+  const home = mobile("app/index.tsx");
+  assert.match(home, /label=\{t\("homeOverviewAction"\)\}/);
+  assert.doesNotMatch(home, /overviewActivityTitle/);
+  assert.match(mobile("app/overview.tsx"), /t\("overviewActivityTitle"\)/);
+  assert.match(
+    source("mobile/localization/src/navigation.ts"),
+    /homeOverviewAction: "Katso yhteenveto"/,
+  );
 });
 
 test("all fourteen functional subpages use shared text and navigation; the old photo route redirects", () => {
@@ -117,13 +146,12 @@ test("shared recognition icons use the same bounded original symbols as Home wit
 
 test("visual unification retains distinct semantic warnings errors and accessible action states", () => {
   const palettes = mobile("theme/palettes.ts");
-  for (const [name, light, dark] of [
-    ["statusWarning", "#8D5700", "#F4C765"],
-    ["statusError", "#A43628", "#FF9A8B"],
-    ["statusInfo", "#2457D6", "#91ACFF"],
+  for (const [name, light] of [
+    ["statusWarning", "#8D5700"],
+    ["statusError", "#A43628"],
+    ["statusInfo", "#2457D6"],
   ]) {
     assert.match(palettes, new RegExp(`${name}: "${light}"`));
-    assert.match(palettes, new RegExp(`${name}: "${dark}"`));
   }
   const ui = mobile("components/ui.tsx");
   assert.match(ui, /danger: palette\.statusError/);

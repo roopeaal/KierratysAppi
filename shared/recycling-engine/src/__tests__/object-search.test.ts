@@ -1,6 +1,17 @@
 import { describe, expect, it } from "vitest";
 import { guideItems, searchGuideItems } from "../object-search";
+
+it.each(["elektroniikka", "electronics"])(
+  "routes %s to sourced electrical-device guidance",
+  (query) => {
+    const result = searchGuideItems(query);
+    expect(result.exact).toBe(true);
+    expect(result.items[0]?.kind).toBe("electronics");
+  },
+);
+
 import { evaluateObjectSorting } from "../object-sorting";
+
 const now = "2026-11-16T20:00:00Z";
 describe("source-backed offline item search", () => {
   it.each(["kaukosäädin", "KAUKOSAADIN", "remote control", "remote"])(

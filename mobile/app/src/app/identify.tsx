@@ -1,7 +1,9 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import { IconDisc } from "@/components/home-elements";
+import { BarcodeMark } from "@/components/packaging-mark";
+import { TactilePressable as Pressable } from "@/components/tactile-pressable";
 import {
   ActionRow,
   AppText,
@@ -13,12 +15,20 @@ import {
   sharedStyles,
 } from "@/components/ui";
 import { useLanguage } from "@/i18n/language-context";
-import { focusRing, interaction, radius, spacing, useAppTheme } from "@/theme/tokens";
+import {
+  fieldGuideColors,
+  focusRing,
+  interaction,
+  radius,
+  spacing,
+  useAppTheme,
+} from "@/theme/tokens";
 
 export default function IdentifyScreen() {
   const router = useRouter();
   const { t } = useLanguage();
   const { palette } = useAppTheme();
+  const fieldGuide = fieldGuideColors;
   const { width, fontScale } = useWindowDimensions();
   const stackScan = fontScale > 1.2 || width < 360;
   const [scanFocused, setScanFocused] = useState(false);
@@ -39,23 +49,23 @@ export default function IdentifyScreen() {
             styles.scanAction,
             stackScan && styles.scanStack,
             {
-              backgroundColor: palette.pineSoft,
+              backgroundColor: fieldGuide.feature,
               borderColor: scanFocused ? palette.actionLink : "transparent",
               boxShadow: scanFocused ? focusRing(palette) : "none",
               opacity: pressed ? interaction.pressedOpacity : 1,
             },
           ]}
         >
-          <IconDisc kind="scan" />
+          <BarcodeMark color={fieldGuide.onFeature} />
           <View style={[styles.scanCopy, !stackScan && sharedStyles.grow]}>
-            <AppText variant="heading" style={styles.scanTitle}>
+            <AppText variant="heading" style={[styles.scanTitle, { color: fieldGuide.onFeature }]}>
               {t("identifyScanAction")}
             </AppText>
-            <AppText variant="small" muted>
+            <AppText variant="small" style={{ color: fieldGuide.onFeatureMuted }}>
               {t("identifyScanDetail")}
             </AppText>
           </View>
-          {!stackScan && <Chevron />}
+          {!stackScan && <Chevron color={fieldGuide.onFeature} />}
         </Pressable>
         <Paper>
           <ActionRow
@@ -83,7 +93,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.md,
-    minHeight: 176,
+    minHeight: 124,
     padding: 20,
     borderWidth: 2,
     borderRadius: radius.lg,

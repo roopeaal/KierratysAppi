@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import test from "node:test";
+
 const read = (name) => readFileSync(new URL(`../../${name}`, import.meta.url), "utf8");
 test("the independently licensed HSY and OFF offline snapshots retain pinned source evidence", () => {
   for (const [name, hash, count, key] of [
@@ -51,17 +52,21 @@ test("the camera manual barcode action shares the expanded lookup, not the five-
   assert.doesNotMatch(copy, /contains 5 products|on nyt 5 tuotetta/);
 });
 test("decorative motion is short, interruptible and never hides an answer", () => {
-  const motion = read("mobile/app/src/components/motion-accent.tsx");
+  const motion = read("mobile/app/src/features/accessibility/motion-context.tsx");
   for (const marker of [
     "isReduceMotionEnabled",
     "reduceMotionChanged",
-    "preferenceChanged",
+    "foreground && !reduced",
     "AppState",
-    "stopAnimation",
-    "duration: 180",
   ])
     assert(motion.includes(marker), marker);
-  assert(!/Animated\.loop|opacity: 0|setInterval/.test(motion));
+  const press = read("mobile/app/src/components/tactile-pressable.tsx");
+  const stamp = read("mobile/app/src/components/recycling-stamp.tsx");
+  assert.match(press, /pointerDown \? "0ms"/);
+  assert.match(press, /scale\.stopAnimation\(\)/);
+  assert.match(stamp, /if \(!motionAllowed\) return/);
+  assert.match(stamp, /stampDuration = 230/);
+  assert.doesNotMatch(press + stamp, /Animated\.loop|opacity: 0\b(?!\.)|setInterval/);
   const layout = read("mobile/app/src/app/_layout.tsx");
   assert.match(layout, /name="guide" options=\{\{ animation: "none" \}\}/);
   assert.match(layout, /name="result" options=\{\{ animation: "none" \}\}/);

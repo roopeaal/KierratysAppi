@@ -13,6 +13,9 @@ import { File, Paths } from "expo-file-system";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useRef, useState } from "react";
 import { AppState, Linking, Platform, View } from "react-native";
+import { NetworkPhotoScreen } from "@/components/network-photo-screen";
+import { ObjectCandidateResultView } from "@/components/object-candidate-result";
+import { OfflineProductResultView } from "@/components/offline-product-result";
 import {
   RecognitionHeading,
   RecognitionPreview,
@@ -20,9 +23,6 @@ import {
   RecognitionStart,
   recognitionStyles as styles,
 } from "@/components/recognition-presentation";
-import { NetworkPhotoScreen } from "@/components/network-photo-screen";
-import { ObjectCandidateResultView } from "@/components/object-candidate-result";
-import { OfflineProductResultView } from "@/components/offline-product-result";
 import {
   AppText,
   Button,
@@ -33,6 +33,11 @@ import {
   sharedStyles,
 } from "@/components/ui";
 import { announceAccessibility } from "@/features/accessibility/announcements";
+import {
+  canUseLocalPhotoCapture,
+  localPhotoInitialSize,
+  resolvePhotoCaptureSize,
+} from "@/features/camera/capture";
 import {
   shouldClearLocalPhotoState,
   waitForCameraPermissionResume,
@@ -49,11 +54,7 @@ import { type LocalPhotoPhase, localPhotoPresentation } from "@/features/local-v
 import { localReadinessMessage } from "@/features/local-vision/readiness";
 import { isLocalCaptureUri } from "@/features/local-vision/recognizer";
 import { recyclingIntent } from "@/features/overview/recording";
-import {
-  canUseLocalPhotoCapture,
-  localPhotoInitialSize,
-  resolvePhotoCaptureSize,
-} from "@/features/camera/capture";
+import { useAutomaticRegion } from "@/features/region/use-automatic-region";
 import { isExpoGoHost } from "@/features/runtime/host";
 import { usesNetworkRecognition } from "@/features/runtime/network-mode";
 import { useScanSession } from "@/features/scan/session-context";
@@ -74,6 +75,7 @@ function removeCapture(uri: string): void {
 }
 
 export default function LocalPhotoScreen() {
+  useAutomaticRegion();
   return usesNetworkRecognition(Platform.OS, isExpoGoHost()) ? (
     <NetworkPhotoScreen />
   ) : (

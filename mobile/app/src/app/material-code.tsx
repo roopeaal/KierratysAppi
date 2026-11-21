@@ -8,10 +8,11 @@ import { localizedText } from "@kierratysappi/localization";
 import type { SortingResult } from "@kierratysappi/recycling-engine";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { type ComponentRef, useEffect, useRef, useState } from "react";
-import { Keyboard, type ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { Keyboard, type ScrollView, StyleSheet, View } from "react-native";
 import { RecycleAction } from "@/components/recycle-action";
 import { SortingResultCard } from "@/components/sorting-result";
 import {
+  AppInput,
   AppText,
   Button,
   InlineLink,
@@ -95,7 +96,7 @@ export default function MaterialCodeScreen() {
           <AppText variant="label" nativeID="material-code-label">
             {t("materialCodeLabel")}
           </AppText>
-          <TextInput
+          <AppInput
             accessibilityLabel={t("materialCodeLabel")}
             accessibilityLabelledBy="material-code-label"
             accessibilityHint={t("materialCodeHint")}

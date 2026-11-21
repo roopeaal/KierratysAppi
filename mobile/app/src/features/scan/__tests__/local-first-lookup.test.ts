@@ -1,8 +1,15 @@
-import { describe, expect, it, vi } from "vitest";
-import { GtinSchema } from "@kierratysappi/domain";
 import { ProductLookupResultSchema } from "@kierratysappi/contracts/lookup-schema";
+import { GtinSchema } from "@kierratysappi/domain";
+import { describe, expect, it, vi } from "vitest";
 import { offlineCatalogue } from "../../local-vision/catalogue";
-import { bundledBarcodeLookup, createLocalFirstLookup } from "../local-first-lookup";
+import {
+  bundledBarcodeLookup,
+  createLocalFirstLookup,
+  lookupWithIdentityBackup,
+  shouldSaveOnlineLookup,
+} from "../local-first-lookup";
+import { normalizePublicIdentity } from "../public-identity-lookup";
+
 const gtin = GtinSchema.parse("3017620422003"),
   missing = GtinSchema.parse("6410405196811");
 describe("local-first standalone barcode flow", () => {
@@ -23,18 +30,65 @@ describe("local-first standalone barcode flow", () => {
     ).rejects.toThrow();
     expect(online).not.toHaveBeenCalled();
   });
-  it("uses the existing five-product catalogue without network or image-model work", async () => {
+  it("falls back to a bundled identity when the network is unavailable", async () => {
     const online = vi.fn(async () => {
       throw Error("offline");
     });
     const result = await createLocalFirstLookup(offlineCatalogue, online)(gtin, "fi");
-    expect(online).not.toHaveBeenCalled();
+    expect(online).toHaveBeenCalledOnce();
     expect(result.status).toBe("packaging_missing");
     expect(ProductLookupResultSchema.safeParse(result).success).toBe(true);
     if (result.status !== "packaging_missing") throw Error("result");
     expect(result.product.name?.value).toBe("Nutella");
     expect(result.product.packagingComponents).toEqual([]);
     expect(result.product.name?.provenance.verificationStatus).toBe("community");
+  });
+  it("upgrades a bundled identity to packaging guidance instead of masking the network", async () => {
+    const online = vi.fn(async () =>
+      normalizePublicIdentity(
+        {
+          product: {
+            code: gtin,
+            packagings: [{ shape: { id: "en:jar" }, material: { id: "en:glass" } }],
+          },
+        },
+        gtin,
+        "en",
+        "2026-11-19T23:00:00Z",
+      ),
+    );
+    const backup = bundledBarcodeLookup(offlineCatalogue, gtin);
+    const result = await lookupWithIdentityBackup(online, backup);
+    expect(result).toMatchObject({
+      status: "resolved",
+      components: [{ sorting: { status: "resolved" } }],
+    });
+    if (result.status !== "resolved" || !backup) throw Error("result");
+    expect(
+      shouldSaveOnlineLookup({ ...result, cache: { ...result.cache, hit: true } }, backup),
+    ).toBe(true);
+    expect(shouldSaveOnlineLookup(backup, backup)).toBe(false);
+    expect(shouldSaveOnlineLookup(backup, null)).toBe(false);
+    expect(
+      await lookupWithIdentityBackup(async () => ({ status: "not_found", gtin }), backup),
+    ).toBe(backup);
+    expect(
+      await lookupWithIdentityBackup(
+        async () => ({ status: "provider_unavailable", gtin, retryable: true }),
+        backup,
+      ),
+    ).toBe(backup);
+    const controller = new AbortController();
+    await expect(
+      lookupWithIdentityBackup(
+        async () => {
+          controller.abort();
+          return { status: "not_found", gtin };
+        },
+        backup,
+        controller.signal,
+      ),
+    ).rejects.toThrow("lookup_cancelled");
   });
   it("preserves canonical aliases and does not invent an absent code", () => {
     expect(bundledBarcodeLookup(offlineCatalogue, GtinSchema.parse("03017620422003"))?.status).toBe(

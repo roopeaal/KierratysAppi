@@ -48,6 +48,36 @@ export function totalRecycled(summary: RecyclingSummary): number {
   return overviewMaterials.reduce((total, material) => total + summary.counts[material], 0);
 }
 
+/** Seven local calendar days, from retained entries only. Lifetime totals have no dates. */
+export function recentRecyclingActivity(recent: readonly RecyclingEntry[], now = new Date()) {
+  const first = new Date(now);
+  // Noon steps through calendar days even in zones with an offset change at midnight.
+  first.setHours(12, 0, 0, 0);
+  first.setDate(first.getDate() - 6);
+  const days = Array.from({ length: 7 }, (_, index) => {
+    const date = new Date(first);
+    date.setDate(first.getDate() + index);
+    return { date, count: 0 };
+  });
+  const dayKey = (date: Date) => `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+  const byDate = new Map(days.map((day) => [dayKey(day.date), day]));
+  let latest: RecyclingEntry | undefined;
+  let latestTime = Number.NEGATIVE_INFINITY;
+  for (const entry of recent) {
+    const date = new Date(entry.recycledAt);
+    const recordedAt = date.getTime();
+    if (!Number.isFinite(recordedAt) || recordedAt > now.getTime()) continue;
+    const day = byDate.get(dayKey(date));
+    if (!day) continue;
+    day.count += entry.quantity;
+    if (recordedAt > latestTime) {
+      latest = entry;
+      latestTime = recordedAt;
+    }
+  }
+  return { days, latest, total: days.reduce((sum, day) => sum + day.count, 0) };
+}
+
 export function materialBreakdown(summary: RecyclingSummary) {
   const total = totalRecycled(summary);
   const rows = overviewMaterials.map((material) => {

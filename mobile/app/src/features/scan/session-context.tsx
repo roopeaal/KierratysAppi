@@ -2,7 +2,6 @@ import type { ProductLookupResult } from "@kierratysappi/contracts/lookup-schema
 import { type Gtin, parseGtin } from "@kierratysappi/domain";
 import { fetch as streamingFetch } from "expo/fetch";
 import Constants from "expo-constants";
-import { isExpoGoHost } from "@/features/runtime/host";
 import {
   createContext,
   type PropsWithChildren,
@@ -12,16 +11,20 @@ import {
   useReducer,
   useRef,
 } from "react";
+import { historyArtworkFor } from "@/features/history/product-artwork";
 import { addHistoryEntry, queuePendingLookup } from "@/features/history/storage";
-import { localDataGeneration } from "@/features/security/local-data-generation";
 import { offlineCatalogue } from "@/features/local-vision/catalogue";
+import { isExpoGoHost } from "@/features/runtime/host";
+import { localDataGeneration } from "@/features/security/local-data-generation";
 import { useLanguage } from "@/i18n/language-context";
 import { trackTechnicalEvent } from "@/telemetry/technical-events";
 import barcodeData from "../../../assets/data/off-finland-barcodes.json";
 import { LookupNetworkError, requestProductLookup } from "./api";
 import { createBarcodeLibraryLookup } from "./barcode-library";
+import { lookupWithIdentityBackup, shouldSaveOnlineLookup } from "./local-first-lookup";
 import { cachedLookup, cacheLookup } from "./lookup-cache";
 import { createPublicIdentityLookup } from "./public-identity-lookup";
+import { reviewedBarcodeLookup } from "./reviewed-barcode-packaging";
 import { createRuntimeBarcodeLookup } from "./runtime-lookup";
 import {
   isDuplicateScan,
@@ -58,12 +61,17 @@ const originalLookup = createRuntimeBarcodeLookup(
 const bundled = createBarcodeLibraryLookup(barcodeData);
 async function localFirstLookup(gtin: Gtin, language: "fi" | "en", signal: AbortSignal) {
   const generation = localDataGeneration();
-  const fixed = bundled.lookup(gtin, language);
-  if (fixed) return fixed;
+  const reviewed = reviewedBarcodeLookup(gtin, language);
+  if (reviewed) return reviewed;
   const cached = await cachedLookup(gtin, language);
-  if (cached) return cached;
-  const result = await originalLookup(gtin, language, signal);
-  if (!signal.aborted)
+  if (cached?.status === "resolved") return cached;
+  const backup = cached ?? bundled.lookup(gtin, language);
+  const result = await lookupWithIdentityBackup(
+    () => originalLookup(gtin, language, signal),
+    backup,
+    signal,
+  );
+  if (!signal.aborted && shouldSaveOnlineLookup(result, backup))
     await cacheLookup(result, language, Date.now(), generation).catch(() => undefined);
   return result;
 }
@@ -151,13 +159,12 @@ export function useScanSession() {
 
 async function saveHistoryResult(gtin: Gtin, result: ProductLookupResult) {
   if (result.status === "provider_unavailable") return;
-  const productName =
-    result.status === "resolved" || result.status === "packaging_missing"
-      ? result.product.name?.value
-      : undefined;
+  const product = result.status !== "not_found" ? result.product : undefined;
+  const artwork = product ? historyArtworkFor(product.packagingComponents) : undefined;
   await addHistoryEntry({
     gtin,
-    productName,
+    productName: product?.name?.value,
+    ...(artwork ? { artwork } : {}),
     resultStatus: result.status,
     scannedAt: new Date().toISOString(),
   });

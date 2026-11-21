@@ -1,8 +1,10 @@
 import { parseGtin } from "@kierratysappi/domain";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
-import { Pressable, StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { TactilePressable as Pressable } from "@/components/tactile-pressable";
 import {
+  AppInput,
   AppText,
   Button,
   ChoiceIndicator,
@@ -106,7 +108,7 @@ export default function FeedbackScreen() {
         <AppText variant="small" muted>
           {t("feedbackPrivacyCaution")}
         </AppText>
-        <TextInput
+        <AppInput
           accessibilityLabel={t("feedbackNote")}
           accessibilityLabelledBy="feedback-note"
           multiline

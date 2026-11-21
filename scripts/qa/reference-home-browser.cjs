@@ -10,7 +10,7 @@ const evidence = path.resolve(
   process.env.APP_QA_EVIDENCE_DIR ?? "work/reference-home-2026-10-28/browser",
 );
 fs.mkdirSync(evidence, { recursive: true });
-const gtin = "3017620422003";
+const gtin = "1234567890128"; // Valid synthetic code absent from the bundled offline products.
 
 async function shot(page, name) {
   await page.evaluate(() => document.fonts.ready);
@@ -100,19 +100,22 @@ async function main() {
       page.on("pageerror", (error) => errors.push(error.message));
       await page.goto(base);
       await page.getByTestId("home-screen").waitFor();
-      // Language is also switched through the actual control, not inferred from storage internals.
-      await page.getByTestId(`language-${language}`).click();
+      await page.getByTestId("tab-settings").click();
+      await page.getByTestId(`settings-language-${language}`).click();
+      await page.getByTestId("settings-history-action").click();
+      await page
+        .getByText(language === "fi" ? "Ei tallennettuja hakuja." : "No saved lookups.")
+        .waitFor();
+      assert.equal(await page.getByRole("button", { name: "QA saved item" }).count(), 0);
+      await shot(page, `${language}-history-off`);
+      await page.getByTestId("tab-home").click();
       await page
         .getByRole("heading", {
           name: language === "fi" ? "Suositut haut" : "Popular searches",
           exact: true,
         })
         .waitFor();
-      await page
-        .getByTestId("home-history-empty")
-        .filter({ hasText: language === "fi" ? "Historia ei ole käytössä" : "History is off" })
-        .waitFor();
-      assert.equal(await page.getByTestId(`home-recent-${gtin}`).count(), 0);
+      assert.equal(await page.getByText("QA saved item", { exact: true }).count(), 0);
       assert.equal(await page.evaluate(() => window.qaGpsCalls), 0);
       assert.equal(calls.length, 0);
       await page
@@ -135,8 +138,6 @@ async function main() {
       await page.getByTestId("home-screen").waitFor();
       await page.getByTestId("home-canvas").evaluate((el) => el.scrollIntoView({ block: "start" }));
       await shot(page, `${language}-home-top`);
-      await page.getByTestId("home-history-action").scrollIntoViewIfNeeded();
-      await shot(page, `${language}-home-history-off`);
 
       await page
         .getByTestId("home-search-input")
@@ -153,7 +154,8 @@ async function main() {
       for (const material of ["plastic", "carton", "glass", "metal"]) {
         await page.goto(base);
         await page.getByTestId("home-screen").waitFor();
-        await page.getByTestId(`home-material-${material}`).click();
+        await page.getByTestId("home-guide-action").click();
+        await page.getByTestId(`guide-material-${material}`).click();
         await page.getByTestId(`guide-section-${material}`).waitFor();
         assert.equal(await page.locator('[data-testid^="guide-section-"]').count(), 1);
       }
@@ -167,12 +169,13 @@ async function main() {
 
       // Do not reload: addInitScript intentionally starts every new document opted out.
       await page.evaluate(() => localStorage.setItem("@kierratysappi/history-enabled/v1", "true"));
-      await page.getByTestId("tab-home").click();
-      await page.getByTestId(`home-recent-${gtin}`).waitFor();
+      await page.getByTestId("tab-settings").click();
+      await page.getByTestId("settings-history-action").click();
+      const saved = page.getByRole("button", { name: "QA saved item" });
+      await saved.waitFor();
       assert.equal(calls.length, 0, "Reading saved history never re-queries automatically");
-      await page.getByTestId(`home-recent-${gtin}`).scrollIntoViewIfNeeded();
-      await shot(page, `${language}-home-real-history`);
-      await page.getByTestId(`home-recent-${gtin}`).click();
+      await shot(page, `${language}-saved-history`);
+      await saved.click();
       await page.getByTestId("result-not-found-screen").waitFor();
       assert.equal(calls.length, 1);
       assert.equal(calls[0].body.gtin, gtin);
@@ -181,7 +184,7 @@ async function main() {
       await context.close();
     }
     console.log(
-      "PASS: FI/EN Popular searches heading, reference Home and keyboard-activated combined Identify entry, selected tab and no implicit capabilities/recognition/GPS, opt-out stale-history protection, real saved preview and explicit reopen, four real material chips, bounded local-guide search/unknown/reset/duplicate-parameter recovery, 44pt controls and zero implicit GPS/provider calls. Fixtures only; no paid image request.",
+      "PASS: FI/EN Home and keyboard-activated Identify, selected tab, opt-out protection and explicit history reopen via Settings, four material chips, bounded local-guide search/unknown/reset/duplicate-parameter recovery, 44pt controls and zero implicit GPS/provider calls. Fixtures only.",
     );
   } finally {
     await browser.close();

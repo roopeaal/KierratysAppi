@@ -1,10 +1,10 @@
 import { useFocusEffect, useRouter } from "expo-router";
 import { type ReactNode, useCallback, useRef, useState } from "react";
-import { AppState, Image, Keyboard, StyleSheet, TextInput } from "react-native";
+import { AppState, Image, Keyboard, StyleSheet } from "react-native";
 import { useScanSession } from "@/features/scan/session-context";
 import { useLanguage } from "@/i18n/language-context";
 import { radius, useAppTheme } from "@/theme/tokens";
-import { AppText, Button, InlineLink, PageIntro, Paper } from "./ui";
+import { AppInput, AppText, Button, InlineLink, PageIntro, Paper } from "./ui";
 
 /** Shared app-owned presentation. Hosts supply capture/inference, not another design. */
 export const recognitionStyles = StyleSheet.create({
@@ -133,7 +133,7 @@ function RecognitionManualBarcode({
       <AppText accessibilityRole="header" variant="heading">
         {t("offlineProductManual")}
       </AppText>
-      <TextInput
+      <AppInput
         value={value}
         editable={!captureBusy && !busy}
         onChangeText={(next) => {

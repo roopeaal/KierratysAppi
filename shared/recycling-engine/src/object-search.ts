@@ -27,6 +27,10 @@ export const guideItems: readonly GuideItem[] = [
     "kännykkä",
     "smartphone",
   ]),
+  item("electronics", "electronics", "Sähkölaite", "Electrical device", [
+    "elektroniikka",
+    "electronics",
+  ]),
   item("computer", "electronics", "Tietokone", "Computer", [
     "läppäri",
     "kannettava tietokone",

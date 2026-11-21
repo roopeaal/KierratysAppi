@@ -17,6 +17,7 @@ const reviewedHosts = new Set([
   "opendatacommons.org",
   "rinkiin.fi",
   "serkierratys.fi",
+  "s-kaupat.fi",
   "palpa.fi",
   "paristokierratys.fi",
   "openstreetmap.org",

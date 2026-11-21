@@ -1,6 +1,7 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
 import { GtinSchema } from "@kierratysappi/domain";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { createPublicIdentityLookup, normalizePublicIdentity } from "../public-identity-lookup";
+
 const gtin = GtinSchema.parse("3017620422003"),
   now = "2026-11-16T20:00:00Z";
 const payload = {
@@ -55,8 +56,90 @@ describe("free public identity fallback boundary", () => {
     const [raw, init] = fetcher.mock.calls[0] ?? [];
     const url = new URL(raw ?? "");
     expect(url.origin).toBe("https://world.openfoodfacts.org");
-    expect(url.searchParams.get("fields")).not.toMatch(/packaging|image|location/);
+    expect(url.searchParams.get("fields")).toBe(
+      "code,product_type,product_name,product_name_fi,product_name_en,brands,packagings",
+    );
     expect(init).toMatchObject({ redirect: "error", credentials: "omit" });
+  });
+  it("resolves a recognized film and PP material, with community provenance and a sourced Finnish rule", () => {
+    const gtin = GtinSchema.parse("6408430030309");
+    const result = normalizePublicIdentity(
+      {
+        product: {
+          code: gtin,
+          packagings: [{ shape: { id: "en:film" }, material: { id: "en:pp-5-polypropylene" } }],
+        },
+      },
+      gtin,
+      "en",
+      now,
+    );
+    expect(result).toMatchObject({
+      status: "resolved",
+      components: [
+        {
+          observation: {
+            materialFamily: { value: "plastic", provenance: { verificationStatus: "community" } },
+          },
+          sorting: {
+            status: "resolved",
+            destination: { id: "plastic_packaging" },
+            rule: { version: expect.any(String) },
+          },
+        },
+      ],
+    });
+  });
+  it("reads the exact Coke payload but does not guess material or Finnish deposit from bottle shape", () => {
+    const gtin = GtinSchema.parse("6415600502078");
+    const result = normalizePublicIdentity(
+      { product: { code: gtin, packagings: [{ shape: { id: "en:bottle" }, food_contact: 1 }] } },
+      gtin,
+      "fi",
+      now,
+    );
+    expect(result).toMatchObject({
+      status: "resolved",
+      product: {
+        packagingCompleteness: { value: "partial" },
+      },
+      components: [
+        {
+          observation: { depositReturnStatus: { value: "unknown" } },
+          sorting: { status: "ambiguous", reason: "deposit_status_unknown" },
+        },
+      ],
+    });
+    if (result.status !== "resolved") throw Error("result");
+    expect(result.components[0]?.observation.materialFamily).toBeUndefined();
+  });
+  it("ignores untrusted shape text, material without shape, and limits output to32parts", () => {
+    const packagings = [
+      {},
+      { shape: { id: "en:container", text: "bottle" }, material: "en:plastic" },
+      { material: { id: "en:plastic" } },
+      { shape: { id: "en:box" }, material: { text: "plastic" } },
+    ];
+    expect(
+      normalizePublicIdentity({ product: { code: gtin, packagings } }, gtin, "fi", now).status,
+    ).toBe("packaging_missing");
+    const result = normalizePublicIdentity(
+      {
+        product: {
+          code: gtin,
+          packagings: Array.from({ length: 80 }, () => ({
+            shape: "en:drink-can",
+            material: "en:aluminium",
+          })),
+        },
+      },
+      gtin,
+      "fi",
+      now,
+    );
+    if (result.status !== "resolved") throw Error("result");
+    expect(result.components).toHaveLength(32);
+    expect(result.components.every(({ sorting }) => sorting.status === "ambiguous")).toBe(true);
   });
   it("respects four calls per minute without retrying429or pretending it is not found", async () => {
     const fetcher = vi.fn(async () => new Response(null, { status: 429 }));

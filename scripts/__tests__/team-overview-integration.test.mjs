@@ -8,11 +8,14 @@ const screen = (name) => source(`mobile/app/src/app/${name}.tsx`);
 // Source-preservation checks supplement real browser suites; no camera or quality claim.
 test("team Overview is reachable without replacing Home recognition or primary tabs", () => {
   const home = screen("index");
-  assert.match(home, /testID="home-overview-action"/u);
-  assert.match(home, /router\.push\("\/overview"\)/u);
+  assert.match(
+    home,
+    /testID="home-overview-action"\s*onPress=\{\(\) => router\.push\("\/overview"\)\}/u,
+  );
   assert.match(home, /testID="home-identify-action"/u);
   assert.match(home, /router\.push\("\/identify"\)/u);
   assert.match(screen("settings"), /testID="settings-overview-action"/u);
+  assert.match(screen("settings"), /router\.push\("\/overview"\)/u);
   assert.match(
     source("mobile/app/src/features/navigation/routes.ts"),
     /case "\/settings":[\s\S]*?case "\/overview":[\s\S]*?return "settings"/u,

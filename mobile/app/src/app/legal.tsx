@@ -13,9 +13,11 @@ import {
 } from "@/components/ui";
 import { announceAccessibility } from "@/features/accessibility/announcements";
 import { clearAllLocalData } from "@/features/history/storage";
+import { useForegroundLocation } from "@/features/nearby/foreground-context";
+import { useSortingRegion } from "@/features/region/context";
+import { useScanSession } from "@/features/scan/session-context";
 import { openExternalUrl } from "@/features/security/external-links";
 import { useLanguage } from "@/i18n/language-context";
-import { useScanSession } from "@/features/scan/session-context";
 import { useAppTheme } from "@/theme/tokens";
 
 export default function LegalScreen() {
@@ -23,6 +25,8 @@ export default function LegalScreen() {
   const { palette } = useAppTheme();
   const { t, language, setLanguage } = useLanguage();
   const { reset } = useScanSession();
+  const { setEnabled } = useForegroundLocation();
+  const { clear } = useSortingRegion();
   const [deleted, setDeleted] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -36,6 +40,8 @@ export default function LegalScreen() {
     setFailed(false);
     try {
       reset();
+      clear();
+      await setEnabled(false);
       await clearAllLocalData();
 
       setLanguage(language);

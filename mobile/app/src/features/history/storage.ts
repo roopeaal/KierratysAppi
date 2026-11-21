@@ -3,6 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { z } from "zod";
 import { withRecyclingStorageLock } from "../overview/storage";
 import { invalidateLocalDataWork } from "../security/local-data-generation";
+import { type HistoryArtwork, HistoryArtworkSchema } from "./product-artwork";
 
 const HISTORY_ENABLED_KEY = "@kierratysappi/history-enabled/v1";
 const HISTORY_KEY = "@kierratysappi/history/v1";
@@ -19,9 +20,14 @@ const historySchema = z
       .regex(/^[^\p{Cc}\p{Cf}]*$/u)
       .optional(),
     resultStatus: z.enum(["resolved", "packaging_missing", "not_found"]),
+    artwork: HistoryArtworkSchema.optional().catch(undefined),
     scannedAt: z.iso.datetime(),
   })
-  .transform((value) => ({ ...value, productName: value.productName }));
+  .transform(({ artwork, ...value }) => ({
+    ...value,
+    productName: value.productName,
+    ...(artwork && value.resultStatus !== "not_found" ? { artwork } : {}),
+  }));
 const feedbackSchema = z.object({
   gtin: GtinSchema.optional(),
   category: z.enum(["wrong_product", "wrong_packaging", "wrong_sorting", "missing_data"]),
@@ -36,6 +42,7 @@ export type HistoryEntry = {
   readonly gtin: string;
   readonly productName: string | undefined;
   readonly resultStatus: "resolved" | "packaging_missing" | "not_found";
+  readonly artwork?: HistoryArtwork;
   readonly scannedAt: string;
 };
 

@@ -26,14 +26,33 @@ try {
     const context = await browser.newContext({
       viewport: { width: 390, height: 844 },
       reducedMotion: "reduce",
+      permissions: ["geolocation"],
+      geolocation: { latitude: 60.24, longitude: 24.92, accuracy: 20 },
     });
     await context.addInitScript(
       (lang) => localStorage.setItem("@kierratysappi/language/v1", lang),
       language,
     );
+    await context.addInitScript(() => {
+      const geolocation = navigator.geolocation;
+      const watch = geolocation.watchPosition.bind(geolocation);
+      const position = geolocation.getCurrentPosition.bind(geolocation);
+      window.qaWatched = 0;
+      window.qaPromptPath = 0;
+      geolocation.watchPosition = (...args) => {
+        window.qaWatched++;
+        return watch(...args);
+      };
+      geolocation.getCurrentPosition = (...args) => {
+        window.qaPromptPath++;
+        return position(...args);
+      };
+    });
     let presentation = "confirm",
       focus = "single",
-      requests = 0;
+      candidates = ["spoon", "fork", "knife", "cup"],
+      requests = 0,
+      offline = false;
     await context.route("**/v1/recycling/object-image", async (route) => {
       if (route.request().method() === "OPTIONS") {
         await route.fulfill({
@@ -52,6 +71,7 @@ try {
         "application/vnd.kierratysappi.object-suggestions.v2+json",
       );
       assert.equal(route.request().postDataJSON().consentVersion, "self-hosted-image-v1");
+      if (offline) return route.abort("internetdisconnected");
       await route.fulfill({
         contentType: "application/json",
         headers: { "access-control-allow-origin": "*" },
@@ -60,7 +80,7 @@ try {
           observation: {
             focus,
             presentation,
-            candidates: focus === "single" ? ["spoon", "fork", "knife", "cup"] : [],
+            candidates: focus === "single" ? candidates : [],
             source: {
               modelId: "siglip2-server-onnx-weight-int8-v1",
               revision: "75de2d55ec2d0b4efc50b3e9ad70dba96a7b2fa2",
@@ -78,18 +98,21 @@ try {
     });
     const page = await context.newPage();
     page.on("pageerror", (error) => evidence.errors.push(error.message));
-    async function recognize() {
+    async function recognize({ entry = false, error = false } = {}) {
       const before = requests;
-      await page.goto(`${base}/local-photo`);
+      await page.goto(`${base}/${entry ? "identify" : "local-photo"}`);
+      if (entry) await page.getByTestId("identify-photo-action").click();
       await page.getByTestId("web-image-input").setInputFiles(fixture);
       assert.equal(requests, before, "preview does not upload");
       await page.getByTestId("local-photo-recognize").click();
       assert.equal(requests, before, "opening consent does not upload");
       await page.getByTestId("network-photo-send").click();
-      await expect(page.getByTestId("object-candidate-title")).toBeVisible();
+      await expect(
+        page.getByTestId(error ? "network-photo-error" : "object-candidate-title"),
+      ).toBeVisible();
       assert.equal(requests, before + 1);
     }
-    await recognize();
+    await recognize({ entry: true });
     await expect(page.getByTestId("object-candidate-title")).toHaveText(
       language === "fi" ? "Lusikka" : "Spoon",
     );
@@ -112,6 +135,15 @@ try {
     await page.getByTestId("object-choice-fork").click();
     await page.getByTestId("object-answer-material-metal").click();
     await expect(page.getByTestId("object-sorting-source").first()).toBeVisible();
+    await page.getByTestId("recycle-mark-action").click();
+    await page.getByTestId("recycle-confirm-action").click();
+    await expect(
+      page.getByText(language === "fi" ? /Tallennettu yhteenvetoon/ : /Saved to Overview/),
+    ).toBeVisible();
+    await page.screenshot({
+      path: path.join(run, `${language}-guidance-saved.png`),
+      fullPage: true,
+    });
     await page.getByTestId("object-sorting-change").click();
     await expect(page.getByTestId("object-alternatives")).toBeFocused();
     await page.getByTestId("object-choice-none").click();
@@ -149,6 +181,42 @@ try {
       await expect(page.getByTestId("object-candidate-guide")).toBeVisible();
     }
     evidence.cases.push(`${language}: unknown/multiple never force an object or sorting answer`);
+    focus = "single";
+    presentation = "confirm";
+    candidates = ["cup"];
+    async function chooseCeramic() {
+      await recognize();
+      await page.getByTestId("object-confirm-yes").click();
+      await page.getByTestId("object-answer-material-ceramic").click();
+      for (const id of ["sorting-region-locate", "sorting-region-manual"]) {
+        await expect(page.getByTestId(id)).toHaveCount(0);
+      }
+    }
+    await chooseCeramic();
+    assert.equal(await page.evaluate(() => window.qaWatched), 0, "No location before opting in");
+    await expect(page.getByTestId("object-answer-region-elsewhere")).toBeVisible();
+    await page.evaluate(() => localStorage.setItem("@kierratysappi/automatic-location/v1", "true"));
+    await chooseCeramic();
+    await expect(page.getByTestId("object-sorting-heading")).toHaveText(
+      language === "fi" ? "Sekajäte · HSY" : "Mixed waste · HSY",
+    );
+    await expect(page.getByTestId("object-sorting-source").first()).toContainText("FI-HSY");
+    await expect(page.getByTestId("object-answer-region-elsewhere")).toHaveCount(0);
+    assert.equal(await page.evaluate(() => window.qaWatched), 1, "One automatic location fix");
+    assert.equal(await page.evaluate(() => window.qaPromptPath), 0, "No extra permission prompt");
+    evidence.cases.push(
+      `${language}: image sorting uses opt-in location, with safe region fallback`,
+    );
+    await page.screenshot({
+      path: path.join(run, `${language}-automatic-region.png`),
+      fullPage: true,
+    });
+    offline = true;
+    await recognize({ error: true });
+    await expect(page.getByTestId("recycle-mark-action")).toHaveCount(0);
+    evidence.cases.push(
+      `${language}: saved material and offline photo request never creates guidance`,
+    );
     await context.close();
   }
   assert.deepEqual(evidence.errors, []);

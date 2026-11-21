@@ -262,7 +262,7 @@ async function main() {
     await page.waitForFunction(
       () =>
         getComputedStyle(document.querySelector('[data-testid="identify-screen"]'))
-          .backgroundColor === "rgb(20, 34, 27)",
+          .backgroundColor === "rgb(245, 252, 250)",
     );
     await inspectIdentify(page, "en", "en-identify-dark");
     await page.setViewportSize({ width: 320, height: 844 });
@@ -273,7 +273,8 @@ async function main() {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.getByTestId("tab-home").click();
     await page.getByTestId("home-screen").waitFor();
-    await page.getByTestId("language-fi").click();
+    await page.getByTestId("tab-settings").click();
+    await page.getByTestId("settings-language-fi").click();
     await page.getByTestId("tab-identify").click();
     await page.getByTestId("identify-screen").waitFor();
     await inspectIdentify(page, "fi", "fi-identify-tab", true);
@@ -313,7 +314,7 @@ async function main() {
     await page.waitForFunction(
       () =>
         getComputedStyle(document.querySelector('[data-testid="home-screen"]')).backgroundColor ===
-        "rgb(20, 34, 27)",
+        "rgb(245, 252, 250)",
     );
     await inspect(page, "fi-home-dark");
     await page.emulateMedia({ colorScheme: "light" });

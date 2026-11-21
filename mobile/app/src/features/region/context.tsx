@@ -1,20 +1,22 @@
 import {
+  type MunicipalitySelection,
   municipalitySelection,
   resolveSortingMunicipality,
-  type MunicipalitySelection,
 } from "@kierratysappi/recycling-engine";
 import {
   createContext,
+  type PropsWithChildren,
   useCallback,
   useContext,
   useEffect,
   useRef,
   useState,
-  type PropsWithChildren,
 } from "react";
 import { AppState } from "react-native";
+
 type ReadFix = (
   signal: AbortSignal,
+  options?: { prompt?: boolean },
 ) => Promise<{ coords: { latitude: number; longitude: number; accuracy: number | null } }>;
 type Selection = MunicipalitySelection & { method: "manual" | "device" };
 type RegionContext = {
@@ -26,6 +28,7 @@ type RegionContext = {
   select: (code: string) => void;
   fromCoordinates: (fix: unknown) => void;
   clear: () => void;
+  clearDevice: () => void;
 };
 const Context = createContext<RegionContext | undefined>(undefined);
 const fallback: RegionContext = {
@@ -37,17 +40,21 @@ const fallback: RegionContext = {
   select: () => {},
   fromCoordinates: () => {},
   clear: () => {},
+  clearDevice: () => {},
 };
 export function SortingRegionProvider({
   children,
   readFix,
-}: PropsWithChildren<{ readFix?: ReadFix }>) {
+  permissionRevision = 0,
+}: PropsWithChildren<{ readFix?: ReadFix; permissionRevision?: number }>) {
   const [selection, setSelection] = useState<Selection>(),
     [suggestion, setSuggestion] = useState<MunicipalitySelection>(),
     [busy, setBusy] = useState(false),
     [issue, setIssue] = useState<RegionContext["issue"]>();
   const active = useRef<AbortController | undefined>(undefined);
+  const manuallySelected = useRef(false);
   const clear = useCallback(() => {
+    manuallySelected.current = false;
     active.current?.abort();
     active.current = undefined;
     setSelection(undefined);
@@ -56,6 +63,7 @@ export function SortingRegionProvider({
     setSuggestion(undefined);
   }, []);
   const fromCoordinates = useCallback((fix: unknown) => {
+    if (manuallySelected.current) return;
     active.current?.abort();
     active.current = undefined;
     setBusy(false);
@@ -70,17 +78,24 @@ export function SortingRegionProvider({
           : "unavailable",
     );
   }, []);
+  const clearDevice = useCallback(() => {
+    if (!manuallySelected.current) clear();
+  }, [clear]);
+  useEffect(() => {
+    if (permissionRevision) clearDevice();
+  }, [permissionRevision, clearDevice]);
   const locate = useCallback(async () => {
     if (active.current) return;
     const controller = new AbortController();
     active.current = controller;
+    manuallySelected.current = false;
     setSelection(undefined);
     setBusy(true);
     setIssue(undefined);
     setSuggestion(undefined);
     try {
       if (!readFix) throw Error("no_location_port");
-      const fix = await readFix(controller.signal);
+      const fix = await readFix(controller.signal, { prompt: true });
       if (!controller.signal.aborted) fromCoordinates(fix.coords);
     } catch {
       if (!controller.signal.aborted) setIssue("unavailable");
@@ -96,6 +111,7 @@ export function SortingRegionProvider({
       const next = municipalitySelection(code);
       if (!next) return;
       clear();
+      manuallySelected.current = true;
       setSelection({ ...next, method: "manual" });
     },
     [clear],
@@ -111,7 +127,17 @@ export function SortingRegionProvider({
   }, [clear]);
   return (
     <Context.Provider
-      value={{ selection, suggestion, busy, issue, locate, select, fromCoordinates, clear }}
+      value={{
+        selection,
+        suggestion,
+        busy,
+        issue,
+        locate,
+        select,
+        fromCoordinates,
+        clear,
+        clearDevice,
+      }}
     >
       {children}
     </Context.Provider>

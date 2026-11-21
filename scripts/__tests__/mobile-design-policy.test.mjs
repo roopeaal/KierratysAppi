@@ -4,7 +4,7 @@ import test from "node:test";
 
 // Source-policy coverage complements actual browser inspection; it is not a native render test.
 test("every native radio also exposes its checked state in the web renderer", () => {
-  for (const screen of ["index.tsx", "component.tsx", "feedback.tsx", "guide.tsx"]) {
+  for (const screen of ["settings.tsx", "component.tsx", "feedback.tsx", "guide.tsx"]) {
     const source = readFileSync(`mobile/app/src/app/${screen}`, "utf8");
     const radios = [...source.matchAll(/<Pressable\b[\s\S]*?(?=>)/g)].filter(([control]) =>
       control.includes('accessibilityRole="radio"'),
@@ -17,60 +17,35 @@ test("every native radio also exposes its checked state in the web renderer", ()
   }
 });
 
-test("reference Home keeps labelled barcode, primary Identify, utility, history and manual recovery actions", () => {
+test("compact Home keeps labelled search, direct scan and Identify, then a guide fallback", () => {
   const home = readFileSync("mobile/app/src/app/index.tsx", "utf8");
   const ids = [
+    "home-search-submit",
     "home-scan-action",
     "home-identify-action",
-    "home-nearby-action",
     "home-guide-action",
-    "home-history-action",
-    "home-manual-action",
   ];
-  const positions = ids.map((id) => home.indexOf(`testID="${id}"`));
-  assert.ok(positions.every((position) => position >= 0));
-  assert.match(home, /aria-checked=\{language === item\}/);
   assert.deepEqual(
-    positions,
-    [...positions].sort((a, b) => a - b),
+    [
+      ...home.matchAll(
+        /testID="(home-(?:search-submit|scan-action|identify-action|guide-action))"/g,
+      ),
+    ].map((match) => match[1]),
+    ids,
   );
-  const kinds = [
-    "Pressable",
-    "Pressable",
-    "HomeTile",
-    "HomeTile",
-    "HomeSectionHeading",
-    "InlineLink",
-  ];
-  for (const [index, id] of ids.entries()) {
+  for (const id of ids.slice(0, 3)) {
     const position = home.indexOf(`testID="${id}"`);
-    const kind = kinds[index];
-    const start = home.lastIndexOf(`<${kind}`, position);
-    assert.ok(start >= 0, `${id} uses ${kind}`);
-    const control = home.slice(start, home.indexOf(">", position) + 1);
+    const start = home.lastIndexOf("<Pressable", position);
+    const control = home.slice(start, home.indexOf("\n              >", position));
     assert.match(control, /onPress=/);
-    if (kind === "Pressable") {
-      assert.match(control, /accessibilityRole="button"/);
-      assert.match(control, /accessibilityLabel=\{t\(/);
-      assert.match(control, /accessibilityHint=\{t\(/);
-    } else if (kind === "HomeSectionHeading") {
-      assert.match(control, /title=\{t\(/);
-      assert.match(control, /action=\{t\(/);
-    } else {
-      assert.match(control, /label=\{t\(/);
-      if (kind === "InlineLink") assert.match(control, /role="button"/);
-    }
+    assert.match(control, /accessibilityRole="button"/);
+    assert.match(control, /accessibilityLabel=\{t\(/);
   }
-
-  const elements = readFileSync("mobile/app/src/components/home-elements.tsx", "utf8");
-  const tile = elements.slice(
-    elements.indexOf("export function HomeTile"),
-    elements.indexOf("export function HomeSectionHeading"),
+  assert.match(
+    home,
+    /<HomeSectionHeading[\s\S]*?onPress=\{\(\) => router\.push\("\/guide"\)\}[\s\S]*?testID="home-guide-all"/,
   );
-  assert.match(tile, /accessibilityRole="button"/);
-  assert.match(tile, /accessibilityLabel=\{label\}/);
-  assert.match(tile, /accessibilityHint=\{detail\}/);
-  assert.match(tile, /testID=\{testID\}/);
+  const elements = readFileSync("mobile/app/src/components/home-elements.tsx", "utf8");
   const heading = elements.slice(
     elements.indexOf("export function HomeSectionHeading"),
     elements.indexOf("export function MaterialChip"),
@@ -166,8 +141,50 @@ test("original decorative package marks do not claim an unknown material or ente
   assert.equal((source.match(/importantForAccessibility="no-hide-descendants"/g) ?? []).length, 2);
   assert.equal((source.match(/accessibilityElementsHidden/g) ?? []).length, 2);
   assert.equal((source.match(/aria-hidden/g) ?? []).length, 2);
-  assert.match(source, /!material \|\| material === "unknown"/);
+  for (const material of ["plastic", "carton", "glass", "metal"]) {
+    assert.ok(source.includes(`material === "${material}"`));
+    const png = readFileSync(`mobile/app/assets/material-studies/${material}.png`);
+    assert.deepEqual([png.readUInt32BE(16), png.readUInt32BE(20)], [192, 192]);
+  }
+  assert.match(source, /known \? \(\s*<MaterialStudy/);
   assert.doesNotMatch(source, /setInterval|withRepeat|requestAnimationFrame/);
+});
+
+test("category icons are small, transparent, statically bundled and decorative", () => {
+  const component = readFileSync("mobile/app/src/components/material-study.tsx", "utf8");
+  const assets = [
+    ...component.matchAll(/require\("\.\.\/\.\.\/assets\/material-studies\/([a-z-]+\.png)"\)/g),
+  ];
+  assert.equal(new Set(assets.map(([, path]) => path)).size, 38);
+  for (const [, path] of assets) {
+    const png = readFileSync(`mobile/app/assets/material-studies/${path}`);
+    assert.deepEqual([png.readUInt32BE(16), png.readUInt32BE(20), png[25]], [192, 192, 6], path);
+    assert.ok(png.length < 12_000, path);
+  }
+  assert.match(
+    component,
+    /accessible=\{false\}[\s\S]*accessibilityElementsHidden[\s\S]*aria-hidden/,
+  );
+});
+
+test("recent product miniatures are complete, local, lightweight and decorative", () => {
+  const component = readFileSync("mobile/app/src/components/recent-product-artwork.tsx", "utf8");
+  const files = [
+    ...component.matchAll(/require\("\.\.\/\.\.\/assets\/recent-packaging\/([a-z]+\.png)"\)/g),
+  ].map(([, file]) => file);
+  assert.equal(new Set(files).size, 11);
+  let bytes = 0;
+  for (const file of files) {
+    const png = readFileSync(`mobile/app/assets/recent-packaging/${file}`);
+    assert.deepEqual([png.readUInt32BE(16), png.readUInt32BE(20), png[25]], [144, 144, 6], file);
+    bytes += png.length;
+  }
+  assert.ok(bytes < 48_000);
+  assert.match(
+    component,
+    /accessible=\{false\}[\s\S]*accessibilityElementsHidden[\s\S]*aria-hidden/,
+  );
+  assert.doesNotMatch(component, /https?:|uri:|setInterval|withRepeat/);
 });
 
 test("privacy purpose stays at the relevant action, not as blanket Home/history reassurance", () => {
@@ -175,14 +192,18 @@ test("privacy purpose stays at the relevant action, not as blanket Home/history 
     assert.doesNotMatch(readFileSync(`mobile/app/src/app/${screen}.tsx`, "utf8"), /privacySummary/);
   }
   const home = readFileSync("mobile/app/src/app/index.tsx", "utf8");
-  assert.match(home, /testID="home-legal-action"/);
+  assert.doesNotMatch(home, /testID="home-legal-action"/);
+  assert.match(
+    readFileSync("mobile/app/src/app/settings.tsx", "utf8"),
+    /testID="settings-legal-action"/,
+  );
   assert.doesNotMatch(home, /scanActionDetail|cameraPurpose/);
   assert.match(readFileSync("mobile/app/src/app/scan.tsx", "utf8"), /t\("cameraPurpose"\)/);
   const nearby = readFileSync("mobile/app/src/app/nearby.tsx", "utf8");
   assert.match(nearby, /t\("nearbyIntro"\)/);
   assert.match(
     readFileSync("mobile/app/src/components/nearby-point-card.tsx", "utf8"),
-    /t\("nearbyAddressConsent"\)/,
+    /t\("nearbyAddressLabel"\)/,
   );
   const legal = readFileSync("mobile/app/src/app/legal.tsx", "utf8");
   for (const key of [
@@ -196,7 +217,10 @@ test("privacy purpose stays at the relevant action, not as blanket Home/history 
 
 test("loading and error states explain the task once without asserting a fresh rule review", () => {
   const result = readFileSync("mobile/app/src/app/result.tsx", "utf8");
-  assert.doesNotMatch(result, /loadingDetail|eyebrow=/);
+  const [states, productAndState] = result.split("function ProductResult");
+  assert.doesNotMatch(states, /loadingDetail|eyebrow=/);
+  assert.doesNotMatch(productAndState.split("function StateScreen")[1], /loadingDetail|eyebrow=/);
+  assert.match(productAndState, /eyebrow=\{t\("productDetailsTitle"\)\}/);
   assert.match(result, /t\("loading"\)/);
   assert.match(result, /t\("offlineBody"\)/);
   assert.match(result, /testID="result-primary-action"/);
@@ -219,32 +243,31 @@ test("recognition icons reuse original decorative symbols and native linework wi
   );
 });
 
-test("compact Home tiles retain labelled destinations, wrapping, focus and scalable text", () => {
+test("compact Home materials retain labelled destinations, wrapping, focus and scalable text", () => {
   const home = readFileSync("mobile/app/src/app/index.tsx", "utf8");
-  assert.equal((home.match(/<HomeTile\b/g) ?? []).length, 2);
-  assert.match(home, /<ScanIllustration\s*\/>/);
+  assert.doesNotMatch(home, /home-legal-action/);
+  for (const shortcut of ["nearby", "guide", "overview"]) {
+    assert.ok(home.includes(`testID="home-${shortcut}-action"`));
+  }
+  assert.match(home, /<HomeTile\s+kind="overview"[\s\S]*?testID="home-overview-action"/);
+  assert.match(home, /<HomeSectionHeading title=\{t\("overviewTitle"\)\} \/>/);
+  assert.doesNotMatch(home, /home-manual-action|HomeShortcut/);
+  assert.match(home, /<ScanIllustration scale=\{scanArtScale\} \/>/);
+  assert.match(home, /<PhotoCardBackdrop/);
+  assert.match(home, /<HomeNearbyPreview \/>/);
+  assert.match(home, /<HomeRecent \/>/);
   assert.match(home, /!expandedText && \(\s*<View style=\{\[styles.identifyChevron/);
-  const elements = readFileSync("mobile/app/src/components/home-elements.tsx", "utf8");
-  assert.match(elements, /fontScale >= 1\.5 \? "100%" : fontScale > 1\.2/);
-  assert.match(elements, /fontWeight: "500", flexShrink: 1/);
   assert.match(home, /homeIdentifyDetail/);
-  for (const kind of ["manual", "history"]) assert.ok(home.includes(`<ActionIcon kind="${kind}"`));
-  assert.match(home, /<ReferenceSymbol\s+name="location"/);
-  for (const kind of ["nearby", "guide"])
-    assert.match(home, new RegExp(`<HomeTile\\b[^>]*?kind="${kind}"`));
   assert.match(home, /flexWrap: "wrap"/);
-  assert.match(home, /canvasWidth < 360 \|\| expandedText/);
-  assert.match(home, /stacked && \{ flexDirection: "column" \}/);
-  const tile = elements.slice(
-    elements.indexOf("export function HomeTile"),
-    elements.indexOf("export function HomeSectionHeading"),
-  );
-  assert.match(tile, /accessibilityLabel=\{label\}/);
-  assert.match(tile, /accessibilityHint=\{detail\}/);
-  assert.match(tile, /<IconDisc kind=\{kind\}/);
-  assert.match(tile, /onFocus=\{\(\) => setFocused\(true\)\}/);
-  assert.match(tile, /focused \? palette.actionLink/);
-  assert.match(elements, /minHeight: 86/);
+  const elements = readFileSync("mobile/app/src/components/home-elements.tsx", "utf8");
+  const chip = readFileSync("mobile/app/src/components/home-reference-elements.tsx", "utf8");
+  assert.match(chip, /chipLabel: \{[^}]*flexShrink: 1/);
+  assert.match(chip, /accessibilityRole="button"/);
+  assert.match(chip, /accessibilityLabel=\{label\}/);
+  assert.equal((chip.match(/<MaterialStudy\b/g) ?? []).length, 1);
+  assert.match(chip, /<MaterialStudy material=\{icon === "battery" \? "batteries" : icon\}/);
+  assert.match(chip, /onFocus=\{\(\) => setFocused\(true\)\}/);
+  assert.match(chip, /focused \? focusRing\(palette\)/);
   assert.match(elements, /minWidth: 44/);
   assert.match(elements, /minHeight: 44/);
   for (const source of [home, elements])

@@ -1,5 +1,5 @@
 import { useFocusEffect, useRouter } from "expo-router";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { Alert, StyleSheet, View } from "react-native";
 import {
   ActionRow,
@@ -28,14 +28,32 @@ export default function HistoryScreen() {
   const { lookupBarcode } = useScanSession();
   const [enabled, setEnabled] = useState(false);
   const [entries, setEntries] = useState<HistoryEntry[]>([]);
+  const [readError, setReadError] = useState(false);
+  const loadRevision = useRef(0);
 
   const refresh = useCallback(() => {
-    void Promise.all([isHistoryEnabled(), readHistory()]).then(([nextEnabled, nextEntries]) => {
-      setEnabled(nextEnabled);
-      setEntries(nextEntries);
-    });
+    const revision = ++loadRevision.current;
+    setEntries([]);
+    setReadError(false);
+    void isHistoryEnabled()
+      .then(async (nextEnabled) => {
+        const nextEntries = nextEnabled ? await readHistory() : [];
+        if (revision !== loadRevision.current) return;
+        setEnabled(nextEnabled);
+        setEntries(nextEntries);
+      })
+      .catch(() => {
+        if (revision === loadRevision.current) setReadError(true);
+      });
   }, []);
-  useFocusEffect(refresh);
+  useFocusEffect(
+    useCallback(() => {
+      refresh();
+      return () => {
+        loadRevision.current += 1;
+      };
+    }, [refresh]),
+  );
 
   const toggle = async () => {
     await setHistoryEnabled(!enabled);
@@ -61,14 +79,23 @@ export default function HistoryScreen() {
   return (
     <Screen>
       <PageHeader onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))} />
-      <PageIntro title={t("historyTitle")} body={enabled ? t("historyOn") : t("historyOff")} />
+      <PageIntro
+        title={t("historyTitle")}
+        body={readError ? undefined : enabled ? t("historyOn") : t("historyOff")}
+      />
       <Button
         label={enabled ? t("disableHistory") : t("enableHistory")}
         variant={enabled ? "danger" : "primary"}
         onPress={() => void toggle()}
+        disabled={readError}
       />
       <View style={styles.list}>
-        {entries.length === 0 ? (
+        {readError ? (
+          <DocumentSection>
+            <AppText accessibilityRole="alert">{t("historyReadError")}</AppText>
+            <Button label={t("retry")} onPress={refresh} variant="secondary" />
+          </DocumentSection>
+        ) : entries.length === 0 ? (
           <DocumentSection>
             <AppText muted>{t("emptyHistory")}</AppText>
           </DocumentSection>

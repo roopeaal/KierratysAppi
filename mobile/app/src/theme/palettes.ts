@@ -34,42 +34,6 @@ export const lightPalette = {
   onStrong: "#FFFFFF",
 } as const;
 
-export const darkPalette = {
-  bgCanvas: "#14221B",
-  bgSurface: "#1D2E24",
-  bgElevated: "#26382E",
-  textPrimary: "#F1F5ED",
-  textSecondary: "#C3CDC5",
-  textTertiary: "#AFA799",
-  borderSubtle: "#465149",
-  borderStrong: "#AFA799",
-  actionPrimary: "#63D1A2",
-  actionSecondary: "#26382E",
-  actionLink: "#B4C9F3",
-  statusSuccess: "#63D1A2",
-  statusWarning: "#F4C765",
-  statusError: "#FF9A8B",
-  statusInfo: "#91ACFF",
-  scannerOverlay: "rgba(4, 8, 6, 0.72)",
-  background: "#14221B",
-  surface: "#1D2E24",
-  surfaceRaised: "#26382E",
-  ink: "#F1F5ED",
-  muted: "#C3CDC5",
-  faint: "#AFA799",
-  line: "#465149",
-  pine: "#63D1A2",
-  pineSoft: "#2A4433",
-  cobalt: "#91ACFF",
-  cobaltSoft: "#24355F",
-  amber: "#F4C765",
-  amberSoft: "#493817",
-  brick: "#FF9A8B",
-  brickSoft: "#512923",
-  cameraOverlay: "rgba(4, 8, 6, 0.72)",
-  onStrong: "#101713",
-} as const;
-
 export type AppPalette = {
   readonly [Key in keyof typeof lightPalette]: string;
 };

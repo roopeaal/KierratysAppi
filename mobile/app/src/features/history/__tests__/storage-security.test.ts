@@ -59,6 +59,15 @@ describe("untrusted local history and draft storage", () => {
     expect(storage.values.has(key)).toBe(false);
     expect(storage.values.get("other-app")).toBe("preserved");
   });
+  it("stores only the allowlisted illustration ID as optional history metadata", async () => {
+    await setHistoryEnabled(true);
+    await addHistoryEntry({ ...entry, artwork: "jar" });
+    expect(await readHistory()).toEqual([{ ...entry, artwork: "jar" }]);
+    storage.values.set(key, JSON.stringify([{ ...entry, artwork: "https://example.invalid/" }]));
+    expect(await readHistory()).toEqual([entry]);
+    await setHistoryEnabled(false);
+    expect(storage.values.has(key)).toBe(false);
+  });
   it("validates writes and does not persist overlong drafts or unsafe GTINs", async () => {
     await expect(addHistoryEntry({ ...entry, gtin: "bad" })).rejects.toThrow();
     await expect(

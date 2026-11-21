@@ -35,16 +35,17 @@ test("Home's combined recognition action opens Identify, not a camera or upload 
   );
 });
 
-test("Home retains the direct barcode shortcut and accessible manual fallback", () => {
+test("Home retains direct barcode access and Identify owns the labelled manual fallback", () => {
   const home = screen("index");
   const scan = control(home, "Pressable", "home-scan-action");
   assert.match(scan, /onPress=\{\(\) => router\.push\("\/scan"\)\}/);
   assert.match(scan, /accessibilityRole="button"/);
   assert.match(scan, /accessibilityLabel=\{t\(/);
-  const manual = control(home, "InlineLink", "home-manual-action");
+  assert.doesNotMatch(home, /home-manual-action|router\.push\("\/manual"\)/);
+  const manual = control(screen("identify"), "ActionRow", "identify-manual-action");
   assert.match(manual, /onPress=\{\(\) => router\.push\("\/manual"\)\}/);
-  assert.match(manual, /label=\{t\("manualEntry"\)\}/);
-  assert.match(manual, /role="button"/);
+  assert.match(manual, /label=\{t\("identifyManualAction"\)\}/);
+  assert.match(manual, /detail=\{t\("identifyManualDetail"\)\}/);
 });
 
 test("Identify prioritizes barcode, then manual entry, then local AI photo recognition", () => {

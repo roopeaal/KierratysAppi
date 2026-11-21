@@ -103,8 +103,9 @@ async function main() {
       page.on("pageerror", (error) => errors.push(error.message));
       await page.goto(base);
       await page.getByTestId("home-screen").waitFor();
-      await page.getByTestId(`language-${language}`).click();
-      await page.getByTestId("home-identify-action").click();
+      await page.getByTestId("tab-settings").click();
+      await page.getByTestId(`settings-language-${language}`).click();
+      await page.getByTestId("tab-identify").click();
       await page.getByTestId("identify-screen").waitFor();
       await page.getByTestId("identify-photo-action").focus();
       await page.getByTestId("identify-photo-action").press("Enter");
@@ -196,10 +197,9 @@ async function main() {
       for (const scheme of ["light", "dark"]) {
         await page.emulateMedia({ colorScheme: scheme });
         await page.waitForFunction(
-          (dark) =>
+          () =>
             getComputedStyle(document.querySelector('[data-testid="local-photo-screen"]'))
-              .backgroundColor === (dark ? "rgb(20, 34, 27)" : "rgb(245, 252, 250)"),
-          scheme === "dark",
+              .backgroundColor === "rgb(245, 252, 250)",
         );
         for (const width of [320, 390, 1280]) {
           await page.setViewportSize({ width, height: 844 });

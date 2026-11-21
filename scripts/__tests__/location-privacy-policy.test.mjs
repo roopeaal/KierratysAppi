@@ -81,32 +81,44 @@ test("nearby makes map primary, keeps uncertainty visible and progressively disc
   );
   assert.match(read("mobile/app/src/components/ui.tsx"), /aria-expanded=\{expanded\}/u);
 });
-test("optional address lookup retains consent and explicit loading without automatic acquisition", () => {
-  const screen = read("mobile/app/src/components/nearby-point-card.tsx");
-  assert.match(screen, /nearbyAddressConsent/u);
-  assert.match(screen, /nearbyAddressLoading/u);
-  assert.match(screen, /onPress=\{\(\) => void completeAddress\(\)\}/u);
-  assert.match(screen, /nearbyAddressSource/u);
-  assert.match(screen, /active\.current\?\.abort\(\)/u);
+test("automatic address estimates are foreground-only, sourced and use only public point coordinates", () => {
+  const card = read("mobile/app/src/components/nearby-point-card.tsx");
+  assert.match(card, /!foreground \|\| point\.address \|\| Platform\.OS === "web"/u);
+  assert.match(card, /useFocusEffect\(/u);
+  assert.match(card, /readPointAddress\(point, controller\.signal\)/u);
+  assert.match(card, /return \(\) => controller\.abort\(\)/u);
+  assert.match(card, /nearbyAddressLabel/u);
+  assert.match(card, /nearbyAddressSource/u);
+  assert.match(card, /nearbyLocationOnMap/u);
+  assert.doesNotMatch(card, /nearbyCompleteAddress/u);
+  const adapter = read("mobile/app/src/features/nearby/device-location.ts")
+    .split("export const readPointAddress")[1]
+    .split("const watchWeb")[0];
+  assert.match(adapter, /foregroundPermission\(false\)/u);
+  assert.match(adapter, /Location\.reverseGeocodeAsync\(coordinates\)/u);
+  assert.doesNotMatch(adapter, /fetch\(|readDeviceLocation|requestForegroundPermissions/u);
   assert.match(read("mobile/app/src/app/nearby.tsx"), /setPrivacyOpen\(false\)/u);
 });
-test("all surfaces share one reactive theme so live color-scheme changes stay coherent", () => {
+test("all surfaces share one fixed light theme without a system appearance listener", () => {
   const tokens = read("mobile/app/src/theme/tokens.ts");
   const layout = read("mobile/app/src/app/_layout.tsx");
   assert.match(tokens, /AppThemeProvider/u);
   assert.match(tokens, /useContext\(AppThemeContext\)/u);
-  assert.equal((tokens.match(/useSyncExternalStore\(/gu) ?? []).length, 1);
-  assert.match(tokens, /Appearance\.addChangeListener\(listener\)/u);
-  assert.match(tokens, /colorSchemeStore\.getServerSnapshot/u);
+  assert.match(tokens, /palette: lightPalette/u);
+  assert.doesNotMatch(tokens, /useSyncExternalStore|Appearance|colorSchemeStore/u);
   assert.match(layout, /<AppThemeProvider>/u);
   assert.match(read("mobile/app/src/components/ui.tsx"), /aria-busy=\{busy\}/u);
 });
-test("nearby screen has explicit acquisition, cleanup and no location network/storage channel", () => {
+test("nearby has consent-gated foreground acquisition, cleanup and no coordinate network/storage channel", () => {
   const screen = read("mobile/app/src/app/nearby.tsx");
   const device = read("mobile/app/src/features/nearby/device-location.ts");
   const session = read("mobile/app/src/features/nearby/location-session.ts");
-  assert.match(screen, /onPress=\{\(\) => void find\(\)\}/u);
-  assert.match(screen, /next === "background"/u);
+  const cache = read("mobile/app/src/features/nearby/foreground-fix.ts");
+  const provider = read("mobile/app/src/features/nearby/foreground-context.tsx");
+  assert.match(screen, /onPress=\{\(\) => void find\(\{ prompt: true, enable: !enabled \}\)\}/u);
+  assert.match(provider, /if \(state === "background"\) session\.clear\(\)/u);
+  assert.match(provider, /AsyncStorage\.setItem\(autoLocationKey, "true"\)/u);
+  assert.doesNotMatch(provider, /coords|JSON\.stringify|fetch\(|trackEvent/u);
   assert.match(screen, /useFocusEffect/u);
   assert.match(screen, /announceAccessibility/u);
   assert.match(screen, /nearbyCaution/u);
@@ -120,25 +132,40 @@ test("nearby screen has explicit acquisition, cleanup and no location network/st
     2,
   );
   assert.doesNotMatch(
-    screen + device + session,
+    screen + device + session + cache,
     /fetch\(|AsyncStorage|console\.|trackEvent|requestBackgroundPermissions|startLocationUpdates/u,
   );
 });
 test("nearby uses existing components and bundled real data, without replacing the old Home", () => {
   const home = read("mobile/app/src/app/index.tsx");
   assert.match(home, /home-nearby-action/u);
+  assert.doesNotMatch(home, /readDeviceLocation|requestForegroundPermissionsAsync/u);
   assert.match(home, /home-scan-action/u);
-  assert.match(home, /home-manual-action/u);
+  assert.match(
+    read("mobile/app/src/features/navigation/routes.ts"),
+    /id: "nearby", path: "\/nearby"/u,
+  );
   assert.match(read("mobile/app/src/app/nearby.tsx"), /finland-recycling\.json/u);
   assert.match(read("mobile/app/assets/data/README.md"), /Open Database License 1\.0/u);
 });
 
-test("only an explicit recent Home action starts a one-shot nearby search", () => {
-  const home = read("mobile/app/src/app/index.tsx");
+test("a nearby launch can only prompt on an explicit action; automatic lookup is opt-in and silent", () => {
+  const tabs = read("mobile/app/src/components/bottom-navigation.tsx");
   const screen = read("mobile/app/src/app/nearby.tsx");
   const intent = read("mobile/app/src/features/nearby/search-intent.ts");
-  assert.ok(home.indexOf("requestSearch();") < home.indexOf('router.push("/nearby")'));
-  assert.match(screen, /if \(consumeSearchRequest\(\)\) void find\(\)/u);
+  assert.match(
+    tabs,
+    /if \(action.requestLocation\) requestSearch\(\);\s*router.dismissTo\(action.path\)/u,
+  );
+  assert.match(screen, /const explicit = consumeSearchRequest\(\)/u);
+  assert.match(
+    screen,
+    /if \(enabled \|\| explicit\) void find\(\{ prompt: explicit && !enabled \}\)/u,
+  );
+  assert.match(
+    read("mobile/app/src/components/home-nearby-preview.tsx"),
+    /if \(enabled && foreground\) void find\(false\)/u,
+  );
   assert.match(intent, /requestedAt = null/u);
   assert.doesNotMatch(screen + intent, /useLocalSearchParams|searchParams|AsyncStorage|fetch\(/u);
   assert.match(read("mobile/app/src/app/_layout.tsx"), /<NearbySearchProvider>/u);

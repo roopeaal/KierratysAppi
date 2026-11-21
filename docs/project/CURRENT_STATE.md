@@ -1,5 +1,25 @@
 # Current state
 
+- The 2026-11-21 team snapshot uses one light canvas for Home, utility pages,
+  startup and browser chrome. Home says “Katso yhteenveto” / “View summary”;
+  the chart still covers seven days. On standalone iPhone build 0.1.0 (29),
+  the owner confirmed the app stayed light and the shortcut opened.
+
+- Direct barcode lookup reads structured Open Food Facts packaging and
+  refreshes name-only results online. A separate, manually checked Finnish
+  packaging record for `6415600502078` supplies the 1.5 L deposit bottle offline.
+  Other bottle/can records do not inherit that deposit status. Included in
+  build 29; see ../testing.md for validation.
+
+- Home has illustrated search and shortcuts, optional nearby results and recent
+  history using packaging observations. The shared material illustrations do not
+  imply acceptance. Compact OpenStreetMap credit links to the licence; Location
+  retains retrieval date, freshness warning and full credit.
+- Opt-in foreground location shares one in-memory fix for up to one minute.
+  Native address estimates and photo sorting retain sources and fallbacks.
+  Pictures of collection points are labelled examples, not actual site photos.
+- Saving a local recycling entry shows a reduced-motion-aware confirmation.
+  No account, sound, model or backend endpoint was added.
 - Local branch `codex/security-hardening` hardens external URLs, bounded/cancellable
   lookups, provider amplification, API origins/Host/quotas/timeouts and private logs.
   Deletion invalidates old lookup work; local storage is schema/size validated.

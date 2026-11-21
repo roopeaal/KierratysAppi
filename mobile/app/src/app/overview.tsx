@@ -1,16 +1,11 @@
 import type { MessageKey } from "@kierratysappi/localization";
 import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useRef, useState } from "react";
+import { ActivityIndicator, Keyboard, StyleSheet, useWindowDimensions, View } from "react-native";
+import { MaterialStudy } from "@/components/material-study";
+import { TactilePressable as Pressable } from "@/components/tactile-pressable";
 import {
-  ActivityIndicator,
-  Keyboard,
-  Pressable,
-  StyleSheet,
-  TextInput,
-  useWindowDimensions,
-  View,
-} from "react-native";
-import {
+  AppInput,
   AppText,
   Button,
   ChoiceIndicator,
@@ -31,6 +26,7 @@ import {
   overviewMaterials,
   type RecyclingEntry,
   type RecyclingSummary,
+  recentRecyclingActivity,
   totalRecycled,
 } from "@/features/overview/model";
 import { recyclingIntentIsSaved, saveRecyclingIntent } from "@/features/overview/save-intent";
@@ -322,6 +318,7 @@ export default function OverviewScreen() {
             <AppText variant="small" muted>
               {t("overviewSelfReported")}
             </AppText>
+            <RecentActivity entries={summary.recent} partCount={partCount} />
           </Paper>
 
           {total === 0 ? (
@@ -360,14 +357,7 @@ export default function OverviewScreen() {
                   style={styles.materialRow}
                   testID={`overview-row-${row.material}`}
                 >
-                  <View
-                    style={[
-                      styles.materialDot,
-                      { backgroundColor: materialColor(row.material, palette) },
-                    ]}
-                    accessible={false}
-                    aria-hidden
-                  />
+                  <MaterialStudy material={row.material} size={30} />
                   <View style={sharedStyles.grow}>
                     <AppText variant="label">{t(materialKeys[row.material])}</AppText>
                     <AppText variant="small" muted>
@@ -429,6 +419,7 @@ export default function OverviewScreen() {
                     ]}
                   >
                     <ChoiceIndicator selected={material === value} />
+                    <MaterialStudy material={value} size={24} />
                     <AppText variant="label" style={sharedStyles.grow}>
                       {t(materialKeys[value])}
                     </AppText>
@@ -440,7 +431,7 @@ export default function OverviewScreen() {
               <AppText variant="label" nativeID="overview-quantity-label">
                 {t("overviewQuantityLabel")}
               </AppText>
-              <TextInput
+              <AppInput
                 accessibilityLabel={t("overviewQuantityLabel")}
                 accessibilityLabelledBy="overview-quantity-label"
                 accessibilityHint={t("overviewQuantityHint")}
@@ -475,7 +466,7 @@ export default function OverviewScreen() {
               <AppText variant="label" nativeID="overview-label-label">
                 {t("overviewLabelLabel")}
               </AppText>
-              <TextInput
+              <AppInput
                 accessibilityLabel={t("overviewLabelLabel")}
                 accessibilityLabelledBy="overview-label-label"
                 accessibilityHint={t("overviewLabelHint")}
@@ -534,14 +525,7 @@ export default function OverviewScreen() {
               {summary.recent.map((entry) => (
                 <View key={entry.id} style={styles.recentEntry} testID="overview-recent-entry">
                   <View style={styles.materialRow}>
-                    <View
-                      style={[
-                        styles.materialDot,
-                        { backgroundColor: materialColor(entry.material, palette) },
-                      ]}
-                      accessible={false}
-                      aria-hidden
-                    />
+                    <MaterialStudy material={entry.material} size={30} />
                     <View style={sharedStyles.grow}>
                       <AppText variant="label">
                         {entry.label ?? t(materialKeys[entry.material])}
@@ -606,6 +590,126 @@ export default function OverviewScreen() {
   );
 }
 
+function RecentActivity({
+  entries,
+  partCount,
+}: {
+  readonly entries: readonly RecyclingEntry[];
+  readonly partCount: (count: number) => string;
+}) {
+  const { language, t } = useLanguage();
+  const { palette } = useAppTheme();
+  const { width, fontScale } = useWindowDimensions();
+  const activity = recentRecyclingActivity(entries);
+  const peak = Math.max(1, ...activity.days.map((day) => day.count));
+  const locale = language === "fi" ? "fi-FI" : "en-GB";
+  const weekday = new Intl.DateTimeFormat(locale, { weekday: "short" });
+  const fullDate = new Intl.DateTimeFormat(locale, {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  });
+  const describeDay = (day: (typeof activity.days)[number]) =>
+    `${fullDate.format(day.date)}: ${partCount(day.count)}`;
+  const stackedTitle = width < 360 || fontScale > 1.2;
+  const total = (
+    <AppText
+      variant="label"
+      style={stackedTitle ? undefined : styles.activityTotal}
+      testID="overview-activity-total"
+    >
+      {partCount(activity.total)}
+    </AppText>
+  );
+
+  return (
+    <View
+      style={[styles.activity, { borderColor: palette.borderSubtle }]}
+      testID="overview-activity"
+    >
+      <SectionHeader title={t("overviewActivityTitle")} action={stackedTitle ? undefined : total} />
+      {stackedTitle && total}
+      {activity.total > 0 &&
+        (fontScale > 1.4 ? (
+          <View style={sharedStyles.tightStack}>
+            {activity.days.map((day) => (
+              <AppText variant="small" key={day.date.getTime()}>
+                {describeDay(day)}
+              </AppText>
+            ))}
+          </View>
+        ) : (
+          <View
+            accessible
+            accessibilityRole="image"
+            accessibilityLabel={activity.days.map(describeDay).join("; ")}
+            testID="overview-activity-strip"
+          >
+            <View
+              style={styles.stamps}
+              accessibilityElementsHidden
+              importantForAccessibility="no-hide-descendants"
+              aria-hidden
+            >
+              {activity.days.map((day, index) => (
+                <View style={styles.stampCell} key={day.date.getTime()}>
+                  <View
+                    style={[
+                      styles.stampTrack,
+                      {
+                        backgroundColor: palette.bgSurface,
+                        borderColor:
+                          index === activity.days.length - 1 ? palette.pine : palette.borderSubtle,
+                      },
+                    ]}
+                  >
+                    <View
+                      style={[
+                        styles.stampInk,
+                        {
+                          height: day.count ? 6 + (32 * day.count) / peak : 2,
+                          backgroundColor: day.count ? palette.pine : palette.borderSubtle,
+                        },
+                      ]}
+                    />
+                  </View>
+                  <AppText variant="small" style={styles.stampLabel}>
+                    {weekday.format(day.date)}
+                  </AppText>
+                </View>
+              ))}
+            </View>
+          </View>
+        ))}
+      {activity.latest ? (
+        <View
+          style={[styles.latestStamp, { backgroundColor: palette.bgSurface }]}
+          testID="overview-activity-latest"
+        >
+          <MaterialStudy material={activity.latest.material} size={36} />
+          <View style={sharedStyles.grow}>
+            <AppText variant="small" muted>
+              {t("overviewActivityLatest")}
+            </AppText>
+            <AppText variant="label">
+              {t(materialKeys[activity.latest.material])} · {partCount(activity.latest.quantity)}
+            </AppText>
+          </View>
+        </View>
+      ) : (
+        <AppText variant="small" muted testID="overview-activity-empty">
+          {t("overviewActivityEmpty")}
+        </AppText>
+      )}
+      {entries.length >= 100 && (
+        <AppText variant="small" muted testID="overview-activity-limit">
+          {t("overviewActivityLimit")}
+        </AppText>
+      )}
+    </View>
+  );
+}
+
 function ConfirmationPanel({
   kind,
   busy,
@@ -661,6 +765,26 @@ const styles = StyleSheet.create({
   totalBlock: { gap: spacing.xs },
   total: { fontSize: 48, lineHeight: 58, letterSpacing: -1.5 },
   longTotal: { fontSize: 32, lineHeight: 40, letterSpacing: -0.5 },
+  activity: { borderTopWidth: 1, paddingTop: spacing.md, gap: spacing.sm },
+  activityTotal: { flexShrink: 1, textAlign: "right" },
+  stamps: { flexDirection: "row", gap: 4 },
+  stampCell: { flex: 1, alignItems: "stretch", gap: 4 },
+  stampTrack: {
+    height: 47,
+    justifyContent: "flex-end",
+    borderRadius: radius.sm,
+    borderWidth: 1,
+    padding: 3,
+  },
+  stampInk: { borderRadius: 3 },
+  stampLabel: { textAlign: "center" },
+  latestStamp: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.sm,
+    borderRadius: radius.md,
+    padding: spacing.sm,
+  },
   segmentBar: {
     minHeight: 22,
     borderRadius: radius.pill,
@@ -668,7 +792,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   materialRow: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
-  materialDot: { width: 12, height: 12, borderRadius: 6 },
   materialChoices: { flexDirection: "row", flexWrap: "wrap", gap: spacing.xs },
   materialChoice: {
     flexDirection: "row",

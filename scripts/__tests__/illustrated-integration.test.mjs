@@ -4,9 +4,9 @@ import test from "node:test";
 
 test("illustrated Home keeps every current real action, without the old Helsinki default or reassurance", () => {
   const home = readFileSync("mobile/app/src/app/index.tsx", "utf8");
-  for (const action of ["scan", "manual", "identify", "nearby", "guide", "history", "legal"])
+  for (const action of ["scan", "identify", "guide"])
     assert.ok(home.includes(`testID="home-${action}-action"`));
-  assert.match(home, /requestSearch\(\)/);
+  assert.match(home, /t\("homeSlogan"\)/);
   assert.match(home, /<ScanIllustration/);
   assert.match(home, /expandedText/);
   assert.doesNotMatch(
@@ -22,12 +22,12 @@ test("reference Home searches existing local guide params, not a fabricated prod
   assert.match(home, /accessibilityHint=\{t\("homeSearchHint"\)\}/);
   assert.match(home, /maxLength=\{GUIDE_SEARCH_MAX_LENGTH\}/);
   assert.match(home, /pathname: "\/guide",\s*params: \{ query:/);
-  assert.match(home, /pathname: "\/guide",\s*params: \{ material \}/);
-  assert.match(home, /\["plastic", "homeMaterialPlastic"\]/);
-  assert.match(home, /\["carton", "homeMaterialCarton"\]/);
-  assert.match(home, /\["glass", "homeMaterialGlass"\]/);
-  assert.match(home, /\["metal", "homeMaterialMetal"\]/);
-  assert.doesNotMatch(home, /fetch\(|\/v1\/|useCollectionPoints|\["battery"|\["electronics"/);
+  assert.match(home, /pathname: "\/guide",\s*params: \{ query: term \}/);
+  assert.match(home, /\["plastic", "homeQueryBottle", "muovipullo"\]/);
+  assert.match(home, /\["carton", "homeQueryCardboard", "pahvi"\]/);
+  assert.match(home, /\["battery", "homeQueryBatteries", "paristot"\]/);
+  assert.match(home, /\["electronics", "homeQueryElectronics", "elektroniikka"\]/);
+  assert.doesNotMatch(home, /fetch\(|\/v1\/|useCollectionPoints/);
   const guide = readFileSync("mobile/app/src/app/guide.tsx", "utf8");
   assert.match(guide, /parseGuideSearchParams\(route\)/);
   assert.match(guide, /invalid \? \[\] : filterGuideMaterials\(query, material\)/);
@@ -35,45 +35,46 @@ test("reference Home searches existing local guide params, not a fabricated prod
   assert.match(guide, /testID="guide-search-reset"/);
 });
 
-test("Home previews only real opt-in history, and never fabricates nearest points or openings", () => {
+test("Home previews respect opt-in history and separate explicit and automatic location", () => {
   const home = readFileSync("mobile/app/src/app/index.tsx", "utf8");
-  assert.match(home, /Promise\.all\(\[isHistoryEnabled\(\), readHistory\(\)\]\)/);
-  assert.match(home, /homeHistoryPreview\(entries, enabled\)/);
-  assert.match(home, /if \(cancelled\) return/);
-  assert.ok(
-    home.indexOf("setRecent([])") < home.indexOf("Promise.all("),
-    "Clear stale history before asynchronous refresh",
-  );
-  assert.match(home, /lookupBarcode\(gtin, "history"\)/);
-  assert.match(home, /if \(attempt.accepted\) router.push\("\/result"\)/);
-  assert.match(home, /t\(historyStatusMessageKey\(entry.resultStatus\)\)/);
-  assert.match(home, /entry.productName \?\? entry.gtin/);
-  for (const key of [
-    "homeHistoryError",
-    "homeHistoryEmpty",
-    "homeHistoryDisabled",
-    "homeNearbyEmpty",
-  ])
-    assert.ok(home.includes(`t("${key}")`));
+  const settings = readFileSync("mobile/app/src/app/settings.tsx", "utf8");
+  const history = readFileSync("mobile/app/src/app/history.tsx", "utf8");
   assert.doesNotMatch(
     home,
-    /Mannerheimintie|Mäkelänkatu|Rinki-ekopiste|K-Supermarket|Avoinna|Open now|350 m|600 m|opening_hours|latitude:|longitude:/,
+    /readHistory|lookupBarcode|readDeviceLocation|requestForegroundPermissionsAsync|watchPosition|setInterval/,
   );
-  const focus = home.slice(home.indexOf("useFocusEffect("), home.indexOf("const search ="));
-  assert.doesNotMatch(
-    focus,
-    /requestSearch\(|lookupBarcode\(|readDeviceLocation|requestForegroundPermissionsAsync/,
+  assert.equal((home.match(/requestSearch\(\);/g) ?? []).length, 1);
+  assert.match(
+    home,
+    /testID="home-nearby-action"\s*onPress=\{\(\) => \{\s*requestSearch\(\);\s*router\.push\("\/nearby"\)/,
   );
-  assert.match(home, /const nearby = \(\) => \{\s*requestSearch\(\);\s*router.push\("\/nearby"\)/);
   assert.doesNotMatch(
     home,
-    /readDeviceLocation|requestForegroundPermissionsAsync|watchPosition|setInterval/,
+    /Rinki-ekopiste|K-Supermarket|Avoinna|Open now|350 m|600 m|latitude:|longitude:/,
   );
-  const preview = readFileSync("mobile/app/src/features/history/home-preview.ts", "utf8");
-  assert.match(preview, /if \(!enabled \|\| !Array.isArray\(value\)\) return \[\]/);
-  assert.match(preview, /parseGtin\(row.gtin\)/);
-  assert.match(preview, /value.slice\(0, 20\)/);
-  assert.match(preview, /entries.length === 2/);
+  assert.match(settings, /router\.push\("\/history"\)[\s\S]*?testID="settings-history-action"/);
+  assert.match(history, /isHistoryEnabled\(\)[\s\S]*?nextEnabled \? await readHistory\(\) : \[\]/);
+  assert.match(history, /revision !== loadRevision\.current/);
+  assert.match(history, /lookupBarcode\(gtin, "history"\)/);
+  assert.match(history, /if \(attempt.accepted\) router.push\("\/result"\)/);
+  assert.match(history, /t\(historyStatusMessageKey\(entry.resultStatus\)\)/);
+  const previews = readFileSync("mobile/app/src/components/home-recent.tsx", "utf8");
+  assert.match(previews, /if \(!enabled\) return accept/);
+  assert.match(previews, /homeHistoryPreview\(await readHistory\(\), true\)/);
+  assert.match(previews, /generation === localDataGeneration\(\)/);
+  const nearby = readFileSync("mobile/app/src/components/home-nearby-preview.tsx", "utf8");
+  assert.equal((nearby.match(/read\(controller\.signal, \{ prompt: enable \}\)/g) ?? []).length, 1);
+  assert.match(nearby, /onPress=\{\(\) => void find\(true\)\}/);
+  assert.match(nearby, /if \(enabled && foreground\) void find\(false\)/);
+  assert.match(nearby, /await setEnabled\(true\)/);
+  assert.match(nearby, /pending.current\?\.abort\(\)/);
+  assert.match(nearby, /label=\{t\("nearbySourceShort"\)\}/);
+  assert.match(nearby, /onPress=\{\(\) => openLink\(state\.attributionUrl\)\}/);
+  assert.doesNotMatch(nearby, /nearbyRetrieved|nearbyStale|AsyncStorage|fetch\(|Open now|Avoinna/);
+  const location = readFileSync("mobile/app/src/app/nearby.tsx", "utf8");
+  for (const key of ["nearbySource", "nearbyRetrieved", "nearbyStale"]) {
+    assert.ok(location.includes(`t("${key}")`));
+  }
 });
 
 test("bottom navigation is mounted inside the current providers and does not acquire location on render", () => {

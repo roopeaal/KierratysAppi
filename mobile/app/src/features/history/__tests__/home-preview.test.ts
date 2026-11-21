@@ -43,4 +43,14 @@ describe("Home history preview", () => {
     ).toBe(160);
     expect(homeHistoryPreview([{ ...item, productName: 7 }], true)[0]?.productName).toBeUndefined();
   });
+  it("honours only known decoration IDs, ignores them for unknown products and never guesses from names", () => {
+    const name = { ...item, productName: "Coffee bag" };
+    expect(homeHistoryPreview([name], true)[0]?.artwork).toBeUndefined();
+    expect(homeHistoryPreview([{ ...name, artwork: "bag" }], true)[0]?.artwork).toBe("bag");
+    expect(
+      homeHistoryPreview([{ ...name, artwork: "https://example.invalid/image" }], true),
+    ).toEqual([name]);
+    const missing = { ...item, resultStatus: "not_found" };
+    expect(homeHistoryPreview([{ ...missing, artwork: "bottle" }], true)).toEqual([missing]);
+  });
 });

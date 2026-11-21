@@ -5,10 +5,16 @@ import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { View } from "react-native";
-import { useReducedMotion } from "react-native-reanimated";
 import { BottomNavigation } from "@/components/bottom-navigation";
 import { navigationAnimation } from "@/features/accessibility/motion";
-import { readDeviceLocation } from "@/features/nearby/device-location";
+import {
+  InteractionMotionProvider,
+  useInteractionMotion,
+} from "@/features/accessibility/motion-context";
+import {
+  ForegroundLocationProvider,
+  useForegroundLocation,
+} from "@/features/nearby/foreground-context";
 import { NearbySearchProvider } from "@/features/nearby/search-context";
 import { SortingRegionProvider } from "@/features/region/context";
 import { ScanSessionProvider } from "@/features/scan/session-context";
@@ -18,11 +24,11 @@ import { AppThemeProvider, useAppTheme } from "@/theme/tokens";
 void SplashScreen.preventAutoHideAsync();
 
 function Navigation() {
-  const { palette, isDark } = useAppTheme();
-  const reducedMotion = useReducedMotion();
+  const { palette } = useAppTheme();
+  const reducedMotion = !useInteractionMotion();
   return (
     <View nativeID="app-navigation-surface" style={{ flex: 1, backgroundColor: palette.bgCanvas }}>
-      <StatusBar style={isDark ? "light" : "dark"} />
+      <StatusBar style="dark" />
       <Stack
         screenOptions={{
           headerShown: false,
@@ -36,6 +42,19 @@ function Navigation() {
       </Stack>
       <BottomNavigation />
     </View>
+  );
+}
+
+function RegionalNavigation() {
+  const { read, permissionRevision } = useForegroundLocation();
+  return (
+    <SortingRegionProvider readFix={read} permissionRevision={permissionRevision}>
+      <ScanSessionProvider>
+        <NearbySearchProvider>
+          <Navigation />
+        </NearbySearchProvider>
+      </ScanSessionProvider>
+    </SortingRegionProvider>
   );
 }
 
@@ -53,13 +72,11 @@ export default function RootLayout() {
   return (
     <AppThemeProvider>
       <LanguageProvider>
-        <SortingRegionProvider readFix={readDeviceLocation}>
-          <ScanSessionProvider>
-            <NearbySearchProvider>
-              <Navigation />
-            </NearbySearchProvider>
-          </ScanSessionProvider>
-        </SortingRegionProvider>
+        <InteractionMotionProvider>
+          <ForegroundLocationProvider>
+            <RegionalNavigation />
+          </ForegroundLocationProvider>
+        </InteractionMotionProvider>
       </LanguageProvider>
     </AppThemeProvider>
   );

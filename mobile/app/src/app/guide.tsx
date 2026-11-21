@@ -2,12 +2,15 @@ import { localizedText } from "@kierratysappi/localization";
 import { searchGuideItems, searchGuideLibrary } from "@kierratysappi/recycling-engine";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { type ComponentRef, useEffect, useRef, useState } from "react";
-import { Keyboard, Pressable, type ScrollView, StyleSheet, TextInput, View } from "react-native";
+import { Keyboard, type ScrollView, StyleSheet, View } from "react-native";
+import { MaterialStudy } from "@/components/material-study";
 import { ObjectSortingFlowView } from "@/components/object-sorting-flow";
 import { RecyclingRecordAction } from "@/components/recycle-action";
 import { SortingRegionPicker } from "@/components/sorting-region-picker";
 import { SourceGuideResult } from "@/components/source-guide-result";
+import { TactilePressable as Pressable } from "@/components/tactile-pressable";
 import {
+  AppInput,
   AppText,
   Button,
   DocumentSection,
@@ -104,18 +107,67 @@ export default function GuideScreen() {
     setInvalid(false);
   };
 
+  const materialSections = (
+    <View style={styles.grid}>
+      {GUIDE.filter(([, , value]) => visibleMaterials.includes(value)).map(
+        ([title, body, value]) => (
+          <DocumentSection key={title} testID={`guide-section-${value}`}>
+            <View style={{ flexDirection: "row", alignItems: "center", gap: spacing.sm }}>
+              <MaterialStudy material={value} size={46} />
+              <AppText variant="heading" accessibilityRole="header" style={sharedStyles.grow}>
+                {t(title)}
+              </AppText>
+            </View>
+            <AppText>{t(body)}</AppText>
+            <RecyclingRecordAction
+              material={value}
+              recordId={recyclingIntent(recordingScope, value)}
+              label={t(title)}
+            />
+          </DocumentSection>
+        ),
+      )}
+    </View>
+  );
+  const guidanceNotes = (
+    <>
+      <Paper
+        style={{ backgroundColor: palette.amberSoft, borderWidth: 0, marginBottom: spacing.lg }}
+      >
+        <AppText style={{ color: palette.amber }}>{t("depositCaution")}</AppText>
+      </Paper>
+      <View style={sharedStyles.tightStack}>
+        <AppText variant="small" muted>
+          {t("ruleSourceLabel")}
+        </AppText>
+        <InlineLink
+          label="Suomen Pakkauskierrätys RINKI Oy"
+          onPress={() =>
+            void openExternalUrl("https://rinkiin.fi/lajittelu-kotona/lajitteluohjeet/").catch(
+              () => undefined,
+            )
+          }
+        />
+        <AppText variant="small" muted>
+          {t("checkedLabel")}: 2026-08-10
+        </AppText>
+      </View>
+    </>
+  );
   return (
     <Screen testID="guide-screen" scrollRef={scrollRef}>
       <PageHeader onBack={() => (router.canGoBack() ? router.back() : router.replace("/"))} />
       <PageIntro
         title={t("materialGuideTitle")}
-        body={query.trim() ? undefined : t("materialGuideBody")}
+        body={query.trim() || material ? undefined : t("materialGuideBody")}
       />
+      {material && materialSections}
+      {material && <View style={styles.sourceNotes}>{guidanceNotes}</View>}
       <View style={styles.search}>
         <AppText variant="label" nativeID="guide-search-label">
           {t("guideSearchLabel")}
         </AppText>
-        <TextInput
+        <AppInput
           accessibilityLabel={t("guideSearchLabel")}
           accessibilityLabelledBy="guide-search-label"
           accessibilityHint={t("guideSearchHint")}
@@ -274,23 +326,7 @@ export default function GuideScreen() {
             </AppText>
           </DocumentSection>
         )}
-      <View style={styles.grid}>
-        {GUIDE.filter(([, , value]) => visibleMaterials.includes(value)).map(
-          ([title, body, value]) => (
-            <DocumentSection key={title} testID={`guide-section-${value}`}>
-              <AppText variant="heading" accessibilityRole="header">
-                {t(title)}
-              </AppText>
-              <AppText>{t(body)}</AppText>
-              <RecyclingRecordAction
-                material={value}
-                recordId={recyclingIntent(recordingScope, value)}
-                label={t(title)}
-              />
-            </DocumentSection>
-          ),
-        )}
-      </View>
+      {!material && materialSections}
       {(query.length > 0 || material !== null || invalid) && (
         <Button
           label={t("guideSearchReset")}
@@ -304,36 +340,13 @@ export default function GuideScreen() {
           <SortingRegionPicker />
         </Paper>
       )}
-      {visibleMaterials.length > 0 && (
-        <>
-          <Paper
-            style={{ backgroundColor: palette.amberSoft, borderWidth: 0, marginBottom: spacing.lg }}
-          >
-            <AppText style={{ color: palette.amber }}>{t("depositCaution")}</AppText>
-          </Paper>
-          <View style={sharedStyles.tightStack}>
-            <AppText variant="small" muted>
-              {t("ruleSourceLabel")}
-            </AppText>
-            <InlineLink
-              label="Suomen Pakkauskierrätys RINKI Oy"
-              onPress={() =>
-                void openExternalUrl("https://rinkiin.fi/lajittelu-kotona/lajitteluohjeet/").catch(
-                  () => undefined,
-                )
-              }
-            />
-            <AppText variant="small" muted>
-              {t("checkedLabel")}: 2026-08-10
-            </AppText>
-          </View>
-        </>
-      )}
+      {!material && visibleMaterials.length > 0 && guidanceNotes}
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
+  sourceNotes: { gap: spacing.sm, marginBottom: spacing.lg },
   search: { gap: spacing.sm, paddingBottom: spacing.lg },
   input: {
     minHeight: controls.inputMinHeight,

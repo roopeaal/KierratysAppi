@@ -6,11 +6,12 @@
     "orientation": "portrait",
     "icon": "./assets/brand/leaf-app-icon.png",
     "scheme": "kierratysappi",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#F5FCFA",
     "ios": {
       "icon": "./assets/brand/leaf-app-icon.png",
       "bundleIdentifier": "fi.roopeaaltonen.kierratysappi",
-      "buildNumber": "23",
+      "buildNumber": "29",
       "supportsTablet": true,
       "infoPlist": {
         "NSCameraUsageDescription": "Kameraa käytetään viivakoodin lukemiseen ja tuotteen kuvaamiseen. Kuva lähetetään tunnistukseen vain erillisellä hyväksynnälläsi.",
@@ -83,7 +84,7 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#F4F0E6",
+          "backgroundColor": "#F5FCFA",
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 76
         }

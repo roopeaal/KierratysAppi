@@ -7,7 +7,8 @@
   offline, permission denial, timeout and missing provider data.
 - Native processing remains local. Go/browser sends a bounded metadata-free
   image only after preview and separate consent to the visible server.
-- FI/EN persists until changed; labels/focus/large text/dark/reduced motion work.
+- FI/EN persists until changed; labels, focus, large text and reduced motion
+  work. The app stays light even when the system requests dark appearance.
 - Full validation, Expo health, relevant real-model/browser and platform/device
   checks must pass with scope recorded. Keep audit failures visible, never waived.
 - Cleanup preserves app/model/data bytes, test coverage and required licences,

@@ -1,5 +1,6 @@
 import { usePathname } from "expo-router";
 import {
+  type ComponentPropsWithRef,
   type ComponentRef,
   type PropsWithChildren,
   type ReactNode,
@@ -8,11 +9,12 @@ import {
 } from "react";
 import {
   ActivityIndicator,
-  Pressable,
+  type GestureResponderEvent,
   ScrollView,
   type StyleProp,
   StyleSheet,
   Text,
+  TextInput,
   type TextProps,
   type TextStyle,
   useWindowDimensions,
@@ -24,6 +26,7 @@ import { activeTab } from "@/features/navigation/routes";
 import { useLanguage } from "@/i18n/language-context";
 import {
   controls,
+  fieldGuideColors,
   focusRing,
   interaction,
   radius,
@@ -33,6 +36,7 @@ import {
 } from "@/theme/tokens";
 import { navigationTileMinimumWidth, screenLayout } from "./navigation-layout";
 import { LeafBrandMark } from "./reference-artwork";
+import { TactilePressable as Pressable } from "./tactile-pressable";
 
 type TextVariant = "display" | "title" | "heading" | "body" | "small" | "label" | "mono";
 
@@ -53,6 +57,13 @@ export function AppText({
       ]}
     />
   );
+}
+
+/** Keep iOS input chrome light as well, including inside the Expo Go host. */
+export function AppInput(
+  props: Omit<ComponentPropsWithRef<typeof TextInput>, "keyboardAppearance">,
+) {
+  return <TextInput {...props} keyboardAppearance="light" />;
 }
 
 export function Screen({
@@ -162,13 +173,48 @@ export function PageHeader({
   );
 }
 
-export function PageIntro({ title, body }: { readonly title: string; readonly body?: string }) {
+export function PageIntro({
+  title,
+  body,
+  eyebrow,
+  caption,
+}: {
+  readonly title: string;
+  readonly body?: string;
+  readonly eyebrow?: string;
+  readonly caption?: string;
+}) {
+  const { palette } = useAppTheme();
   return (
     <View style={styles.pageIntro}>
-      <AppText variant="title" accessibilityRole="header">
+      <View
+        accessible={false}
+        aria-hidden
+        style={{ width: 32, height: 3, backgroundColor: palette.pine, borderRadius: 2 }}
+      />
+      {eyebrow && (
+        <AppText variant="small" muted>
+          {eyebrow}
+        </AppText>
+      )}
+      <AppText variant={eyebrow ? "title" : "display"} accessibilityRole="header">
         {title}
       </AppText>
       {body && <AppText muted>{body}</AppText>}
+      {caption && (
+        <AppText variant="small" muted>
+          {caption}
+        </AppText>
+      )}
+    </View>
+  );
+}
+
+/** Emphasis for an answer, not a verification badge. */
+export function GuidanceHeading({ children }: PropsWithChildren) {
+  return (
+    <View style={[styles.guidanceHeading, { backgroundColor: fieldGuideColors.introduction }]}>
+      {children}
     </View>
   );
 }
@@ -192,7 +238,13 @@ export function DocumentSection({
   );
 }
 
-export function Chevron({ back = false }: { readonly back?: boolean }) {
+export function Chevron({
+  back = false,
+  color,
+}: {
+  readonly back?: boolean;
+  readonly color?: string;
+}) {
   const { palette } = useAppTheme();
   return (
     <View
@@ -205,7 +257,7 @@ export function Chevron({ back = false }: { readonly back?: boolean }) {
         style={[
           styles.chevron,
           {
-            borderColor: palette.textSecondary,
+            borderColor: color ?? palette.textSecondary,
             transform: [{ rotate: back ? "135deg" : "-45deg" }],
           },
         ]}
@@ -351,7 +403,7 @@ export function ChoiceIndicator({ selected }: { readonly selected: boolean }) {
 
 type ButtonProps = {
   readonly label: string;
-  readonly onPress: () => void;
+  readonly onPress: (event: GestureResponderEvent) => void;
   readonly variant?: "primary" | "secondary" | "quiet" | "danger";
   readonly disabled?: boolean;
   readonly busy?: boolean;
@@ -417,13 +469,22 @@ export function Button({
         },
       ]}
     >
-      {busy ? (
-        <ActivityIndicator color={foregrounds[variant]} />
-      ) : (
-        <AppText variant="label" style={{ color: foregrounds[variant], textAlign: "center" }}>
+      <View style={styles.buttonContent}>
+        {busy && (
+          <ActivityIndicator
+            color={foregrounds[variant]}
+            size="small"
+            accessible={false}
+            aria-hidden
+          />
+        )}
+        <AppText
+          variant="label"
+          style={{ flexShrink: 1, color: foregrounds[variant], textAlign: "center" }}
+        >
           {label}
         </AppText>
-      )}
+      </View>
     </Pressable>
   );
 }
@@ -466,7 +527,7 @@ export function SectionHeader({
 }) {
   return (
     <View style={styles.sectionHeader}>
-      <AppText variant="heading" style={styles.sectionTitle}>
+      <AppText variant="heading" accessibilityRole="header" style={styles.sectionTitle}>
         {title}
       </AppText>
       {action}
@@ -509,6 +570,7 @@ export function InlineLink({
   accessibilityHint,
   testID,
   color,
+  variant = "label",
   role = "link",
   expanded,
 }: {
@@ -517,6 +579,7 @@ export function InlineLink({
   readonly accessibilityHint?: string;
   readonly testID?: string;
   readonly color?: string;
+  readonly variant?: "label" | "small";
   readonly role?: "link" | "button";
   readonly expanded?: boolean;
 }) {
@@ -545,7 +608,7 @@ export function InlineLink({
         justifyContent: "center",
       })}
     >
-      <AppText variant="label" style={{ color: color ?? palette.actionLink }}>
+      <AppText variant={variant} style={{ color: color ?? palette.actionLink }}>
         {label}
       </AppText>
     </Pressable>
@@ -573,6 +636,7 @@ const styles = StyleSheet.create({
   safeArea: { flex: 1 },
   scrollContent: { flexGrow: 1, alignItems: "center" },
   content: {
+    alignSelf: "center",
     width: "100%",
     maxWidth: screenLayout.maxWidth,
     flex: 1,
@@ -583,13 +647,14 @@ const styles = StyleSheet.create({
   brand: { flexDirection: "row", alignItems: "center", gap: 10, flexShrink: 1 },
   button: {
     minHeight: controls.buttonMinHeight,
-    borderRadius: radius.pill,
+    borderRadius: radius.md,
     borderWidth: 2,
     paddingHorizontal: spacing.lg,
     paddingVertical: spacing.sm,
     justifyContent: "center",
     alignItems: "center",
   },
+  buttonContent: { maxWidth: "100%", flexDirection: "row", alignItems: "center", gap: 8 },
   paper: { borderWidth: 1, borderRadius: radius.lg, padding: 20, gap: spacing.md },
   pageHeader: {
     flexDirection: "row",
@@ -611,7 +676,14 @@ const styles = StyleSheet.create({
   },
   headerBrand: { flexDirection: "row", alignItems: "center", gap: 6, flexShrink: 1 },
   headerWordmark: { flexShrink: 1, fontWeight: "700", letterSpacing: -0.5 },
-  pageIntro: { paddingTop: spacing.lg, paddingBottom: spacing.lg, gap: spacing.sm },
+  pageIntro: {
+    marginTop: spacing.xs,
+    marginBottom: spacing.md,
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.xxs,
+    gap: spacing.sm,
+  },
+  guidanceHeading: { padding: spacing.md, borderRadius: radius.md, gap: spacing.xxs },
   documentSection: { borderTopWidth: 1, paddingVertical: 20, gap: spacing.sm },
   chevron: {
     width: 8,

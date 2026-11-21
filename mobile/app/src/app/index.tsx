@@ -3,10 +3,9 @@ import { useCallback, useState } from "react";
 import {
   Image,
   Keyboard,
-  Pressable,
+  Platform,
   ScrollView,
   StyleSheet,
-  TextInput,
   useWindowDimensions,
   View,
 } from "react-native";
@@ -15,75 +14,52 @@ import { ActionIcon } from "@/components/action-icon";
 import {
   HomeText as AppText,
   HomeSectionHeading,
-  HomeSurface,
   HomeTile,
   homeFont,
   IconDisc,
-  MaterialChip,
 } from "@/components/home-elements";
-import { MotionAccent } from "@/components/motion-accent";
+import { homeReferenceLayout, homeShortcutGrid } from "@/components/home-layout";
+import { HomeNearbyPreview } from "@/components/home-nearby-preview";
+import { HomeRecent } from "@/components/home-recent";
+import { HomeQueryChip } from "@/components/home-reference-elements";
+import { screenLayout } from "@/components/navigation-layout";
 import { LeafBrandMark, PhotoCardBackdrop, ScanIllustration } from "@/components/reference-artwork";
-import { ReferenceSymbol } from "@/components/reference-symbol";
-import { Chevron, InlineLink } from "@/components/ui";
+import { TactilePressable as Pressable } from "@/components/tactile-pressable";
+import { AppInput, Chevron } from "@/components/ui";
 import { GUIDE_SEARCH_MAX_LENGTH } from "@/features/guide/search";
-import { homeHistoryPreview } from "@/features/history/home-preview";
-import { historyStatusMessageKey } from "@/features/history/presentation";
-import { type HistoryEntry, isHistoryEnabled, readHistory } from "@/features/history/storage";
 import { useNearbySearch } from "@/features/nearby/search-context";
 import { useScanSession } from "@/features/scan/session-context";
 import { useLanguage } from "@/i18n/language-context";
 import { homeColors } from "@/theme/home-colors";
-import { controls, interaction, useAppTheme } from "@/theme/tokens";
+import { fieldGuideColors, interaction, spacing, useAppTheme } from "@/theme/tokens";
 
-const MATERIALS = [
-  ["plastic", "homeMaterialPlastic"],
-  ["carton", "homeMaterialCarton"],
-  ["glass", "homeMaterialGlass"],
-  ["metal", "homeMaterialMetal"],
+const POPULAR = [
+  ["plastic", "homeQueryBottle", "muovipullo"],
+  ["battery", "homeQueryBatteries", "paristot"],
+  ["carton", "homeQueryCardboard", "pahvi"],
+  ["electronics", "homeQueryElectronics", "elektroniikka"],
 ] as const;
 
 export default function HomeScreen() {
   const router = useRouter();
-  const { palette, isDark } = useAppTheme();
-  const home = homeColors(isDark);
-  const { language, setLanguage, t } = useLanguage();
-  const { reset, lookupBarcode } = useScanSession();
+  const { palette } = useAppTheme();
+  const { language, t } = useLanguage();
+  const { reset } = useScanSession();
   const { requestSearch } = useNearbySearch();
-  const [historyEnabled, setHistoryState] = useState(false);
-  const [recent, setRecent] = useState<HistoryEntry[]>([]);
-  const [historyError, setHistoryError] = useState(false);
   const [query, setQuery] = useState("");
   const [searchFocused, setSearchFocused] = useState(false);
   const [identifyFocused, setIdentifyFocused] = useState(false);
-  const [featureHeight, setFeatureHeight] = useState(112);
   const { width, fontScale } = useWindowDimensions();
-  const canvasWidth = Math.min(width, 560);
-  const expandedText = fontScale > 1.2;
-  const stacked = canvasWidth < 360 || expandedText;
+  const canvasWidth = Math.min(width, screenLayout.maxWidth);
+  const { expandedText, showMotto, showCamera, scanHeight, scanArtScale } = homeReferenceLayout(
+    canvasWidth,
+    fontScale,
+  );
 
   useFocusEffect(
     useCallback(() => {
-      let cancelled = false;
       reset();
       setQuery("");
-      setRecent([]);
-      setHistoryError(false);
-      void Promise.all([isHistoryEnabled(), readHistory()])
-        .then(([enabled, entries]) => {
-          if (cancelled) return;
-          setHistoryState(enabled);
-          setRecent(homeHistoryPreview(entries, enabled));
-          setHistoryError(false);
-        })
-        .catch(() => {
-          if (cancelled) return;
-          setHistoryState(false);
-          setRecent([]);
-          setHistoryError(true);
-        });
-      return () => {
-        cancelled = true;
-      };
     }, [reset]),
   );
 
@@ -94,14 +70,6 @@ export default function HomeScreen() {
       params: { query: query.trim().slice(0, GUIDE_SEARCH_MAX_LENGTH) },
     });
   };
-  const nearby = () => {
-    requestSearch();
-    router.push("/nearby");
-  };
-  const reopen = async (gtin: string) => {
-    const attempt = await lookupBarcode(gtin, "history");
-    if (attempt.accepted) router.push("/result");
-  };
 
   return (
     <SafeAreaView
@@ -109,14 +77,15 @@ export default function HomeScreen() {
       testID="home-screen"
       edges={["top"]}
       accessibilityLanguage={language === "fi" ? "fi-FI" : "en"}
-      style={{ flex: 1, backgroundColor: home.canvas }}
+      style={{ flex: 1, backgroundColor: homeColors.canvas }}
     >
       <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
         <View testID="home-canvas" style={{ width: canvasWidth }}>
           <View
             style={[
               styles.hero,
-              expandedText ? styles.heroExpanded : { minHeight: canvasWidth * 0.49 },
+              { backgroundColor: fieldGuideColors.introduction },
+              !expandedText && { minHeight: canvasWidth * 0.405 },
             ]}
           >
             {!expandedText && (
@@ -127,52 +96,61 @@ export default function HomeScreen() {
                 accessibilityElementsHidden
                 importantForAccessibility="no-hide-descendants"
                 pointerEvents="none"
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: -canvasWidth * 0.03,
-                  width: canvasWidth * 1.06,
-                  height: (canvasWidth * 1.06 * 1672) / 941,
-                  opacity: isDark ? 0.25 : 1,
-                }}
-              />
-            )}
-            <View style={[styles.branding, expandedText && styles.brandingExpanded]}>
-              <MotionAccent>
-                <LeafBrandMark size={canvasWidth < 360 ? 44 : 48} />
-              </MotionAccent>
-              <AppText
-                accessibilityRole="header"
-                style={[styles.wordmark, { fontSize: canvasWidth < 360 ? 25 : 27 }]}
-              >
-                {t("appName").slice(0, -5)}
-                <AppText
-                  style={[
-                    styles.wordmark,
-                    {
-                      fontSize: canvasWidth < 360 ? 25 : 27,
-                      color: isDark ? palette.actionLink : "#358751",
-                    },
-                  ]}
-                >
-                  {t("appName").slice(-5)}
-                </AppText>
-              </AppText>
-              <AppText
+                testID="home-landscape"
                 style={[
-                  styles.question,
-                  !expandedText && { transform: [{ translateX: canvasWidth * 0.075 }] },
+                  styles.landscape,
                   {
-                    color: home.muted,
-                    backgroundColor: isDark ? palette.bgCanvas : "transparent",
+                    width: canvasWidth,
+                    height: (canvasWidth * 1672) / 941,
                   },
                 ]}
+              />
+            )}
+            <View
+              style={[
+                styles.branding,
+                showMotto && styles.brandingWithMotto,
+                expandedText && styles.brandingExpanded,
+              ]}
+            >
+              <View style={expandedText ? styles.mastheadExpanded : styles.masthead}>
+                <LeafBrandMark size={expandedText ? 30 : canvasWidth < 360 ? 36 : 44} />
+                <AppText style={[styles.wordmark, expandedText && styles.wordmarkExpanded]}>
+                  {t("appName").slice(0, -5)}
+                  <AppText
+                    style={[
+                      styles.wordmark,
+                      expandedText && styles.wordmarkExpanded,
+                      { color: palette.pine },
+                    ]}
+                  >
+                    {t("appName").slice(-5)}
+                  </AppText>
+                </AppText>
+              </View>
+              <AppText
+                accessibilityRole="header"
+                style={[styles.question, expandedText && styles.questionExpanded]}
               >
-                {t("homeQuestion")}
+                {t("homeSlogan")}
               </AppText>
             </View>
+            {showMotto && (
+              <View
+                aria-hidden
+                accessibilityElementsHidden
+                importantForAccessibility="no-hide-descendants"
+                pointerEvents="none"
+                style={styles.corner}
+              >
+                <AppText testID="home-corner-motto" style={styles.cornerText}>
+                  {t("homeCornerMotto")}
+                  {"\n"}♡
+                </AppText>
+              </View>
+            )}
           </View>
-          <View style={styles.content}>
+          <View style={[styles.content, !expandedText && styles.overlapContent]}>
             <View
               style={[
                 styles.search,
@@ -197,11 +175,11 @@ export default function HomeScreen() {
                   <View style={[styles.handle, { backgroundColor: palette.textSecondary }]} />
                 </View>
               </Pressable>
-              <TextInput
+              <AppInput
                 accessibilityLabel={t("homeSearchLabel")}
                 accessibilityHint={t("homeSearchHint")}
                 placeholder={t("homeSearchPlaceholder")}
-                placeholderTextColor={home.muted}
+                placeholderTextColor={homeColors.muted}
                 value={query}
                 maxLength={GUIDE_SEARCH_MAX_LENGTH}
                 onChangeText={setQuery}
@@ -212,7 +190,7 @@ export default function HomeScreen() {
                 autoComplete="off"
                 autoCorrect={false}
                 testID="home-search-input"
-                style={[styles.searchInput, { color: home.ink }]}
+                style={[styles.searchInput, { color: homeColors.ink }]}
               />
               <Pressable
                 accessibilityRole="button"
@@ -240,241 +218,94 @@ export default function HomeScreen() {
               onPress={() => router.push("/identify")}
               onFocus={() => setIdentifyFocused(true)}
               onBlur={() => setIdentifyFocused(false)}
-              onLayout={({ nativeEvent }) => setFeatureHeight(nativeEvent.layout.height)}
               style={({ pressed }) => [
                 styles.identifyAction,
                 {
+                  minHeight: scanHeight,
                   backgroundColor: palette.pineSoft,
                   borderColor: identifyFocused ? palette.actionLink : palette.bgSurface,
                   opacity: pressed ? interaction.pressedOpacity : 1,
                 },
               ]}
             >
-              {!expandedText && (
-                <PhotoCardBackdrop
-                  width={canvasWidth - 32}
-                  height={Math.max(1, featureHeight - 4)}
-                />
-              )}
+              {!expandedText && <PhotoCardBackdrop width={canvasWidth - 32} height={scanHeight} />}
+              {showCamera && <IconDisc kind="photo" blue compact />}
               <View
                 style={[
                   styles.identifyContent,
-                  !expandedText && { paddingRight: canvasWidth < 360 ? 86 : 102 },
+                  !expandedText && { paddingRight: (showCamera ? 100 : 88) * scanArtScale },
                 ]}
               >
-                <IconDisc kind="scan" />
                 <View style={styles.grow}>
                   <AppText style={styles.identifyTitle}>{t("homeIdentifyTitle")}</AppText>
-                  <AppText style={[styles.identifyBody, { color: home.muted }]}>
+                  <AppText muted style={styles.identifyBody}>
                     {t("homeIdentifyDetail")}
                   </AppText>
                 </View>
               </View>
-              {!expandedText && <ScanIllustration />}
+              {!expandedText && <ScanIllustration scale={scanArtScale} />}
               {!expandedText && (
                 <View style={[styles.identifyChevron, { backgroundColor: palette.bgSurface }]}>
                   <Chevron />
                 </View>
               )}
             </Pressable>
-            <View style={[styles.utilities, stacked && { flexDirection: "column" }]}>
+            <View
+              style={[
+                styles.shortcuts,
+                (expandedText || canvasWidth < homeShortcutGrid.singleColumnBelow) && styles.stack,
+              ]}
+            >
               <HomeTile
+                kind="nearby"
                 label={t("nearbyHomeTitle")}
                 detail={t("homePointsDetail")}
-                kind="nearby"
-                onPress={nearby}
                 testID="home-nearby-action"
+                onPress={() => {
+                  requestSearch();
+                  router.push("/nearby");
+                }}
               />
               <HomeTile
-                label={t("homeGuideTitle")}
-                detail={t("homeGuideDetail")}
                 kind="guide"
-                onPress={() => router.push("/guide")}
+                label={t("homeGuideShortcut")}
+                detail={t("homeGuideDetail")}
                 testID="home-guide-action"
+                onPress={() => router.push("/guide")}
               />
             </View>
-            <HomeSectionHeading
-              title={t("homeMaterials")}
-              action={t("homeShowAll")}
-              onPress={() => router.push("/guide")}
-            />
-            <View style={styles.chips}>
-              {MATERIALS.map(([material, label]) => (
-                <MaterialChip
-                  key={material}
-                  material={material}
-                  label={t(label)}
-                  onPress={() => router.push({ pathname: "/guide", params: { material } })}
-                />
-              ))}
-            </View>
-            <HomeSectionHeading
-              title={t("overviewTitle")}
-              action={t("overviewOpenAction")}
-              onPress={() => router.push("/overview")}
-            />
-            <HomeSurface>
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel={t("overviewOpenAction")}
-                accessibilityHint={t("overviewHomeDetail")}
-                onPress={() => router.push("/overview")}
-                testID="home-overview-action"
-                style={({ pressed }) => [
-                  styles.previewRow,
-                  { opacity: pressed ? interaction.pressedOpacity : 1 },
-                ]}
-              >
-                <IconDisc kind="guide" compact />
-                <View style={styles.grow}>
-                  <AppText style={styles.rowTitle}>{t("overviewOpenAction")}</AppText>
-                  <AppText style={[styles.caption, { color: home.muted }]}>
-                    {t("overviewHomeDetail")}
-                  </AppText>
-                </View>
-                <Chevron />
-              </Pressable>
-            </HomeSurface>
-            <HomeSectionHeading
-              title={t("homeNearbySection")}
-              action={t("homeFindPoints")}
-              onPress={nearby}
-            />
-            <HomeSurface>
-              <Pressable
-                accessibilityRole="button"
-                accessibilityLabel={t("homeNearbyStart")}
-                accessibilityHint={t("nearbyHomeBody")}
-                onPress={nearby}
-                testID="home-nearby-preview"
-                style={({ pressed }) => [
-                  styles.previewRow,
-                  { opacity: pressed ? interaction.pressedOpacity : 1 },
-                ]}
-              >
-                <View
-                  style={[styles.mapPreview, { backgroundColor: palette.pineSoft }]}
-                  accessible={false}
-                  aria-hidden
-                >
-                  <View style={[styles.mapRoad, { backgroundColor: palette.bgSurface }]} />
-                  <ReferenceSymbol
-                    name="location"
-                    size={30}
-                    color={isDark ? palette.actionLink : undefined}
+            <View>
+              <HomeSectionHeading
+                title={t("homeMaterials")}
+                action={t("homeShowAll")}
+                onPress={() => router.push("/guide")}
+                testID="home-guide-all"
+              />
+              <View style={styles.chips}>
+                {POPULAR.map(([icon, label, term]) => (
+                  <HomeQueryChip
+                    key={icon}
+                    icon={icon}
+                    label={t(label)}
+                    onPress={() => router.push({ pathname: "/guide", params: { query: term } })}
                   />
-                </View>
-                <View style={styles.grow}>
-                  <AppText style={styles.rowTitle}>{t("homeNearbyStart")}</AppText>
-                  <AppText style={[styles.caption, { color: home.muted }]}>
-                    {t("homeNearbyEmpty")}
-                  </AppText>
-                </View>
-                <Chevron />
-              </Pressable>
-            </HomeSurface>
-            <HomeSectionHeading
-              title={t("homeRecent")}
-              action={t("homeShowAll")}
-              onPress={() => router.push("/history")}
-              testID="home-history-action"
-            />
-            {recent.length > 0 ? (
-              <View style={[styles.recent, stacked && { flexDirection: "column" }]}>
-                {recent.map((entry) => (
-                  <Pressable
-                    key={entry.gtin}
-                    accessibilityRole="button"
-                    accessibilityLabel={entry.productName ?? entry.gtin}
-                    accessibilityHint={t("homeHistoryReopen")}
-                    onPress={() => void reopen(entry.gtin)}
-                    testID={`home-recent-${entry.gtin}`}
-                    style={({ pressed }) => [
-                      styles.recentCard,
-                      {
-                        backgroundColor: palette.bgSurface,
-                        opacity: pressed ? interaction.pressedOpacity : 1,
-                      },
-                    ]}
-                  >
-                    <ActionIcon kind="history" />
-                    <View style={styles.grow}>
-                      <AppText style={styles.rowTitle}>{entry.productName ?? entry.gtin}</AppText>
-                      <AppText style={[styles.caption, { color: home.muted }]}>
-                        {t(historyStatusMessageKey(entry.resultStatus))}
-                      </AppText>
-                    </View>
-                    <Chevron />
-                  </Pressable>
                 ))}
               </View>
-            ) : (
-              <HomeSurface>
-                <View style={styles.previewRow}>
-                  <ActionIcon kind="history" />
-                  <AppText
-                    testID="home-history-empty"
-                    style={[styles.caption, styles.grow, { color: home.muted }]}
-                  >
-                    {historyError
-                      ? t("homeHistoryError")
-                      : historyEnabled
-                        ? t("homeHistoryEmpty")
-                        : t("homeHistoryDisabled")}
-                  </AppText>
-                </View>
-              </HomeSurface>
-            )}
-            <View style={styles.manualRow}>
-              <InlineLink
-                label={t("manualEntry")}
-                onPress={() => router.push("/manual")}
-                role="button"
-                testID="home-manual-action"
-              />
-              <View accessible={false} aria-hidden>
-                <ActionIcon kind="manual" />
+            </View>
+            <View style={styles.overviewSection} testID="home-overview-section">
+              <HomeSectionHeading title={t("overviewTitle")} />
+              <View style={styles.shortcuts}>
+                <HomeTile
+                  kind="overview"
+                  label={t("homeOverviewAction")}
+                  detail={t("homeOverviewDetail")}
+                  testID="home-overview-action"
+                  onPress={() => router.push("/overview")}
+                />
               </View>
             </View>
-            <View style={styles.footer}>
-              <View
-                style={[styles.languageSwitch, { borderColor: palette.borderSubtle }]}
-                accessibilityRole="radiogroup"
-                accessibilityLabel={t("languageLabel")}
-              >
-                {(["fi", "en"] as const).map((item) => (
-                  <Pressable
-                    key={item}
-                    accessibilityRole="radio"
-                    accessibilityState={{ checked: language === item }}
-                    aria-checked={language === item}
-                    accessibilityLabel={item === "fi" ? t("finnish") : t("english")}
-                    onPress={() => setLanguage(item)}
-                    testID={`language-${item}`}
-                    style={({ pressed }) => [
-                      styles.languageChoice,
-                      language === item && { backgroundColor: palette.pineSoft },
-                      pressed && { opacity: interaction.pressedOpacity },
-                    ]}
-                  >
-                    <AppText
-                      style={[styles.caption, { fontWeight: language === item ? "700" : "400" }]}
-                    >
-                      {item.toUpperCase()}
-                    </AppText>
-                  </Pressable>
-                ))}
-              </View>
-              <InlineLink
-                label={t("legalAction")}
-                onPress={() => router.push("/legal")}
-                role="button"
-                testID="home-legal-action"
-              />
-            </View>
-            <AppText variant="small" muted style={{ textAlign: "center" }}>
-              {t("homeJurisdiction")}
-            </AppText>
+            <HomeNearbyPreview />
+            <HomeRecent />
           </View>
         </View>
       </ScrollView>
@@ -483,26 +314,68 @@ export default function HomeScreen() {
 }
 const styles = StyleSheet.create({
   scroll: { flexGrow: 1, alignItems: "center" },
-  hero: { overflow: "hidden", justifyContent: "center", paddingBottom: 24 },
-  heroExpanded: { paddingHorizontal: 16, paddingTop: 20, paddingBottom: 36 },
-  branding: {
-    width: "68%",
-    marginLeft: "18%",
-    alignItems: "center",
-    gap: 3,
-    transform: [{ translateY: -10 }],
+  hero: {
+    overflow: "hidden",
+    justifyContent: "center",
+    paddingVertical: 12,
   },
-  brandingExpanded: { width: "100%", marginLeft: 0, transform: [{ translateY: 0 }] },
-  wordmark: { fontFamily: homeFont, fontWeight: "700", letterSpacing: -1.1, lineHeight: 33 },
+  landscape: {
+    position: "absolute",
+    left: 0,
+    top: 0,
+  },
+  masthead: { alignItems: "center", gap: 2 },
+  mastheadExpanded: { flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: 8 },
+  branding: { marginLeft: "37%", marginRight: "4%", gap: 3 },
+  brandingWithMotto: { marginLeft: "33%", marginRight: "18%" },
+  brandingExpanded: { marginHorizontal: 18, gap: 12 },
+  wordmark: {
+    fontFamily: homeFont,
+    fontWeight: "700",
+    fontSize: 26,
+    lineHeight: 30,
+    letterSpacing: -1,
+  },
+  wordmarkExpanded: { fontSize: 18, lineHeight: 24 },
   question: {
     fontFamily: homeFont,
-    fontSize: 12.5,
-    lineHeight: 18,
     textAlign: "center",
-    borderRadius: 8,
-    paddingHorizontal: 3,
+    fontSize: 15,
+    lineHeight: 20,
+    fontWeight: "500",
   },
-  content: { paddingHorizontal: 14, marginTop: -26, paddingBottom: 24, gap: 8 },
+  questionExpanded: {
+    textAlign: "left",
+    fontSize: 34,
+    lineHeight: 36,
+    fontWeight: "700",
+    letterSpacing: -1.4,
+  },
+  content: {
+    paddingHorizontal: spacing.md,
+    paddingTop: spacing.sm + spacing.xxs,
+    paddingBottom: spacing.md,
+    gap: spacing.sm,
+  },
+  overlapContent: { marginTop: -8, paddingTop: 0 },
+  corner: {
+    position: "absolute",
+    right: 12,
+    top: 16,
+    width: 63,
+    transform: [{ rotate: "-11deg" }],
+  },
+  cornerText: {
+    textAlign: "center",
+    color: "#4B7B65",
+    fontFamily: Platform.select({
+      ios: "Snell Roundhand",
+      android: "cursive",
+      web: '"Snell Roundhand", "Bradley Hand", cursive',
+    }),
+    fontSize: 14,
+    lineHeight: 16,
+  },
   search: {
     minHeight: 54,
     flexDirection: "row",
@@ -540,15 +413,15 @@ const styles = StyleSheet.create({
     transform: [{ rotate: "45deg" }],
   },
   identifyAction: {
-    minHeight: 112,
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 2,
     borderRadius: 22,
     overflow: "hidden",
     paddingVertical: 14,
-    paddingLeft: 8,
+    paddingLeft: 10,
     paddingRight: 16,
+    gap: 8,
   },
   identifyContent: { flex: 1, minWidth: 0, flexDirection: "row", alignItems: "center", gap: 10 },
   identifyTitle: {
@@ -558,7 +431,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.8,
     fontWeight: "700",
   },
-  identifyBody: { fontFamily: homeFont, fontSize: 13, lineHeight: 18 },
+  identifyBody: { fontFamily: homeFont, fontSize: 14, lineHeight: 20 },
   identifyChevron: {
     width: 32,
     height: 32,
@@ -569,51 +442,8 @@ const styles = StyleSheet.create({
     right: 10,
   },
   grow: { flex: 1, minWidth: 0, gap: 4 },
-  utilities: { flexDirection: "row", gap: 8 },
-  chips: { flexDirection: "row", flexWrap: "wrap", gap: 6, marginTop: -8 },
-  previewRow: { flexDirection: "row", alignItems: "center", gap: 12, padding: 12, minHeight: 72 },
-  rowTitle: { fontFamily: homeFont, fontSize: 15, lineHeight: 20, fontWeight: "600" },
-  caption: { fontFamily: homeFont, fontSize: 13, lineHeight: 18 },
-  mapPreview: {
-    width: 58,
-    height: 58,
-    borderRadius: 14,
-    alignItems: "center",
-    justifyContent: "center",
-    overflow: "hidden",
-  },
-  mapRoad: { position: "absolute", width: 90, height: 10, transform: [{ rotate: "-35deg" }] },
-  recent: { flexDirection: "row", gap: 8 },
-  recentCard: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    minWidth: 0,
-    minHeight: 82,
-    borderRadius: 20,
-    padding: 12,
-    gap: 8,
-  },
-  manualRow: {
-    minHeight: 44,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 10,
-  },
-  footer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: 8,
-  },
-  languageSwitch: { flexDirection: "row", borderRadius: 24, borderWidth: 1, padding: 2 },
-  languageChoice: {
-    minWidth: controls.minimumTouchTarget,
-    minHeight: controls.minimumTouchTarget,
-    borderRadius: 24,
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  chips: { flexDirection: "row", flexWrap: "wrap", gap: 6 },
+  overviewSection: { gap: 6 },
+  shortcuts: { flexDirection: "row", flexWrap: "wrap", gap: homeShortcutGrid.gap },
+  stack: { flexDirection: "column", flexWrap: "nowrap", alignItems: "stretch" },
 });

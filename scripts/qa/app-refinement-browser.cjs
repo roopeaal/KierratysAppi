@@ -9,7 +9,8 @@ const { chromium } = require(modulePath);
 const baseUrl = process.env.APP_QA_URL ?? "http://127.0.0.1:8093";
 const evidence = path.resolve(process.env.APP_QA_EVIDENCE_DIR ?? "work/app-refinement-qa");
 fs.mkdirSync(evidence, { recursive: true });
-const gtin = "3017620422003"; // Public example, not a user's scan.
+const lookupOnly = process.argv.includes("--lookup-only");
+const gtin = "1234567890128"; // Valid QA code absent from the bundled catalogue.
 const provenance = {
   sourceId: "qa-only",
   sourceName: "QA fixture provider",
@@ -173,6 +174,10 @@ async function largeText(page) {
       let scenario = "not_found";
       let requests = 0;
       let releaseNotFound;
+      // Keep fallback deterministic; a synthetic GTIN must not leave the browser.
+      await context.route("https://world.openfoodfacts.org/**", (route) =>
+        route.abort("internetdisconnected"),
+      );
       await context.route("**/v1/recycling/lookup", async (route) => {
         if (route.request().method() === "OPTIONS")
           return route.fulfill({
@@ -207,26 +212,21 @@ async function largeText(page) {
       });
       await page.goto(baseUrl);
       await page.getByTestId("home-screen").waitFor();
-      if (language === "en") await page.getByTestId("language-en").click();
+      await page.getByTestId("tab-settings").click();
+      if (language === "en") await page.getByTestId("settings-language-en").click();
+      await page.getByTestId("settings-legal-action").waitFor();
+      await page.getByTestId("tab-home").click();
       assert.ok(
         !(await page.locator("body").innerText()).includes(
           language === "fi" ? "Ei tiliä." : "No account.",
         ),
       );
-      assert.ok(await page.getByTestId("home-legal-action").isVisible());
       assert.equal(await page.getByTestId("scan-illustration").getAttribute("aria-hidden"), "true");
-      for (const kind of ["manual", "nearby", "guide", "history"]) {
-        const icons = page.getByTestId("home-screen").getByTestId("action-icon-" + kind);
-        assert.ok(await icons.count());
-        for (const icon of await icons.all())
-          assert.equal(await icon.getAttribute("aria-hidden"), "true");
-      }
-      await page.getByTestId("home-nearby-action").waitFor({ state: "visible" });
       await page.getByTestId("home-guide-action").waitFor({ state: "visible" });
       await page.evaluate(() => document.fonts.ready);
-      const nearbyTile = await page.getByTestId("home-nearby-action").boundingBox();
-      const guideTile = await page.getByTestId("home-guide-action").boundingBox();
-      assert.ok(Math.abs(nearbyTile.y - guideTile.y) < 1, "Phone navigation tiles share a row");
+      const plasticTile = await page.getByTestId("home-query-plastic").boundingBox();
+      const electronicsTile = await page.getByTestId("home-query-electronics").boundingBox();
+      assert.ok(electronicsTile.y >= plasticTile.y, "Query chips follow reading order");
       await page.getByTestId("home-guide-action").focus();
       await page.waitForFunction(
         () =>
@@ -244,8 +244,13 @@ async function largeText(page) {
       await page.getByTestId("home-screen").waitFor();
       await shot(page, language + "-home");
       const homeType = await page
-        .getByTestId("home-identify-action")
-        .getByText(language === "fi" ? "Skannaa tuote" : "Scan an item", { exact: true })
+        .getByRole("heading", {
+          name:
+            language === "fi"
+              ? "Mitä haluat kierrättää tänään?"
+              : "What would you like to recycle today?",
+          exact: true,
+        })
         .evaluate((el) => ({
           font: getComputedStyle(el).fontFamily,
           color: getComputedStyle(el).color,
@@ -254,10 +259,8 @@ async function largeText(page) {
       for (const id of [
         "home-identify-action",
         "home-scan-action",
-        "home-manual-action",
-        "home-nearby-action",
         "home-guide-action",
-        "home-history-action",
+        "home-query-electronics",
       ]) {
         const box = await page.getByTestId(id).boundingBox();
         assert.ok(box.height >= 44 && box.width >= 44, "Home touch target");
@@ -274,7 +277,7 @@ async function largeText(page) {
       await page.waitForFunction(
         () =>
           getComputedStyle(document.getElementById("app-screen-surface")).backgroundColor ===
-          "rgb(20, 34, 27)",
+          "rgb(245, 252, 250)",
       );
       await largeText(page);
       await shot(page, language + "-camera-purpose-dark-large");
@@ -307,6 +310,10 @@ async function largeText(page) {
       ]) {
         scenario = state;
         await page.goto(baseUrl + "/manual");
+        // Each transport scenario is independent: do not reuse the previous lookup.
+        await page.evaluate(() =>
+          localStorage.removeItem("@kierratysappi/offline-lookup-cache/v1"),
+        );
         try {
           await page.getByTestId("manual-gtin-input").fill(gtin);
         } catch (error) {
@@ -355,6 +362,14 @@ async function largeText(page) {
           assert.ok((await page.locator("body").innerText()).includes("qa-only-v1"));
         }
         await shot(page, language + "-result-" + state);
+      }
+      if (lookupOnly) {
+        assert.deepEqual(errors, []);
+        console.log(
+          `PASS ${language}: camera entry, invalid input, lookup, not found, missing packaging and offline recovery.`,
+        );
+        await context.close();
+        continue;
       }
       await page.goto(baseUrl + "/guide");
       await page.getByTestId("guide-section-metal").waitFor();
@@ -544,7 +559,7 @@ async function largeText(page) {
           .waitForFunction(
             () =>
               getComputedStyle(document.getElementById("app-screen-surface")).backgroundColor ===
-              "rgb(20, 34, 27)",
+              "rgb(245, 252, 250)",
             null,
             { timeout: 10000 },
           )
@@ -562,15 +577,15 @@ async function largeText(page) {
           await page
             .locator("#app-navigation-surface")
             .evaluate((el) => getComputedStyle(el).backgroundColor),
-          "rgb(20, 34, 27)",
-          "Rounded navigation corners must not expose a white root surface in dark mode",
+          "rgb(245, 252, 250)",
+          "Rounded navigation corners retain the app canvas in a dark host",
         );
         await largeText(page);
         await shot(page, language + "-large-" + (route || "home"));
         if (route === "") {
           const title = page
             .getByTestId("home-guide-action")
-            .getByText(language === "fi" ? "Lajitteluopas" : "Sorting guide", { exact: true });
+            .getByText(language === "fi" ? "Lajitteluohjeet" : "Sorting guides", { exact: true });
           assert.ok(
             await title.evaluate((el) => {
               const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
@@ -585,7 +600,7 @@ async function largeText(page) {
               }
               return true;
             }),
-            "Guide tile title must wrap between words, not orphan a letter at 130% text",
+            "Guide action must wrap between words, not orphan a letter at 130% text",
           );
         }
         await page.emulateMedia({ colorScheme: "light" });
@@ -601,25 +616,26 @@ async function largeText(page) {
       }
       await page.goto(baseUrl);
       await page.setViewportSize({ width: 320, height: 740 });
-      await page.getByTestId("home-nearby-action").waitFor({ state: "visible" });
+      await page.getByTestId("home-query-plastic").waitFor({ state: "visible" });
       await page.getByTestId("home-guide-action").waitFor({ state: "visible" });
       await shot(page, language + "-home-320");
-      const narrowNearby = await page.getByTestId("home-nearby-action").boundingBox();
-      const narrowGuide = await page.getByTestId("home-guide-action").boundingBox();
+      const firstMaterial = await page.getByTestId("home-query-plastic").boundingBox();
+      const lastMaterial = await page.getByTestId("home-query-electronics").boundingBox();
       assert.ok(
-        narrowGuide.y > narrowNearby.y + narrowNearby.height,
-        "Narrow navigation tiles stack",
+        lastMaterial.y >= firstMaterial.y && lastMaterial.x + lastMaterial.width <= 320,
+        "Narrow queries wrap rather than overflowing",
       );
       await page.setViewportSize({ width: 1280, height: 800 });
-      await page.getByTestId("home-nearby-action").waitFor({ state: "visible" });
+      await page.getByTestId("home-query-electronics").waitFor({ state: "visible" });
       await page.getByTestId("home-guide-action").waitFor({ state: "visible" });
       await shot(page, language + "-home-wide");
       assert.deepEqual(errors, []);
       await context.close();
     }
-    console.log(
-      "PASS: isolated FI/EN UI flows, shared Home/subpage type and palette, invalid-no-request, missing/unavailable/offline/resolved/unknown, provenance, confirmation, ambiguity, local history/draft/factual privacy, touch targets, dark/130% synthetic text, all reading/form/Identify/Settings/Nearby pages at 320/390/1280 widths. No user GPS or production fixture data.",
-    );
+    if (!lookupOnly)
+      console.log(
+        "PASS: isolated FI/EN UI flows, shared Home/subpage type and palette, invalid-no-request, missing/unavailable/offline/resolved/unknown, provenance, confirmation, ambiguity, local history/draft/factual privacy, touch targets, dark/130% synthetic text, all reading/form/Identify/Settings/Nearby pages at 320/390/1280 widths. No user GPS or production fixture data.",
+      );
   } finally {
     await browser.close();
   }

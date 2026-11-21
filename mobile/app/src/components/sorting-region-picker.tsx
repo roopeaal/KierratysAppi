@@ -1,11 +1,11 @@
 import { searchMunicipalities, sortingRegionSource } from "@kierratysappi/recycling-engine";
 import { useState } from "react";
-import { TextInput, View } from "react-native";
+import { View } from "react-native";
 import { useSortingRegion } from "@/features/region/context";
 import { openExternalUrl } from "@/features/security/external-links";
 import { useLanguage } from "@/i18n/language-context";
 import { controls, spacing, useAppTheme } from "@/theme/tokens";
-import { AppText, Button, InlineLink, sharedStyles } from "./ui";
+import { AppInput, AppText, Button, InlineLink, sharedStyles } from "./ui";
 export function SortingRegionPicker() {
   const region = useSortingRegion(),
     { t } = useLanguage(),
@@ -48,7 +48,7 @@ export function SortingRegionPicker() {
       )}
       {editing && (
         <>
-          <TextInput
+          <AppInput
             accessibilityLabel={t("regionMunicipality")}
             placeholder={t("regionMunicipality")}
             value={query}

@@ -1,12 +1,9 @@
-import { darkPalette, lightPalette } from "./palettes";
+import { lightPalette as palette } from "./palettes";
 
 /** Home and utility screens intentionally share the same presentation tokens. */
-export function homeColors(isDark: boolean) {
-  const palette = isDark ? darkPalette : lightPalette;
-  return {
-    canvas: palette.bgCanvas,
-    ink: palette.textPrimary,
-    muted: palette.textSecondary,
-    link: palette.actionLink,
-  };
-}
+export const homeColors = {
+  canvas: palette.bgCanvas,
+  ink: palette.textPrimary,
+  muted: palette.textSecondary,
+  link: palette.actionLink,
+} as const;

@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
+import { MaterialStudy, paperTints } from "./material-study";
 import { useAppTheme } from "@/theme/tokens";
 
 /** Original, decorative linework, not an encoded/scannable product barcode. */
@@ -33,39 +34,22 @@ export function BarcodeMark({
 
 export function PackagingMark({ material }: { readonly material?: string }) {
   const { palette } = useAppTheme();
-  const border = { borderColor: palette.textPrimary };
-  const isBottle = material === "plastic";
-  const isJar = material === "glass";
-  const isCan = material === "metal";
+  const known =
+    material === "plastic" || material === "metal" || material === "carton" || material === "glass"
+      ? material
+      : undefined;
   return (
     <View
       accessible={false}
       aria-hidden
       accessibilityElementsHidden
       importantForAccessibility="no-hide-descendants"
-      style={[styles.tile, { backgroundColor: palette.pineSoft }]}
+      style={[styles.tile, { backgroundColor: known ? paperTints[known] : palette.pineSoft }]}
     >
-      {!material || material === "unknown" ? (
-        <Text style={{ color: palette.textPrimary, fontSize: 26 }}>?</Text>
-      ) : isBottle ? (
-        <View style={styles.object}>
-          <View style={[styles.bottleCap, border]} />
-          <View style={[styles.bottle, border]}>
-            <View style={[styles.label, border]} />
-          </View>
-        </View>
-      ) : isJar || isCan ? (
-        <View style={styles.object}>
-          <View style={[styles.lid, border]} />
-          <View style={[styles.jar, isCan && styles.can, border]}>
-            <View style={[styles.label, border]} />
-          </View>
-        </View>
+      {known ? (
+        <MaterialStudy material={known} size={48} />
       ) : (
-        <View style={[styles.carton, border]}>
-          <View style={[styles.fold, border]} />
-          <View style={[styles.cartonLine, border]} />
-        </View>
+        <Text style={{ color: palette.textPrimary, fontSize: 24 }}>–</Text>
       )}
     </View>
   );
@@ -93,23 +77,4 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 5,
   },
   tile: { width: 52, height: 58, borderRadius: 14, alignItems: "center", justifyContent: "center" },
-  object: { alignItems: "center" },
-  bottleCap: { width: 10, height: 5, borderWidth: 1.5, borderRadius: 2, marginBottom: -1 },
-  bottle: {
-    width: 21,
-    height: 30,
-    borderWidth: 1.5,
-    borderTopLeftRadius: 7,
-    borderTopRightRadius: 7,
-    borderBottomLeftRadius: 4,
-    borderBottomRightRadius: 4,
-    justifyContent: "center",
-  },
-  label: { height: 10, borderTopWidth: 1.5, borderBottomWidth: 1.5 },
-  lid: { width: 24, height: 5, borderWidth: 1.5, borderRadius: 2, marginBottom: 2 },
-  jar: { width: 24, height: 25, borderWidth: 1.5, borderRadius: 5, justifyContent: "center" },
-  can: { height: 28, borderRadius: 3 },
-  carton: { width: 24, height: 32, borderWidth: 1.5, borderRadius: 2 },
-  fold: { height: 8, borderBottomWidth: 1.5 },
-  cartonLine: { position: "absolute", right: 6, top: 0, bottom: 0, borderLeftWidth: 1.5 },
 });

@@ -2,10 +2,12 @@ import { localizedText } from "@kierratysappi/localization";
 import type { SortingResult, SortingRuleReference } from "@kierratysappi/recycling-engine";
 import { StyleSheet, View } from "react-native";
 import { openExternalUrl } from "@/features/security/external-links";
+import { destinationCategoryIcons } from "@/features/sorting/category-icons";
 import { destinationMessageKey, unknownReasonMessageKey } from "@/features/sorting/presentation";
 import { useLanguage } from "@/i18n/language-context";
 import { radius, spacing, useAppTheme } from "@/theme/tokens";
-import { AppText, InlineLink, Paper, Rule, StatusPill, sharedStyles } from "./ui";
+import { MaterialStudy } from "./material-study";
+import { AppText, GuidanceHeading, InlineLink, Paper, Rule, StatusPill, sharedStyles } from "./ui";
 
 export function SortingResultCard({
   result,
@@ -33,14 +35,19 @@ export function SortingResultCard({
   if (result.status === "resolved") {
     return (
       <Paper style={embedded && styles.embedded} testID="sorting-result-resolved">
-        <View style={styles.destination}>
-          <AppText variant="small" muted>
-            {t("destinationLabel")}
-          </AppText>
-          <AppText variant="heading" accessibilityRole="header">
-            {localizedText(language, result.destination.label)}
-          </AppText>
-        </View>
+        <GuidanceHeading>
+          <View style={styles.destinationRow}>
+            <MaterialStudy material={destinationCategoryIcons[result.destination.id]} size={46} />
+            <View style={sharedStyles.grow}>
+              <AppText variant="small" muted>
+                {t("destinationLabel")}
+              </AppText>
+              <AppText variant="heading" accessibilityRole="header">
+                {localizedText(language, result.destination.label)}
+              </AppText>
+            </View>
+          </View>
+        </GuidanceHeading>
         <ConfidenceRow
           label={t(confidenceKey[result.confidence.tier])}
           score={result.confidence.score}
@@ -186,7 +193,7 @@ function GuidanceBlock({ label, body }: { readonly label: string; readonly body:
 }
 
 const styles = StyleSheet.create({
-  destination: { gap: spacing.xxs },
+  destinationRow: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
   embedded: {
     borderWidth: 0,
     padding: 0,

@@ -1,7 +1,8 @@
 import { parseGtin } from "@kierratysappi/domain";
+import { HistoryArtworkSchema } from "./product-artwork";
 import type { HistoryEntry } from "./storage";
 
-/** Storage is untrusted. No invented names, images, material or destination in previews. */
+/** Storage is untrusted. Accept only decorative artwork IDs, never external images. */
 export function homeHistoryPreview(value: unknown, enabled: boolean): HistoryEntry[] {
   if (!enabled || !Array.isArray(value)) return [];
   const entries: HistoryEntry[] = [];
@@ -21,10 +22,12 @@ export function homeHistoryPreview(value: unknown, enabled: boolean): HistoryEnt
       typeof row.productName === "string"
         ? row.productName.trim().slice(0, 160) || undefined
         : undefined;
+    const artwork = HistoryArtworkSchema.safeParse(row.artwork);
     entries.push({
       gtin: row.gtin,
       productName,
       resultStatus: row.resultStatus,
+      ...(artwork.success && row.resultStatus !== "not_found" ? { artwork: artwork.data } : {}),
       scannedAt: row.scannedAt,
     });
     seen.add(row.gtin);

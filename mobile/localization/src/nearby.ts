@@ -1,24 +1,20 @@
 export const nearbyFi = {
   nearbyIntro: "Löydä keräyspiste ja tarkista, mitä siellä vastaanotetaan.",
-  nearbyQuickCaution: "Tarkista pisteen materiaalit, käyttöoikeus ja aukiolo ennen lähtöä.",
+  nearbyQuickCaution:
+    "Tarkista pisteen materiaalit, käyttöoikeus ja aukiolo ennen lähtöä. Astioiden värit voivat vaihdella: tarkista jätelaji astian merkinnästä.",
   nearbyLocationOnMap: "Pisteen sijainti näkyy kartalla.",
-  nearbyAddressConsent:
-    "Haku välittää vain kierrätyspisteen koordinaatit laitteen karttapalvelulle.",
-  nearbyAddressLoading: "Haetaan osoitearviota…",
   nearbyShortMapHint: "Avautuu OpenStreetMapissa. Oma sijaintisi ei sisälly linkkiin.",
   nearbyMore: "Lisätiedot",
   nearbyLess: "Piilota lisätiedot",
   nearbyPrivacyMore: "Sijainti ja aineiston tiedot",
   nearbyPrivacyLess: "Piilota sijainti- ja aineistotiedot",
-  nearbyAddressLabel: "Lähialueen osoitearvio",
+  nearbyAddressLabel: "Osoitearvio",
   nearbyAddressSource: "Laitteen karttapalvelu · ei pisteen varmennettu osoite",
   nearbyResultShort: "Arvio lähimmästä pisteestä",
   nearbyDistanceShort: "linnuntietä",
-  nearbyCompleteAddress: "Hae osoitearvio",
-  nearbyAddressEstimate: "Lähialueen osoitearvio · laitteen karttapalvelu",
-  nearbyAddressFailed: "Osoitearviota ei saatu. Näet pisteen kartalta.",
+  nearbyExamplePhoto: "Esimerkkikuva",
   nearbyAddressDisclosure:
-    "Vapaaehtoinen osoitehaku välittää julkisen pisteen koordinaatit laitteen karttapalvelulle, ei omaa sijaintiasi. Arvio voi tarkoittaa viereistä katua tai rakennusta, ei pisteen virallista osoitetta.",
+    "Jos pisteen osoite puuttuu, appi voi hakea arvion laitteen karttapalvelusta. Palvelulle välitetään vain julkisen kierrätyspisteen koordinaatit, ei omaa sijaintiasi. Arvio voi tarkoittaa viereistä katua tai rakennusta.",
   nearbyAddressUnknown: "Katuosoitetta ei ole aineistossa. Näet pisteen sijainnin kartalta.",
   nearbyShowMap: "Kartalle",
   nearbyMapHint:
@@ -65,7 +61,14 @@ export const nearbyFi = {
   pointLightBulbs: "Lamput",
   pointTyres: "Renkaat",
   nearbyPurpose:
-    "Käytämme sijaintia kerran lähimpien aineistossa olevien pisteiden löytämiseen. Etäisyydet lasketaan puhelimessa. Sijaintia ei tallenneta, lähetetä tai seurata taustalla.",
+    "Kun automaattinen sijainti on käytössä, lähimmät pisteet ja lajittelualue haetaan etusivulla ja Sijainti-välilehdellä. Haku toimii vain sovelluksen ollessa auki.",
+  nearbyEnableAutomatic: "Ota sijainti käyttöön",
+  nearbyDisableAutomatic: "Poista automaattinen sijainti käytöstä",
+  nearbyAutomaticTitle: "Automaattinen sijainti",
+  nearbyAutomaticOn: "Käytössä",
+  nearbyAutomaticOff: "Ei käytössä. Voit ottaa sen käyttöön etusivulta.",
+  nearbyAutomaticBrief: "Näytä lähimmät pisteet ja alueesi lajitteluohjeet. Ei taustaseurantaa.",
+  nearbyPreferenceError: "Sijaintiasetusta ei voitu tallentaa. Yritä uudelleen.",
   nearbyFind: "Etsi sijainnillani",
   nearbyRefresh: "Päivitä sijainti",
   nearbyLoading: "Määritetään sijaintia…",
@@ -84,6 +87,7 @@ export const nearbyFi = {
   nearbyStale:
     "Aineisto on yli 30 päivää vanha. Tarkista pisteen ajantasaiset tiedot ennen lähtöä.",
   nearbySource: "© OpenStreetMap contributors · ODbL 1.0",
+  nearbySourceShort: "© OpenStreetMap",
   nearbyDetails: "Avaa pisteen lähdetiedot",
   nearbyExternalHint: "Avaa OpenStreetMapin selaimessa. Oma sijaintisi ei sisälly linkkiin.",
   nearbyPermission:
@@ -101,7 +105,7 @@ export const nearbyFi = {
   nearbyLinkError: "Lähdelinkkiä ei voitu avata. Tarkista verkkoyhteys ja yritä uudelleen.",
   nearbySettingsHint: "Jos käytät selainta, muuta sijaintilupa selaimen sivustoasetuksissa.",
   nearbyPrivacy:
-    "Laitteen sijainnilla tehtävä haku käsittelee sijaintia vain laitteen muistissa. Lukeminen loppuu tulokseen, peruutukseen tai aikakatkaisuun; näkymästä poistuminen tai sovelluksen siirtäminen taustalle tyhjentää tuloksen. Sijaintia tai siitä laskettua etäisyyttä ei tallenneta historiaan, lähetetä palvelimelle tai analytiikkaan. OpenStreetMap-linkit välittävät vain julkisen kierrätyspisteen tunnisteen tai koordinaatit, eivät omaa sijaintiasi; selaimen verkkopyyntöön sovelletaan ulkoisen palvelun tietosuojakäytäntöä.",
+    "Voit valita automaattisen sijainnin etusivulla tai Sijainti-välilehdellä ja poistaa sen käytöstä asetuksista. Valinta tallentuu, ei koordinaatteja: etäisyydet ja lajittelualue määritetään laitteessa. Sijaintia käytetään muistissa enintään minuutin ajan. Sijaintihaku loppuu tulokseen, peruutukseen tai aikakatkaisuun. Taustalle siirtyessä sijainti ja siitä lasketut tulokset poistetaan muistista. Sijaintia ei tallenneta historiaan eikä lähetetä KeepItGreenin palvelimelle tai analytiikkaan. OpenStreetMap-linkit välittävät vain julkisen kierrätyspisteen, eivät omaa sijaintiasi.",
   nearbyLocationPlaceholder: "00110 tai Museokatu 5",
   nearbyLocationLabel: "Osoite tai postinumero Suomessa",
   nearbyLocationAction: "Hae osoitteella",
@@ -121,25 +125,21 @@ export const nearbyFi = {
 
 export const nearbyEn: Record<keyof typeof nearbyFi, string> = {
   nearbyIntro: "Find a collection point and check what it accepts.",
-  nearbyQuickCaution: "Check accepted materials, access and opening hours before travelling.",
+  nearbyQuickCaution:
+    "Check accepted materials, access and opening hours before travelling. Bin colours can vary: always check the label on the bin.",
   nearbyLocationOnMap: "View the point's location on the map.",
-  nearbyAddressConsent:
-    "Lookup sends only the recycling point coordinates to the device map service.",
-  nearbyAddressLoading: "Looking up an address estimate…",
   nearbyShortMapHint: "Opens OpenStreetMap. Your location is not included in the link.",
   nearbyMore: "Details",
   nearbyLess: "Hide details",
   nearbyPrivacyMore: "Location and directory information",
   nearbyPrivacyLess: "Hide location and directory information",
-  nearbyAddressLabel: "Nearby address estimate",
+  nearbyAddressLabel: "Address estimate",
   nearbyAddressSource: "Device map service · not a verified point address",
   nearbyResultShort: "Estimated nearest point",
   nearbyDistanceShort: "straight line",
-  nearbyCompleteAddress: "Look up address estimate",
-  nearbyAddressEstimate: "Nearby address estimate · device map service",
-  nearbyAddressFailed: "Address estimate unavailable. View the point on the map.",
+  nearbyExamplePhoto: "Example image",
   nearbyAddressDisclosure:
-    "Optional address lookup sends the public point coordinates to the device map service, not your location. The estimate may describe a nearby street or building, not the point's official address.",
+    "If a point has no address, the app can look up an estimate through the device map service. It sends only the public collection point coordinates, not your location. The estimate may describe a nearby street or building.",
   nearbyAddressUnknown: "Street address is not available. View the point's location on the map.",
   nearbyShowMap: "View map",
   nearbyMapHint:
@@ -186,7 +186,14 @@ export const nearbyEn: Record<keyof typeof nearbyFi, string> = {
   pointLightBulbs: "Light bulbs",
   pointTyres: "Tyres",
   nearbyPurpose:
-    "Use your location once to find nearby points in the directory. Distances are calculated on your phone. Your location is not stored, uploaded or tracked in the background.",
+    "With automatic location on, Home and Location look up nearby points and your sorting area while the app is open.",
+  nearbyEnableAutomatic: "Enable location",
+  nearbyDisableAutomatic: "Turn off automatic location",
+  nearbyAutomaticTitle: "Automatic location",
+  nearbyAutomaticOn: "On",
+  nearbyAutomaticOff: "Off. You can turn it on from Home.",
+  nearbyAutomaticBrief: "See nearby points and local sorting guidance. No background tracking.",
+  nearbyPreferenceError: "Couldn't save your location preference. Try again.",
   nearbyFind: "Find using my location",
   nearbyRefresh: "Update location",
   nearbyLoading: "Finding your location…",
@@ -205,6 +212,7 @@ export const nearbyEn: Record<keyof typeof nearbyFi, string> = {
   nearbyStale:
     "This directory is over 30 days old. Check the point's current details before travelling.",
   nearbySource: "© OpenStreetMap contributors · ODbL 1.0",
+  nearbySourceShort: "© OpenStreetMap",
   nearbyDetails: "Open point's source details",
   nearbyExternalHint:
     "Opens OpenStreetMap in your browser. Your location is not included in the link.",
@@ -221,7 +229,7 @@ export const nearbyEn: Record<keyof typeof nearbyFi, string> = {
   nearbyLinkError: "The source link could not be opened. Check your connection and try again.",
   nearbySettingsHint: "In a browser, change location permission in its site settings.",
   nearbyPrivacy:
-    "Device-location search processes your location in device memory only. Acquisition ends on a result, cancellation or timeout; leaving the screen or backgrounding the app clears the result. Neither location nor calculated distance is saved to history, sent to a server or analytics. OpenStreetMap links contain only the public recycling point ID or coordinates, not your location; browser requests are subject to the external service's privacy policy.",
+    "You can enable automatic location from Home or Location and turn it off in Settings. Only your preference is saved: distance and sorting area are calculated on your device. The location fix is kept in memory for up to one minute. A location request ends on a result, cancellation or timeout. Sending the app to the background clears the location and derived results from memory. Your location is not stored in history or sent to KeepItGreen servers or analytics. OpenStreetMap links contain only the public collection point, not your location.",
   nearbyLocationPlaceholder: "00110 or Museokatu 5",
   nearbyLocationLabel: "Address or postcode in Finland",
   nearbyLocationAction: "Search by address",

@@ -6,6 +6,7 @@ import { ReferenceSymbol } from "./reference-symbol";
 export type ActionIconKind =
   | "nearby"
   | "guide"
+  | "overview"
   | "history"
   | "manual"
   | "home"
@@ -30,10 +31,11 @@ export function ActionIcon({
   readonly kind: ActionIconKind;
   readonly color?: string;
 }) {
-  const { palette, isDark } = useAppTheme();
+  const { palette } = useAppTheme();
   const ink = color ?? palette.actionLink;
   const stroke = { borderColor: ink };
-  const symbol = kind === "history" || kind === "manual" ? null : referenceIcons[kind];
+  const symbol =
+    kind === "history" || kind === "manual" || kind === "overview" ? null : referenceIcons[kind];
   return (
     <View
       style={styles.icon}
@@ -45,11 +47,13 @@ export function ActionIcon({
       testID={`action-icon-${kind}`}
     >
       {symbol ? (
-        <ReferenceSymbol
-          name={symbol}
-          size={28}
-          color={color ?? (isDark ? (kind === "photo" ? palette.cobalt : palette.pine) : undefined)}
-        />
+        <ReferenceSymbol name={symbol} size={28} color={color} />
+      ) : kind === "overview" ? (
+        <View style={[styles.chart, stroke]}>
+          {[7, 12, 17].map((height) => (
+            <View key={height} style={[styles.chartBar, { height, backgroundColor: ink }]} />
+          ))}
+        </View>
       ) : kind === "history" ? (
         <View style={[styles.clock, stroke]}>
           <View style={[styles.clockMinute, { backgroundColor: ink }]} />
@@ -91,6 +95,17 @@ const styles = StyleSheet.create({
   clock: { width: 23, height: 23, borderWidth: strokeWidth, borderRadius: 12 },
   clockMinute: { position: "absolute", left: 9, top: 4, width: strokeWidth, height: 7 },
   clockHour: { position: "absolute", left: 9, top: 9, width: 6, height: strokeWidth },
+  chart: {
+    width: 22,
+    height: 21,
+    borderBottomWidth: strokeWidth,
+    paddingBottom: 2,
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "center",
+    gap: 3,
+  },
+  chartBar: { width: 4, borderRadius: 2 },
   keypad: { width: 21, flexDirection: "row", flexWrap: "wrap", gap: 3 },
   key: { width: 5, height: 6, borderWidth: strokeWidth, borderRadius: 1 },
   package: {

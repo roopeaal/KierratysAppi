@@ -1,17 +1,13 @@
-import {
-  createContext,
-  createElement,
-  type PropsWithChildren,
-  useContext,
-  useMemo,
-  useSyncExternalStore,
-} from "react";
-import { Appearance } from "react-native";
-import { createColorSchemeStore } from "./color-scheme-store";
+import { createContext, createElement, type PropsWithChildren, useContext } from "react";
 import { appFontFamily, codeFontFamily } from "./fonts";
-import { type AppPalette, darkPalette, lightPalette } from "./palettes";
+import { type AppPalette, lightPalette } from "./palettes";
 
-export { darkPalette, lightPalette } from "./palettes";
+export const fieldGuideColors = {
+  introduction: "#E8F2E6",
+  feature: lightPalette.actionPrimary,
+  onFeature: lightPalette.onStrong,
+  onFeatureMuted: "#DCEEE2",
+} as const;
 
 export const spacing = {
   xxs: 4,
@@ -103,22 +99,12 @@ export function focusRing(palette: AppPalette): string {
   return `0px 0px 0px 2px ${palette.bgCanvas}, 0px 0px 0px 4px ${palette.actionLink}`;
 }
 
-type AppTheme = { palette: AppPalette; isDark: boolean };
+type AppTheme = { readonly palette: AppPalette };
 const AppThemeContext = createContext<AppTheme | undefined>(undefined);
-const colorSchemeStore = createColorSchemeStore({
-  read: Appearance.getColorScheme,
-  subscribe: (listener) => Appearance.addChangeListener(listener),
-});
+const appTheme: AppTheme = { palette: lightPalette };
 
 export function AppThemeProvider({ children }: PropsWithChildren) {
-  const isDark =
-    useSyncExternalStore(
-      colorSchemeStore.subscribe,
-      colorSchemeStore.getSnapshot,
-      colorSchemeStore.getServerSnapshot,
-    ) === "dark";
-  const value = useMemo(() => ({ palette: isDark ? darkPalette : lightPalette, isDark }), [isDark]);
-  return createElement(AppThemeContext.Provider, { value }, children);
+  return createElement(AppThemeContext.Provider, { value: appTheme }, children);
 }
 
 export function useAppTheme(): AppTheme {

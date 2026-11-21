@@ -1,30 +1,50 @@
 import { type ComponentProps, type PropsWithChildren, type ReactNode, useState } from "react";
-import { Pressable, StyleSheet, useWindowDimensions, View } from "react-native";
+import { StyleSheet, useWindowDimensions, View } from "react-native";
 import type { GuideMaterial } from "@/features/guide/search";
 import { appFontFamily } from "@/theme/fonts";
 import { homeColors } from "@/theme/home-colors";
-import { interaction, useAppTheme } from "@/theme/tokens";
+import type { AppPalette } from "@/theme/palettes";
+import { focusRing, interaction, radius, useAppTheme } from "@/theme/tokens";
 import { ActionIcon, type ActionIconKind } from "./action-icon";
+import { homeShortcutGrid } from "./home-layout";
+import { MaterialStudy, paperTints } from "./material-study";
 import { ReferenceSymbol } from "./reference-symbol";
+import { TactilePressable as Pressable } from "./tactile-pressable";
 import { AppText as BaseAppText, Chevron } from "./ui";
 
 // The reference uses native, compact sans-serif text. Retain system text scaling.
 export const homeFont = appFontFamily;
 
 export function HomeText({ style, ...props }: ComponentProps<typeof BaseAppText>) {
-  const { isDark } = useAppTheme();
-  const home = homeColors(isDark);
   return (
     <BaseAppText
       {...props}
-      style={[{ fontFamily: homeFont, color: props.muted ? home.muted : home.ink }, style]}
+      style={[
+        { fontFamily: homeFont, color: props.muted ? homeColors.muted : homeColors.ink },
+        style,
+      ]}
     />
   );
 }
 const AppText = HomeText;
 
+export const homeCard = StyleSheet.create({
+  frame: { borderRadius: radius.md, borderWidth: StyleSheet.hairlineWidth, padding: 8 },
+  row: { flexDirection: "row", alignItems: "center", gap: homeShortcutGrid.gap },
+  title: { fontSize: 14, lineHeight: 20, fontWeight: "700", letterSpacing: -0.25 },
+  detail: { fontSize: 12, lineHeight: 17 },
+});
+
+export function homeCardFeedback(palette: AppPalette, pressed: boolean, focused: boolean) {
+  return {
+    backgroundColor: pressed ? palette.pineSoft : palette.bgSurface,
+    borderColor: focused ? palette.actionLink : palette.borderSubtle,
+    boxShadow: focused ? focusRing(palette) : "none",
+  };
+}
+
 export function HomeSurface({ children, testID }: PropsWithChildren<{ readonly testID?: string }>) {
-  const { palette, isDark } = useAppTheme();
+  const { palette } = useAppTheme();
   return (
     <View
       testID={testID}
@@ -32,7 +52,7 @@ export function HomeSurface({ children, testID }: PropsWithChildren<{ readonly t
         styles.surface,
         {
           backgroundColor: palette.bgSurface,
-          boxShadow: isDark ? "none" : "0px 5px 18px rgba(40, 110, 78, 0.07)",
+          boxShadow: "0px 5px 18px rgba(40, 110, 78, 0.07)",
         },
       ]}
     >
@@ -45,18 +65,21 @@ export function IconDisc({
   kind,
   blue = false,
   compact = false,
+  small = false,
 }: {
   readonly kind: ActionIconKind;
   readonly blue?: boolean;
   readonly compact?: boolean;
+  readonly small?: boolean;
 }) {
-  const { palette, isDark } = useAppTheme();
+  const { palette } = useAppTheme();
   return (
     <View
       style={[
         styles.disc,
         compact && { width: 48, height: 48, borderWidth: 0 },
-        { backgroundColor: blue ? (isDark ? palette.cobaltSoft : "#E7F5FF") : palette.pineSoft },
+        small && { width: 32, height: 32, borderWidth: 0 },
+        { backgroundColor: blue ? "#E7F5FF" : palette.pineSoft },
       ]}
     >
       <View
@@ -80,8 +103,7 @@ export function IconDisc({
                     ? "scan"
                     : "recycling"
             }
-            size={compact ? 35 : 44}
-            color={isDark ? (blue ? palette.cobalt : palette.actionLink) : undefined}
+            size={small ? 25 : compact ? 35 : 44}
           />
         ) : (
           <ActionIcon kind={kind} />
@@ -105,8 +127,6 @@ export function HomeTile({
   readonly testID: string;
 }) {
   const { palette } = useAppTheme();
-  const { isDark } = useAppTheme();
-  const home = homeColors(isDark);
   const [focused, setFocused] = useState(false);
   return (
     <Pressable
@@ -118,24 +138,20 @@ export function HomeTile({
       onFocus={() => setFocused(true)}
       onBlur={() => setFocused(false)}
       style={({ pressed }) => [
+        homeCard.frame,
+        homeCard.row,
         styles.tile,
-        {
-          backgroundColor: palette.bgSurface,
-          borderColor: focused ? palette.actionLink : "transparent",
-          opacity: pressed ? interaction.pressedOpacity : 1,
-        },
+        homeCardFeedback(palette, pressed, focused),
       ]}
     >
-      <IconDisc kind={kind} compact />
+      <IconDisc kind={kind} small />
       <View style={styles.grow}>
-        <AppText style={styles.tileTitle}>{label}</AppText>
-        <AppText style={[styles.tileCaption, { color: home.muted }]}>{detail}</AppText>
+        <AppText style={homeCard.title}>{label}</AppText>
+        <AppText muted style={homeCard.detail}>
+          {detail}
+        </AppText>
       </View>
-      <View
-        style={[styles.tileChevron, { backgroundColor: isDark ? palette.bgElevated : "#F0F8F4" }]}
-      >
-        <Chevron />
-      </View>
+      <Chevron />
     </Pressable>
   );
 }
@@ -143,40 +159,48 @@ export function HomeTile({
 export function HomeSectionHeading({
   title,
   action,
+  secondaryAction,
   onPress,
   testID,
 }: {
   readonly title: string;
-  readonly action: string;
-  readonly onPress: () => void;
-  readonly testID?: string;
-}) {
+  readonly secondaryAction?: ReactNode;
+} & (
+  | { readonly action: string; readonly onPress: () => void; readonly testID?: string }
+  | { readonly action?: never; readonly onPress?: never; readonly testID?: never }
+)) {
   const { palette } = useAppTheme();
-  const { isDark } = useAppTheme();
   const [focused, setFocused] = useState(false);
   return (
     <View style={styles.sectionHeading}>
       <AppText accessibilityRole="header" style={styles.sectionTitle}>
         {title}
       </AppText>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={`${title}: ${action}`}
-        onPress={onPress}
-        testID={testID}
-        onFocus={() => setFocused(true)}
-        onBlur={() => setFocused(false)}
-        style={({ pressed }) => [
-          styles.sectionAction,
-          {
-            opacity: pressed ? interaction.pressedOpacity : 1,
-            borderColor: focused ? palette.actionLink : "transparent",
-          },
-        ]}
-      >
-        <AppText style={[styles.caption, { color: homeColors(isDark).link }]}>{action}</AppText>
-        <Chevron />
-      </Pressable>
+      {(secondaryAction || action) && (
+        <View style={styles.sectionActions}>
+          {secondaryAction}
+          {action && (
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={`${title}: ${action}`}
+              onPress={onPress}
+              testID={testID}
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
+              style={({ pressed }) => [
+                styles.sectionAction,
+                {
+                  opacity: pressed ? interaction.pressedOpacity : 1,
+                  borderColor: focused ? palette.actionLink : "transparent",
+                },
+              ]}
+            >
+              <AppText style={[styles.caption, { color: homeColors.link }]}>{action}</AppText>
+              <Chevron />
+            </Pressable>
+          )}
+        </View>
+      )}
     </View>
   );
 }
@@ -184,16 +208,20 @@ export function HomeSectionHeading({
 export function MaterialChip({
   material,
   label,
+  roomy = false,
+  minimumHeight,
   onPress,
 }: {
   readonly material: GuideMaterial;
   readonly label: string;
+  readonly roomy?: boolean;
+  readonly minimumHeight?: number;
   readonly onPress: () => void;
 }) {
-  const { palette, isDark } = useAppTheme();
+  const { palette } = useAppTheme();
   const { width, fontScale } = useWindowDimensions();
+  const narrow = width < 360 && fontScale <= 1.2;
   const [focused, setFocused] = useState(false);
-  const colors = { plastic: "#E0F2FF", carton: "#FFF0D3", glass: "#E3F4E6", metal: "#EFE7FC" };
   return (
     <Pressable
       accessibilityRole="button"
@@ -204,56 +232,26 @@ export function MaterialChip({
       onBlur={() => setFocused(false)}
       style={({ pressed }) => [
         styles.chip,
+        narrow && styles.compactChip,
         {
-          flexBasis: fontScale >= 1.5 ? "100%" : fontScale > 1.2 || width < 360 ? "47%" : "22%",
-          backgroundColor: isDark ? palette.bgElevated : colors[material],
+          minHeight: minimumHeight ?? 44,
+          flexBasis:
+            fontScale >= 1.5 ? "100%" : fontScale > 1.2 || width < 360 || roomy ? "47%" : "22%",
+          backgroundColor: paperTints[material],
           borderColor: focused ? palette.actionLink : "transparent",
           opacity: pressed ? interaction.pressedOpacity : 1,
         },
       ]}
     >
-      <MaterialSymbol material={material} />
+      <MaterialStudy material={material} size={narrow ? 34 : roomy ? 64 : undefined} />
       <AppText style={[styles.caption, { fontWeight: "500", flexShrink: 1 }]}>{label}</AppText>
     </Pressable>
   );
 }
 
-/** Decorative material silhouettes, never a product identity or sorting answer. */
-function MaterialSymbol({ material }: { readonly material: GuideMaterial }) {
-  const { palette } = useAppTheme();
-  const border = { borderColor: palette.actionLink };
-  const shape: ReactNode =
-    material === "plastic" ? (
-      <>
-        <View style={[styles.bottleCap, border]} />
-        <View style={[styles.bottle, border]} />
-      </>
-    ) : material === "carton" ? (
-      <View style={[styles.carton, border]}>
-        <View style={[styles.seam, border]} />
-      </View>
-    ) : (
-      <>
-        <View style={[styles.lid, border]} />
-        <View style={[styles.jar, border, material === "metal" && { borderRadius: 3 }]} />
-      </>
-    );
-  return (
-    <View
-      accessible={false}
-      aria-hidden
-      accessibilityElementsHidden
-      importantForAccessibility="no-hide-descendants"
-      pointerEvents="none"
-      style={styles.symbol}
-    >
-      {shape}
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
-  surface: { borderRadius: 22, overflow: "hidden" },
+  compactChip: { flexDirection: "row", paddingVertical: 4, gap: 8 },
+  surface: { borderRadius: radius.lg, overflow: "hidden" },
   disc: {
     width: 64,
     height: 64,
@@ -267,41 +265,26 @@ const styles = StyleSheet.create({
   tile: {
     flex: 1,
     minWidth: 0,
-    minHeight: 86,
-    borderRadius: 22,
-    borderWidth: 2,
-    paddingHorizontal: 8,
-    paddingVertical: 12,
-    flexDirection: "row",
-    alignItems: "center",
+    minHeight: homeShortcutGrid.height,
     gap: 6,
   },
-  grow: { flex: 1, minWidth: 0, gap: 4 },
-  tileTitle: {
-    fontFamily: homeFont,
-    fontSize: 13,
-    lineHeight: 18,
-    fontWeight: "700",
-    letterSpacing: -0.35,
-  },
+  grow: { flex: 1, minWidth: 0, gap: 2 },
   caption: { fontFamily: homeFont, fontSize: 13, lineHeight: 18 },
-  tileCaption: { fontFamily: homeFont, fontSize: 11.5, lineHeight: 15.5, paddingRight: 10 },
-  tileChevron: {
-    position: "absolute",
-    right: 6,
-    bottom: 9,
-    width: 18,
-    height: 18,
-    borderRadius: 9,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   sectionHeading: {
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "center",
     justifyContent: "space-between",
     gap: 4,
+  },
+  sectionActions: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    maxWidth: "100%",
+    marginLeft: "auto",
+    columnGap: 8,
   },
   sectionTitle: {
     fontFamily: homeFont,
@@ -324,28 +307,14 @@ const styles = StyleSheet.create({
   chip: {
     flexBasis: "22%",
     minHeight: 44,
-    borderRadius: 24,
+    borderRadius: 14,
     borderWidth: 2,
-    paddingHorizontal: 8,
+    paddingHorizontal: 3,
     paddingVertical: 8,
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     gap: 5,
     flexGrow: 1,
   },
-  symbol: { width: 18, height: 24, alignItems: "center", justifyContent: "center" },
-  bottleCap: { width: 7, height: 4, borderWidth: 1.5, borderRadius: 2, marginBottom: -1 },
-  bottle: {
-    width: 13,
-    height: 19,
-    borderWidth: 1.5,
-    borderRadius: 4,
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
-  },
-  carton: { width: 17, height: 21, borderRadius: 2, borderWidth: 1.5 },
-  seam: { height: 6, borderBottomWidth: 1.5 },
-  lid: { width: 14, height: 3, borderWidth: 1.5, borderRadius: 1, marginBottom: 2 },
-  jar: { width: 15, height: 18, borderWidth: 1.5, borderRadius: 4 },
 });

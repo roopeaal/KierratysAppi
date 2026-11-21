@@ -49,7 +49,7 @@ async function observeLocation(context, hanging = false) {
 }
 async function openFromHome(page) {
   await page.goto(baseUrl + "/");
-  await page.getByTestId("home-nearby-action").click();
+  await page.getByTestId("tab-nearby").click();
   await page.getByTestId("nearby-result").waitFor();
 }
 async function noOverflow(page) {
@@ -93,7 +93,7 @@ async function noOverflow(page) {
       "Direct URL must not read location",
     );
     await openFromHome(page);
-    // Expo removes both its position and error subscriptions; browser clearWatch may repeat.
+    // The completed one-shot foreground subscription must be removed.
     await page.waitForFunction(() => window.qaLocation.clear >= 1);
     assert.equal(
       await page.evaluate(() => window.qaLocation.watch),
@@ -102,6 +102,23 @@ async function noOverflow(page) {
     );
     const expected = expectedPoints(sample.coordinates);
     assert.equal(await page.locator('[data-testid^="nearby-point-"]').count(), expected.length);
+    assert.equal(expected[0].point.address, null);
+    await page
+      .getByTestId("nearby-point-0")
+      .getByText("Pisteen sijainti näkyy kartalla.", { exact: true })
+      .waitFor();
+    assert.equal(await page.getByText("Hae osoitearvio", { exact: true }).count(), 0);
+    const metalMark = page.getByTestId("nearby-marking-metal").first();
+    assert.equal(await metalMark.getAttribute("aria-hidden"), "true");
+    assert.equal(
+      await metalMark.evaluate((element) => getComputedStyle(element).backgroundColor),
+      "rgb(37, 40, 44)",
+    );
+    assert.match(
+      await page.getByTestId("point-photo-metal").first().locator("img").getAttribute("src"),
+      /nearby-metal-markings/,
+    );
+    await page.getByText(/Astioiden värit voivat vaihdella/).waitFor();
     const map = page.getByTestId("nearby-map-0");
     assert.ok(
       (await map.boundingBox()).y + (await map.boundingBox()).height <= 844,
@@ -148,6 +165,14 @@ async function noOverflow(page) {
       tyres: "pointTyres",
     };
     for (const [index, { point }] of expected.entries()) {
+      const reportedArt = page
+        .getByTestId("nearby-materials-" + index)
+        .locator('[data-testid^="category-icon-"]');
+      assert.equal(await reportedArt.count(), Math.min(4, point.reportedMaterials.length));
+      for (const art of await reportedArt.all()) {
+        assert.equal(await art.getAttribute("aria-hidden"), "true");
+        await art.locator("img").evaluate((image) => image.decode());
+      }
       for (const material of point.reportedMaterials.slice(0, 4))
         assert.ok(
           (await page.getByTestId("nearby-materials-" + index).innerText()).includes(
@@ -158,6 +183,12 @@ async function noOverflow(page) {
       await page.getByTestId("nearby-details-toggle-" + index).press("Enter");
       const details = page.getByTestId("nearby-details-" + index);
       await details.waitFor();
+      const photoCard = page.getByTestId("nearby-point-" + index);
+      await photoCard.getByText("Esimerkkikuva", { exact: true }).waitFor();
+      await photoCard
+        .locator('[data-testid^="point-photo-"]')
+        .locator("img")
+        .evaluate((img) => img.decode());
       if (index === 0) {
         await details.getByTestId("recycle-mark-action").click();
         assert.equal(await details.getByTestId("recycle-confirm-action").isEnabled(), false);
@@ -213,7 +244,11 @@ async function noOverflow(page) {
     await page.waitForFunction(
       () =>
         getComputedStyle(document.querySelector('[data-testid="nearby-screen"]'))
-          .backgroundColor === "rgb(20, 34, 27)",
+          .backgroundColor === "rgb(245, 252, 250)",
+    );
+    assert.equal(
+      await metalMark.evaluate((element) => getComputedStyle(element).backgroundColor),
+      "rgb(37, 40, 44)",
     );
     await page.screenshot({ path: path.join(evidenceDir, "fi-dark.png"), fullPage: true });
     // Browser-only synthetic text sizing; not native Dynamic Type.
@@ -267,8 +302,9 @@ async function noOverflow(page) {
     await observeLocation(english);
     const en = await english.newPage();
     await en.goto(baseUrl + "/");
-    await en.getByRole("radio", { name: "English", exact: true }).click();
-    await en.getByTestId("home-nearby-action").click();
+    await en.getByTestId("tab-settings").click();
+    await en.getByTestId("settings-language-en").click();
+    await en.getByTestId("tab-nearby").click();
     await en.getByTestId("nearby-result").waitFor();
     await en
       .getByText("Your location is approximate. The order of nearby points may vary.", {
@@ -282,6 +318,20 @@ async function noOverflow(page) {
     );
     await en.getByTestId("nearby-missing-toggle").click();
     await en.getByTestId("nearby-missing-results").waitFor();
+    const reported = en.getByTestId("nearby-point-0");
+    await reported.getByRole("button", { name: "Details", exact: true }).click();
+    await reported.getByText("Example image", { exact: true }).waitFor();
+    const missingDetails = en.getByTestId("nearby-details-5");
+    await en.getByTestId("nearby-details-toggle-5").click();
+    await missingDetails.waitFor();
+    assert.equal(
+      await en
+        .getByTestId("nearby-missing-results")
+        .locator('[data-testid^="point-photo-"]')
+        .count(),
+      0,
+    );
+    await en.getByTestId("nearby-details-toggle-5").click();
     assert.ok(
       (await en.getByTestId("nearby-missing-results").innerText()).includes(
         "not collection recommendations",
@@ -311,7 +361,7 @@ async function noOverflow(page) {
     });
     const d = await denied.newPage();
     await d.goto(baseUrl + "/");
-    await d.getByTestId("home-nearby-action").click();
+    await d.getByTestId("tab-nearby").click();
     await d
       .getByText(
         "Sijaintilupaa ei annettu. Yritä uudelleen tai salli sijainti sovelluksen asetuksissa.",
@@ -325,7 +375,7 @@ async function noOverflow(page) {
     await observeLocation(held, true);
     const h = await held.newPage();
     await h.goto(baseUrl + "/");
-    await h.getByTestId("home-nearby-action").click();
+    await h.getByTestId("tab-nearby").click();
     await h.getByTestId("nearby-cancel").waitFor();
     await h.waitForFunction(() => window.qaLocation.watch === 1);
     await h.getByTestId("nearby-cancel").click();

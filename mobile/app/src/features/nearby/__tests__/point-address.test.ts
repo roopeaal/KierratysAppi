@@ -1,6 +1,10 @@
 import type { CollectionPoint } from "@kierratysappi/contracts/collection-points";
 import { afterEach, expect, it, vi } from "vitest";
-import { normalizePointAddress, resolvePointAddress } from "../point-address";
+import {
+  createPointAddressLookup,
+  normalizePointAddress,
+  resolvePointAddress,
+} from "../point-address";
 
 const point: CollectionPoint = {
   id: "node/1",
@@ -35,7 +39,7 @@ it("normalizes bounded street/locality without mistaking POI names for point ide
 it("sends only the public point coordinates and handles absent/provider failures", async () => {
   const lookup = vi.fn(async () => [{ city: "Town" }]);
   expect(await resolvePointAddress(point, lookup, new AbortController().signal)).toBe("Town");
-  expect(lookup).toHaveBeenCalledWith({ latitude: 60, longitude: 25 });
+  expect(lookup).toHaveBeenCalledWith({ latitude: 60, longitude: 25 }, expect.any(AbortSignal));
   expect(await resolvePointAddress(point, async () => [], new AbortController().signal)).toBeNull();
   expect(
     await resolvePointAddress(
@@ -56,6 +60,50 @@ it("bounds a stalled lookup and ignores a late result", async () => {
   );
   await vi.advanceTimersByTimeAsync(5000);
   expect(await result).toBeNull();
+});
+
+it("keeps published addresses and estimates unaddressed points in order", async () => {
+  const done = Promise.withResolvers<unknown>();
+  const native = vi
+    .fn()
+    .mockReturnValueOnce(done.promise)
+    .mockResolvedValue([{ city: "Second" }]);
+  const read = createPointAddressLookup(native);
+  const { signal } = new AbortController();
+  expect(await read({ ...point, address: "Published address" }, signal)).toBeNull();
+  const first = read(point, signal);
+  const coordinates = { latitude: 61, longitude: 24 };
+  const second = read({ ...point, id: "node/2", coordinates }, signal);
+  await Promise.resolve();
+  expect(native).toHaveBeenCalledTimes(1);
+  done.resolve([{ city: "First" }]);
+  expect(await first).toBe("First");
+  expect(await second).toBe("Second");
+  expect(native).toHaveBeenLastCalledWith(coordinates, expect.any(AbortSignal));
+});
+
+it("does not dispatch queued work after cancel or timeout, or overlap a slow OS request", async () => {
+  vi.useFakeTimers();
+  const done = Promise.withResolvers<unknown>();
+  const native = vi
+    .fn()
+    .mockReturnValueOnce(done.promise)
+    .mockResolvedValue([{ city: "Fresh" }]);
+  const read = createPointAddressLookup(native);
+  const first = read(point, new AbortController().signal);
+  const cancelled = new AbortController();
+  const queued = read(point, cancelled.signal);
+  const expires = read(point, new AbortController().signal);
+  await Promise.resolve();
+  cancelled.abort();
+  expect(await queued).toBeNull();
+  await vi.advanceTimersByTimeAsync(5000);
+  expect(await first).toBeNull();
+  expect(await expires).toBeNull();
+  expect(native).toHaveBeenCalledTimes(1);
+  done.resolve([{ city: "Late" }]);
+  expect(await read(point, new AbortController().signal)).toBe("Fresh");
+  expect(native).toHaveBeenCalledTimes(2);
 });
 it("does not look up an aborted request and cancels outstanding work", async () => {
   const controller = new AbortController();

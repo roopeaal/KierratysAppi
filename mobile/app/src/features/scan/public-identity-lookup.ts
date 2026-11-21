@@ -1,8 +1,16 @@
+import type { ProductLookupResult } from "@kierratysappi/contracts/lookup-schema";
 import {
-  ProductLookupResultSchema,
-  type ProductLookupResult,
-} from "@kierratysappi/contracts/lookup-schema";
-import { GtinSchema, type Gtin, type Language } from "@kierratysappi/domain";
+  type FieldProvenance,
+  type Gtin,
+  GtinSchema,
+  type Language,
+  type MaterialFamily,
+  type ObservedField,
+  type PackagingComponentObservation,
+  PackagingShapeSchema,
+} from "@kierratysappi/domain";
+import { barcodeProductResult } from "./barcode-product-result";
+
 type FetchPort = (url: string, init: RequestInit) => Promise<Response>;
 const maxBytes = 65536;
 const safeText = (v: unknown, max: number) =>
@@ -18,6 +26,60 @@ const unavailable = (gtin: Gtin): ProductLookupResult => ({
   gtin,
   retryable: true,
 });
+const materialByTag = new Map<string, MaterialFamily>([
+  ["en:plastic", "plastic"],
+  ["en:pet-1-polyethylene-terephthalate", "plastic"],
+  ["en:hdpe-2-high-density-polyethylene", "plastic"],
+  ["en:ldpe-4-low-density-polyethylene", "plastic"],
+  ["en:pp-5-polypropylene", "plastic"],
+  ["en:glass", "glass"],
+  ["en:metal", "metal"],
+  ["en:aluminium", "metal"],
+  ["en:steel", "metal"],
+  ["en:paper", "paper"],
+  ["en:cardboard", "carton"],
+  ["en:paperboard", "carton"],
+]);
+const shapeAliases = new Map([
+  ["en:drink-can", "can"],
+  ["en:bottle-cap", "cap"],
+  ["en:wrapper", "wrap"],
+  ["en:film", "wrap"],
+]);
+
+function taxonomyTag(value: unknown) {
+  const tag = safeText(record(value)?.id ?? value, 100);
+  return tag && /^en:[a-z0-9-]+$/.test(tag) ? tag : undefined;
+}
+
+function publicPackaging(
+  input: unknown,
+  provenance: FieldProvenance,
+): PackagingComponentObservation[] {
+  if (!Array.isArray(input)) return [];
+  const observed = <T>(value: T): ObservedField<T> => ({ value, provenance });
+  return input.slice(0, 32).flatMap((value, index) => {
+    const row = record(value);
+    const shapeTag = taxonomyTag(row?.shape);
+    if (!shapeTag) return [];
+    const shape = PackagingShapeSchema.safeParse(shapeAliases.get(shapeTag) ?? shapeTag.slice(3));
+    if (!shape.success || shape.data === "other" || shape.data === "unknown") return [];
+    const material = materialByTag.get(taxonomyTag(row?.material) ?? "");
+    const possibleDeposit = shape.data === "bottle" || shape.data === "can";
+    if (!material && !possibleDeposit) return [];
+    return [
+      {
+        id: `off-component-${index + 1}`,
+        packagingStatus: observed("packaging"),
+        shape: observed(shape.data),
+        ...(material ? { materialFamily: observed(material) } : {}),
+        ...(possibleDeposit ? { depositReturnStatus: observed("unknown") } : {}),
+        conditions: { hazardousResidue: "unknown", pressurized: "unknown", emptied: "unknown" },
+      },
+    ];
+  });
+}
+
 export function normalizePublicIdentity(
   payload: unknown,
   gtin: Gtin,
@@ -36,7 +98,7 @@ export function normalizePublicIdentity(
   const name =
     safeText(product[`product_name_${language}`], 160) ?? safeText(product.product_name, 160);
   const brand = safeText(product.brands, 240);
-  const provenance = {
+  const provenance: FieldProvenance = {
     sourceId: "open-food-facts",
     sourceName: "Open Food Facts contributors",
     sourceRecordId: gtin,
@@ -52,20 +114,26 @@ export function normalizePublicIdentity(
       shareAlike: true,
     },
   };
-  return ProductLookupResultSchema.parse({
-    status: "packaging_missing",
-    gtin,
-    product: {
+  const packagingComponents = publicPackaging(product.packagings, {
+    ...provenance,
+    confidence: 0.55,
+  });
+  return barcodeProductResult(
+    {
       gtin,
       ...(name ? { name: { value: name, provenance } } : {}),
       ...(brand ? { brands: { value: [brand], provenance } } : {}),
-      packagingCompleteness: { value: "unknown", provenance },
-      packagingComponents: [],
+      packagingCompleteness: {
+        value: packagingComponents.length ? "partial" : "unknown",
+        provenance,
+      },
+      packagingComponents,
     },
-    missingFields: ["packagingComponents"],
-    provider: { id: "open-food-facts", name: "Open Food Facts" },
-    cache: { hit: false, storedAt: now, expiresAt: now },
-  });
+    { id: "open-food-facts", name: "Open Food Facts" },
+    { hit: false, storedAt: now, expiresAt: now },
+    language,
+    now,
+  );
 }
 export function createPublicIdentityLookup(fetcher: FetchPort, now = Date.now) {
   const requests: number[] = [];
@@ -88,7 +156,7 @@ export function createPublicIdentityLookup(fetcher: FetchPort, now = Date.now) {
       const url = new URL(`https://world.openfoodfacts.org/api/v3/product/${gtin}`);
       url.searchParams.set(
         "fields",
-        "code,product_type,product_name,product_name_fi,product_name_en,brands",
+        "code,product_type,product_name,product_name_fi,product_name_en,brands,packagings",
       );
       url.searchParams.set("lc", language);
       url.searchParams.set("cc", "fi");

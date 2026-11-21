@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
+
 const read = (file) => fs.readFileSync(`mobile/app/src/${file}`, "utf8");
 
 test("all guidance families expose explicit recording without background saves", () => {
@@ -37,6 +38,29 @@ test("unknown material selection cannot silently default or bypass confirmation"
   assert.match(action, /pending\.current \?\?=/);
   assert.match(action, /material: chosenMaterial/);
   assert.doesNotMatch(action, /material:.*\?\?.*"other"/);
+});
+test("the material stamp is based on a persisted record and never blocks save or text feedback", () => {
+  const action = read("components/recycle-action.tsx");
+  const commit = action.indexOf("await recordRecycling(intended)");
+  assert.ok(commit > 0);
+  assert.match(action.slice(commit), /setSavedMaterial\(saved\?\.material\)/);
+  assert.match(action.slice(commit), /saveView === loadVersion\.current/);
+  assert.match(action.slice(commit), /saved\?\.recycledAt === intended\.recycledAt/);
+  assert.match(action, /motionAllowed && isPointerActivation\(event\.nativeEvent/);
+  assert.match(action, /<RecyclingStamp material=\{savedMaterial\} play=\{animateStamp\}/);
+  assert.match(action, /accessibilityLiveRegion="polite" testID="recycle-saved"/);
+  assert.match(action, /t\("recyclingAlreadySaved"\)/);
+  assert.match(action, /setAnimateStamp\(false\)/);
+});
+test("the one-shot receipt honours motion changes and stays decorative", () => {
+  const stamp = read("components/recycling-stamp.tsx");
+  assert.match(stamp, /if \(!play \|\| played\.current\) return;/);
+  assert.match(stamp, /if \(!motionAllowed\) return;/);
+  assert.match(stamp, /animation\.stop\(\)/);
+  assert.match(stamp, /drop\?\.cancel\(\)/);
+  assert.match(stamp, /pointerEvents="none"/);
+  assert.match(stamp, /importantForAccessibility="no-hide-descendants"/);
+  assert.doesNotMatch(stamp, /setTimeout|setInterval|Animated\.loop|duration: 0/);
 });
 test("a point's recycling record does not retain the point name, address or coordinates", () => {
   const card = read("components/nearby-point-card.tsx");

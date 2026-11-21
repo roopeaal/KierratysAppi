@@ -1,7 +1,8 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Keyboard, StyleSheet, TextInput, View } from "react-native";
+import { Keyboard, StyleSheet, View } from "react-native";
 import {
+  AppInput,
   AppText,
   Button,
   PageHeader,
@@ -45,7 +46,7 @@ export default function ManualEntryScreen() {
           <AppText variant="label" nativeID="gtin-label">
             {t("gtinLabel")}
           </AppText>
-          <TextInput
+          <AppInput
             accessibilityLabel={t("gtinLabel")}
             accessibilityLabelledBy="gtin-label"
             accessibilityHint={t("gtinHint")}

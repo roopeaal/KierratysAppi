@@ -4,9 +4,11 @@ import { View } from "react-native";
 import { guideLibrary } from "@/features/guide/library";
 import { recyclingIntent } from "@/features/overview/recording";
 import { openExternalUrl } from "@/features/security/external-links";
+import { hsyCategoryIcon } from "@/features/sorting/category-icons";
 import { useLanguage } from "@/i18n/language-context";
+import { MaterialStudy } from "./material-study";
 import { RecyclingRecordAction } from "./recycle-action";
-import { AppText, InlineLink, Paper, StatusPill, sharedStyles } from "./ui";
+import { AppText, GuidanceHeading, InlineLink, Paper, StatusPill, sharedStyles } from "./ui";
 export function SourceGuideResult({ item }: { item: GuideLibraryItem }) {
   const { language, t } = useLanguage();
   const [recordingScope] = useState(() => ({}));
@@ -15,14 +17,16 @@ export function SourceGuideResult({ item }: { item: GuideLibraryItem }) {
   const data = item[language];
   return (
     <Paper testID="source-guide-result">
-      <AppText
-        variant="heading"
-        accessibilityRole="header"
-        accessibilityLiveRegion="polite"
-        testID="source-guide-title"
-      >
-        {data.title}
-      </AppText>
+      <GuidanceHeading>
+        <AppText
+          variant="heading"
+          accessibilityRole="header"
+          accessibilityLiveRegion="polite"
+          testID="source-guide-title"
+        >
+          {data.title}
+        </AppText>
+      </GuidanceHeading>
       <StatusPill label={t("guideSourceRegion")} tone="pine" />
       <AppText variant="small" muted>
         {t("confidenceLabel")}: {t("guideSourceAssumption")}
@@ -30,9 +34,15 @@ export function SourceGuideResult({ item }: { item: GuideLibraryItem }) {
       {data.wasteTypes.length > 0 && (
         <View style={sharedStyles.tightStack}>
           <AppText variant="label">{t("guideSourceWasteTypes")}</AppText>
-          {data.wasteTypes.map((v) => (
-            <AppText key={v.id}>{v.title}</AppText>
-          ))}
+          {data.wasteTypes.map((v) => {
+            const category = hsyCategoryIcon(v.id);
+            return (
+              <View key={v.id} style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
+                {category && <MaterialStudy material={category} size={30} />}
+                <AppText style={sharedStyles.grow}>{v.title}</AppText>
+              </View>
+            );
+          })}
         </View>
       )}
       {data.instructions.length > 0 && (
