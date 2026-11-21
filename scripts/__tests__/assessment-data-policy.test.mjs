@@ -51,6 +51,12 @@ test("the camera manual barcode action shares the expanded lookup, not the five-
   assert.doesNotMatch(local, /offlineCatalogue\?\.lookup/);
   assert.doesNotMatch(copy, /contains 5 products|on nyt 5 tuotetta/);
 });
+test("native press feedback passes only the React Native pressed state", () => {
+  const press = read("mobile/app/src/components/tactile-pressable.tsx");
+  assert.match(press, /style\(\{ pressed: nativePressed && !props\.disabled \}\)/u);
+  assert.match(press, /typeof style === "function" \? style\(state\)/u);
+});
+
 test("decorative motion is short, interruptible and never hides an answer", () => {
   const motion = read("mobile/app/src/features/accessibility/motion-context.tsx");
   for (const marker of [

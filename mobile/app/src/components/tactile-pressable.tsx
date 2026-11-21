@@ -97,7 +97,7 @@ export function TactilePressable({
       onBlur={blur}
       style={[
         typeof style === "function"
-          ? style({ pressed: nativePressed && !props.disabled, hovered: false })
+          ? style({ pressed: nativePressed && !props.disabled })
           : [style, nativePressed && !props.disabled && { opacity: 0.9 }],
         motion && { transform: [{ scale }] },
       ]}

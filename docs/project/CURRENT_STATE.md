@@ -5,6 +5,9 @@
   the chart still covers seven days. On standalone iPhone build 0.1.0 (29),
   the owner confirmed the app stayed light and the shortcut opened.
 
+- Native tactile buttons pass React Native's `pressed` state without a
+  web-only hover field. Browser interaction and reduced motion are unchanged.
+
 - Direct barcode lookup reads structured Open Food Facts packaging and
   refreshes name-only results online. A separate, manually checked Finnish
   packaging record for `6415600502078` supplies the 1.5 L deposit bottle offline.
