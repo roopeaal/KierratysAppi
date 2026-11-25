@@ -1,5 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { Animated, Easing, Platform, Pressable, type PressableProps } from "react-native";
+import {
+  Animated,
+  Easing,
+  Platform,
+  Pressable,
+  type PressableProps,
+  type StyleProp,
+  type ViewStyle,
+} from "react-native";
 import { isPointerActivation, pressMotion } from "@/features/accessibility/motion";
 import { useInteractionMotion } from "@/features/accessibility/motion-context";
 
@@ -7,14 +15,14 @@ const web = Platform.OS === "web";
 const NativePressable = Animated.createAnimatedComponent(Pressable);
 const releaseEase = Easing.bezier(...pressMotion.easeOut);
 
+// Expo web augments React Native's callback type with a required hover field.
+// This shared control promises only the pressed state available on both platforms.
+type TactileProps = Omit<PressableProps, "style"> & {
+  style?: StyleProp<ViewStyle> | ((state: { readonly pressed: boolean }) => StyleProp<ViewStyle>);
+};
+
 /** Pointer-down is immediate; only the return to rest eases. Keep the original target. */
-export function TactilePressable({
-  style,
-  onPressIn,
-  onPressOut,
-  onBlur,
-  ...props
-}: PressableProps) {
+export function TactilePressable({ style, onPressIn, onPressOut, onBlur, ...props }: TactileProps) {
   const motion = useInteractionMotion() && !props.disabled;
   const [pointerDown, setPointerDown] = useState(false);
   const [nativePressed, setNativePressed] = useState(false);

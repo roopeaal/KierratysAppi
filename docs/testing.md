@@ -1,5 +1,18 @@
 # Testaus
 
+**Arviointiversion tarkistus 25.11.2026, Mac / Chrome 158:** puhdas
+lockfile-asennus tiimin mainista ja korjatun press-state-tyypin tarkistus
+Expo Webin käynnistyksen jälkeen. `pnpm validate:mobile` ja `pnpm validate`
+läpäisivät (2 185 testiä); `pnpm security:audit` raportoi 0 tiedotetta.
+`assessment-browser.mjs --barcode-only`: 24 tarkistusta (FI/EN,
+320/390 px); tunnettu pullo antoi Palpa-ohjeen ilman ulkoista hakua,
+simuloitu 404 ei antanut astiaa ja vei yleisohjeeseen. Testivastaukset
+eivät ole uutta tuotetietoa. `pnpm test:web:recognition`: 9 tarkistusta
+oikealla paikallisella SigLIP2:lla; lupa ennen lähetystä, lusikan lähteistetty
+metalliohje, yksi säilyvä Yhteenveto-merkintä ja EN-pysyvyys.
+Ei uutta fyysisen kameran, iOS-/Android-asennuksen tai julkaisupalvelimen
+varmennusta. [Toista selaimessa](setup.md#esittele-selaimessa).
+
 ```sh
 pnpm validate
 pnpm security:audit

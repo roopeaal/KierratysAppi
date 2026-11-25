@@ -39,6 +39,7 @@ pnpm dev:expo-go
 ```
 
 [Expo Gon, selaimen ja palvelinten asetukset](docs/setup.md).
+Katso myös [lyhyt selaimen esittelypolku](docs/setup.md#esittele-selaimessa).
 
 ## Testit
 

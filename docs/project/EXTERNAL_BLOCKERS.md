@@ -1,5 +1,7 @@
 # External blockers
 
+- [Scheduled Security run 45200890454](https://github.com/roopeaal/KierratysAppi/actions/runs/45200890454) on the pre-assessment main commit reported eight Gitleaks matches. The owner must review and revoke/rotate any credential that is still live. This assessment does not rewrite history, dismiss the matches, or relax scanning.
+
 - A broad Finnish offline barcode-to-packaging expansion still needs a
   source with verified bulk reuse rights and coverage. The manually reviewed
   single-GTIN observation and online Open Food Facts lookup do not depend on it.

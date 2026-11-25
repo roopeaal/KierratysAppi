@@ -4,8 +4,9 @@
   build 29 source for the team’s `main`, without local experiment history.
   Keep build 28 as the local rollback and leave KeepItGreen unchanged.
 
-- Keep the native style callback on React Native's public press-state type.
-  The browser receives its original state; no type cast or CI exception.
+- The shared tactile button exposes the common `pressed` style field.
+  The browser receives its original state; no type cast, native hover
+  simulation or CI exception.
 
 - Keep one light palette across Home, utility pages and app chrome. Do not
   change the system preference or reduced-motion behaviour. Use the same

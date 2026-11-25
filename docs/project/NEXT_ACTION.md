@@ -1,3 +1,3 @@
 # Next action
 
-On iPhone build 29 in airplane mode, enter barcode 6415600502078 and verify that the result directs the bottle to a retail return point.
+Before any public deployment, investigate the existing full-history Gitleaks findings from Security run 45200890454 with the repository owner, without reproducing secret values or weakening the scanner.

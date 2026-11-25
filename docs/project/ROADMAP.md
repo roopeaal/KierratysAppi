@@ -4,6 +4,7 @@
 - [x] Install and launch iPhone build 29 for owner testing.
 - [x] Confirm the fixed light appearance and Home Overview shortcut on the physical iPhone.
 - [x] Correct the native press-state type for clean dependency installs.
+- [x] Add a short school assessment walkthrough and replay real browser recognition, safe barcode recovery, saved recycling and persistent language.
 
 - [x] Use structured public packaging data and add the exact checked Finnish Coca-Cola Zero deposit bottle offline.
 - [ ] Review licensed coverage before expanding the offline packaging catalogue beyond individually checked variants.

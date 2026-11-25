@@ -71,6 +71,14 @@ try {
       if (route.request().url().startsWith(base)) return route.continue();
       remoteRequests++;
       if (
+        route
+          .request()
+          .url()
+          .startsWith("https://world.openfoodfacts.org/api/v3/product/2000000000008?")
+      ) {
+        return route.fulfill({ status: 404, body: "" });
+      }
+      if (
         fixture &&
         route.request().url().includes("world.openfoodfacts.org/api/v3/product/6410405196811")
       ) {
@@ -236,6 +244,14 @@ try {
     assert.equal(remoteRequests, before, "reviewed packaging must not make network requests");
     await inspect("reviewed-deposit-offline");
     await page.goto(base + "/manual");
+    await get("manual-gtin-input").fill("2000000000008");
+    await get("manual-submit-action").click();
+    await get("result-not-found-screen").waitFor();
+    assert.equal(await get("sorting-result-resolved").count(), 0);
+    await get("result-secondary-action").click();
+    await get("guide-screen").waitFor();
+    await inspect("unrecognized-code-manual-guide");
+    await page.goto(base + "/manual");
     await get("manual-gtin-input").fill("0643435694897");
     await get("manual-submit-action").click();
     await get("packaging-missing-result").waitFor();
@@ -281,7 +297,7 @@ try {
     if (barcodeOnly) {
       await context.close();
       console.log(
-        `PASS ${language}/${colorScheme}: offline deposit and identity, live upgrade, saved guidance`,
+        `PASS ${language}/${colorScheme}: offline deposit, unknown code → manual guide, identity upgrade fixture, saved guidance`,
       );
       continue;
     }

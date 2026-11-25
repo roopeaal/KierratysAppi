@@ -38,6 +38,32 @@ Selaimen kamera tarvitsee localhost- tai HTTPS-osoitteen sekä käyttöluvan.
 Kuvan valitseminen tiedostosta toimii ilman kameraa. Windowsin selain ei ole
 Expo Go; Expo Go voidaan avata erikseen Android-emulaattorissa.
 
+## Esittele selaimessa
+
+Tee kerran tämän sivun Windows- tai Mac-asennus. Käynnistä sitten
+`pnpm dev:web:recognition`, pidä pääte auki ja avaa
+[localhost:8097](http://localhost:8097). Mallin lataaminen tarvitsee netin;
+kuvatunnistus pyörii esittelykoneella eikä vaadi maksullista palvelua.
+
+1. **Tunnista → Syötä koodi käsin → `6415600502078`.** Coca-Cola Zero Sugar
+   -pullon tarkistettu ohje on **Kaupan palautusautomaatti**. Tämä ohje löytyy
+   ilman verkkotuotehakua. Koodi `0643435694897` puolestaan näyttää, mitä
+   tapahtuu kun tuote tunnetaan mutta pakkaustieto puuttuu: appi ei arvaa astiaa.
+2. **Tunnista → Tunnista tuote tekoälyllä.** Käytä
+   [lusikan testikuvaa](../mobile/app/modules/local-vision/android/src/androidTest/assets/parity/commons-2-clean.jpg).
+   Hyväksy lähetys omalle koneelle, vahvista Lusikka ja valitse Metalli.
+   Tulos näyttää Metallinkeräyksen ja ohjeen lähteen. Jos mallin ehdotus
+   on väärä, käytä muita vaihtoehtoja tai käsin valittavaa lajitteluopasta.
+3. **Merkitse kierrätetyksi → Kyllä, kierrätetty → Yhteenveto.**
+   Merkintä säilyy tässä selaimessa. Halutessasi vaihda asetuksista
+   englantiin ja päivitä sivu: valinta säilyy.
+
+Kuvantunnistus toimii tiedostolla ilman kameraa. Jos paikallinen
+tunnistuspalvelin ei käynnisty, viivakoodin ja lajitteluoppaan voi esitellä
+käynnistämällä selaimen erikseen: `pnpm dev:web`, [localhost:8097](http://localhost:8097).
+Natiivi offline-tunnistus ei ole tämän selainajon testitulos.
+[Testaus ja tunnetut rajat](testing.md).
+
 ## Expo Go
 
 Perustoiminnot:

@@ -102,6 +102,9 @@ try {
   evidence.cases.push(
     "Actual JPEG → no-upload preview → consent → real SigLIP spoon → chosen metal → sourced guidance",
   );
+  await page.getByTestId("recycle-mark-action").click();
+  await page.getByTestId("recycle-confirm-action").click();
+  await expect(page.getByText(/Tallennettu yhteenvetoon/u)).toBeVisible();
   // A PNG exercises browser decode/canvas/re-encode, not only direct bounded JPEG reuse.
   const png = await page.evaluate(async (jpeg) => {
     const image = new Image();
@@ -162,6 +165,12 @@ try {
   await page.getByTestId("network-photo-cancel").click();
   assert.equal(posts.length, 2);
   evidence.cases.push("Fake camera capture → preview → cancel, no upload");
+  await page.goto(`${base}/overview`);
+  await expect(page.getByTestId("overview-total")).toHaveText("1");
+  await page.reload();
+  await expect(page.getByTestId("overview-total")).toHaveText("1");
+  await page.screenshot({ path: path.join(run, "browser-overview.png"), fullPage: true });
+  evidence.cases.push("Confirmed metal guidance → saved once → Overview persists after reload");
   await page.goto(`${base}/settings`);
   await page.getByRole("radio", { name: "English", exact: true }).click();
   await page.goto(`${base}/local-photo`);

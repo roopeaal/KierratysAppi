@@ -1,5 +1,7 @@
 # Current state
 
+- The school assessment uses the existing team app and its [browser walkthrough](../setup.md#esittele-selaimessa). A fresh install reproduced the web-enhanced native press-state type mismatch; the shared style callback now promises only `pressed`. No new device binary, experimental model, or public release is included.
+
 - The 2026-11-21 team snapshot uses one light canvas for Home, utility pages,
   startup and browser chrome. Home says “Katso yhteenveto” / “View summary”;
   the chart still covers seven days. On standalone iPhone build 0.1.0 (29),
