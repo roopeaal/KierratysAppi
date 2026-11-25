@@ -1,18 +1,5 @@
 # Testaus
 
-**Arviointiversion tarkistus 25.11.2026, Mac / Chrome 158:** puhdas
-lockfile-asennus tiimin mainista ja korjatun press-state-tyypin tarkistus
-Expo Webin käynnistyksen jälkeen. `pnpm validate:mobile` ja `pnpm validate`
-läpäisivät (2 185 testiä); `pnpm security:audit` raportoi 0 tiedotetta.
-`assessment-browser.mjs --barcode-only`: 24 tarkistusta (FI/EN,
-320/390 px); tunnettu pullo antoi Palpa-ohjeen ilman ulkoista hakua,
-simuloitu 404 ei antanut astiaa ja vei yleisohjeeseen. Testivastaukset
-eivät ole uutta tuotetietoa. `pnpm test:web:recognition`: 9 tarkistusta
-oikealla paikallisella SigLIP2:lla; lupa ennen lähetystä, lusikan lähteistetty
-metalliohje, yksi säilyvä Yhteenveto-merkintä ja EN-pysyvyys.
-Ei uutta fyysisen kameran, iOS-/Android-asennuksen tai julkaisupalvelimen
-varmennusta. [Toista selaimessa](setup.md#esittele-selaimessa).
-
 ```sh
 pnpm validate
 pnpm security:audit
@@ -21,7 +8,7 @@ pnpm security:audit
 Sijainti: Chrome tarkisti FI/EN-kuvatunnistuksen automaattisen HSY-ohjeen ja aluevalinnan varapolun testivastauksilla sekä selaimen karttavaravaihtoehdon osoitteettomalle pisteelle. Natiivin osoitearvion yksikkötestit kattavat julkiset pistekoordinaatit, yhden pyynnön kerrallaan, aikakatkaisun ja peruutuksen. `pnpm validate:mobile` ja `pnpm validate` (2 182 testiä) läpäisty. Natiivin karttapalvelua ei kokeiltu fyysisellä laitteella.
 Vaalea ilme ja etusivu: `light-appearance-browser` tarkisti yhdeksän näkymää suomeksi (390 px) ja englanniksi (320 px) oikeassa web-viennissä; selainasetuksen vaihto ei muuttanut värejä. ”Katso yhteenveto” avautui näppäimistöllä ja viikkokaavion aikajakso jäi ennalleen. `home-field-guide` läpäisi haun, kortit ja sijaintitestit. Laaja `assessment-browser` läpäisi kaikki neljä kieli-/selainasetusta kehitysviennissä, jossa kuvatunnistuksen osoite oli määritelty mutta verkkoliikenne estettiin tai simuloitiin. `pnpm validate:mobile`, `pnpm validate` (2 184 testiä) ja iOS-/Android-Hermes-viennit läpäisty. Expo-konfiguraatio tuotti iOS:lle Light- ja Androidille light-asetuksen. Ei fyysistä laitekoetta.
 Kuva- ja viivakoodipolut testattiin Chromessa FI/EN testivastauksilla: vahvistus, vaihtoehdot, lähde, tallennus, tyhjä tulos ja verkkokatko. Viivakoodikorjaus 19.11.: oikea OFF-haku koodille `6408430030309` palautti muovikalvon. Chromen `assessment-browser.mjs --barcode-only` läpäisi 20 vaihetta (FI/EN, vaalea/tumma, 390/320 px): `6415600502078` ja Palpan ohje ilman verkkopyyntöä, puuttuva tieto, sen täydentyminen ja tallennetun ohjeen käyttö ilman verkkoa. Koko vanha selainajo pysähtyi eri kuvatunnistusreitin näkymäselektoriin; tätä ajoa ei lasketa hyväksytyksi. `pnpm validate:mobile`, `pnpm validate` (2 201 testiä) ja iOS-/Android-Hermes-viennit läpäisty. Ei uutta puhelinasennusta.
-Vuorovaikutus 21.11.2026: `main`-haaran CI:n TS2353-virhe toistui puhtaalla frozen-asennuksella. Natiivi välittää vain `pressed`-tilan; selain välittää oman tilansa ennallaan. Regressiotesti epäonnistui ennen korjausta ja läpäisi sen jälkeen. Chrome tarkisti painalluksen, peruutuksen, näppäimistön, liikeasetuksen ja tallennusleiman. `pnpm validate:mobile`, `pnpm validate` (2 185 testiä) ja `pnpm security:audit` (0 löydöstä) läpäisivät. Paikallinen tietokantatestin aikakatkaisu ei toistunut; aikarajaa ei muutettu. Ei uutta puhelinasennusta.
+Arviointiversio 25.11.2026 (Mac, Chrome 158): puhdas frozen-asennus, `pressed`-tyypitys tarkistettu myös Expo Webin käynnistyksen jälkeen, `pnpm validate:mobile` ja `pnpm validate` läpi (2 185 testiä), riippuvuusauditissa 0 tiedotetta. Viivakooditesti: 24 FI/EN-tarkistusta, Palpa-ohje ilman ulkoista hakua ja testipalvelun 404 → yleisohje ilman arvattua astiaa. Oikea SigLIP2-selainkoe: 9 tarkistusta, lupa, lusikan lähteistetty metalliohje, säilyvä Yhteenveto-merkintä ja EN. Ei uutta laitekoetta. Aiemmalla Chromen vuorovaikutustestillä tarkistettiin painallus, peruutus, näppäimistö ja liikeasetus. [Toista selaimessa](setup.md#esittele-selaimessa).
 
 ## Tietoturvakovennus 18.11.2026 — julkaisupohja
 
