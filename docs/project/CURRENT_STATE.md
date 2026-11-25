@@ -1,5 +1,7 @@
 # Current state
 
+- The local assessment candidate recognizes three additional exact Saarioinen codes with seven cross-checked offline component routes; only reviewed parts are shown. The existing deposit control is unchanged. Community-only and benchmark records are not imported.
+
 - The school assessment uses the existing team app and its [browser walkthrough](../setup.md#esittele-selaimessa). A fresh install reproduced the web-enhanced native press-state type mismatch; the shared style callback now promises only `pressed`. No new device binary, experimental model, or public release is included.
 
 - The 2026-11-21 team snapshot uses one light canvas for Home, utility pages,

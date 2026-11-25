@@ -1,5 +1,7 @@
 # Decisions
 
+- Admit only the three previously corroborated non-benchmark OFF packs to the assessment lookup. Preserve OFF attribution, partial scope and the existing FI engine; never infer carton, metal or deposit from a brand name.
+
 - On 2026-11-21 the owner authorized a single reviewed snapshot of the tested
   build 29 source for the team’s `main`, without local experiment history.
   Keep build 28 as the local rollback and leave KeepItGreen unchanged.

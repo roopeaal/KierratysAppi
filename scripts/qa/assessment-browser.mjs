@@ -243,6 +243,43 @@ try {
     await get("product-result-screen").getByRole("link", { name: "S-kaupat" }).waitFor();
     assert.equal(remoteRequests, before, "reviewed packaging must not make network requests");
     await inspect("reviewed-deposit-offline");
+    for (const [code, expected] of [
+      ["6412000034840", ["plastic", "plastic", "carton"]],
+      ["6412000030149", ["metal", "carton"]],
+      ["6412000030507", ["metal", "carton"]],
+    ]) {
+      const labels =
+        language === "fi"
+          ? {
+              plastic: "Muovipakkausten keräys",
+              carton: "Kartonkipakkausten keräys",
+              metal: "Metallinkeräys",
+            }
+          : {
+              plastic: "Plastic packaging collection",
+              carton: "Carton packaging collection",
+              metal: "Metal collection",
+            };
+      const beforeReviewed = remoteRequests;
+      await page.goto(base + "/manual");
+      await get("manual-gtin-input").fill(code);
+      await get("manual-submit-action").click();
+      const parts = get("sorting-result-resolved");
+      await parts.first().waitFor();
+      assert.equal(await parts.count(), expected.length);
+      for (const [index, material] of expected.entries()) {
+        assert.match(await parts.nth(index).innerText(), new RegExp(labels[material], "u"));
+      }
+      assert.match(
+        await get("reviewed-packaging-partial").innerText(),
+        language === "fi" ? /vain tässä/u : /only the parts/u,
+      );
+      await get("product-result-screen")
+        .getByRole("link", { name: "Open Food Facts contributors" })
+        .waitFor();
+      assert.equal(remoteRequests, beforeReviewed, "reviewed parts resolve without a provider");
+      await inspect(`reviewed-pack-${code}`);
+    }
     await page.goto(base + "/manual");
     await get("manual-gtin-input").fill("2000000000008");
     await get("manual-submit-action").click();

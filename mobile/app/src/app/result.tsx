@@ -181,6 +181,12 @@ function ProductResult({
       ) : (
         <View style={styles.resultStack}>
           <SectionHeader title={t("packagingParts")} />
+          {provenance.verificationStatus === "verified" &&
+            result.product.packagingCompleteness.value === "partial" && (
+              <AppText variant="small" muted testID="reviewed-packaging-partial">
+                {t("reviewedPackagingPartial")}
+              </AppText>
+            )}
           {result.components.map(({ observation, sorting }, index) => (
             <Paper key={observation.id} style={styles.componentBlock}>
               <View style={sharedStyles.row}>

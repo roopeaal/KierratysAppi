@@ -49,6 +49,8 @@ kuvatunnistus pyörii esittelykoneella eikä vaadi maksullista palvelua.
    -pullon tarkistettu ohje on **Kaupan palautusautomaatti**. Tämä ohje löytyy
    ilman verkkotuotehakua. Koodi `0643435694897` puolestaan näyttää, mitä
    tapahtuu kun tuote tunnetaan mutta pakkaustieto puuttuu: appi ei arvaa astiaa.
+   Moniosainen esimerkki: `6412000034840` (Saarioisen laktoositon
+   riisipuuro) näyttää muoviosat ja kartonkiosan erikseen ilman verkkohakua.
 2. **Tunnista → Tunnista tuote tekoälyllä.** Käytä
    [lusikan testikuvaa](../mobile/app/modules/local-vision/android/src/androidTest/assets/parity/commons-2-clean.jpg).
    Hyväksy lähetys omalle koneelle, vahvista Lusikka ja valitse Metalli.

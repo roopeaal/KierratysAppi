@@ -10,6 +10,13 @@
   Tämä on yksittäinen, omin sanoin kirjattu havainto, ei kaupan tuotetietokanta.
   Mukana ei ole tuotekuvaa, kuvaustekstiä eikä tietoja korkista tai etiketistä.
   Havainto on erillään OFF-aineistosta; Palpa on palautusohjeen lähde.
+  Lisäksi kolme suomalaisen vähittäispakkauksen OFF-havaintoa on rajattu
+  valmistajan sivulta ristiintarkistettuihin osiin (25.11.2026):
+  [riisipuuro 6412000034840](https://www.saarioinen.fi/tuotteet/laktoositon-riisipuuro-270-g/),
+  [lihakaalilaatikko 6412000030149](https://www.saarioinen.fi/tuotteet/lihakaalilaatikko-380-g/) ja
+  [broilermakaronilaatikko 6412000030507](https://www.saarioinen.fi/tuotteet/broilermakaronilaatikko-400-g/).
+  ODbL/DbCL-attribuutio säilyy; valmistajan tekstiä, kuvia tai tuoteluetteloa
+  ei tuoda. Nämä eivät ole väitteitä kaikkien osien kattavuudesta.
 - **OpenStreetMap:** erillinen Suomen kierrätyspisteaineisto, ODbL 1.0,
   © OpenStreetMap contributors. Täysi aineisto, muunnin ja
   [tarkat oikeus-/päivitystiedot](../mobile/app/assets/data/README.md) ovat mukana.
