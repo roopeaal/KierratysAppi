@@ -1,3 +1,3 @@
 # Next action
 
-After explicit team-sharing approval, publish the reviewed three-GTIN assessment update to KierratysAppi/main and check CI and Security for the exact pushed commit.
+Before any public deployment, investigate the full-history Gitleaks findings in Security run 45200890454 without reproducing secret values or relaxing the scanner.

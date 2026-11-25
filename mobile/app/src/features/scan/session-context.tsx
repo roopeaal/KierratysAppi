@@ -19,8 +19,10 @@ import { localDataGeneration } from "@/features/security/local-data-generation";
 import { useLanguage } from "@/i18n/language-context";
 import { trackTechnicalEvent } from "@/telemetry/technical-events";
 import barcodeData from "../../../assets/data/off-finland-barcodes.json";
+import communityPackagingData from "../../../assets/data/fi-package-observations.json";
 import { LookupNetworkError, requestProductLookup } from "./api";
 import { createBarcodeLibraryLookup } from "./barcode-library";
+import { createCommunityPackagingLookup } from "./community-packaging-lookup";
 import { lookupWithIdentityBackup, shouldSaveOnlineLookup } from "./local-first-lookup";
 import { cachedLookup, cacheLookup } from "./lookup-cache";
 import { createPublicIdentityLookup } from "./public-identity-lookup";
@@ -59,12 +61,15 @@ const originalLookup = createRuntimeBarcodeLookup(
   publicOnlineLookup,
 );
 const bundled = createBarcodeLibraryLookup(barcodeData);
+const communityPackaging = createCommunityPackagingLookup(communityPackagingData);
 async function localFirstLookup(gtin: Gtin, language: "fi" | "en", signal: AbortSignal) {
   const generation = localDataGeneration();
   const reviewed = reviewedBarcodeLookup(gtin, language);
   if (reviewed) return reviewed;
   const cached = await cachedLookup(gtin, language);
   if (cached?.status === "resolved") return cached;
+  const community = communityPackaging(gtin, language);
+  if (community) return community;
   const backup = cached ?? bundled.lookup(gtin, language);
   const result = await lookupWithIdentityBackup(
     () => originalLookup(gtin, language, signal),

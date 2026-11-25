@@ -181,6 +181,12 @@ function ProductResult({
       ) : (
         <View style={styles.resultStack}>
           <SectionHeader title={t("packagingParts")} />
+          {provenance.verificationStatus === "community" &&
+            result.product.packagingCompleteness.value === "partial" && (
+              <AppText variant="small" muted testID="community-packaging-partial">
+                {t("communityPackagingPartial")}
+              </AppText>
+            )}
           {provenance.verificationStatus === "verified" &&
             result.product.packagingCompleteness.value === "partial" && (
               <AppText variant="small" muted testID="reviewed-packaging-partial">

@@ -4,6 +4,11 @@
   ODbL 1.0 -tietokanta ja DbCL-sisältö. Tuote ja pakkausosat voivat puuttua.
   Lähde ja lisenssi säilytetään kenttien provenienssissa. Mahdollisten
   tuotekuvien oikeudet käsitellään erikseen; kuvien oikeuksia ei johdeta tietokannasta.
+  [Offline-pakkaushavainnot](../mobile/app/assets/data/fi-package-observations.json)
+  ovat erillinen, [ODbL 1.0 / DbCL -lisensoitu](https://world.openfoodfacts.org/data)
+  aineisto: © Open Food Facts contributors, 93 Suomen markkinoiden kuluttajakoodia,
+  223 osaa, tarkistuspäivä 23.11.2026. Kukin havainto sisältää lähde-URL:n, revision
+  ja osan tunnisteen. Aineisto ei takaa osien oikeellisuutta eikä täydellistä kattavuutta.
 - **Tarkistetut pakkaushavainnot:** `6415600502078`, Coca-Cola Zero Sugar,
   1,5 l pantillinen muovipullo, tarkistettu 2026-11-19
   [S-kauppojen tuotetiedosta](https://www.s-kaupat.fi/tuote/coca-cola-zero-sugar-virvoitusjuoma-muovipullo-1-5-l/6415600502078).

@@ -38,6 +38,8 @@ const fi = {
   resultScope: "Yhteisötieto · tarkista pakkaus",
   reviewedPackagingScope: "Tarkistettu pakkaustieto · Suomi",
   reviewedPackagingPartial: "Ohje koskee vain tässä näkyviä pakkauksen osia.",
+  communityPackagingPartial:
+    "Pakkaustieto on yhteisön lisäämää eikä sitä ole varmennettu. Tarkista näkyvät osat pakkauksestasi.",
   languageLabel: "Kieli",
   finnish: "Suomi",
   english: "English",
@@ -263,6 +265,8 @@ const en: Record<keyof typeof fi, string> = {
   resultScope: "Community data · check the package",
   reviewedPackagingScope: "Checked packaging data · Finland",
   reviewedPackagingPartial: "Guidance covers only the parts shown here.",
+  communityPackagingPartial:
+    "Packaging details are community-contributed and unverified. Check the listed parts against your package.",
   languageLabel: "Language",
   finnish: "Suomi",
   english: "English",

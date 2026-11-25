@@ -51,6 +51,8 @@ kuvatunnistus pyörii esittelykoneella eikä vaadi maksullista palvelua.
    tapahtuu kun tuote tunnetaan mutta pakkaustieto puuttuu: appi ei arvaa astiaa.
    Moniosainen esimerkki: `6412000034840` (Saarioisen laktoositon
    riisipuuro) näyttää muoviosat ja kartonkiosan erikseen ilman verkkohakua.
+   Yhteisötiedon esimerkki: `3046920029759`. Sovellus kertoo tiedon olevan
+   varmentamatonta ennen osakohtaisia ohjeita.
 2. **Tunnista → Tunnista tuote tekoälyllä.** Käytä
    [lusikan testikuvaa](../mobile/app/modules/local-vision/android/src/androidTest/assets/parity/commons-2-clean.jpg).
    Hyväksy lähetys omalle koneelle, vahvista Lusikka ja valitse Metalli.

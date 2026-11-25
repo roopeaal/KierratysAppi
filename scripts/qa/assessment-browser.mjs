@@ -280,6 +280,33 @@ try {
       assert.equal(remoteRequests, beforeReviewed, "reviewed parts resolve without a provider");
       await inspect(`reviewed-pack-${code}`);
     }
+    for (const [code, resolved, unknown] of [
+      ["3046920029759", 2, 0],
+      ["6408430342099", 2, 1],
+      ["3267031070731", 0, 2],
+    ]) {
+      const beforeCommunity = remoteRequests;
+      await page.goto(base + "/manual");
+      await get("manual-gtin-input").fill(code);
+      await get("manual-submit-action").click();
+      const notice = get("community-packaging-partial");
+      await notice.waitFor();
+      assert.match(
+        await notice.innerText(),
+        language === "fi"
+          ? /Yhteisön|yhteisön.*ei.*varmennettu/u
+          : /community-contributed and unverified/u,
+      );
+      assert.equal(await get("reviewed-packaging-partial").count(), 0);
+      assert.equal(await get("sorting-result-resolved").count(), resolved);
+      assert.equal(await get("sorting-result-unknown").count(), unknown);
+      if (unknown) await get("result-manual-component-action").waitFor();
+      await get("product-result-screen")
+        .getByRole("link", { name: "Open Food Facts contributors" })
+        .waitFor();
+      assert.equal(remoteRequests, beforeCommunity, "bundled data makes no provider request");
+      await inspect(`community-pack-${code}`);
+    }
     await page.goto(base + "/manual");
     await get("manual-gtin-input").fill("2000000000008");
     await get("manual-submit-action").click();

@@ -1,6 +1,6 @@
 # Decisions
 
-- Admit only the three previously corroborated non-benchmark OFF packs to the assessment lookup. Preserve OFF attribution, partial scope and the existing FI engine; never infer carton, metal or deposit from a brand name.
+- Admit the licensed 93-code OFF part catalogue to assessment as partial, unverified community observations after reviewed data and previously resolved cache entries. Preserve exact GTIN, source revision, part-level attribution and Finnish policy; unknown parts never get an invented destination.
 
 - On 2026-11-21 the owner authorized a single reviewed snapshot of the tested
   build 29 source for the team’s `main`, without local experiment history.

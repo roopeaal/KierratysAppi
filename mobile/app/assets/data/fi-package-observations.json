@@ -1,0 +1,2794 @@
+{
+  "schema": "fi-exact-package-observations-v1",
+  "records": [
+    {
+      "gtin": "3046920029759",
+      "name": "Excellence: 90% cocoa Dark Supreme",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/3046920029759",
+        "revision": "api-v3.6.rev581@1795374804",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "sheet",
+          "material": "metal",
+          "evidence": "packagings[0] en:sheet + en:aluminium"
+        },
+        {
+          "shape": "sleeve",
+          "material": "carton",
+          "evidence": "packagings[1] en:sleeve + en:cardboard"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "3267031070731",
+      "name": "Camembert",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/3267031070731",
+        "revision": "api-v3.6.rev12@1789060098",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "box",
+          "material": "wood",
+          "evidence": "packagings[0] en:box + en:wood"
+        },
+        {
+          "shape": "wrap",
+          "material": "composite",
+          "evidence": "packagings[1] en:film + en:paper-and-plastic"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "4002971244403",
+      "name": "High Protein Hazelnut Pudding",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/4002971244403",
+        "revision": "api-v3.6.rev105@1795255717",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[0] en:pot + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "lid",
+          "material": "metal",
+          "evidence": "packagings[1] en:lid + en:aluminium"
+        },
+        {
+          "shape": "label",
+          "material": "plastic",
+          "evidence": "packagings[2] en:label + en:plastic"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "4056489062974",
+      "name": "Kanan sisäfilee yrtti & valkosipuli",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/4056489062974",
+        "revision": "api-v3.6.rev21@1774731710",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "wrap",
+          "material": "plastic",
+          "evidence": "packagings[0] fi:Kalvo + en:o-7-other-plastics"
+        },
+        {
+          "shape": "tub",
+          "material": "plastic",
+          "evidence": "packagings[1] fi:Rasia + en:plastic"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "4056489182627",
+      "name": "Savustettu salami",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/4056489182627",
+        "revision": "api-v3.6.rev53@1795028613",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cover",
+          "material": "plastic",
+          "evidence": "packagings[0] en:protection-cover + en:o-7-other-plastics"
+        },
+        {
+          "shape": "tray",
+          "material": "plastic",
+          "evidence": "packagings[1] en:tray + en:o-7-other-plastics"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "4056489253006",
+      "name": "Kreikkalainen jogurtti, maustamaton 6%",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/4056489253006",
+        "revision": "api-v3.6.rev19@1773322788",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "lid",
+          "material": "metal",
+          "evidence": "packagings[0] fi:Kansi + en:aluminium"
+        },
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[1] en:pot + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "label",
+          "material": "carton",
+          "evidence": "packagings[2] fi:Etiketti + en:non-corrugated-cardboard"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "4056489253020",
+      "name": "Raejuusto 1%",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/4056489253020",
+        "revision": "api-v3.6.rev24@1746448004",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "tub",
+          "material": "plastic",
+          "evidence": "packagings[0] fi:Rasia + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "inner-lid",
+          "material": "metal",
+          "evidence": "packagings[1] fi:Välikansi + en:aluminium"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "4056489454373",
+      "name": "Marinoitu broilerinliha",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/4056489454373",
+        "revision": "api-v3.6.rev17@1783020779",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "tub",
+          "material": "plastic",
+          "evidence": "packagings[0] fi:Rasia + en:o-7-other-plastics"
+        },
+        {
+          "shape": "cover",
+          "material": "plastic",
+          "evidence": "packagings[1] en:protection-cover + en:o-7-other-plastics"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "4056489466635",
+      "name": "Soya Blueberry soijajogurtti",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/4056489466635",
+        "revision": "api-v3.6.rev81@1789326466",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "lid",
+          "material": "metal",
+          "evidence": "packagings[0] fi:Kansi + en:aluminium"
+        },
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[1] en:pot + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "label",
+          "material": "paper",
+          "evidence": "packagings[2] fi:Etiketti + en:paper"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "4056489598527",
+      "name": "Kanan fileesuikale tacomaustettu",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/4056489598527",
+        "revision": "api-v3.6.rev20@1713964012",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "label",
+          "material": "carton",
+          "evidence": "packagings[0] fi:Etiketti + en:cardboard"
+        },
+        {
+          "shape": "wrap",
+          "material": "plastic",
+          "evidence": "packagings[1] fi:Kalvo + en:o-7-other-plastics"
+        },
+        {
+          "shape": "tub",
+          "material": "plastic",
+          "evidence": "packagings[2] fi:Rasia + en:pp-5-polypropylene"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "4056489599043",
+      "name": "Juustokastike cheddar laktoositon",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/4056489599043",
+        "revision": "api-v3.6.rev15@1720032474",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "lid",
+          "material": "plastic",
+          "evidence": "packagings[0] en:lid + en:pet-1-polyethylene-terephthalate"
+        },
+        {
+          "shape": "cover",
+          "material": "metal",
+          "evidence": "packagings[1] en:protection-cover + en:aluminium"
+        },
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[2] en:pot + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "label",
+          "material": "carton",
+          "evidence": "packagings[3] en:label + en:non-corrugated-cardboard"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "4740036016250",
+      "name": "Plant-based mango ygrt",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/4740036016250",
+        "revision": "api-v3.6.rev41@1771516811",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "seal",
+          "material": "metal",
+          "evidence": "packagings[0] en:seal + en:metal"
+        },
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[1] en:pot + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "sleeve",
+          "material": "carton",
+          "evidence": "packagings[2] en:sleeve + en:paperboard"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "5000184321064",
+      "name": "Majoneesi",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/5000184321064",
+        "revision": "api-v3.6.rev159@1795028782",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "lid",
+          "material": "metal",
+          "evidence": "packagings[0] en:lid + en:aluminium"
+        },
+        {
+          "shape": "jar",
+          "material": "glass",
+          "evidence": "packagings[1] en:jar + en:glass"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "5201194037406",
+      "name": "Aurinkokuivattu tomaatti öljyssä",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/5201194037406",
+        "revision": "api-v3.6.rev23@1771955588",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "jar",
+          "material": "glass",
+          "evidence": "packagings[0] en:jar + en:clear-glass"
+        },
+        {
+          "shape": "lid",
+          "material": "metal",
+          "evidence": "packagings[1] en:lid + en:metal"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "5411188125808",
+      "name": "No added Sugars* Mango",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/5411188125808",
+        "revision": "api-v3.6.rev618@1795159416",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[0] en:pot + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "seal",
+          "material": "metal",
+          "evidence": "packagings[1] en:seal + en:aluminium"
+        },
+        {
+          "shape": "sleeve",
+          "material": "carton",
+          "evidence": "packagings[2] en:sleeve + en:cardboard"
+        },
+        {
+          "shape": "lid",
+          "material": "plastic",
+          "evidence": "packagings[3] en:lid + en:rpet-transparent"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "5600449992352",
+      "name": "Dark chocolate with almond filling",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/5600449992352",
+        "revision": "api-v3.6.rev18@1713477119",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "box",
+          "material": "carton",
+          "evidence": "packagings[0] en:box + en:cardboard"
+        },
+        {
+          "shape": "wrap",
+          "material": "plastic",
+          "evidence": "packagings[1] en:wrapper + en:plastic"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "5690527983303",
+      "name": "Wanhanajan vanilja",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/5690527983303",
+        "revision": "api-v3.6.rev41@1795029011",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "lid",
+          "material": "plastic",
+          "evidence": "packagings[0] fi:Kansi + en:plastic"
+        },
+        {
+          "shape": "inner-lid",
+          "material": "plastic",
+          "evidence": "packagings[1] fi:Välikansi + en:pet-1-polyethylene-terephthalate"
+        },
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[2] en:pot + en:pp-5-polypropylene"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "5690845000737",
+      "name": "Skyr kinuski",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/5690845000737",
+        "revision": "api-v3.6.rev14@1709340032",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[0] en:pot + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "seal",
+          "material": "plastic",
+          "evidence": "packagings[1] en:seal + en:plastic"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "5690845001932",
+      "name": "Kerros Skyr granaattiomena-vadelma",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/5690845001932",
+        "revision": "api-v3.6.rev16@1709340108",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[0] en:pot + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "seal",
+          "material": "plastic",
+          "evidence": "packagings[1] en:seal + en:plastic"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "5690845002083",
+      "name": "Skyr Air Karamelli",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/5690845002083",
+        "revision": "api-v3.6.rev21@1748377067",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[0] en:pot + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "seal",
+          "material": "plastic",
+          "evidence": "packagings[1] en:seal + en:pet-1-polyethylene-terephthalate"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "5690845002090",
+      "name": "Skyr Air Banoffee",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/5690845002090",
+        "revision": "api-v3.6.rev27@1721127261",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[0] en:pot + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "seal",
+          "material": "plastic",
+          "evidence": "packagings[1] en:seal + en:pet-1-polyethylene-terephthalate"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "5690845002106",
+      "name": "Skyr Air mansikka-lime",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/5690845002106",
+        "revision": "api-v3.6.rev20@1721127370",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[0] en:pot + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "seal",
+          "material": "plastic",
+          "evidence": "packagings[1] en:seal + en:pet-1-polyethylene-terephthalate"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "5690845002113",
+      "name": "Skyr Air Passionhedelmä-vanilja",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/5690845002113",
+        "revision": "api-v3.6.rev29@1730093688",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[0] en:pot + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "seal",
+          "material": "plastic",
+          "evidence": "packagings[1] en:seal + en:pet-1-polyethylene-terephthalate"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "5690845002380",
+      "name": "Skyr Air Mango-orange",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/5690845002380",
+        "revision": "api-v3.6.rev21@1795112516",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[0] en:pot + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "seal",
+          "material": "plastic",
+          "evidence": "packagings[1] en:seal + en:pet-1-polyethylene-terephthalate"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "5690845002410",
+      "name": "Skyr Air vanilja",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/5690845002410",
+        "revision": "api-v3.6.rev28@1729959144",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[0] en:pot + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "seal",
+          "material": "plastic",
+          "evidence": "packagings[1] en:seal + en:pet-1-polyethylene-terephthalate"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "5690845002427",
+      "name": "Skyr Air Raspberry Lemon",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/5690845002427",
+        "revision": "api-v3.6.rev21@1755721806",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[0] en:pot + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "seal",
+          "material": "plastic",
+          "evidence": "packagings[1] en:seal + en:pet-1-polyethylene-terephthalate"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6405244331004",
+      "name": "Savusaunapalvirouhe",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6405244331004",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1716611978",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "tub",
+          "material": "plastic",
+          "evidence": "packagings[0] fi:Rasia + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "wrap",
+          "material": "plastic",
+          "evidence": "packagings[1] fi:Kalvo + en:o-7-other-plastics"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6405834004127",
+      "name": "Ohuen ohut uunikinkku",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6405834004127",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1724950155",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cover",
+          "material": "plastic",
+          "evidence": "packagings[0] en:protection-cover + en:o-7-other-plastics"
+        },
+        {
+          "shape": "tray",
+          "material": "plastic",
+          "evidence": "packagings[1] en:tray + en:o-7-other-plastics"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6405857314104",
+      "name": "Kanan rintafilee yrttiöljy",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6405857314104",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1794318636",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "label",
+          "material": "paper",
+          "evidence": "packagings[0] en:label + en:paper"
+        },
+        {
+          "shape": "cover",
+          "material": "plastic",
+          "evidence": "packagings[1] en:protection-cover + en:o-7-other-plastics"
+        },
+        {
+          "shape": "tray",
+          "material": "plastic",
+          "evidence": "packagings[2] en:tray + en:pp-5-polypropylene"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6405857331606",
+      "name": "Maustamaton kanan fileesuikale",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6405857331606",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1708171567",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "tub",
+          "material": "plastic",
+          "evidence": "packagings[0] fi:Rasia + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "label",
+          "material": "carton",
+          "evidence": "packagings[1] fi:Etiketti + en:cardboard"
+        },
+        {
+          "shape": "wrap",
+          "material": "plastic",
+          "evidence": "packagings[2] fi:Kalvo + en:plastic"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6407720025070",
+      "name": "Kananpojan hunaja fileesuikale",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6407720025070",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1794313776",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "tub",
+          "material": "plastic",
+          "evidence": "packagings[0] fi:Rasia + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "cover",
+          "material": "plastic",
+          "evidence": "packagings[1] en:protection-cover + en:o-7-other-plastics"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6407800009921",
+      "name": "Atria Kanapullat bearnaisekastikkeella",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6407800009921",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1693129280",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "wrap",
+          "material": "plastic",
+          "evidence": "packagings[0] en:film + en:plastic"
+        },
+        {
+          "shape": "tray",
+          "material": "plastic",
+          "evidence": "packagings[1] en:tray + en:plastic"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6407810018319",
+      "name": "Vuolu kanafilee fajitas",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6407810018319",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1781171508",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "tub",
+          "material": "plastic",
+          "evidence": "packagings[0] fi:Rasia + en:plastic"
+        },
+        {
+          "shape": "wrap",
+          "material": "plastic",
+          "evidence": "packagings[1] fi:Kalvo + en:o-7-other-plastics"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6408430142187",
+      "name": "Profeel maustettu raejuusto ananas mango",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6408430142187",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1794314090",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[0] en:pot + en:plastic"
+        },
+        {
+          "shape": "sleeve",
+          "material": "carton",
+          "evidence": "packagings[1] en:sleeve + en:paperboard"
+        },
+        {
+          "shape": "seal",
+          "material": "metal",
+          "evidence": "packagings[2] en:seal + en:metal"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6408430142194",
+      "name": "Profeel maustettu raejuusto uuniomena",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6408430142194",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1794313009",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[0] en:pot + en:plastic"
+        },
+        {
+          "shape": "sleeve",
+          "material": "carton",
+          "evidence": "packagings[1] en:sleeve + en:paperboard"
+        },
+        {
+          "shape": "seal",
+          "material": "metal",
+          "evidence": "packagings[2] en:seal + en:metal"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6408430341146",
+      "name": "Keisarinna kristallinen gouda",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6408430341146",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1794313734",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "box",
+          "material": "plastic",
+          "evidence": "packagings[0] en:box + en:recycled-plastic"
+        },
+        {
+          "shape": "sheet",
+          "material": "plastic",
+          "evidence": "packagings[1] en:sheet + en:plastic"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6408430342099",
+      "name": "Oddlygood veggie slices smoked",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6408430342099",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1704667592",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "tray",
+          "material": "plastic",
+          "evidence": "packagings[0] en:tray + en:plastic"
+        },
+        {
+          "shape": "wrap",
+          "material": "plastic",
+          "evidence": "packagings[1] en:film + en:plastic"
+        },
+        {
+          "shape": "label",
+          "material": "composite",
+          "evidence": "packagings[2] en:label + en:paper-and-plastic"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6408430347650",
+      "name": "Meksiko tuorejuusto",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6408430347650",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1712920761",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "tub",
+          "material": "plastic",
+          "evidence": "packagings[0] fi:Rasia + en:plastic"
+        },
+        {
+          "shape": "inner-lid",
+          "material": "metal",
+          "evidence": "packagings[1] fi:Välikansi + en:metal"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6408430400393",
+      "name": "Hi, protein! mango & passionfruit",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6408430400393",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1794320784",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "seal",
+          "material": "metal",
+          "evidence": "packagings[0] en:seal + en:aluminium"
+        },
+        {
+          "shape": "cup",
+          "material": "carton",
+          "evidence": "packagings[1] en:pot + en:paperboard"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6408430400409",
+      "name": "Hi, protein! Cherry",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6408430400409",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1794314615",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "carton",
+          "evidence": "packagings[0] en:pot + en:paperboard"
+        },
+        {
+          "shape": "lid",
+          "material": "metal",
+          "evidence": "packagings[1] en:lid + en:metal"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6408430400522",
+      "name": "Dreamy piña colada",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6408430400522",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1752715543",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "lid",
+          "material": "metal",
+          "evidence": "packagings[0] en:lid + en:metal"
+        },
+        {
+          "shape": "wrap",
+          "material": "carton",
+          "evidence": "packagings[1] en:wrapper + en:cardboard"
+        },
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[2] en:pot + en:plastic"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6408430407774",
+      "name": "Metsämarja Valiojogurtti 42",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6408430407774",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1773323380",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[0] en:pot + en:plastic"
+        },
+        {
+          "shape": "lid",
+          "material": "metal",
+          "evidence": "packagings[1] fi:Kansi + en:aluminium"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6408430408108",
+      "name": "Valio Herkku mousse mango-passion rahkavaahto",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6408430408108",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1717834849",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "wrap",
+          "material": "carton",
+          "evidence": "packagings[0] fi:Kääre + en:paperboard"
+        },
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[1] fi:Pikari + en:plastic"
+        },
+        {
+          "shape": "lid",
+          "material": "metal",
+          "evidence": "packagings[2] fi:Kansi + en:aluminium"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6408432003479",
+      "name": "Laktosfri Kvarg med Vanilj",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6408432003479",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1795273068",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[0] sv:bägare + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "lid",
+          "material": "plastic",
+          "evidence": "packagings[1] en:lid + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "wrap",
+          "material": "metal",
+          "evidence": "packagings[2] sv:folie + en:metal"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6408641203394",
+      "name": "Paprika-cashewpesto",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6408641203394",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1769780523",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "jar",
+          "material": "glass",
+          "evidence": "packagings[0] en:jar + en:clear-glass"
+        },
+        {
+          "shape": "lid",
+          "material": "metal",
+          "evidence": "packagings[1] en:lid + en:metal"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6408800007146",
+      "name": "Wotkin's lohikiusaus",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6408800007146",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1732792691",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "mould",
+          "material": "metal",
+          "evidence": "packagings[0] en:mold + en:metal"
+        },
+        {
+          "shape": "lid",
+          "material": "plastic",
+          "evidence": "packagings[1] en:lid + en:plastic"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6409100037444",
+      "name": "Naudan jauheliha 17%",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6409100037444",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1795267985",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "tray",
+          "material": "plastic",
+          "evidence": "packagings[0] en:tray + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "cover",
+          "material": "plastic",
+          "evidence": "packagings[1] en:protection-cover + en:plastic"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6409100071257",
+      "name": "Via kana-sitruunarisotto",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6409100071257",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1693230363",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "sleeve",
+          "material": "carton",
+          "evidence": "packagings[0] en:sleeve + en:paperboard"
+        },
+        {
+          "shape": "tray",
+          "material": "plastic",
+          "evidence": "packagings[1] en:tray + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "wrap",
+          "material": "plastic",
+          "evidence": "packagings[2] en:film + en:o-7-other-plastics"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6409620015175",
+      "name": "Maatiaispossun marinoitu lihasuikale",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6409620015175",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1708174636",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "tub",
+          "material": "plastic",
+          "evidence": "packagings[0] fi:Rasia + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "wrap",
+          "material": "plastic",
+          "evidence": "packagings[1] fi:Kalvo + en:o-7-other-plastics"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6409770080108",
+      "name": "Siemennäkkileipä, Kaura&Chia",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6409770080108",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1789395005",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "bag",
+          "material": "plastic",
+          "evidence": "packagings[0] en:bag + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "tray",
+          "material": "carton",
+          "evidence": "packagings[1] en:tray + en:cardboard"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6410191000828",
+      "name": "Vahva Kotisinappi",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6410191000828",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1708882556",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "tube",
+          "material": "metal",
+          "evidence": "packagings[0] fi:Tuubi + en:aluminium"
+        },
+        {
+          "shape": "cap",
+          "material": "plastic",
+          "evidence": "packagings[1] fi:Korkki + en:plastic"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6410220006319",
+      "name": "Aito kauraherkku vadelma",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6410220006319",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1696089947",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[0] en:individual-pot + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "sleeve",
+          "material": "carton",
+          "evidence": "packagings[1] en:sleeve + en:non-corrugated-cardboard"
+        },
+        {
+          "shape": "lid",
+          "material": "composite",
+          "evidence": "packagings[2] en:lid + en:plastic-aluminium"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6410222006607",
+      "name": "Aito Klassikko Sitrus Kauragurtti",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6410222006607",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1794315069",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[0] en:pot + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "label",
+          "material": "carton",
+          "evidence": "packagings[1] fi:Etiketti + en:non-corrugated-cardboard"
+        },
+        {
+          "shape": "inner-lid",
+          "material": "composite",
+          "evidence": "packagings[2] fi:Välikansi + en:plastic-aluminium"
+        },
+        {
+          "shape": "lid",
+          "material": "plastic",
+          "evidence": "packagings[3] fi:Kansi + en:ps-6-polystyrene"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6410381095115",
+      "name": "Pop corn Original",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6410381095115",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1761338450",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "wrap",
+          "material": "plastic",
+          "evidence": "packagings[0] en:wrapper + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "bag",
+          "material": "paper",
+          "evidence": "packagings[1] en:bag + en:paper"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6410405117915",
+      "name": "Mieto Tacokastike",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6410405117915",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1770832268",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "jar",
+          "material": "glass",
+          "evidence": "packagings[0] en:jar + en:clear-glass"
+        },
+        {
+          "shape": "lid",
+          "material": "metal",
+          "evidence": "packagings[1] en:lid + en:metal"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6410405131393",
+      "name": "Reilun kaupan tumma suklaa 72 %",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6410405131393",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1763976029",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "sleeve",
+          "material": "carton",
+          "evidence": "packagings[0] en:sleeve + en:paperboard"
+        },
+        {
+          "shape": "wrap",
+          "material": "metal",
+          "evidence": "packagings[1] en:wrapper + en:metal"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6410405156105",
+      "name": "Tuorejuusto, Aurinkokuivattu tomaatti",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6410405156105",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1761957480",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "lid",
+          "material": "plastic",
+          "evidence": "packagings[0] en:lid + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "box",
+          "material": "plastic",
+          "evidence": "packagings[1] en:box + en:pp-5-polypropylene"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6410405292544",
+      "name": "'Nduja di Spilinga",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6410405292544",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1795044618",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "glass",
+          "evidence": "packagings[0] en:pot + en:clear-glass"
+        },
+        {
+          "shape": "lid",
+          "material": "metal",
+          "evidence": "packagings[1] en:lid + en:metal"
+        },
+        {
+          "shape": "label",
+          "material": "paper",
+          "evidence": "packagings[2] en:label + en:paper"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6411401054167",
+      "name": "Mignon",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6411401054167",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1711900275",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "carton",
+          "material": "carton",
+          "evidence": "packagings[0] nl:eierdoos + en:non-corrugated-cardboard"
+        },
+        {
+          "shape": "sleeve",
+          "material": "carton",
+          "evidence": "packagings[1] en:sleeve + en:non-corrugated-cardboard"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6412000030149",
+      "name": "Saarioinen lihakaalilaatikko",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6412000030149",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1693129162",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "mould",
+          "material": "metal",
+          "evidence": "packagings[0] en:mold + en:aluminium"
+        },
+        {
+          "shape": "lid",
+          "material": "carton",
+          "evidence": "packagings[1] en:lid + en:non-corrugated-cardboard"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6412000030507",
+      "name": "Saarioinen broilermakaronilaatikko",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6412000030507",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1756458660",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "lid",
+          "material": "carton",
+          "evidence": "packagings[0] en:lid + en:non-corrugated-cardboard"
+        },
+        {
+          "shape": "mould",
+          "material": "metal",
+          "evidence": "packagings[1] en:mold + en:aluminium"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6412000034840",
+      "name": "Saarioinen laktoositon riisipuuro",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6412000034840",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1693129521",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "tray",
+          "material": "plastic",
+          "evidence": "packagings[0] en:tray + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "wrap",
+          "material": "plastic",
+          "evidence": "packagings[1] en:film + en:o-7-other-plastics"
+        },
+        {
+          "shape": "sleeve",
+          "material": "carton",
+          "evidence": "packagings[2] en:sleeve + en:non-corrugated-cardboard"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6413467579509",
+      "name": "Puikula kuiturikas kaura",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6413467579509",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1709377919",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "bag",
+          "material": "plastic",
+          "evidence": "packagings[0] fi:Pussi + en:plastic"
+        },
+        {
+          "shape": "clip",
+          "material": "metal",
+          "evidence": "packagings[1] fi:Pussinsulkija + en:metal"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6414891801204",
+      "name": "Kotimaista Kanan fileesuikale hunaja",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6414891801204",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1791906565",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "wrap",
+          "material": "plastic",
+          "evidence": "packagings[0] fi:Kalvo + en:o-7-other-plastics"
+        },
+        {
+          "shape": "tub",
+          "material": "plastic",
+          "evidence": "packagings[1] fi:Rasia + en:pp-5-polypropylene"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6414893083219",
+      "name": "Rainbow margariini 60",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6414893083219",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1740724468",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "box",
+          "material": "plastic",
+          "evidence": "packagings[0] en:box + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "wrap",
+          "material": "metal",
+          "evidence": "packagings[1] en:film + en:aluminium"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6414893096097",
+      "name": "Soijavalmiste luomu",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6414893096097",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1750174512",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "lid",
+          "material": "plastic",
+          "evidence": "packagings[0] en:lid + en:ps-6-polystyrene"
+        },
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[1] en:pot + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "seal",
+          "material": "metal",
+          "evidence": "packagings[2] en:seal + en:aluminium"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6415712702083",
+      "name": "Evelina maitosuklaakerroskeksi",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6415712702083",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1716405845",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "wrap",
+          "material": "plastic",
+          "evidence": "packagings[0] en:wrapper + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "tray",
+          "material": "plastic",
+          "evidence": "packagings[1] en:tray + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "box",
+          "material": "carton",
+          "evidence": "packagings[2] en:box + en:non-corrugated-cardboard"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6416453014541",
+      "name": "Milk chocolate with flavoured fruit candies",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6416453014541",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1707769214",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "sleeve",
+          "material": "paper",
+          "evidence": "packagings[0] en:sleeve + en:paper"
+        },
+        {
+          "shape": "sheet",
+          "material": "metal",
+          "evidence": "packagings[1] en:sheet + en:aluminium"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6416453075115",
+      "name": "Domino original",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6416453075115",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1791579042",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "box",
+          "material": "carton",
+          "evidence": "packagings[0] en:box + en:cardboard"
+        },
+        {
+          "shape": "wrap",
+          "material": "plastic",
+          "evidence": "packagings[1] en:wrapper + en:plastic"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6417777046027",
+      "name": "Jordgubbs-gräddkvarg",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6417777046027",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1794314096",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[0] en:pot + en:ps-6-polystyrene"
+        },
+        {
+          "shape": "sleeve",
+          "material": "carton",
+          "evidence": "packagings[1] en:sleeve + en:paperboard"
+        },
+        {
+          "shape": "seal",
+          "material": "metal",
+          "evidence": "packagings[2] en:seal + en:metal"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6417777046034",
+      "name": "Citron-gräddkvarg",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6417777046034",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1794339001",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[0] en:pot + en:ps-6-polystyrene"
+        },
+        {
+          "shape": "sleeve",
+          "material": "carton",
+          "evidence": "packagings[1] en:sleeve + en:paperboard"
+        },
+        {
+          "shape": "seal",
+          "material": "metal",
+          "evidence": "packagings[2] en:seal + en:metal"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6420256015001",
+      "name": "Tupla double layer liquorice",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6420256015001",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1773754041",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "wrap",
+          "material": "plastic",
+          "evidence": "packagings[0] en:wrapper + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "tray",
+          "material": "carton",
+          "evidence": "packagings[1] en:tray + en:non-corrugated-cardboard"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6430015537262",
+      "name": "Aito kauragurtti vanilja",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6430015537262",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1794314559",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "inner-lid",
+          "material": "composite",
+          "evidence": "packagings[0] fi:Välikansi + en:plastic-aluminium"
+        },
+        {
+          "shape": "label",
+          "material": "carton",
+          "evidence": "packagings[1] fi:Etiketti + en:non-corrugated-cardboard"
+        },
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[2] en:pot + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "lid",
+          "material": "plastic",
+          "evidence": "packagings[3] fi:Kansi + en:ps-6-polystyrene"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6430016342261",
+      "name": "Hummus Original",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6430016342261",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1761228371",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "tub",
+          "material": "plastic",
+          "evidence": "packagings[0] en:tub + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "lid",
+          "material": "plastic",
+          "evidence": "packagings[1] en:lid + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "seal",
+          "material": "metal",
+          "evidence": "packagings[2] en:seal + en:metal"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6430056221151",
+      "name": "Jäätelö Vaalea ja tumma suklaa",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6430056221151",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1754340464",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "box",
+          "material": "plastic",
+          "evidence": "packagings[0] en:box + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "lid",
+          "material": "plastic",
+          "evidence": "packagings[1] en:lid + en:pp-5-polypropylene"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6430056260884",
+      "name": "Baba hummus original",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6430056260884",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1790262179",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[0] en:pot + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "lid",
+          "material": "plastic",
+          "evidence": "packagings[1] en:lid + en:pp-5-polypropylene"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6430064400814",
+      "name": "Aino Suklainen metsämarja",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6430064400814",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1794484236",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "box",
+          "material": "plastic",
+          "evidence": "packagings[0] en:box + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "lid",
+          "material": "plastic",
+          "evidence": "packagings[1] en:lid + en:pp-5-polypropylene"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6430064404805",
+      "name": "Aino keksimuru",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6430064404805",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1794482548",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "box",
+          "material": "plastic",
+          "evidence": "packagings[0] en:box + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "lid",
+          "material": "plastic",
+          "evidence": "packagings[1] en:lid + en:pp-5-polypropylene"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6430081490188",
+      "name": "Passion mango appelsiini soijajogurtti soygurt",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6430081490188",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1791059093",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "lid",
+          "material": "plastic",
+          "evidence": "packagings[0] fi:Kansi + en:plastic"
+        },
+        {
+          "shape": "inner-lid",
+          "material": "metal",
+          "evidence": "packagings[1] fi:Välikansi + en:metal"
+        },
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[2] en:pot + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "label",
+          "material": "carton",
+          "evidence": "packagings[3] fi:Etiketti + en:paperboard"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "6438207011620",
+      "name": "Laktoositon kasvirasvalevite 70 %",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/6438207011620",
+        "revision": "e49264ae39d1fb35f7abbc4915dbe715af06345b@1795029107",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "lid",
+          "material": "plastic",
+          "evidence": "packagings[0] en:lid + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "seal",
+          "material": "metal",
+          "evidence": "packagings[1] en:seal + en:light-aluminium"
+        },
+        {
+          "shape": "box",
+          "material": "plastic",
+          "evidence": "packagings[2] en:box + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "wrap",
+          "material": "carton",
+          "evidence": "packagings[3] en:wrapper + en:cardboard"
+        }
+      ],
+      "coverageEvidence": "Food export: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "7310090781622",
+      "name": "Mannafrutti mansikka",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/7310090781622",
+        "revision": "api-v3.6.rev32@1775118832",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "lid",
+          "material": "metal",
+          "evidence": "packagings[0] fi:Kansi + en:aluminium"
+        },
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[1] en:pot + en:ps-6-polystyrene"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "7310090786627",
+      "name": "Mannafrutti metsämarja",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/7310090786627",
+        "revision": "api-v3.6.rev28@1775118354",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "plastic",
+          "evidence": "packagings[0] en:pot + en:ps-6-polystyrene"
+        },
+        {
+          "shape": "lid",
+          "material": "metal",
+          "evidence": "packagings[1] fi:Kansi + en:metal"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "7311312002044",
+      "name": "Sahrami",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/7311312002044",
+        "revision": "api-v3.6.rev23@1739883980",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "bag",
+          "material": "plastic",
+          "evidence": "packagings[0] fi:Pussi + en:o-7-other-plastics"
+        },
+        {
+          "shape": "wrap",
+          "material": "plastic",
+          "evidence": "packagings[1] fi:Kääre + en:plastic"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "7340011495215",
+      "name": "Pizza sauce",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/7340011495215",
+        "revision": "api-v3.6.rev20@1793460007",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "cup",
+          "material": "glass",
+          "evidence": "packagings[0] en:pot + en:clear-glass"
+        },
+        {
+          "shape": "lid",
+          "material": "metal",
+          "evidence": "packagings[1] en:lid + en:metal"
+        },
+        {
+          "shape": "label",
+          "material": "paper",
+          "evidence": "packagings[2] en:label + en:paper"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "7340191134782",
+      "name": "Cookies med sjokolade",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/7340191134782",
+        "revision": "api-v3.6.rev47@1790859404",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "tray",
+          "material": "plastic",
+          "evidence": "packagings[0] en:tray + en:plastic"
+        },
+        {
+          "shape": "wrap",
+          "material": "plastic",
+          "evidence": "packagings[1] en:wrapper + en:pp-5-polypropylene"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "8076809513388",
+      "name": "Arrabbiata",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/8076809513388",
+        "revision": "api-v3.6.rev1817@1795038438",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "jar",
+          "material": "glass",
+          "evidence": "packagings[0] en:jar + en:clear-glass"
+        },
+        {
+          "shape": "lid",
+          "material": "metal",
+          "evidence": "packagings[1] en:lid + en:steel"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "8593893773455",
+      "name": "Sensational Burger 226 g",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/8593893773455",
+        "revision": "api-v3.6.rev38@1795029490",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "sleeve",
+          "material": "paper",
+          "evidence": "packagings[0] en:sleeve + en:paper"
+        },
+        {
+          "shape": "tray",
+          "material": "plastic",
+          "evidence": "packagings[1] en:tray + en:pp-5-polypropylene"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "8691707059037",
+      "name": "Cake Bite Cherry",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/8691707059037",
+        "revision": "api-v3.6.rev27@1774510867",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "wrap",
+          "material": "plastic",
+          "evidence": "packagings[0] fi:Kääre + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "tray",
+          "material": "plastic",
+          "evidence": "packagings[1] en:tray + en:pet-1-polyethylene-terephthalate"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "8713305816444",
+      "name": "Sour amigos Cola imp",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/8713305816444",
+        "revision": "api-v3.6.rev30@1774532201",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "box",
+          "material": "plastic",
+          "evidence": "packagings[0] en:box + en:pp-5-polypropylene"
+        },
+        {
+          "shape": "lid",
+          "material": "plastic",
+          "evidence": "packagings[1] en:lid + en:pp-5-polypropylene"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "8717775818878",
+      "name": "Instant Coffee Gold",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/8717775818878",
+        "revision": "api-v3.6.rev17@1788597067",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "lid",
+          "material": "plastic",
+          "evidence": "packagings[0] en:lid + en:ps-6-polystyrene"
+        },
+        {
+          "shape": "jar",
+          "material": "glass",
+          "evidence": "packagings[1] en:jar + en:green-glass"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "8719200225893",
+      "name": "Flora normaalisuolainen margariini",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/8719200225893",
+        "revision": "api-v3.6.rev15@1693161067",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "box",
+          "material": "plastic",
+          "evidence": "packagings[0] en:box + en:plastic"
+        },
+        {
+          "shape": "wrap",
+          "material": "metal",
+          "evidence": "packagings[1] en:film + en:aluminium"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "8719200235335",
+      "name": "Becel Gold",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/8719200235335",
+        "revision": "api-v3.6.rev36@1794312725",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "box",
+          "material": "plastic",
+          "evidence": "packagings[0] en:box + en:plastic"
+        },
+        {
+          "shape": "lid",
+          "material": "plastic",
+          "evidence": "packagings[1] en:lid + en:plastic"
+        },
+        {
+          "shape": "seal",
+          "material": "metal",
+          "evidence": "packagings[2] en:seal + en:metal"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    },
+    {
+      "gtin": "8990044000000",
+      "name": "Pocky chocolate",
+      "jurisdiction": "FI",
+      "checkedOn": "2026-11-23",
+      "coverage": "partial",
+      "source": {
+        "kind": "community",
+        "publisher": "Open Food Facts contributors",
+        "url": "https://world.openfoodfacts.org/product/8990044000000",
+        "revision": "api-v3.6.rev52@1781171912",
+        "licence": "ODbL-1.0+DbCL-1.0",
+        "rightsUrl": "https://world.openfoodfacts.org/data"
+      },
+      "parts": [
+        {
+          "shape": "box",
+          "material": "carton",
+          "evidence": "packagings[0] en:box + en:cardboard"
+        },
+        {
+          "shape": "bag",
+          "material": "plastic",
+          "evidence": "packagings[1] en:bag + en:plastic"
+        }
+      ],
+      "coverageEvidence": "Food API v3.6: countries_tags includes en:finland; contributor set packagings_complete=true. Not independent verification."
+    }
+  ]
+}

@@ -6,6 +6,7 @@
 - [x] Correct the native press-state type for clean dependency installs.
 - [x] Add a short school assessment walkthrough and replay real browser recognition, safe barcode recovery, saved recycling and persistent language.
 - [x] Add three corroborated retail GTINs to the offline assessment lookup without pulling in the broad discovery catalogue.
+- [x] Admit the 93 licensed, non-benchmark community packaging observations as visibly unverified; recount destinations using the actual Finnish sorting engine.
 
 - [x] Use structured public packaging data and add the exact checked Finnish Coca-Cola Zero deposit bottle offline.
 - [ ] Review licensed coverage before expanding the offline packaging catalogue beyond individually checked variants.

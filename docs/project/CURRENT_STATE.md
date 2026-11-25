@@ -1,6 +1,6 @@
 # Current state
 
-- The local assessment candidate recognizes three additional exact Saarioinen codes with seven cross-checked offline component routes; only reviewed parts are shown. The existing deposit control is unchanged. Community-only and benchmark records are not imported.
+- Assessment includes the licensed 93-code offline packaging catalogue. 92 codes have at least one destination (215 of 223 listed parts). Three overlap separately reviewed Saarioinen observations and keep priority; the separately reviewed deposit code brings the total to 93 codes with at least one bundled destination. Community observations are unverified and partial; the independent benchmark was not imported.
 
 - The school assessment uses the existing team app and its [browser walkthrough](../setup.md#esittele-selaimessa). A fresh install reproduced the web-enhanced native press-state type mismatch; the shared style callback now promises only `pressed`. No new device binary, experimental model, or public release is included.
 
